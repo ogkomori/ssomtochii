@@ -11,9 +11,9 @@ export const Route = createFileRoute("/day/$day")({
   },
   head: ({ loaderData }) => ({
     meta: [
-      { title: `Day ${loaderData?.day ?? ""} · 16 Days of You` },
+      { title: `Day ${loaderData?.day ?? ""} · 16 Days of Somto` },
       { name: "description", content: "Today's little surprise." },
-      { property: "og:title", content: `Day ${loaderData?.day ?? ""} · 16 Days of You` },
+      { property: "og:title", content: `Day ${loaderData?.day ?? ""} · 16 Days of Somto` },
       { property: "og:description", content: "Today's little surprise." },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary" },
