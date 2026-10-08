@@ -31,6 +31,22 @@ function scoreGuess(guess: string, answer: string): TileState[] {
   return states;
 }
 
+function getKeyboardStates(guesses: Guess[]) {
+  const priority: Record<Exclude<TileState, "empty">, number> = { absent: 1, present: 2, correct: 3 };
+  const states: Record<string, Exclude<TileState, "empty">> = {};
+
+  for (const guess of guesses) {
+    guess.word.split("").forEach((letter, index) => {
+      const state = guess.states[index];
+      if (state === "empty") return;
+      const current = states[letter];
+      if (!current || priority[state] > priority[current]) states[letter] = state;
+    });
+  }
+
+  return states;
+}
+
 export function Wordle({ onComplete }: { onComplete: () => void }) {
   const [wordIndex, setWordIndex] = useState(0);
   const [guesses, setGuesses] = useState<Guess[]>([]);
@@ -38,6 +54,7 @@ export function Wordle({ onComplete }: { onComplete: () => void }) {
   const [message, setMessage] = useState("");
   const [finished, setFinished] = useState(false);
   const answer = WORDLE_CONTENT.words[wordIndex]?.answer ?? "";
+  const keyboardStates = getKeyboardStates(guesses);
 
   const submit = () => {
     if (current.length !== 5 || finished) {
@@ -91,5 +108,27 @@ export function Wordle({ onComplete }: { onComplete: () => void }) {
 
   if (finished) return <GameShell eyebrow="WORDLE" title="Four little words." right="COMPLETE"><div className="day-one-copy items-center text-center"><div className="completion-mark">♡</div><p>That is the whole little Wordle challenge. Nicely done.</p><button type="button" className="next-button" onClick={onComplete}>Get today’s letter</button></div></GameShell>;
 
-  return <GameShell eyebrow="WORDLE" title={WORDLE_CONTENT.title} right={`${wordIndex + 1}/${WORDLE_CONTENT.words.length}`}><div className="day-one-copy"><p>{wordIndex === 0 ? WORDLE_CONTENT.intro : "One more little word."}</p><div className="space-y-2">{Array.from({ length: 6 }, (_, row) => { const guess = guesses[row]; return <div key={row} className="flex justify-center gap-1.5">{Array.from({ length: 5 }, (_, column) => { const letter = guess?.word[column] ?? (row === guesses.length ? current[column] : ""); const state = guess?.states[column] ?? "empty"; return <span key={column} className={`wordle-tile wordle-${state}`}>{letter}</span>; })}</div>; })}</div><p className="mt-4 min-h-6 text-sm text-muted-foreground">{message}</p><div className="mt-4 space-y-2">{KEYBOARD_ROWS.map((row) => <div key={row} className="flex justify-center gap-1">{row.split("").map((letter) => <button type="button" key={letter} className="wordle-key" onClick={() => setCurrent((value) => value.length < 5 ? `${value}${letter}` : value)}>{letter}</button>)}</div>)}<div className="flex justify-center gap-1"><button type="button" className="wordle-key wordle-wide-key" onClick={submit}>ENTER</button><button type="button" className="wordle-key wordle-wide-key" onClick={() => setCurrent((value) => value.slice(0, -1))}><Delete className="mx-auto h-4 w-4" /></button></div></div></div></GameShell>;
+  return <GameShell eyebrow="WORDLE" title={WORDLE_CONTENT.title} right={`${wordIndex + 1}/${WORDLE_CONTENT.words.length}`}><div className="day-one-copy">
+    <p>{wordIndex === 0 ? WORDLE_CONTENT.intro : "One more little word."}</p>
+    <div className="wordle-board">
+      {Array.from({ length: 6 }, (_, row) => {
+        const guess = guesses[row];
+        return <div key={row} className="flex justify-center gap-1.5">
+          {Array.from({ length: 5 }, (_, column) => {
+            const letter = guess?.word[column] ?? (row === guesses.length ? current[column] : "");
+            const state = guess?.states[column] ?? "empty";
+            return <span key={column} className={`wordle-tile wordle-${state}${!state || state === "empty" ? letter ? " wordle-filled" : "" : ""}`}>{letter}</span>;
+          })}
+        </div>;
+      })}
+    </div>
+    <p className="mt-4 min-h-6 text-sm text-muted-foreground">{message}</p>
+    <div className="mt-4 space-y-2">
+      {KEYBOARD_ROWS.map((row) => <div key={row} className="flex justify-center gap-1">{row.split("").map((letter) => {
+        const state = keyboardStates[letter];
+        return <button type="button" key={letter} className={`wordle-key${state ? ` wordle-key-${state}` : ""}`} onClick={() => setCurrent((value) => value.length < 5 ? `${value}${letter}` : value)}>{letter}</button>;
+      })}</div>)}
+      <div className="flex justify-center gap-1"><button type="button" className="wordle-key wordle-wide-key" onClick={submit}>ENTER</button><button type="button" className="wordle-key wordle-wide-key" onClick={() => setCurrent((value) => value.slice(0, -1))}><Delete className="mx-auto h-4 w-4" /></button></div>
+    </div>
+  </div></GameShell>;
 }
