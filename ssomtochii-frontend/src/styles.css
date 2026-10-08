@@ -289,10 +289,16 @@
 }
 
 
-.wordle-tile { display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border: 2px solid hsl(var(--border)); border-radius: 8px; font-weight: 800; font-size: 1.25rem; letter-spacing: .04em; background: hsl(var(--background)); }
-.wordle-correct { background: var(--primary); color: white; border-color: var(--primary); }
+.wordle-board { display: flex; flex-direction: column; gap: 6px; align-items: center; }
+.wordle-tile { display: inline-flex; align-items: center; justify-content: center; width: 52px; height: 52px; border: 2px solid oklch(0.82 0.025 150); border-radius: 8px; font-weight: 800; font-size: 1.25rem; letter-spacing: .04em; background: var(--card); color: var(--foreground); }
+.wordle-filled { border-color: oklch(0.55 0.035 150); box-shadow: 0 0 0 1px oklch(0.55 0.035 150 / .12); }
+.wordle-correct { background: var(--primary); color: var(--primary-foreground); border-color: var(--primary); }
 .wordle-present { background: var(--blossom); color: white; border-color: var(--blossom); }
-.wordle-absent { background: hsl(var(--muted)); color: hsl(var(--muted-foreground)); border-color: hsl(var(--muted)); }
-.wordle-key { min-width: 30px; height: 44px; padding: 0 7px; border-radius: 7px; background: hsl(var(--muted)); font-size: .72rem; font-weight: 800; touch-action: manipulation; }
+.wordle-absent { background: oklch(0.62 0.015 150); color: white; border-color: oklch(0.62 0.015 150); }
+.wordle-key { min-width: 30px; height: 44px; padding: 0 7px; border-radius: 7px; background: var(--muted); color: var(--foreground); font-size: .72rem; font-weight: 800; touch-action: manipulation; transition: background-color .15s ease, color .15s ease, transform .1s ease; }
+.wordle-key:active { transform: scale(.94); }
+.wordle-key-correct { background: var(--primary); color: var(--primary-foreground); }
+.wordle-key-present { background: var(--blossom); color: white; }
+.wordle-key-absent { background: oklch(0.62 0.015 150); color: white; }
 .wordle-wide-key { min-width: 64px; }
 @media (max-width: 380px) { .wordle-tile { width: 46px; height: 46px; } .wordle-key { min-width: 27px; padding: 0 5px; } }
