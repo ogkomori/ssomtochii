@@ -8,7 +8,7 @@ import { WORD_SCRAMBLE_CONTENT } from "@/lib/word-scramble";
  * Reusable Word Scramble activity. Its content is supplied from
  * lib/word-scramble.ts, so it can be assigned to any day in lib/days.ts.
  */
-export function WordScramble() {
+export function WordScramble({ onComplete }: { onComplete: () => void }) {
   const [wordIndex, setWordIndex] = useState(0);
   const [letters, setLetters] = useState(() => makeTiles(WORD_SCRAMBLE_CONTENT.words[0].scramble));
   const [draggingId, setDraggingId] = useState<string | null>(null);
@@ -16,7 +16,7 @@ export function WordScramble() {
   const [complete, setComplete] = useState(false);
   const word = WORD_SCRAMBLE_CONTENT.words[wordIndex] ?? WORD_SCRAMBLE_CONTENT.words[0];
 
-  if (complete) return <ScrambleComplete />;
+  if (complete) return <ScrambleComplete onComplete={onComplete} />;
 
   const check = () => setIsCorrect(letters.map((tile) => tile.letter).join("") === word.answer);
   const continueGame = () => {
@@ -53,4 +53,4 @@ function makeTiles(scramble: string) {
   return scramble.split("").map((letter, index) => ({ id: `${letter}-${index}`, letter }));
 }
 
-function ScrambleComplete() { return <main className="page-shell"><Botanicals /><div className="relative mx-auto flex min-h-[calc(100dvh-1rem)] w-full max-w-md flex-col"><header className="pt-2"><Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> All days</Link></header><section className="paper-card my-6 flex flex-1 flex-col items-center justify-center p-8 text-center"><div className="day-one-copy items-center"><div className="completion-mark"><Check className="h-8 w-8" /></div><p className="day-one-eyebrow">ALL SOLVED</p><h1 className="font-script text-5xl leading-none">{WORD_SCRAMBLE_CONTENT.completionTitle}</h1><p>{WORD_SCRAMBLE_CONTENT.completionBody}</p><Link to="/" className="next-button mt-4">Back to all days <ArrowRight className="h-4 w-4" /></Link></div></section></div></main>; }
+function ScrambleComplete({ onComplete }: { onComplete: () => void }) { return <main className="page-shell"><Botanicals /><div className="relative mx-auto flex min-h-[calc(100dvh-1rem)] w-full max-w-md flex-col"><header className="pt-2"><Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> All days</Link></header><section className="paper-card my-6 flex flex-1 flex-col items-center justify-center p-8 text-center"><div className="day-one-copy items-center"><div className="completion-mark"><Check className="h-8 w-8" /></div><p className="day-one-eyebrow">ALL SOLVED</p><h1 className="font-script text-5xl leading-none">{WORD_SCRAMBLE_CONTENT.completionTitle}</h1><p>{WORD_SCRAMBLE_CONTENT.completionBody}</p><button type="button" className="next-button mt-4" onClick={onComplete}>Get today’s letter <ArrowRight className="h-4 w-4" /></button></div></section></div></main>; }
