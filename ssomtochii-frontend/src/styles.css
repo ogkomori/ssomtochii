@@ -188,8 +188,90 @@
   .day-available:active, .day-completed:active { transform: scale(.96); }
   .day-locked { @apply opacity-60 saturate-50; }
   .day-locked .day-visual { @apply bg-muted text-muted-foreground; }
+  .day-one-shell { min-height: 100dvh; }
+  .day-one-card { min-height: 32rem; }
+  .day-one-copy { @apply flex flex-col gap-5 text-center text-foreground/80; }
+  .day-one-copy > p { @apply mx-auto max-w-sm leading-relaxed; }
+  .day-one-eyebrow { @apply text-xs font-semibold tracking-[0.2em] text-muted-foreground; }
+  .day-one-doodle { @apply mt-3 flex items-center justify-center gap-3 rounded-xl bg-secondary/60 p-4 text-sm text-primary; }
+  .next-button { @apply inline-flex min-h-11 items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-sm transition-transform active:scale-95 disabled:cursor-not-allowed disabled:opacity-45; }
+  .video-placeholder { @apply grid aspect-video place-items-center rounded-xl border border-dashed border-primary/40 bg-secondary/55 p-6 text-primary; }
+  .video-placeholder p { @apply mb-0 mt-2 font-semibold; }
+  .video-placeholder span { @apply mt-1 text-center text-xs text-muted-foreground; }
+  .video-placeholder code { @apply rounded bg-card px-1 py-0.5 text-[0.68rem]; }
+  .day-one-video { @apply aspect-video w-full rounded-xl bg-foreground/10 object-cover; }
+  .quiz-options, .plant-choices { @apply flex flex-col gap-2 text-left; }
+  .quiz-option, .plant-choice { @apply flex min-h-12 items-center gap-3 rounded-xl border bg-card px-3 text-left text-sm font-medium text-foreground transition-colors active:scale-[.99]; }
+  .quiz-option span { @apply grid h-6 w-6 shrink-0 place-items-center rounded-full bg-secondary text-xs text-primary; }
+  .quiz-option.is-selected, .plant-choice.is-selected { @apply border-primary bg-secondary; }
+  .quiz-feedback { @apply rounded-xl bg-secondary/70 p-3 text-sm text-foreground/80; }
+  .quiz-feedback.is-correct { @apply text-primary; }
+  .plant-stage { @apply relative mx-auto grid h-32 w-32 place-items-end overflow-hidden rounded-[2rem] bg-secondary/65 pb-5; }
+  .plant-pot { @apply text-5xl leading-none text-primary; transform: scaleX(1.15); }
+  .plant-sprout { @apply absolute bottom-12 text-4xl text-primary transition-all duration-500; }
+  .plant-stage:not(.is-growing) .plant-sprout { @apply bottom-[3.6rem] text-lg; }
+  .plant-choice span { @apply text-xl; }
+  .completion-mark { @apply mx-auto grid h-16 w-16 place-items-center rounded-full bg-secondary text-primary; }
+  .award-letter { @apply grid h-28 w-28 place-items-center rounded-2xl border-2 border-dashed border-blossom bg-card font-script text-8xl text-blossom shadow-sm; transform: rotate(-3deg); }
+  .reel-machine { @apply mx-auto my-1 w-44 rounded-2xl border-4 border-primary bg-primary p-2 shadow-md; }
+  .reel-label { @apply mb-1 block text-[0.6rem] font-bold tracking-[0.2em] text-primary-foreground; }
+  .reel-window { @apply relative h-[162px] overflow-hidden rounded-lg border-2 border-card bg-card; }
+  .reel-track { transition: transform 4.1s cubic-bezier(.12,.68,.1,1); }
+  .reel-character { @apply grid h-[54px] place-items-center font-script text-5xl text-foreground; }
+  .reel-marker { @apply pointer-events-none absolute inset-x-0 top-[52px] h-[54px] border-y-2 border-dashed border-blossom bg-blossom/10; }
+  .scramble-clue { @apply rounded-xl bg-secondary/60 p-3 text-sm text-foreground/80; }
+  .scramble-letters { @apply flex flex-wrap justify-center gap-2 py-2; touch-action: none; }
+  .scramble-tile { @apply grid h-12 w-10 place-items-center rounded-lg border bg-card font-script text-3xl text-primary shadow-sm transition-transform; touch-action: none; user-select: none; -webkit-user-select: none; }
+  .scramble-tile:nth-child(even) { transform: rotate(2deg); }
+  .scramble-tile:nth-child(odd) { transform: rotate(-2deg); }
+  .scramble-tile.is-dragging { @apply z-10 scale-110 border-primary bg-secondary shadow-md; }
+  .memory-grid { @apply grid grid-cols-4 gap-2; }
+  .memory-card { @apply grid aspect-square place-items-center rounded-xl border bg-secondary text-3xl shadow-sm transition-transform active:scale-95; }
+  .memory-card.is-visible { @apply bg-card; }
+  .memory-card.is-matched { @apply border-primary bg-secondary; }
+  .memory-card img { @apply h-full w-full rounded-xl object-cover; }
+  .memory-card-back { @apply font-script text-3xl text-primary; }
+  .crossword-grid { @apply mx-auto grid w-full max-w-[19rem] gap-0.5; }
+  .crossword-cell { @apply relative aspect-square bg-card; }
+  .crossword-cell > span { @apply absolute left-0.5 top-0.5 text-[0.55rem] leading-none text-muted-foreground; }
+  .crossword-cell input { @apply h-full w-full border text-center text-lg font-bold uppercase outline-none focus:ring-2 focus:ring-primary; }
+  .crossword-block { @apply aspect-square bg-foreground/15; }
+  .crossword-clues { @apply flex flex-col gap-2 rounded-xl bg-secondary/60 p-4 text-sm text-foreground/80; }
+  .rhythm-progress { @apply my-auto flex w-full justify-center gap-2 py-6; }
+  .rhythm-progress span { @apply h-2 w-5 rounded-full bg-muted transition-all; }
+  .rhythm-progress span.is-past { @apply bg-primary; }
+  .rhythm-progress span.is-current { @apply scale-125 bg-blossom; }
+  .rhythm-pad { @apply my-auto grid h-44 w-44 place-items-center rounded-full border-8 border-secondary bg-primary text-primary-foreground shadow-lg transition-transform active:scale-95 disabled:cursor-default; }
+  .rhythm-pad span { @apply text-6xl; }
+  .rhythm-pad small { @apply -mt-8 text-xs font-bold tracking-[0.2em]; }
+  .rhythm-pad.is-playing { animation: rhythm-pulse .75s ease-in-out infinite; }
+  .sliding-puzzle { @apply grid w-full max-w-[19rem] grid-cols-3 gap-1 rounded-xl border-4 border-card bg-card p-1 shadow-md; aspect-ratio: 1; }
+  .puzzle-tile { @apply relative overflow-hidden rounded-sm shadow-sm transition-transform active:scale-95; }
+  .puzzle-tile span { @apply absolute bottom-1 right-1 grid h-5 w-5 place-items-center rounded-full bg-card/80 text-[0.65rem] font-bold text-foreground; }
+  .puzzle-blank { @apply rounded-sm bg-secondary/60; }
+  .golf-canvas { @apply w-full rounded-xl border bg-secondary shadow-inner; touch-action: none; max-height: 31rem; }
+  .game-message { @apply mx-auto mb-5 max-w-sm text-sm text-foreground/75; }
+  .connection-grid { @apply grid grid-cols-4 gap-2; }
+  .connection-tile { @apply min-h-14 rounded-xl border bg-card px-1 text-xs font-bold text-foreground shadow-sm transition active:scale-95; }
+  .connection-tile.is-selected { @apply border-primary bg-secondary ring-2 ring-primary/25; }
+  .connection-solved { @apply mb-2 rounded-xl bg-secondary p-3 text-left text-sm; }
+  .connection-solved strong { @apply block text-primary; } .connection-solved span { @apply text-xs text-muted-foreground; }
+  .emoji-clue { @apply my-8 flex justify-center gap-3 text-5xl; } .emoji-clue span { animation: emoji-bob 2s ease-in-out infinite; } .emoji-clue span:nth-child(2) { animation-delay: .2s; } .emoji-clue span:nth-child(3) { animation-delay: .4s; }
+  .game-input { @apply min-h-12 w-full rounded-xl border bg-card px-4 text-center text-base outline-none focus:ring-2 focus:ring-primary; }
+  .sky-game { @apply relative mx-auto block h-[27.5rem] w-full max-w-[340px] overflow-hidden rounded-2xl border bg-sky-100 shadow-inner; touch-action: manipulation; background: linear-gradient(#d7eff4 0%, #ebf6df 74%); }
+  .sky-sun { @apply absolute right-7 top-5 text-4xl opacity-70; } .sky-bird { @apply absolute left-[64px] z-10 -translate-y-1/2 text-3xl transition-[top] duration-75; } .sky-tap { @apply absolute inset-x-0 top-1/2 -translate-y-1/2 font-script text-3xl text-primary/80; }
+  .sky-pipe { @apply absolute z-[2] block w-10 bg-primary/85; border: 3px solid oklch(0.45 0.07 150); } .sky-pipe-top { @apply rounded-b-lg; } .sky-pipe-bottom { @apply rounded-t-lg; }
+  .tier-board { @apply overflow-hidden rounded-xl border text-left; } .tier-row { @apply flex min-h-14 w-full border-b last:border-b-0 text-left; } .tier-row strong { @apply grid w-12 shrink-0 place-items-center text-xl text-foreground; } .tier-row span { @apply flex flex-wrap items-center gap-1 p-2; } .tier-row em { @apply rounded-lg bg-card px-2 py-1 text-xs not-italic shadow-sm; } .tier-row.is-ready { @apply ring-2 ring-inset ring-primary; } .tier-s strong { background: oklch(.84 .14 85); } .tier-a strong { background: oklch(.82 .1 145); } .tier-b strong { background: oklch(.82 .09 220); } .tier-c strong { background: oklch(.86 .09 30); } .tier-d strong { background: oklch(.78 .08 10); }
+  .tier-items { @apply mt-4 flex flex-wrap justify-center gap-2; } .tier-items button { @apply rounded-xl border bg-card px-3 py-2 text-sm shadow-sm active:scale-95; } .tier-items button.is-selected { @apply border-primary bg-secondary ring-2 ring-primary/25; }
+  .world-link { @apply inline-flex min-h-11 items-center rounded-full border border-primary/40 bg-card px-5 py-2 text-sm font-semibold text-primary shadow-sm transition-transform active:scale-95; }
+  .world-scene { @apply relative mx-auto mt-6 h-80 max-w-lg overflow-hidden rounded-2xl border bg-secondary/55; background: linear-gradient(#d9eff1 0%, #f7f4d8 62%, #cfe3ba 63%); } .world-house { @apply absolute bottom-8 left-[42%] text-6xl; } .world-tree { @apply absolute bottom-7 left-[16%] text-6xl; } .world-cloud { @apply absolute text-5xl text-card/80; } .cloud-one { @apply left-[12%] top-6; } .cloud-two { @apply right-[13%] top-14; }
+  .world-item { @apply absolute z-10 grid place-items-center text-center; animation: world-pop .45s ease-out; } .world-item > span { @apply text-4xl drop-shadow-sm; } .world-item small { @apply max-w-20 rounded-full bg-card/80 px-2 py-0.5 text-[0.6rem] text-foreground; } .world-empty { @apply absolute inset-x-8 top-1/2 -translate-y-1/2 rounded-xl bg-card/85 p-3 text-sm text-muted-foreground; }
+  .world-key { @apply rounded-full border bg-card px-2.5 py-1 text-xs text-muted-foreground; } .world-key.is-found { @apply border-primary/40 bg-secondary text-foreground; }
 }
+@keyframes rhythm-pulse { 50% { transform: scale(1.08); box-shadow: 0 0 0 12px oklch(0.58 0.08 150 / .12); } }
 @keyframes pulse-soft { 50% { opacity: .35; transform: scale(1.4); } }
+@keyframes emoji-bob { 50% { transform: translateY(-5px) rotate(5deg); } }
+@keyframes world-pop { from { opacity: 0; transform: scale(.5); } to { opacity: 1; transform: scale(1); } }
 
 .sun-rays,
 .sun-haze {
