@@ -29,15 +29,13 @@ export const DAYS: Day[] = Array.from({ length: 16 }, (_, i) => {
               i === 1 ? "word-scramble" :
               i === 2 ? "memory-match" :
               i === 3 ? "mini-crossword" :
-              // i === 4 ? "rhythm-game" :
+              i === 4 ? "wordle" :
               i === 5 ? "sliding-puzzle" :
               i === 6 ? "mini-golf" :
               i === 7 ? "cup-pong" :
-              // i === 8 ? "sky-hop" :
-              i === 9 ? "connections" :
-              i === 10 ? "emoji-pictionary" :
-              i === 11 ? "tier-list" :
-              i === 12 ? "wordle" :
+              i === 8 ? "connections" :
+              i === 9 ? "emoji-pictionary" :
+              i === 10 ? "tier-list" :
               "coming-soon",
   };
 });
