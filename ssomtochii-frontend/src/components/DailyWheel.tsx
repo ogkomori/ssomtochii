@@ -17,10 +17,12 @@ function getStoredReward(day: number) {
   }
 }
 
-/** Shared end-of-day reward. The day determines the predetermined character. */
+/** Shared end-of-day reward. The character is randomly chosen once per day and then persisted. */
 export function DailyWheel({ day }: { day: number }) {
-  const characterIndex = Math.max(0, Math.min(CHARACTER_POOL.length - 1, day - 1));
-  const character = CHARACTER_POOL[characterIndex];
+  const [characterIndex, setCharacterIndex] = useState(() => {
+    const stored = getStoredReward(day);
+    return stored ? CHARACTER_POOL.indexOf(stored as (typeof CHARACTER_POOL)[number]) : -1;
+  });
   const [spinning, setSpinning] = useState(false);
   const [letter, setLetter] = useState<string | null>(() => getStoredReward(day));
   const [stopAt, setStopAt] = useState(0);
@@ -28,10 +30,13 @@ export function DailyWheel({ day }: { day: number }) {
   const spin = () => {
     if (spinning || letter) return;
 
-    setStopAt(7 * CHARACTER_POOL.length + characterIndex);
+    const nextIndex = Math.floor(Math.random() * CHARACTER_POOL.length);
+    setCharacterIndex(nextIndex);
+    setStopAt(7 * CHARACTER_POOL.length + nextIndex);
     setSpinning(true);
 
     window.setTimeout(() => {
+      const character = CHARACTER_POOL[nextIndex];
       setLetter(character);
       const stored = JSON.parse(window.localStorage.getItem(REWARD_KEY) ?? "{}") as Record<string, string>;
       stored[day] = character;
