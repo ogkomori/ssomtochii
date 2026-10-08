@@ -31,16 +31,24 @@ export const Route = createFileRoute("/day/$day")({
 /** Change a day's `activity` field in lib/days.ts to move an activity. */
 function DayPage() {
   const day = Route.useLoaderData();
-  if (day.activity === "day-one-journey") return <DayOneJourney />;
-  if (day.activity === "cup-pong") return <CupPong />;
-  if (day.activity === "word-scramble") return <WordScramble />;
-  if (day.activity === "memory-match") return <MemoryMatch />;
-  if (day.activity === "mini-crossword") return <MiniCrossword />;
-  if (day.activity === "mini-golf") return <MiniGolf />;
-  if (day.activity === "sliding-puzzle") return <SlidingPuzzle />;
-  if (day.activity === "connections") return <Connections />;
-  if (day.activity === "emoji-pictionary") return <EmojiPictionary />;
-  if (day.activity === "tier-list") return <TierList />;
 
-  return <main className="page-shell"><Botanicals /><div className="relative mx-auto w-full max-w-md"><Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> All days</Link><div className="paper-card mt-6 p-8 text-center"><p className="text-xs font-semibold tracking-[0.2em] text-muted-foreground">DAY {day.day} · {day.label}</p><h1 className="mt-3 font-script text-5xl">Hello, you ♡</h1><p className="mt-4 text-foreground/80">This day is open for testing, but its surprise is still being wrapped.</p></div></div></main>;
+  return (
+    <DayActivityFlow day={day.day}>
+      {(complete) => {
+        if (day.activity === "day-one-journey") return <DayOneJourney onComplete={complete} />;
+        if (day.activity === "cup-pong") return <CupPong onComplete={complete} />;
+        if (day.activity === "word-scramble") return <WordScramble onComplete={complete} />;
+        if (day.activity === "memory-match") return <MemoryMatch onComplete={complete} />;
+        if (day.activity === "mini-crossword") return <MiniCrossword onComplete={complete} />;
+        if (day.activity === "mini-golf") return <MiniGolf onComplete={complete} />;
+        if (day.activity === "sliding-puzzle") return <SlidingPuzzle onComplete={complete} />;
+        if (day.activity === "connections") return <Connections onComplete={complete} />;
+        if (day.activity === "emoji-pictionary") return <EmojiPictionary onComplete={complete} />;
+        if (day.activity === "tier-list") return <TierList onComplete={complete} />;
+        if (day.activity === "wordle") return <Wordle onComplete={complete} />;
+
+        return <main className="page-shell"><Botanicals /><div className="relative mx-auto w-full max-w-md"><Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> All days</Link><div className="paper-card mt-6 p-8 text-center"><p className="text-xs font-semibold tracking-[0.2em] text-muted-foreground">DAY {day.day} · {day.label}</p><h1 className="mt-3 font-script text-5xl">Hello, you ♡</h1><p className="mt-4 text-foreground/80">This day is open for testing, but its surprise is still being wrapped.</p></div></div></main>;
+      }}
+    </DayActivityFlow>
+  );
 }
