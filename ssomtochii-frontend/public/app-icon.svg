@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+  <rect width="180" height="180" rx="40" fill="#dff0df"/>
+  <circle cx="90" cy="90" r="58" fill="#ffffff" opacity="0.92"/>
+  <path d="M90 128C82 119 53 101 53 76c0-15 11-26 25-26 7 0 12 3 17 9 5-6 10-9 17-9 14 0 25 11 25 26 0 25-29 43-47 52z" fill="#8fbc8f"/>
+  <text x="90" y="154" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#476647">16 DAYS</text>
+</svg>
