@@ -10,7 +10,9 @@ import { WordScramble } from "@/activities/WordScramble";
 import { Connections } from "@/activities/Connections";
 import { EmojiPictionary } from "@/activities/EmojiPictionary";
 import { TierList } from "@/activities/TierList";
+import { Wordle } from "@/activities/Wordle";
 import { Botanicals } from "@/components/Botanicals";
+import { DayActivityFlow } from "@/components/DayActivityFlow";
 import { getDay } from "@/lib/days";
 
 export const Route = createFileRoute("/day/$day")({
