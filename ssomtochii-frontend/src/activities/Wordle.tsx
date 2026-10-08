@@ -1,4 +1,4 @@
-import { ArrowLeft, Delete } from "lucide-react";
+import { Delete } from "lucide-react";
 import { useEffect, useState } from "react";
 import { GameShell } from "@/activities/Connections";
 import { WORDLE_CONTENT } from "@/lib/wordle";
