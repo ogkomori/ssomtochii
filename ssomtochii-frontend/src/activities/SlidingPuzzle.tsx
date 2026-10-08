@@ -28,7 +28,7 @@ function makePuzzle(): number[] {
 }
 
 /** Reusable sliding-puzzle activity; assign `sliding-puzzle` to a day when ready. */
-export function SlidingPuzzle() {
+export function SlidingPuzzle({ onComplete }: { onComplete: () => void }) {
   const [tiles, setTiles] = useState(makePuzzle); const complete = tiles.every((tile, index) => tile === index);
   const move = (index: number) => {
     const blankIndex = tiles.indexOf(blankTile);
