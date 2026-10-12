@@ -47,7 +47,7 @@ export function DailyWheel({ day }: { day: number }) {
 
   const offset = stopAt ? stopAt * height - height : 0;
 
-  return <div className="day-one-copy items-center text-center">
+  return <div className="day-one-copy reward-page-shell items-center text-center">
     <Trophy className="h-8 w-8 text-blossom" />
     <p className="day-one-eyebrow">DAY {day} REWARD</p>
     {letter ? <>
