@@ -160,26 +160,6 @@
     padding-bottom: max(0.25rem, env(safe-area-inset-bottom));
     font-family: var(--font-sans);
   }
-  .landing-page-shell {
-    height: 100dvh;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: max(0.25rem, env(safe-area-inset-top));
-    padding-bottom: max(0.25rem, env(safe-area-inset-bottom));
-  }
-  .landing-content {
-    @apply flex max-h-full flex-col justify-center;
-  }
-  .landing-page-shell .day-card {
-    padding: 0.25rem;
-  }
-  @media (min-width: 640px) {
-    .landing-page-shell .day-card {
-      padding: 0.625rem;
-    }
-  }
   .reward-page-shell {
     padding-top: max(2.5rem, calc(env(safe-area-inset-top) + 2rem));
   }
