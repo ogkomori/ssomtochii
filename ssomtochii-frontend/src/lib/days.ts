@@ -35,7 +35,6 @@ export const DAYS: Day[] = Array.from({ length: 16 }, (_, i) => {
               i === 7 ? "cup-pong" :
               i === 8 ? "connections" :
               i === 9 ? "emoji-pictionary" :
-              i === 10 ? "tier-list" :
               "coming-soon",
   };
 });
