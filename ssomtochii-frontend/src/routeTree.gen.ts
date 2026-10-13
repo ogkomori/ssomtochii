@@ -34,7 +34,6 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/world': typeof WorldRoute
   '/day/$day': typeof DayDayRoute
 }
 export interface FileRouteTypes {
