@@ -27,7 +27,7 @@ function Index() {
             16 Days of Somto <span className="text-blossom">♡</span>
           </h1>
           <p className="mt-1 text-sm text-foreground/80 sm:mt-2 sm:text-base">A little something for you, one day at a time.</p>
-          <p className="mt-1 text-[0.7rem] font-medium tracking-[0.2em] text-muted-foreground sm:mt-1.5">ALL 16 DAYS ARE OPEN</p>
+          <p className="mt-1 text-[0.7rem] font-medium tracking-[0.2em] text-muted-foreground sm:mt-1.5">DAY 16 IS LOCKED FOR NOW</p>
         </header>
         <section className="grid grid-cols-4 gap-1.5 sm:gap-4" aria-label="Sixteen days">
           {DAYS.map((d, i) => (
