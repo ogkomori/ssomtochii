@@ -1,13 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { Flower2, Star, Music, Mail, Leaf, Moon, Sparkles, Lock, Check, Bug } from "lucide-react";
-import type { Day, DayIcon } from "@/lib/days";
-
-const ICONS: Record<DayIcon, typeof Star> = {
-  flower: Flower2, star: Star, music: Music, butterfly: Bug, mail: Mail, leaf: Leaf, moon: Moon, sparkle: Sparkles,
-};
+import { Camera, Lock, Check } from "lucide-react";
+import type { Day } from "@/lib/days";
 
 export function DayCard({ day, index }: { day: Day; index: number }) {
-  const Icon = ICONS[day.icon];
   const locked = day.state === "locked";
   const tilt = ["-rotate-1", "rotate-1", "rotate-0", "-rotate-[0.5deg]"][index % 4];
 
@@ -15,11 +10,13 @@ export function DayCard({ day, index }: { day: Day; index: number }) {
     <>
       <div className="day-visual">
         {day.image ? (
-          <img src={day.image} alt="" className="h-full w-full object-cover" />
+          <img src={day.image} alt={`Photo for day ${day.day}`} className="h-full w-full object-cover" />
         ) : (
-          <Icon className="h-4 w-4 sm:h-6 sm:w-6" strokeWidth={1.6} />
+          <div className="flex h-full w-full flex-col items-center justify-center gap-1 border border-dashed border-primary/25 bg-secondary/50 text-primary/65">
+            <Camera className="h-4 w-4 sm:h-6 sm:w-6" strokeWidth={1.5} />
+            <span className="text-[0.45rem] font-semibold tracking-[0.08em] sm:text-[0.6rem]">ADD PHOTO</span>
+          </div>
         )}
-        {day.state === "available" && <span className="day-dot" aria-hidden />}
       </div>
       <div className="mt-1 flex items-center justify-center gap-0.5 text-[0.6rem] font-semibold tracking-[0.12em] sm:mt-1.5 sm:text-xs">
         {locked && <Lock className="h-2.5 w-2.5 shrink-0" />}
