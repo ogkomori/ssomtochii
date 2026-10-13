@@ -5,42 +5,22 @@ import { CHARACTER_POOL } from "@/lib/day-one";
 
 const slots = Array.from({ length: 10 }, () => CHARACTER_POOL).flat();
 const height = 54;
-const REWARD_KEY = "somto-daily-rewards";
 
-function getStoredReward(day: number) {
-  if (typeof window === "undefined") return null;
-  try {
-    const stored = JSON.parse(window.localStorage.getItem(REWARD_KEY) ?? "{}");
-    return typeof stored?.[day] === "string" ? stored[day] : null;
-  } catch {
-    return null;
-  }
-}
-
-/** Shared end-of-day reward. The character is randomly chosen once per day and then persisted. */
+/** End-of-day reward. The character only lives in component state while testing. */
 export function DailyWheel({ day }: { day: number }) {
-  const [characterIndex, setCharacterIndex] = useState(() => {
-    const stored = getStoredReward(day);
-    return stored ? CHARACTER_POOL.indexOf(stored as (typeof CHARACTER_POOL)[number]) : -1;
-  });
   const [spinning, setSpinning] = useState(false);
-  const [letter, setLetter] = useState<string | null>(() => getStoredReward(day));
+  const [letter, setLetter] = useState<string | null>(null);
   const [stopAt, setStopAt] = useState(0);
 
   const spin = () => {
     if (spinning || letter) return;
 
     const nextIndex = Math.floor(Math.random() * CHARACTER_POOL.length);
-    setCharacterIndex(nextIndex);
     setStopAt(7 * CHARACTER_POOL.length + nextIndex);
     setSpinning(true);
 
     window.setTimeout(() => {
-      const character = CHARACTER_POOL[nextIndex];
-      setLetter(character);
-      const stored = JSON.parse(window.localStorage.getItem(REWARD_KEY) ?? "{}") as Record<string, string>;
-      stored[day] = character;
-      window.localStorage.setItem(REWARD_KEY, JSON.stringify(stored));
+      setLetter(CHARACTER_POOL[nextIndex]);
       setSpinning(false);
     }, 4200);
   };
