@@ -7,34 +7,22 @@ export const WORLD_ITEMS: Record<WorldItemId, { name: string; emoji: string; des
   "ranking-ribbon": { name: "Your ribbon", emoji: "🎀", description: "A snapshot of your excellent opinions.", position: "right-[19%] bottom-[16%]" },
 };
 
-const KEY = "somto-world-unlocks";
 const EVENT = "somto-world-change";
 const EMPTY: WorldItemId[] = [];
-let lastStoredValue: string | null = null;
-let lastSnapshot: WorldItemId[] = EMPTY;
+let unlockedItems: WorldItemId[] = EMPTY;
 
+/** In-memory only: discoveries reset when the page is refreshed. */
 export function getUnlockedWorldItems(): WorldItemId[] {
-  if (typeof window === "undefined") return EMPTY;
-  const stored = window.localStorage.getItem(KEY) ?? "[]";
-  if (stored === lastStoredValue) return lastSnapshot;
-  try {
-    const parsed = JSON.parse(stored);
-    lastSnapshot = Array.isArray(parsed) ? parsed.filter((id): id is WorldItemId => typeof id === "string" && id in WORLD_ITEMS) : EMPTY;
-  } catch { lastSnapshot = EMPTY; }
-  lastStoredValue = stored;
-  return lastSnapshot;
+  return unlockedItems;
 }
 
 export function unlockWorldItem(item: WorldItemId) {
-  if (typeof window === "undefined") return;
-  const unlocked = new Set(getUnlockedWorldItems());
-  unlocked.add(item);
-  const value = JSON.stringify([...unlocked]); window.localStorage.setItem(KEY, value); lastStoredValue = value; lastSnapshot = [...unlocked];
+  if (typeof window === "undefined" || unlockedItems.includes(item)) return;
+  unlockedItems = [...unlockedItems, item];
   window.dispatchEvent(new Event(EVENT));
 }
 
 export function subscribeToWorld(listener: () => void) {
   window.addEventListener(EVENT, listener);
-  window.addEventListener("storage", listener);
-  return () => { window.removeEventListener(EVENT, listener); window.removeEventListener("storage", listener); };
+  return () => window.removeEventListener(EVENT, listener);
 }
