@@ -26,7 +26,7 @@ export const DAYS: Day[] = Array.from({ length: 16 }, (_, i) => {
     image: `/images/days/day-${String(i + 1).padStart(2, "0")}.jpg`,
     // Every day is open while we prototype individual activities. Date locking
     // will be restored through the journey API before the experience launches.
-    state: i === 15 ? "locked" : "available",
+    state: "available",
     activity: i === 0 ? "day-one-journey" :
               i === 1 ? "word-scramble" :
               i === 2 ? "memory-match" :
