@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import { ArrowLeft, Check, RotateCcw } from "lucide-react";
 import { useState } from "react";
 import { Botanicals } from "@/components/Botanicals";
-import { unlockWorldItem } from "@/lib/world";
 
 export const CONNECTIONS_CONTENT = {
   title: "Little connections",
@@ -23,7 +22,7 @@ export function Connections({ onComplete }: { onComplete: () => void }) {
   const toggle = (item: string) => setSelected((current) => current.includes(item) ? current.filter((entry) => entry !== item) : current.length < 4 ? [...current, item] : current);
   const submit = () => {
     const found = CONNECTIONS_CONTENT.groups.findIndex((group, index) => !solved.includes(index) && group.items.every((item) => selected.includes(item)));
-    if (found >= 0) { const next = [...solved, found]; setSolved(next); setSelected([]); setMessage(`${CONNECTIONS_CONTENT.groups[found].category} — lovely!`); if (next.length === 4) unlockWorldItem("constellation"); }
+    if (found >= 0) { const next = [...solved, found]; setSolved(next); setSelected([]); setMessage(`${CONNECTIONS_CONTENT.groups[found].category} — lovely!`); }
     else { setMistakes((count) => count + 1); setMessage("Not quite — rearrange those four and try again."); }
   };
   const reset = () => { setSelected([]); setSolved([]); setMistakes(0); setMessage("Find four things that belong together."); };
