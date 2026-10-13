@@ -17,7 +17,7 @@ export function DayCard({ day, index }: { day: Day; index: number }) {
           <img
             src={day.image}
             alt={`Photo for day ${day.day}`}
-            className="absolute inset-0 h-full w-full object-cover"
+            className={`absolute inset-0 h-full w-full object-cover transition-[filter] duration-300 ${locked ? "grayscale" : "grayscale-0"}`}
             onError={(event) => event.currentTarget.remove()}
           />
         )}
