@@ -29,7 +29,6 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/world': typeof WorldRoute
   '/day/$day': typeof DayDayRoute
 }
 export interface FileRoutesById {
