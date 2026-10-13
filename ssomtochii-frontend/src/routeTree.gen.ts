@@ -10,17 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as WorldRouteImport } from './routes/world'
 import { Route as DayDayRouteImport } from './routes/day.$day'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const WorldRoute = WorldRouteImport.update({
-  id: '/world',
-  path: '/world',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DayDayRoute = DayDayRouteImport.update({
@@ -31,7 +25,6 @@ const DayDayRoute = DayDayRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/world': typeof WorldRoute
   '/day/$day': typeof DayDayRoute
 }
 export interface FileRoutesByTo {
@@ -47,15 +40,14 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/world' | '/day/$day'
+  fullPaths: '/' | '/day/$day'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/world' | '/day/$day'
-  id: '__root__' | '/' | '/world' | '/day/$day'
+  to: '/' | '/day/$day'
+  id: '__root__' | '/' | '/day/$day'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  WorldRoute: typeof WorldRoute
   DayDayRoute: typeof DayDayRoute
 }
 
@@ -66,13 +58,6 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/world': {
-      id: '/world'
-      path: '/world'
-      fullPath: '/world'
-      preLoaderRoute: typeof WorldRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/day/$day': {
@@ -87,7 +72,6 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  WorldRoute: WorldRoute,
   DayDayRoute: DayDayRoute,
 }
 export const routeTree = rootRouteImport
