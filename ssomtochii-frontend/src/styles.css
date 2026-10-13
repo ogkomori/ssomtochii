@@ -262,14 +262,9 @@
   .sky-pipe { @apply absolute z-[2] block w-10 bg-primary/85; border: 3px solid oklch(0.45 0.07 150); } .sky-pipe-top { @apply rounded-b-lg; } .sky-pipe-bottom { @apply rounded-t-lg; }
   .tier-board { @apply overflow-hidden rounded-xl border text-left; } .tier-row { @apply flex min-h-14 w-full border-b last:border-b-0 text-left; } .tier-row strong { @apply grid w-12 shrink-0 place-items-center text-xl text-foreground; } .tier-row span { @apply flex flex-wrap items-center gap-1 p-2; } .tier-row em { @apply rounded-lg bg-card px-2 py-1 text-xs not-italic shadow-sm; } .tier-row.is-ready { @apply ring-2 ring-inset ring-primary; } .tier-s strong { background: oklch(.84 .14 85); } .tier-a strong { background: oklch(.82 .1 145); } .tier-b strong { background: oklch(.82 .09 220); } .tier-c strong { background: oklch(.86 .09 30); } .tier-d strong { background: oklch(.78 .08 10); }
   .tier-items { @apply mt-4 flex flex-wrap justify-center gap-2; } .tier-items button { @apply rounded-xl border bg-card px-3 py-2 text-sm shadow-sm active:scale-95; } .tier-items button.is-selected { @apply border-primary bg-secondary ring-2 ring-primary/25; }
-  .world-link { @apply inline-flex min-h-11 items-center rounded-full border border-primary/40 bg-card px-5 py-2 text-sm font-semibold text-primary shadow-sm transition-transform active:scale-95; }
-  .world-scene { @apply relative mx-auto mt-6 h-80 max-w-lg overflow-hidden rounded-2xl border bg-secondary/55; background: linear-gradient(#d9eff1 0%, #f7f4d8 62%, #cfe3ba 63%); } .world-house { @apply absolute bottom-8 left-[42%] text-6xl; } .world-tree { @apply absolute bottom-7 left-[16%] text-6xl; } .world-cloud { @apply absolute text-5xl text-card/80; } .cloud-one { @apply left-[12%] top-6; } .cloud-two { @apply right-[13%] top-14; }
-  .world-item { @apply absolute z-10 grid place-items-center text-center; animation: world-pop .45s ease-out; } .world-item > span { @apply text-4xl drop-shadow-sm; } .world-item small { @apply max-w-20 rounded-full bg-card/80 px-2 py-0.5 text-[0.6rem] text-foreground; } .world-empty { @apply absolute inset-x-8 top-1/2 -translate-y-1/2 rounded-xl bg-card/85 p-3 text-sm text-muted-foreground; }
-  .world-key { @apply rounded-full border bg-card px-2.5 py-1 text-xs text-muted-foreground; } .world-key.is-found { @apply border-primary/40 bg-secondary text-foreground; }
 }
 @keyframes rhythm-pulse { 50% { transform: scale(1.08); box-shadow: 0 0 0 12px oklch(0.58 0.08 150 / .12); } }
 @keyframes emoji-bob { 50% { transform: translateY(-5px) rotate(5deg); } }
-@keyframes world-pop { from { opacity: 0; transform: scale(.5); } to { opacity: 1; transform: scale(1); } }
 
 .sun-rays,
 .sun-haze {
