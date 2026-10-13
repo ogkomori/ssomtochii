@@ -22,6 +22,8 @@ export const DAYS: Day[] = Array.from({ length: 16 }, (_, i) => {
     date: d.toISOString().slice(0, 10),
     label,
     icon: icons[i % icons.length] as DayIcon,
+    // Drop each photo into public/images/days using the matching filename.
+    image: `/images/days/day-${String(i + 1).padStart(2, "0")}.jpg`,
     // Every day is open while we prototype individual activities. Date locking
     // will be restored through the journey API before the experience launches.
     state: "available",
