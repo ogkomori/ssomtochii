@@ -9,13 +9,17 @@ export function DayCard({ day, index }: { day: Day; index: number }) {
   const inner = (
     <>
       <div className="day-visual">
-        {day.image ? (
-          <img src={day.image} alt={`Photo for day ${day.day}`} className="h-full w-full object-cover" />
-        ) : (
-          <div className="flex h-full w-full flex-col items-center justify-center gap-1 border border-dashed border-primary/25 bg-secondary/50 text-primary/65">
-            <Camera className="h-4 w-4 sm:h-6 sm:w-6" strokeWidth={1.5} />
-            <span className="text-[0.45rem] font-semibold tracking-[0.08em] sm:text-[0.6rem]">ADD PHOTO</span>
-          </div>
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 border border-dashed border-primary/25 bg-secondary/50 text-primary/65">
+          <Camera className="h-4 w-4 sm:h-6 sm:w-6" strokeWidth={1.5} />
+          <span className="text-[0.45rem] font-semibold tracking-[0.08em] sm:text-[0.6rem]">ADD PHOTO</span>
+        </div>
+        {day.image && (
+          <img
+            src={day.image}
+            alt={`Photo for day ${day.day}`}
+            className="absolute inset-0 h-full w-full object-cover"
+            onError={(event) => event.currentTarget.remove()}
+          />
         )}
       </div>
       <div className="mt-1 flex items-center justify-center gap-0.5 text-[0.6rem] font-semibold tracking-[0.12em] sm:mt-1.5 sm:text-xs">
