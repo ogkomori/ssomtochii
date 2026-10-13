@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { DAYS } from "@/lib/days";
 import { DayCard } from "@/components/DayCard";
 import { Botanicals } from "@/components/Botanicals";
@@ -35,7 +35,6 @@ function Index() {
           ))}
         </section>
         <p className="mt-1 text-center font-script text-base text-muted-foreground sm:mt-6 sm:text-xl">Come back tomorrow for the next one. ♡</p>
-        <div className="mt-4 text-center"><Link to="/world" className="world-link">🌱 Enter Your World</Link></div>
       </div>
     </main>
   );
