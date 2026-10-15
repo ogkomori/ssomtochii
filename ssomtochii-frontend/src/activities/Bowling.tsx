@@ -46,7 +46,6 @@ export function Bowling({ onComplete }: { onComplete: () => void }) {
   const [guard, setGuard] = useState(false);
   const [fallenCount, setFallenCount] = useState(0);
   const [rolls, setRolls] = useState(0);
-  const [aim, setAim] = useState<{ x: number; y: number } | null>(null);
   const [message, setMessage] = useState("Pull back from the ball and release to roll.");
   const complete = fallenCount === 10;
 
@@ -213,13 +212,11 @@ export function Bowling({ onComplete }: { onComplete: () => void }) {
     event.currentTarget.setPointerCapture(event.pointerId);
     const next = point(event);
     aimRef.current = next;
-    setAim(next);
   };
   const moveAim = (event: React.PointerEvent<HTMLCanvasElement>) => {
     if (!aimRef.current || movingRef.current) return;
     const next = point(event);
     aimRef.current = next;
-    setAim(next);
   };
   const release = (event: React.PointerEvent<HTMLCanvasElement>) => {
     const currentAim = aimRef.current;
@@ -241,7 +238,6 @@ export function Bowling({ onComplete }: { onComplete: () => void }) {
       setMessage("The ball is rolling…");
     }
     aimRef.current = null;
-    setAim(null);
   };
   const reset = () => {
     const engine = engineRef.current;
@@ -259,7 +255,6 @@ export function Bowling({ onComplete }: { onComplete: () => void }) {
     setRolls(0);
     movingRef.current = false;
     aimRef.current = null;
-    setAim(null);
     setMessage("Pull back from the ball and release to roll.");
   };
 
