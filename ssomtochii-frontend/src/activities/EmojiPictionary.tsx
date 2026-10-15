@@ -4,9 +4,9 @@ import { useState } from "react";
 import { GameShell } from "@/activities/Connections";
 
 export const EMOJI_PUZZLES = [
-  { clue: ["🌙", "🚶", "🏙️"], answer: "night walk", alternatives: ["a night walk", "walking at night"] },
-  { clue: ["🍕", "🎬", "🛋️"], answer: "movie night", alternatives: ["a movie night"] },
-  { clue: ["🌸", "☕", "📖"], answer: "a cozy morning", alternatives: ["cozy morning", "morning coffee"] },
+  { clue: ["🧊", "☕"], answer: "iced coffee", alternatives: ["ice coffee", "ice coffee"] },
+  { clue: ["🍎", "🥧"], answer: "apple pie", alternatives: ["an apple pie"] },
+  { clue: ["🐟", "🍟"], answer: "fish and chips", alternatives: ["fish & chips"] },
 ];
 
 /** Data-driven emoji guessing activity. Update EMOJI_PUZZLES with personal clues. */
