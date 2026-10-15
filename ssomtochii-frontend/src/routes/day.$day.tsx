@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { ArrowLeft, ArrowRight, Play } from "lucide-react";
+import { useRef, useState } from "react";
 import { DayOneJourney } from "@/activities/DayOneJourney";
 import { CupPong } from "@/activities/CupPong";
 import { MemoryMatch } from "@/activities/MemoryMatch";
@@ -39,6 +39,8 @@ export const Route = createFileRoute("/day/$day")({
 function DayPage() {
   const day = Route.useLoaderData();
   const [daySevenStarted, setDaySevenStarted] = useState(false);
+  const [daySevenVideoStarted, setDaySevenVideoStarted] = useState(false);
+  const daySevenVideoRef = useRef<HTMLVideoElement>(null);
 
   if (day.day === 7 && !daySevenStarted) {
     return (
@@ -53,17 +55,33 @@ function DayPage() {
             <p className="day-one-eyebrow">A LITTLE MILESTONE</p>
             <h1 className="mt-3 font-script text-5xl leading-none">Welcome to Day 7 ♡</h1>
             <p className="mt-3 text-foreground/80">from day 6 to 7</p>
-            <div className="mt-6 w-full overflow-hidden rounded-2xl border border-border/60 bg-muted/40">
+            <div className="relative mt-6 w-full overflow-hidden rounded-2xl border border-border/60 bg-muted/40">
               <video
+                ref={daySevenVideoRef}
                 className="block aspect-[9/16] max-h-[52dvh] w-full object-contain"
                 src="/videos/day-07-67.mp4"
-                autoPlay
                 loop
-                muted
                 playsInline
                 controls
                 aria-label="Day 7 video"
+                onPlay={() => setDaySevenVideoStarted(true)}
               />
+              {!daySevenVideoStarted && (
+                <button
+                  type="button"
+                  className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/25 text-white transition-colors hover:bg-black/35"
+                  onClick={() => {
+                    const video = daySevenVideoRef.current;
+                    if (video) void video.play().catch(() => {});
+                  }}
+                  aria-label="Play Day 7 video with sound"
+                >
+                  <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 text-foreground shadow-lg">
+                    <Play className="ml-1 h-7 w-7 fill-current" />
+                  </span>
+                  <span className="text-sm font-semibold drop-shadow">Tap to play with sound</span>
+                </button>
+              )}
             </div>
             <button type="button" className="next-button mt-6" onClick={() => setDaySevenStarted(true)}>
               Let’s go <ArrowRight className="h-4 w-4" />
