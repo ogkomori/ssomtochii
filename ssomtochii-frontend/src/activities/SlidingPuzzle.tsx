@@ -56,7 +56,7 @@ export function SlidingPuzzle({ onComplete }: { onComplete: () => void }) {
   useEffect(() => {
     if (!solvedLayout) return;
     setRevealStage("final-piece");
-    const timer = window.setTimeout(() => setRevealStage("full-picture"), 950);
+    const timer = window.setTimeout(() => setRevealStage("full-picture"), 1000);
     return () => window.clearTimeout(timer);
   }, [solvedLayout]);
   const move = (index: number) => {
