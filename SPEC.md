@@ -32,14 +32,14 @@ The app is primarily about **her**: her interests, personality, preferences, mem
 | 8 | Oct 30 | Mini Crossword |
 | 9 | Oct 31 | Museum of Her |
 | 10 | Nov 1 | Rhythm Game |
-| 11 | Nov 2 | Memory Lane |
-| 12 | Nov 3 | Hidden Object Hunt |
-| 13 | Nov 4 | Ragebait |
-| 14 | Nov 5 | Build Your Perfect Day |
-| 15 | Nov 6 | Something She Can Keep |
+| 11 | Nov 2 | Flow Free |
+| 12 | Nov 3 | Bowling |
+| 13 | Nov 4 | Word Search |
+| 14 | Nov 5 | Memory Lane |
+| 15 | Nov 6 | Hangman |
 | 16 | Nov 7 | Conclusion / Final Reveal |
 
-This is the finalized 16-day plan. Do not invent additional activities or replace existing activities unless explicitly instructed.
+Days 11–15 were assigned to the five additional games requested during implementation. Day 16 remains reserved for the final reveal.
 
 ---
 
