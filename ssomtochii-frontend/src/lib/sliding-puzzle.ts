@@ -6,7 +6,7 @@
 export const SLIDING_PUZZLE_CONTENT = {
   title: "Put the picture back together.",
   intro: "Tap a tile beside the empty space to slide it into place.",
-  image: "",
+  image: "/images/sliding-puzzle.jpg",
   imageAlt: "A special photo",
   gridSize: 3,
 } as const;
