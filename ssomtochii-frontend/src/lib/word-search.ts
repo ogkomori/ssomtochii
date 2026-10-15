@@ -8,9 +8,9 @@ export const WORD_SEARCH_CONTENT = {
     "H E A R T N S A",
     "S M I L E I I V",
     "D A N C E C C E",
-    "P L K J H B T L",
+    "P L K J J B T L",
     "G R E A M O X Y",
-    "S T A R W P Q Z",
+    "S T A R W P Y Z",
   ].map((row) => row.split(" ")),
-  words: ["LOVE", "DREAM", "HEART", "SMILE", "DANCE", "MUSIC", "TRAVEL", "STAR"],
+  words: ["LOVE", "DREAM", "HEART", "SMILE", "DANCE", "MUSIC", "TRAVEL", "STAR", "JOY"],
 } as const;
