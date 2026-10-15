@@ -269,7 +269,6 @@ For example:
 - Connections → puzzle/book element
 - Emoji Pictionary → emoji/art element
 - Tier List → something representing her choices
-- Existing Grow Something → plant/tree
 - Existing Dream Space → house/room
 - Existing Museum of Her → museum/building
 - Existing Memory Match → photo/gallery element
