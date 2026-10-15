@@ -21,7 +21,7 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
     return map;
   }, [paths]);
   const covered = new Set(Object.values(paths).flat());
-  const completedPairs = FLOW_FREE_CONTENT.pairs.filter((pair) => paths[pair.id]?.at(-1) === pair.end).length;
+  const completedPairs = FLOW_FREE_CONTENT.pairs.filter((pair) => { const path = paths[pair.id] ?? []; return (path[0] === pair.start && path.at(-1) === pair.end) || (path[0] === pair.end && path.at(-1) === pair.start); }).length;
   const won = completedPairs === FLOW_FREE_CONTENT.pairs.length && covered.size === size * size;
 
   const extend = (cell: number) => {
@@ -35,7 +35,9 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
       if (ownIndex >= 0) return { ...current, [drawing]: path.slice(0, ownIndex + 1) };
       const endpoint = endpointMap.get(cell);
       if (endpoint && endpoint.id !== drawing) return current;
-      if (path.at(-1) === FLOW_FREE_CONTENT.pairs.find((p) => p.id === drawing)?.end) return current;
+      const pair = FLOW_FREE_CONTENT.pairs.find((p) => p.id === drawing)!;
+      if (path.at(-1) === pair.end && path[0] !== pair.end) return current;
+      if (path.at(-1) === pair.start && path[0] === pair.end) return current;
       return { ...current, [drawing]: [...path, cell] };
     });
   };
@@ -51,7 +53,9 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
     const pair = endpointMap.get(cell);
     const owner = Object.entries(paths).find(([, cells]) => cells.includes(cell));
     const id = pair?.id ?? owner?.[0];
-    if (!id || paths[id]?.at(-1) === FLOW_FREE_CONTENT.pairs.find((p) => p.id === id)?.end) return;
+    if (!id) return;
+    const pairForId = FLOW_FREE_CONTENT.pairs.find((p) => p.id === id)!;
+    if (paths[id]?.at(-1) === pairForId.end && paths[id]?.[0] !== pairForId.end) return;
     const currentPath = paths[id] ?? [];
     const at = currentPath.indexOf(cell);
     if (at >= 0) setPaths((current) => ({ ...current, [id]: current[id]!.slice(0, at + 1) }));
