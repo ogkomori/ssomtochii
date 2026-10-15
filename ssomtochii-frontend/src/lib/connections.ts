@@ -17,18 +17,18 @@ export const CONNECTIONS_CONTENT: {
     {
       category: "Words that describe you",
       groups: [
-        { items: ["TEA", "BOOK", "MUSIC", "NAP"] },
-        { items: ["STAR", "RING", "DISCO", "GLITTER"] },
-        { items: ["CAKE", "COOKIE", "DONUT", "CANDY"] },
-        { items: ["BEACH", "MARKET", "MUSEUM", "GARDEN"] },
+        { items: ["SUNSHINE", "SMART", "INTELLIGENT", "BEAUTIFUL"] },
+        { items: ["LOYAL", "LOVING", "GENUINE", "SUPPORTIVE"] },
+        { items: ["CREATIVE", "FUNNY", "TALENTED", "SPECIAL"] },
+        { items: ["SUPERMODEL", "INFLUENCER", "KIND", "UNIQUE"] },
       ],
     },
     {
       groups: [
-        { category: "Things in the sky", items: ["CLOUD", "MOON", "SUN", "RAINBOW"] },
-        { category: "Things you can wear", items: ["SCARF", "HAT", "BOOTS", "RING"] },
-        { category: "Words before “cake”", items: ["BIRTHDAY", "CHEESE", "PAN", "CUP"] },
-        { category: "Things with pages", items: ["NOVEL", "DIARY", "ATLAS", "COMIC"] },
+        { category: "Names of Wizkid songs", items: ["TURBULENCE", "GINGER", "FINAL", "RECKLESS"] },
+        { category: "Words that come before \"light\"", items: ["SUN", "SPOT", "MOON", "DAY"] },
+        { category: "Things that are green", items: ["MATCHA", "GRASS", "MONEY", "SPOTIFY"] },
+        { category: "Things that have a shot", items: ["ESPRESSO", "BASKETBALL", "TEQUILA", "CAMERA"] },
       ],
     },
   ],
