@@ -202,7 +202,6 @@ export function MiniGolf({ onComplete }: { onComplete: () => void }) {
     setHoleIndex(0);
     setStrokes([]);
     setHoled(false);
-    setMoving(false);
     setAim(null);
     if (holeIndex === 0) {
       const ball = ballRef.current;
