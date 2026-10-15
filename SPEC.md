@@ -33,7 +33,7 @@ The app is primarily about **her**: her interests, personality, preferences, mem
 | 9 | Oct 31 | Museum of Her |
 | 10 | Nov 1 | Rhythm Game |
 | 11 | Nov 2 | Flow Free |
-| 12 | Nov 3 | Bowling |
+| 12 | Nov 3 | Skee-Ball |
 | 13 | Nov 4 | Word Search |
 | 14 | Nov 5 | Memory Lane |
 | 15 | Nov 6 | Hangman |
