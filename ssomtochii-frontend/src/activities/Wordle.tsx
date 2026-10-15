@@ -53,11 +53,12 @@ export function Wordle({ onComplete }: { onComplete: () => void }) {
   const [current, setCurrent] = useState("");
   const [message, setMessage] = useState("");
   const [finished, setFinished] = useState(false);
+  const [awaitingNext, setAwaitingNext] = useState(false);
   const answer = WORDLE_CONTENT.words[wordIndex]?.answer ?? "";
   const keyboardStates = getKeyboardStates(guesses);
 
   const submit = () => {
-    if (current.length !== 5 || finished) {
+    if (current.length !== 5 || finished || awaitingNext) {
       if (current.length !== 5) setMessage("Five letters first.");
       return;
     }
@@ -73,11 +74,8 @@ export function Wordle({ onComplete }: { onComplete: () => void }) {
       if (wordIndex === WORDLE_CONTENT.words.length - 1) {
         setFinished(true);
       } else {
-        window.setTimeout(() => {
-          setWordIndex((index) => index + 1);
-          setGuesses([]);
-          setMessage("Got it. Here is the next one.");
-        }, 650);
+        setAwaitingNext(true);
+        setMessage("Got it. Here is the next one.");
       }
       return;
     }
@@ -86,17 +84,14 @@ export function Wordle({ onComplete }: { onComplete: () => void }) {
       if (wordIndex === WORDLE_CONTENT.words.length - 1) {
         setFinished(true);
       } else {
-        window.setTimeout(() => {
-          setWordIndex((index) => index + 1);
-          setGuesses([]);
-          setMessage(`The word was ${answer}. Next one.`);
-        }, 650);
+        setAwaitingNext(true);
+        setMessage(`The word was ${answer}.`);
       }
     }
   };
 
   useEffect(() => {
-    if (finished) return;
+    if (finished || awaitingNext) return;
     const handleKey = (event: KeyboardEvent) => {
       if (event.key === "Enter") submit();
       else if (event.key === "Backspace") setCurrent((value) => value.slice(0, -1));
@@ -104,7 +99,15 @@ export function Wordle({ onComplete }: { onComplete: () => void }) {
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
-  });
+  }, [finished, awaitingNext, current, guesses, wordIndex, answer]);
+
+  const nextWord = () => {
+    setWordIndex((index) => index + 1);
+    setGuesses([]);
+    setCurrent("");
+    setMessage("");
+    setAwaitingNext(false);
+  };
 
   if (finished) return <GameShell eyebrow="WORDLE" title="Four little words." right="COMPLETE"><div className="day-one-copy items-center text-center"><div className="completion-mark">♡</div><p>That is the whole little Wordle challenge. Nicely done.</p><button type="button" className="next-button" onClick={onComplete}>Get today’s letter</button></div></GameShell>;
 
@@ -122,13 +125,13 @@ export function Wordle({ onComplete }: { onComplete: () => void }) {
         </div>;
       })}
     </div>
-    <p className="mt-4 min-h-6 text-sm text-muted-foreground">{message}</p>
+    <div className="mt-4 flex min-h-11 items-center justify-between gap-3 text-sm text-muted-foreground"><p className="text-left">{message}</p>{awaitingNext && <button type="button" className="next-button shrink-0" onClick={nextWord}>Next word</button>}</div>
     <div className="mt-4 space-y-2">
       {KEYBOARD_ROWS.map((row) => <div key={row} className="flex justify-center gap-1">{row.split("").map((letter) => {
         const state = keyboardStates[letter];
-        return <button type="button" key={letter} className={`wordle-key${state ? ` wordle-key-${state}` : ""}`} onClick={() => setCurrent((value) => value.length < 5 ? `${value}${letter}` : value)}>{letter}</button>;
+        return <button type="button" key={letter} className={`wordle-key${state ? ` wordle-key-${state}` : ""}`} onClick={() => setCurrent((value) => value.length < 5 ? `${value}${letter}` : value)} disabled={awaitingNext}>{letter}</button>;
       })}</div>)}
-      <div className="flex justify-center gap-1"><button type="button" className="wordle-key wordle-wide-key" onClick={submit}>ENTER</button><button type="button" className="wordle-key wordle-wide-key" onClick={() => setCurrent((value) => value.slice(0, -1))}><Delete className="mx-auto h-4 w-4" /></button></div>
+      <div className="flex justify-center gap-1"><button type="button" className="wordle-key wordle-wide-key" onClick={submit} disabled={awaitingNext}>ENTER</button><button type="button" className="wordle-key wordle-wide-key" onClick={() => setCurrent((value) => value.slice(0, -1))} disabled={awaitingNext}><Delete className="mx-auto h-4 w-4" /></button></div>
     </div>
   </div></GameShell>;
 }
