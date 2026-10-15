@@ -295,6 +295,7 @@
   display: block;
   min-width: 0;
   min-height: 0;
+  overflow: hidden;
   border-radius: 0.125rem;
   background-repeat: no-repeat;
   animation: puzzle-piece-reveal 700ms ease-out both;
