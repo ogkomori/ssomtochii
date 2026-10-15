@@ -21,6 +21,7 @@ const placements: Record<string, [Point, Point]> = {
   MUSIC: [{ row: 0, col: 6 }, { row: 4, col: 6 }],
   TRAVEL: [{ row: 0, col: 7 }, { row: 5, col: 7 }],
   STAR: [{ row: 7, col: 0 }, { row: 7, col: 3 }],
+  JOY: [{ row: 5, col: 4 }, { row: 7, col: 6 }],
 };
 
 export function WordSearch({ onComplete }: { onComplete: () => void }) {
