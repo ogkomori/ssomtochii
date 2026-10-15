@@ -23,7 +23,6 @@ export function MiniGolf({ onComplete }: { onComplete: () => void }) {
   const drawRef = useRef<() => void>(() => {});
   const [holeIndex, setHoleIndex] = useState(0);
   const [strokes, setStrokes] = useState<number[]>([]);
-  const [aim, setAim] = useState<Point | null>(null);
   const [holed, setHoled] = useState(false);
   const hole = MINI_GOLF_CONTENT.holes[holeIndex]!;
   const totalStrokes = strokes.reduce((sum, count) => sum + count, 0);
@@ -155,13 +154,11 @@ export function MiniGolf({ onComplete }: { onComplete: () => void }) {
     event.currentTarget.setPointerCapture(event.pointerId);
     const next = pointForEvent(event);
     aimRef.current = next;
-    setAim(next);
   };
   const moveAim = (event: React.PointerEvent<HTMLCanvasElement>) => {
     if (!aimRef.current || movingRef.current) return;
     const next = pointForEvent(event);
     aimRef.current = next;
-    setAim(next);
   };
   const release = (event: React.PointerEvent<HTMLCanvasElement>) => {
     const currentAim = aimRef.current;
@@ -183,7 +180,6 @@ export function MiniGolf({ onComplete }: { onComplete: () => void }) {
       });
     }
     aimRef.current = null;
-    setAim(null);
   };
   const nextHole = () => {
     const next = holeIndex + 1;
@@ -193,7 +189,6 @@ export function MiniGolf({ onComplete }: { onComplete: () => void }) {
     aimRef.current = null;
     setHoleIndex(next);
     setHoled(false);
-    setAim(null);
   };
   const restart = () => {
     movingRef.current = false;
@@ -202,7 +197,6 @@ export function MiniGolf({ onComplete }: { onComplete: () => void }) {
     setHoleIndex(0);
     setStrokes([]);
     setHoled(false);
-    setAim(null);
     if (holeIndex === 0) {
       const ball = ballRef.current;
       if (ball) {
