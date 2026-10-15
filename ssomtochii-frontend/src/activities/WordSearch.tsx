@@ -28,7 +28,7 @@ export function WordSearch({ onComplete }: { onComplete: () => void }) {
   const [found, setFound] = useState<string[]>([]);
   const [message, setMessage] = useState("Tap the first and last letter of a word.");
   const words = WORD_SEARCH_CONTENT.words as readonly string[];
-  const foundCells = new Set(found.flatMap((word) => getLine(placements[word]![0], placements[word]![1])));
+  const foundCells = new Set(found.flatMap((word) => getLine(placements[word]![0]!, placements[word]![1]!)));
   const choose = (point: Point) => {
     if (!start) { setStart(point); setMessage("Now tap the word’s last letter."); return; }
     const cells = getLine(start, point);
