@@ -12,7 +12,6 @@ import { Connections } from "@/activities/Connections";
 import { EmojiPictionary } from "@/activities/EmojiPictionary";
 import { Wordle } from "@/activities/Wordle";
 import { FlowFree } from "@/activities/FlowFree";
-import { SkeeBall } from "@/activities/SkeeBall";
 import { WordSearch } from "@/activities/WordSearch";
 import { MemoryLane } from "@/activities/MemoryLane";
 import { Hangman } from "@/activities/Hangman";
@@ -106,7 +105,6 @@ function DayPage() {
         if (day.activity === "emoji-pictionary") return <EmojiPictionary onComplete={complete} />;
         if (day.activity === "wordle") return <Wordle onComplete={complete} />;
         if (day.activity === "flow-free") return <FlowFree onComplete={complete} />;
-        if (day.activity === "skee-ball") return <SkeeBall onComplete={complete} />;
         if (day.activity === "word-search") return <WordSearch onComplete={complete} />;
         if (day.activity === "memory-lane") return <MemoryLane onComplete={complete} />;
         if (day.activity === "hangman") return <Hangman onComplete={complete} />;
