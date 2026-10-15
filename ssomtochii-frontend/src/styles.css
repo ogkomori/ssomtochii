@@ -306,3 +306,24 @@
 @media (prefers-reduced-motion: reduce) {
   .puzzle-final-tile { animation-duration: 1ms; }
 }
+
+.sliding-puzzle { position: relative; }
+.sliding-puzzle-full-image {
+  position: absolute;
+  inset: 4px;
+  z-index: 5;
+  border-radius: 0.45rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  animation: sliding-full-picture-reveal 900ms ease-in forwards;
+}
+@keyframes sliding-full-picture-reveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .puzzle-final-tile,
+  .sliding-puzzle-full-image { animation-duration: 1ms; }
+}
+
