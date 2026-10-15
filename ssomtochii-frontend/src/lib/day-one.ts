@@ -28,25 +28,15 @@ export const DAY_ONE_CONTENT = {
     correctFeedback: "Exactly. A very specific nod to the opening basketball scene in High School Musical 3. ♡",
     incorrectFeedback: "A very fair guess — but think High School Musical 3 and the opening basketball scene.",
   },
-  plant: {
-    title: "Let’s grow something together.",
-    body: "This little plant will keep you company through the sixteen days. Give it its first bit of care, and it will have somewhere to grow from.",
-    choices: [
-      { label: "A little water", emoji: "💧", response: "A gentle start. Your seed is feeling looked after." },
-      { label: "Some sunshine", emoji: "☀️", response: "Warm and bright. Your seed is ready to wake up." },
-      { label: "A kind word", emoji: "💬", response: "That was exactly what it needed to hear." },
-    ],
-  },
   completion: {
     title: "Day one, done.",
-    body: "You have planted the first little piece of this journey. Come back to see it change with you.",
+    body: "That is the first little piece of this journey. Come back tomorrow for another surprise.",
   },
   award: {
-    message: "The first piece of a surprise that is still growing. Keep it safe. ♡",
+    message: "The first piece of your birthday surprise. Keep it safe. ♡",
   },
 } as const;
 
-export type DayOnePlantChoice = (typeof DAY_ONE_CONTENT.plant.choices)[number];
 
 // Each entry is a separate wheel slot. Repeated letters intentionally remain
 // separate so the complete collection can eventually spell the final gift.
