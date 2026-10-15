@@ -40,7 +40,7 @@ const Sun = ({ className }: { className: string }) => (
 export function Botanicals() {
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 overflow-hidden">
-      <Sun className="absolute left-[5%] top-[0.5%] h-10 w-10 text-bloom-center opacity-75 sm:left-[7%] sm:top-[4%] sm:h-20 sm:w-20" />
+      <Sun className="absolute left-[5%] top-[0.5%] h-12 w-12 text-bloom-center opacity-75 sm:left-[7%] sm:top-[4%] sm:h-24 sm:w-24" />
       <Sprig className="absolute left-[3%] top-[17%] h-16 w-10 rotate-[-20deg] text-botanical" />
       <Bloom className="absolute right-[8%] top-[4%] h-6 w-6 text-blossom" />
       <Sprig className="absolute right-[3%] top-[38%] h-20 w-12 rotate-[25deg] text-botanical" />
