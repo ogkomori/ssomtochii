@@ -14,17 +14,36 @@ function areNeighbours(first: number, second: number) {
   return Math.abs(firstRow - secondRow) + Math.abs(firstColumn - secondColumn) === 1;
 }
 
-// Shuffle by making legal moves from the solved state, which guarantees a solvable puzzle.
-function makePuzzle(): number[] {
-  const tiles = [...solvedPuzzle]; let blankIndex = blankTile;
-  for (let move = 0; move < 100; move += 1) {
-    const candidates = tiles.map((_, index) => index).filter((index) => areNeighbours(index, blankIndex));
-    const nextIndex = candidates[Math.floor(Math.random() * candidates.length)];
-    if (nextIndex === undefined) continue;
-    [tiles[blankIndex], tiles[nextIndex]] = [tiles[nextIndex]!, tiles[blankIndex]!];
-    blankIndex = nextIndex;
+// For an odd-width grid (3x3), a puzzle is solvable when its inversion
+// count is even. The blank tile is excluded from the inversion count.
+function countInversions(tiles: number[]): number {
+  let inversions = 0;
+  const numberedTiles = tiles.filter((tile) => tile !== blankTile);
+  for (let i = 0; i < numberedTiles.length; i += 1) {
+    for (let j = i + 1; j < numberedTiles.length; j += 1) {
+      if (numberedTiles[i]! > numberedTiles[j]!) inversions += 1;
+    }
   }
-  return tiles.every((tile, index) => tile === index) ? makePuzzle() : tiles;
+  return inversions;
+}
+
+function isSolvable(tiles: number[]): boolean {
+  return gridSize % 2 === 1
+    ? countInversions(tiles) % 2 === 0
+    : (countInversions(tiles) + gridSize - Math.floor(tiles.indexOf(blankTile) / gridSize)) % 2 === 1;
+}
+
+// Shuffle a random permutation, then use the inversion method to reject
+// unsolvable layouts. Also reject the already-solved layout.
+function makePuzzle(): number[] {
+  while (true) {
+    const tiles = [...solvedPuzzle];
+    for (let i = tiles.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [tiles[i], tiles[j]] = [tiles[j]!, tiles[i]!];
+    }
+    if (isSolvable(tiles) && !tiles.every((tile, index) => tile === index)) return tiles;
+  }
 }
 
 /** Reusable sliding-puzzle activity; assign `sliding-puzzle` to a day when ready. */
@@ -37,5 +56,5 @@ export function SlidingPuzzle({ onComplete }: { onComplete: () => void }) {
   };
   const backgroundImage = SLIDING_PUZZLE_CONTENT.image ? `url("${SLIDING_PUZZLE_CONTENT.image}")` : "linear-gradient(135deg, var(--blossom-2), var(--secondary) 42%, var(--primary))";
 
-  return <main className="page-shell"><Botanicals /><div className="relative mx-auto flex min-h-[calc(100dvh-1rem)] w-full max-w-md flex-col"><header className="pt-2"><Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> All days</Link></header><section className="paper-card my-6 flex flex-1 flex-col items-center p-6 text-center sm:p-8"><div className="day-one-copy items-center"><p className="day-one-eyebrow">SLIDING PUZZLE</p><h1 className="font-script text-5xl leading-none">{complete ? "A perfect picture." : SLIDING_PUZZLE_CONTENT.title}</h1><p>{complete ? "You put every little piece where it belongs." : SLIDING_PUZZLE_CONTENT.intro}</p></div><div className="sliding-puzzle my-auto" role="group" aria-label={SLIDING_PUZZLE_CONTENT.imageAlt}>{tiles.map((tile, index) => { if (tile === blankTile) return <span className="puzzle-blank" key="blank" />; const sourceRow = Math.floor(tile / gridSize); const sourceColumn = tile % gridSize; return <button type="button" key={tile} className="puzzle-tile" onClick={() => move(index)} style={{ backgroundImage, backgroundSize: `${gridSize * 100}% ${gridSize * 100}%`, backgroundPosition: `${sourceColumn * 50}% ${sourceRow * 50}%` }} aria-label={`Move picture tile ${tile + 1}`}><span>{SLIDING_PUZZLE_CONTENT.image ? "" : tile + 1}</span></button>; })}</div><div className="mt-auto pt-8">{complete ? <button type="button" className="next-button" onClick={onComplete}>Get today’s letter <Check className="h-4 w-4" /></button> : <button type="button" className="inline-flex items-center gap-1 text-sm text-muted-foreground" onClick={() => setTiles(makePuzzle())}><RotateCcw className="h-4 w-4" /> Shuffle again</button>}</div></section></div></main>;
+  return <main className="page-shell"><Botanicals /><div className="relative mx-auto flex min-h-[calc(100dvh-1rem)] w-full max-w-md flex-col"><header className="pt-2"><Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> All days</Link></header><section className="paper-card my-6 flex flex-1 flex-col items-center p-6 text-center sm:p-8"><div className="day-one-copy items-center"><p className="day-one-eyebrow">SLIDING PUZZLE</p><h1 className="font-script text-5xl leading-none">{complete ? "A perfect picture." : SLIDING_PUZZLE_CONTENT.title}</h1><p>{complete ? "You put every little piece where it belongs." : SLIDING_PUZZLE_CONTENT.intro}</p></div><div className="sliding-puzzle my-auto" role="group" aria-label={SLIDING_PUZZLE_CONTENT.imageAlt}>{tiles.map((tile, index) => { if (tile === blankTile) { const finalPieceStyle = { backgroundImage, backgroundSize: `${gridSize * 100}% ${gridSize * 100}%`, backgroundPosition: `${(gridSize - 1) * 50}% ${(gridSize - 1) * 50}%` }; return complete ? <span className="puzzle-final-tile" key="blank" style={finalPieceStyle} role="img" aria-label="The final piece of the completed picture" /> : <span className="puzzle-blank" key="blank" />; } const sourceRow = Math.floor(tile / gridSize); const sourceColumn = tile % gridSize; return <button type="button" key={tile} className="puzzle-tile" onClick={() => move(index)} style={{ backgroundImage, backgroundSize: `${gridSize * 100}% ${gridSize * 100}%`, backgroundPosition: `${sourceColumn * 50}% ${sourceRow * 50}%` }} aria-label={`Move picture tile ${tile + 1}`}><span>{SLIDING_PUZZLE_CONTENT.image ? "" : tile + 1}</span></button>; })}</div><div className="mt-auto pt-8">{complete ? <button type="button" className="next-button" onClick={onComplete}>Get today’s letter <Check className="h-4 w-4" /></button> : <button type="button" className="inline-flex items-center gap-1 text-sm text-muted-foreground" onClick={() => setTiles(makePuzzle())}><RotateCcw className="h-4 w-4" /> Shuffle again</button>}</div></section></div></main>;
 }
