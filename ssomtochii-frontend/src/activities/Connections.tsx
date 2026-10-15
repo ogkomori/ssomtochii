@@ -71,28 +71,31 @@ export function Connections({ onComplete }: { onComplete: () => void }) {
   );
 
   return <GameShell eyebrow={`CONNECTIONS · ROUND ${roundIndex + 1} OF ${CONNECTIONS_CONTENT.rounds.length}`} title={complete ? (finalRound ? "Everything clicks." : "Round one complete!") : CONNECTIONS_CONTENT.title} right={`${mistakes} ${mistakes === 1 ? "MISTAKE" : "MISTAKES"}`}>
-    {complete ? (
-      <div className="day-one-copy items-center text-center">
-        <div className="completion-mark"><Check className="h-8 w-8" /></div>
-        <p>{flexibleRound ? "Words that describe you — every one of them! 💗" : finalRound ? "Everything clicked. Ready for today’s letter?" : "Lovely work! One more round to go."}</p>
-        {finalRound
-          ? <button type="button" className="next-button" onClick={onComplete}>Get today’s letter</button>
-          : <button type="button" className="next-button" onClick={nextRound}>Next round <ArrowRight className="h-4 w-4" /></button>}
-      </div>
-    ) : (
-      <>
-        <p className="game-message">{message}</p>
-        {flexibleRound && flexibleSolved.map((items, index) => <div key={`flexible-${index}`} className="connection-solved"><strong>{round.category ?? "Words that describe you"}</strong><span>{items.join(" · ")}</span></div>)}
-        {!flexibleRound && solved.map((index) => <div key={index} className="connection-solved"><strong>{round.groups[index]!.category}</strong><span>{round.groups[index]!.items.join(" · ")}</span></div>)}
-        <div className="connection-grid">
-          {available.map((item) => <button type="button" key={item} onClick={() => toggle(item)} className={`connection-tile ${selected.includes(item) ? "is-selected" : ""}`}>{item}</button>)}
+    <>
+      {complete ? (
+        <div className="day-one-copy items-center text-center">
+          <div className="completion-mark"><Check className="h-8 w-8" /></div>
+          <p>{flexibleRound ? "Words that describe you — every one of them! 💗" : finalRound ? "Everything clicked. Ready for today’s letter?" : "Lovely work! One more round to go."}</p>
         </div>
-        <div className="mt-5 flex items-center justify-center gap-4">
-          <button type="button" className="next-button" disabled={selected.length !== 4} onClick={submit}>Submit four <Check className="h-4 w-4" /></button>
-          <button type="button" className="inline-flex items-center gap-1 text-sm text-muted-foreground" onClick={reset}><RotateCcw className="h-4 w-4" /> Start over</button>
-        </div>
-      </>
-    )}
+      ) : <p className="game-message">{message}</p>}
+      {flexibleRound && flexibleSolved.map((items, index) => <div key={`flexible-${index}`} className="connection-solved"><strong>{round.category ?? "Words that describe you"}</strong><span>{items.join(" · ")}</span></div>)}
+      {!flexibleRound && solved.map((index) => <div key={index} className="connection-solved"><strong>{round.groups[index]!.category}</strong><span>{round.groups[index]!.items.join(" · ")}</span></div>)}
+      {!complete ? (
+        <>
+          <div className="connection-grid">
+            {available.map((item) => <button type="button" key={item} onClick={() => toggle(item)} className={`connection-tile ${selected.includes(item) ? "is-selected" : ""}`}>{item}</button>)}
+          </div>
+          <div className="mt-5 flex items-center justify-center gap-4">
+            <button type="button" className="next-button" disabled={selected.length !== 4} onClick={submit}>Submit four <Check className="h-4 w-4" /></button>
+            <button type="button" className="inline-flex items-center gap-1 text-sm text-muted-foreground" onClick={reset}><RotateCcw className="h-4 w-4" /> Start over</button>
+          </div>
+        </>
+      ) : (
+        finalRound
+          ? <button type="button" className="next-button mt-5" onClick={onComplete}>Get today’s letter</button>
+          : <button type="button" className="next-button mt-5" onClick={nextRound}>Next round <ArrowRight className="h-4 w-4" /></button>
+      )}
+    </>
   </GameShell>;
 }
 
