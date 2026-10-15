@@ -193,7 +193,6 @@ export function MiniGolf({ onComplete }: { onComplete: () => void }) {
     aimRef.current = null;
     setHoleIndex(next);
     setHoled(false);
-    setMoving(false);
     setAim(null);
   };
   const restart = () => {
