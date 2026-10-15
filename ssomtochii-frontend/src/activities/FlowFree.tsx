@@ -55,7 +55,6 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
     const id = pair?.id ?? owner?.[0];
     if (!id) return;
     const pairForId = FLOW_FREE_CONTENT.pairs.find((p) => p.id === id)!;
-    if (paths[id]?.at(-1) === pairForId.end && paths[id]?.[0] !== pairForId.end) return;
     const currentPath = paths[id] ?? [];
     const at = currentPath.indexOf(cell);
     if (at >= 0) setPaths((current) => ({ ...current, [id]: current[id]!.slice(0, at + 1) }));
