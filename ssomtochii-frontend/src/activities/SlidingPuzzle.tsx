@@ -54,11 +54,11 @@ export function SlidingPuzzle({ onComplete }: { onComplete: () => void }) {
   const complete = revealStage === "full-picture";
 
   useEffect(() => {
-    if (!solvedLayout || revealStage !== "puzzle") return;
+    if (!solvedLayout) return;
     setRevealStage("final-piece");
     const timer = window.setTimeout(() => setRevealStage("full-picture"), 950);
     return () => window.clearTimeout(timer);
-  }, [solvedLayout, revealStage]);
+  }, [solvedLayout]);
   const move = (index: number) => {
     const blankIndex = tiles.indexOf(blankTile);
     if (!areNeighbours(index, blankIndex) || solvedLayout) return;
