@@ -18,25 +18,25 @@ export const MEMORY_LANE_CONTENT = {
     {
       title: "Round 1",
       photos: [
-        { id: "r1-early", caption: "Memory card A", image: "/memory-lane/round-1-first.jpg" },
-        { id: "r1-middle", caption: "Memory card B", image: "/memory-lane/round-1-middle.jpg" },
-        { id: "r1-late", caption: "Memory card C", image: "/memory-lane/round-1-last.jpg" },
+        { id: "r1-early", caption: "A memory", image: "/memory-lane/round-1-first.jpg" },
+        { id: "r1-middle", caption: "A memory", image: "/memory-lane/round-1-middle.jpg" },
+        { id: "r1-late", caption: "A memory", image: "/memory-lane/round-1-last.jpg" },
       ],
     },
     {
       title: "Round 2",
       photos: [
-        { id: "r2-early", caption: "Memory card A", image: "/memory-lane/round-2-first.jpg" },
-        { id: "r2-middle", caption: "Memory card B", image: "/memory-lane/round-2-middle.jpg" },
-        { id: "r2-late", caption: "Memory card C", image: "/memory-lane/round-2-last.jpg" },
+        { id: "r2-early", caption: "A memory", image: "/memory-lane/round-2-first.jpg" },
+        { id: "r2-middle", caption: "A memory", image: "/memory-lane/round-2-middle.jpg" },
+        { id: "r2-late", caption: "A memory", image: "/memory-lane/round-2-last.jpg" },
       ],
     },
     {
       title: "Round 3",
       photos: [
-        { id: "r3-early", caption: "Memory card A", image: "/memory-lane/round-3-first.jpg" },
-        { id: "r3-middle", caption: "Memory card B", image: "/memory-lane/round-3-middle.jpg" },
-        { id: "r3-late", caption: "Memory card C", image: "/memory-lane/round-3-last.jpg" },
+        { id: "r3-early", caption: "A memory", image: "/memory-lane/round-3-first.jpg" },
+        { id: "r3-middle", caption: "A memory", image: "/memory-lane/round-3-middle.jpg" },
+        { id: "r3-late", caption: "A memory", image: "/memory-lane/round-3-last.jpg" },
       ],
     },
   ] satisfies { title: string; photos: MemoryLanePhoto[] }[],
