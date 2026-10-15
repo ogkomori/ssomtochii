@@ -47,7 +47,6 @@ export function Bowling({ onComplete }: { onComplete: () => void }) {
   const [fallenCount, setFallenCount] = useState(0);
   const [rolls, setRolls] = useState(0);
   const [aim, setAim] = useState<{ x: number; y: number } | null>(null);
-  const [moving, setMoving] = useState(false);
   const [message, setMessage] = useState("Pull back from the ball and release to roll.");
   const complete = fallenCount === 10;
 
@@ -162,7 +161,6 @@ export function Bowling({ onComplete }: { onComplete: () => void }) {
           const outOfLane = currentBall.position.y < 25 || currentBall.position.y > height - 20 || guttered;
           if (outOfLane || (speed < 0.16 && now - rollStartedAt.current > 550)) {
             movingRef.current = false;
-            setMoving(false);
             Body.setVelocity(currentBall, { x: 0, y: 0 });
             Body.setAngularVelocity(currentBall, 0);
             Body.setPosition(currentBall, start);
@@ -240,7 +238,6 @@ export function Bowling({ onComplete }: { onComplete: () => void }) {
       movingRef.current = true;
       rollStartedAt.current = performance.now();
       setRolls((value) => value + 1);
-      setMoving(true);
       setMessage("The ball is rolling…");
     }
     aimRef.current = null;
@@ -261,7 +258,6 @@ export function Bowling({ onComplete }: { onComplete: () => void }) {
     setFallenCount(0);
     setRolls(0);
     movingRef.current = false;
-    setMoving(false);
     aimRef.current = null;
     setAim(null);
     setMessage("Pull back from the ball and release to roll.");
