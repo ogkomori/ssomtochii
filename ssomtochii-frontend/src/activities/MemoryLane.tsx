@@ -39,7 +39,7 @@ export function MemoryLane({ onComplete }: { onComplete: () => void }) {
         {order.map((photo, index) => <div key={photo.id} className="flex items-center gap-2 rounded-xl border border-border bg-background/60 p-2 text-left">
           <div className="relative h-24 w-24 shrink-0 overflow-hidden rounded-lg bg-secondary">
             <img src={photo.image} alt="" className="absolute inset-0 h-full w-full object-cover" onError={(event) => { event.currentTarget.style.display = "none"; }} onLoad={(event) => { const next = event.currentTarget.nextElementSibling as HTMLElement | null; if (next) next.style.display = "none"; }} />
-            <div className="absolute inset-0 flex items-center justify-center px-2 text-center text-xs text-muted-foreground">Photo placeholder</div>
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 px-2 text-center text-xs text-muted-foreground"><span className="text-2xl">{photo.placeholder}</span><span>Photo placeholder</span></div>
           </div>
           <div className="min-w-0 flex-1"><p className="text-sm font-semibold">{index + 1}. {photo.caption}</p><p className="text-xs text-muted-foreground">Move this memory earlier or later.</p></div>
           <div className="flex flex-col gap-1"><button type="button" aria-label="Move earlier" className="rounded-md bg-secondary p-2 disabled:opacity-30" disabled={index === 0} onClick={() => swap(index, -1)}><ArrowUp className="h-4 w-4" /></button><button type="button" aria-label="Move later" className="rounded-md bg-secondary p-2 disabled:opacity-30" disabled={index === order.length - 1} onClick={() => swap(index, 1)}><ArrowDown className="h-4 w-4" /></button></div>
