@@ -265,7 +265,7 @@ export function Bowling({ onComplete }: { onComplete: () => void }) {
         {guard ? <ShieldCheck className="h-4 w-4" /> : <ShieldOff className="h-4 w-4" />}{guard ? "Gutter guards: ON" : "Gutter guards: OFF"}
       </button>
     </div>
-    <canvas ref={canvas} className="golf-canvas mx-auto my-4" width={width} height={height} onPointerDown={startAim} onPointerMove={moveAim} onPointerUp={release} onPointerCancel={() => { aimRef.current = null; setAim(null); }} />
+    <canvas ref={canvas} className="golf-canvas mx-auto my-4" width={width} height={height} onPointerDown={startAim} onPointerMove={moveAim} onPointerUp={release} onPointerCancel={() => { aimRef.current = null; }} />
     <p className="mb-4 min-h-6 text-sm text-muted-foreground">{message} · {rolls} {rolls === 1 ? "roll" : "rolls"}</p>
     {complete
       ? <div className="flex justify-center gap-3"><button type="button" className="inline-flex items-center gap-1 text-sm text-muted-foreground" onClick={reset}><RotateCcw className="h-4 w-4" /> Play again</button><button type="button" className="next-button" onClick={onComplete}>Get today’s letter <Check className="h-4 w-4" /></button></div>
