@@ -2,39 +2,12 @@ import { Link } from "@tanstack/react-router";
 import { ArrowLeft, Check, RotateCcw, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Botanicals } from "@/components/Botanicals";
-
-export const CONNECTIONS_CONTENT = {
-  title: "Little connections",
-  rounds: [
-    {
-      groups: [
-        { category: "Ways to unwind", items: ["TEA", "BOOK", "MUSIC", "NAP"] },
-        { category: "Things that sparkle", items: ["STAR", "RING", "DISCO", "GLITTER"] },
-        { category: "Sweet treats", items: ["CAKE", "COOKIE", "DONUT", "CANDY"] },
-        { category: "Places to wander", items: ["BEACH", "MARKET", "MUSEUM", "GARDEN"] },
-      ],
-    },
-    {
-      groups: [
-        { category: "Things in the sky", items: ["CLOUD", "MOON", "SUN", "RAINBOW"] },
-        { category: "Things you can wear", items: ["SCARF", "HAT", "BOOTS", "RING"] },
-        { category: "Words before “cake”", items: ["BIRTHDAY", "CHEESE", "PAN", "CUP"] },
-        { category: "Things with pages", items: ["NOVEL", "DIARY", "ATLAS", "COMIC"] },
-      ],
-    },
-  ],
-};
-
-function shuffledItems(roundIndex: number) {
-  return CONNECTIONS_CONTENT.rounds[roundIndex]!.groups
-    .flatMap((group) => group.items)
-    .sort(() => Math.random() - 0.5);
-}
+import { CONNECTIONS_CONTENT, shuffledConnectionsItems } from "@/lib/connections";
 
 /** Two-round, data-driven four-by-four grouping activity. */
 export function Connections({ onComplete }: { onComplete: () => void }) {
   const [roundIndex, setRoundIndex] = useState(0);
-  const [allItems, setAllItems] = useState(() => shuffledItems(0));
+  const [allItems, setAllItems] = useState(() => shuffledConnectionsItems(0));
   const [selected, setSelected] = useState<string[]>([]);
   const [solved, setSolved] = useState<number[]>([]);
   const [flexibleSolved, setFlexibleSolved] = useState<string[][]>([]);
@@ -46,7 +19,7 @@ export function Connections({ onComplete }: { onComplete: () => void }) {
   const finalRound = roundIndex === CONNECTIONS_CONTENT.rounds.length - 1;
 
   useEffect(() => {
-    setAllItems(shuffledItems(roundIndex));
+    setAllItems(shuffledConnectionsItems(roundIndex));
   }, [roundIndex]);
 
   const toggle = (item: string) => setSelected((current) =>
@@ -57,7 +30,7 @@ export function Connections({ onComplete }: { onComplete: () => void }) {
     if (flexibleRound) {
       setFlexibleSolved((current) => [...current, selected]);
       setSelected([]);
-      setMessage("Words that describe you — lovely!");
+      setMessage(`${round.category ?? "Words that describe you"} — lovely!`);
       return;
     }
     const found = round.groups.findIndex((group, index) =>
@@ -66,7 +39,7 @@ export function Connections({ onComplete }: { onComplete: () => void }) {
     if (found >= 0) {
       setSolved((current) => [...current, found]);
       setSelected([]);
-      setMessage(`${round.groups[found]!.category} — lovely!`);
+      setMessage(`${round.groups[found]!.category ?? ""} — lovely!`);
     } else {
       setMistakes((count) => count + 1);
       setMessage("Not quite — rearrange those four and try again.");
@@ -79,7 +52,7 @@ export function Connections({ onComplete }: { onComplete: () => void }) {
     setFlexibleSolved([]);
     setMistakes(0);
     setMessage("Find four things that belong together.");
-    setAllItems(shuffledItems(roundIndex));
+    setAllItems(shuffledConnectionsItems(roundIndex));
   };
 
   const nextRound = () => {
@@ -109,7 +82,7 @@ export function Connections({ onComplete }: { onComplete: () => void }) {
     ) : (
       <>
         <p className="game-message">{message}</p>
-        {flexibleRound && flexibleSolved.map((items, index) => <div key={`flexible-${index}`} className="connection-solved"><strong>Words that describe you</strong><span>{items.join(" · ")}</span></div>)}
+        {flexibleRound && flexibleSolved.map((items, index) => <div key={`flexible-${index}`} className="connection-solved"><strong>{round.category ?? "Words that describe you"}</strong><span>{items.join(" · ")}</span></div>)}
         {!flexibleRound && solved.map((index) => <div key={index} className="connection-solved"><strong>{round.groups[index]!.category}</strong><span>{round.groups[index]!.items.join(" · ")}</span></div>)}
         <div className="connection-grid">
           {available.map((item) => <button type="button" key={item} onClick={() => toggle(item)} className={`connection-tile ${selected.includes(item) ? "is-selected" : ""}`}>{item}</button>)}
