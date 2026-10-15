@@ -285,7 +285,7 @@
 .wordle-key { min-width: 30px; height: 44px; padding: 0 7px; border-radius: 7px; background: var(--muted); color: var(--foreground); font-size: .72rem; font-weight: 800; touch-action: manipulation; transition: background-color .15s ease, color .15s ease, transform .1s ease; }
 .wordle-key:active { transform: scale(.94); }
 .wordle-key-correct { background: var(--primary); color: var(--primary-foreground); }
-.wordle-key-present { background: var(--blossom); color: white; }
+.wordle-key-present { background: oklch(0.72 0.14 85); color: white; border-color: oklch(0.72 0.14 85); }
 .wordle-key-absent { background: oklch(0.62 0.015 150); color: white; }
 .wordle-wide-key { min-width: 64px; }
 @media (max-width: 380px) { .wordle-tile { width: 46px; height: 46px; } .wordle-key { min-width: 27px; padding: 0 5px; } }
