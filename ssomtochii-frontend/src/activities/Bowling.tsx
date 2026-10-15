@@ -192,8 +192,8 @@ export function Bowling({ onComplete }: { onComplete: () => void }) {
             if (collide(a, other, pinMass, pinMass, pinRadius * 2, 0.42)) {
               const speed = Math.hypot(a.vx - other.vx, a.vy - other.vy);
               if (speed > 0.42) {
-                if (Math.hypot(a.vx, a.vy) > 1.15) a.fallen = true;
-                if (Math.hypot(other.vx, other.vy) > 1.15) other.fallen = true;
+                if (Math.hypot(a.vx, a.vy) > 0.55) a.fallen = true;
+                if (Math.hypot(other.vx, other.vy) > 0.55) other.fallen = true;
               }
               pinsDirty = true;
             }
@@ -201,13 +201,16 @@ export function Bowling({ onComplete }: { onComplete: () => void }) {
         }
 
         for (const pin of pinsRef.current) {
-          if (pin.fallen) {
+          const speed = Math.hypot(pin.vx, pin.vy);
+          if (pin.fallen || speed > 0.08) {
             pin.x += pin.vx * dt;
             pin.y += pin.vy * dt;
             pin.vx *= Math.pow(0.94, dt);
             pin.vy *= Math.pow(0.94, dt);
-            pin.angle += (pin.spin || Math.sign(pin.vx || 1) * 0.12) * dt;
-            pin.spin *= Math.pow(0.9, dt);
+            if (pin.fallen) {
+              pin.angle += (pin.spin || Math.sign(pin.vx || 1) * 0.12) * dt;
+              pin.spin *= Math.pow(0.9, dt);
+            }
             if (pin.x < 76 || pin.x > 284) pin.vx *= -0.3;
             if (pin.y < 30 || pin.y > 460) pin.vy *= -0.3;
           }
