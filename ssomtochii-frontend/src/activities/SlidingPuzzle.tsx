@@ -48,7 +48,17 @@ function makePuzzle(): number[] {
 
 /** Reusable sliding-puzzle activity; assign `sliding-puzzle` to a day when ready. */
 export function SlidingPuzzle({ onComplete }: { onComplete: () => void }) {
-  const [tiles, setTiles] = useState(makePuzzle);\n  const [revealStage, setRevealStage] = useState<"puzzle" | "final-piece" | "full-picture">("puzzle");\n  const solvedLayout = tiles.every((tile, index) => tile === index);\n  const complete = revealStage === "full-picture";\n\n  useEffect(() => {\n    if (!solvedLayout || revealStage !== "puzzle") return;\n    setRevealStage("final-piece");\n    const timer = window.setTimeout(() => setRevealStage("full-picture"), 950);\n    return () => window.clearTimeout(timer);\n  }, [solvedLayout, revealStage]);
+  const [tiles, setTiles] = useState(makePuzzle);
+  const [revealStage, setRevealStage] = useState<"puzzle" | "final-piece" | "full-picture">("puzzle");
+  const solvedLayout = tiles.every((tile, index) => tile === index);
+  const complete = revealStage === "full-picture";
+
+  useEffect(() => {
+    if (!solvedLayout || revealStage !== "puzzle") return;
+    setRevealStage("final-piece");
+    const timer = window.setTimeout(() => setRevealStage("full-picture"), 950);
+    return () => window.clearTimeout(timer);
+  }, [solvedLayout, revealStage]);
   const move = (index: number) => {
     const blankIndex = tiles.indexOf(blankTile);
     if (!areNeighbours(index, blankIndex) || solvedLayout) return;
