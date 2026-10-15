@@ -86,7 +86,7 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
         </div>;
       })}
     </div>
-    <p className="mt-4 min-h-10 text-sm text-muted-foreground">{won ? "Perfectly filled!" : `${completedPairs}/5 pairs connected · ${covered.size}/25 squares filled`}</p>
+    <p className="mt-4 min-h-10 text-sm text-muted-foreground">{won ? "Perfectly filled!" : `${completedPairs}/${FLOW_FREE_CONTENT.pairs.length} pairs connected · ${covered.size}/25 squares filled`}</p>
     <p className="mt-2 text-xs text-muted-foreground">{message}</p>
     <div className="mt-4 flex justify-center gap-3">{won ? <button className="next-button" type="button" onClick={onComplete}>Get today’s letter <Check className="h-4 w-4" /></button> : <button className="inline-flex items-center gap-1 text-sm text-muted-foreground" type="button" onClick={reset}><RotateCcw className="h-4 w-4" /> Start over</button>}</div>
   </GameShell>;
