@@ -22,8 +22,8 @@ The app is primarily about **her**: her interests, personality, preferences, mem
 
 | Day | Date | Activity |
 |---|---|---|
-| 1 | Oct 23 | Introduction + Grow Something |
-| 2 | Oct 24 | Grow Something / continuation if needed |
+| 1 | Oct 23 | Introduction, video, quiz, and completion |
+| 2 | Oct 24 | To be decided |
 | 3 | Oct 25 | Build Your Soundtrack |
 | 4 | Oct 26 | Word Scramble |
 | 5 | Oct 27 | This or That |
@@ -111,7 +111,7 @@ Actual messages will be supplied when finalized.
 
 ---
 
-## 4. Day 1 — Introduction + Grow Something
+## 4. Day 1 — Introduction
 
 Day 1 is intentionally introductory.
 
@@ -127,8 +127,6 @@ Introduction Screen
 Video
     ↓
 One Quiz Question
-    ↓
-Grow Something
     ↓
 Completion
     ↓
@@ -158,26 +156,11 @@ Use multiple-choice answers. The correct answer references **High School Musical
 
 Provide immediate feedback after selection. Do not add additional quiz questions.
 
-### Grow Something
-
-Day 1 introduces a virtual plant that can persist throughout the 16-day journey.
-
-The plant can grow/change over time, potentially through:
-
-- new leaves
-- flowers
-- decorations
-- visual growth
-
-The exact progression can be refined later. The important requirement is persistence across the journey.
-
 ---
 
-## 5. Day 2 — Grow Something / Continuation
+## 5. Day 2 — To Be Decided
 
-The original concept for Grow Something was a standalone Day 2 activity. It has since been moved into **Day 1**.
-
-Day 2 should therefore not introduce a second unrelated Grow Something activity. If the plant progresses on Day 2, that progression is part of the persistent plant mechanic rather than a separate activity.
+Day 2’s activity has not been chosen yet. Leave its content open until the user specifies a replacement.
 
 ---
 
