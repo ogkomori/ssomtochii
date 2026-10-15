@@ -11,6 +11,6 @@ export const WORD_SCRAMBLE_CONTENT = {
   words: [
     { answer: "SUNSHINE", clue: "A soft, bright thing to keep close.", scramble: "NUSHSIEN" },
     { answer: "MUSIC", clue: "The beginning of a very good soundtrack.", scramble: "CSIUM" },
-    { answer: "GARDEN", clue: "Where our tiny new plant will live.", scramble: "DANGER" },
+    { answer: "TRAVEL", clue: "Something you dream of doing around the world.", scramble: "VRALET" },
   ],
 } as const;
