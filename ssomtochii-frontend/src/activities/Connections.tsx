@@ -37,11 +37,12 @@ export function Connections({ onComplete }: { onComplete: () => void }) {
   const [allItems, setAllItems] = useState(() => shuffledItems(0));
   const [selected, setSelected] = useState<string[]>([]);
   const [solved, setSolved] = useState<number[]>([]);
+  const [flexibleSolved, setFlexibleSolved] = useState<string[][]>([]);
   const [mistakes, setMistakes] = useState(0);
   const [message, setMessage] = useState("Find four things that belong together.");
   const round = CONNECTIONS_CONTENT.rounds[roundIndex]!;
   const flexibleRound = roundIndex === 0;
-  const complete = flexibleRound ? solved.includes(-1) : solved.length === round.groups.length;
+  const complete = flexibleRound ? flexibleSolved.length === 4 : solved.length === round.groups.length;
   const finalRound = roundIndex === CONNECTIONS_CONTENT.rounds.length - 1;
 
   useEffect(() => {
@@ -54,9 +55,9 @@ export function Connections({ onComplete }: { onComplete: () => void }) {
 
   const submit = () => {
     if (flexibleRound) {
-      setSolved([-1]);
+      setFlexibleSolved((current) => [...current, selected]);
       setSelected([]);
-      setMessage("Words that describe you — every one of them!");
+      setMessage("Words that describe you — lovely!");
       return;
     }
     const found = round.groups.findIndex((group, index) =>
@@ -75,6 +76,7 @@ export function Connections({ onComplete }: { onComplete: () => void }) {
   const reset = () => {
     setSelected([]);
     setSolved([]);
+    setFlexibleSolved([]);
     setMistakes(0);
     setMessage("Find four things that belong together.");
     setAllItems(shuffledItems(roundIndex));
@@ -84,11 +86,14 @@ export function Connections({ onComplete }: { onComplete: () => void }) {
     setRoundIndex((current) => current + 1);
     setSelected([]);
     setSolved([]);
+    setFlexibleSolved([]);
     setMistakes(0);
     setMessage("Find four things that belong together.");
   };
 
-  const available = flexibleRound ? allItems : allItems.filter((item) =>
+  const available = flexibleRound
+    ? allItems.filter((item) => !flexibleSolved.some((group) => group.includes(item)))
+    : allItems.filter((item) =>
     !solved.some((index) => round.groups[index]!.items.includes(item))
   );
 
@@ -104,7 +109,8 @@ export function Connections({ onComplete }: { onComplete: () => void }) {
     ) : (
       <>
         <p className="game-message">{message}</p>
-        {solved.map((index) => <div key={index} className="connection-solved"><strong>{round.groups[index]!.category}</strong><span>{round.groups[index]!.items.join(" · ")}</span></div>)}
+        {flexibleRound && flexibleSolved.map((items, index) => <div key={`flexible-${index}`} className="connection-solved"><strong>Words that describe you</strong><span>{items.join(" · ")}</span></div>)}
+        {!flexibleRound && solved.map((index) => <div key={index} className="connection-solved"><strong>{round.groups[index]!.category}</strong><span>{round.groups[index]!.items.join(" · ")}</span></div>)}
         <div className="connection-grid">
           {available.map((item) => <button type="button" key={item} onClick={() => toggle(item)} className={`connection-tile ${selected.includes(item) ? "is-selected" : ""}`}>{item}</button>)}
         </div>
