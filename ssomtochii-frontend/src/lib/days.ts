@@ -1,6 +1,6 @@
 export type DayState = "locked" | "available" | "completed";
 export type DayIcon = "flower" | "star" | "music" | "butterfly" | "mail" | "leaf" | "moon" | "sparkle";
-export type ActivityId = "day-one-journey" | "word-scramble" | "memory-match" | "mini-crossword" | "rhythm-game" | "sliding-puzzle" | "mini-golf" | "cup-pong" | "sky-hop" | "connections" | "emoji-pictionary" | "tier-list" | "flow-free" | "skee-ball" | "word-search" | "memory-lane" | "hangman" | "wordle" | "coming-soon";
+export type ActivityId = "day-one-journey" | "word-scramble" | "memory-match" | "mini-crossword" | "rhythm-game" | "sliding-puzzle" | "mini-golf" | "cup-pong" | "sky-hop" | "connections" | "emoji-pictionary" | "tier-list" | "flow-free" | "word-search" | "memory-lane" | "hangman" | "wordle" | "coming-soon";
 
 export interface Day {
   day: number;
@@ -38,7 +38,7 @@ export const DAYS: Day[] = Array.from({ length: 16 }, (_, i) => {
               i === 8 ? "connections" :
               i === 9 ? "emoji-pictionary" :
               i === 10 ? "flow-free" :
-              i === 11 ? "skee-ball" :
+              i === 11 ? "coming-soon" :
               i === 12 ? "word-search" :
               i === 13 ? "memory-lane" :
               i === 14 ? "hangman" :
