@@ -40,7 +40,8 @@ export function Connections({ onComplete }: { onComplete: () => void }) {
   const [mistakes, setMistakes] = useState(0);
   const [message, setMessage] = useState("Find four things that belong together.");
   const round = CONNECTIONS_CONTENT.rounds[roundIndex]!;
-  const complete = solved.length === round.groups.length;
+  const flexibleRound = roundIndex === 0;
+  const complete = flexibleRound ? solved.includes(-1) : solved.length === round.groups.length;
   const finalRound = roundIndex === CONNECTIONS_CONTENT.rounds.length - 1;
 
   useEffect(() => {
@@ -52,6 +53,12 @@ export function Connections({ onComplete }: { onComplete: () => void }) {
   );
 
   const submit = () => {
+    if (flexibleRound) {
+      setSolved([-1]);
+      setSelected([]);
+      setMessage("Words that describe you — every one of them!");
+      return;
+    }
     const found = round.groups.findIndex((group, index) =>
       !solved.includes(index) && group.items.every((item) => selected.includes(item))
     );
@@ -81,7 +88,7 @@ export function Connections({ onComplete }: { onComplete: () => void }) {
     setMessage("Find four things that belong together.");
   };
 
-  const available = allItems.filter((item) =>
+  const available = flexibleRound ? allItems : allItems.filter((item) =>
     !solved.some((index) => round.groups[index]!.items.includes(item))
   );
 
@@ -89,7 +96,7 @@ export function Connections({ onComplete }: { onComplete: () => void }) {
     {complete ? (
       <div className="day-one-copy items-center text-center">
         <div className="completion-mark"><Check className="h-8 w-8" /></div>
-        <p>{finalRound ? "Everything clicked. Ready for today’s letter?" : "Lovely work! One more round to go."}</p>
+        <p>{flexibleRound ? "Words that describe you — every one of them! 💗" : finalRound ? "Everything clicked. Ready for today’s letter?" : "Lovely work! One more round to go."}</p>
         {finalRound
           ? <button type="button" className="next-button" onClick={onComplete}>Get today’s letter</button>
           : <button type="button" className="next-button" onClick={nextRound}>Next round <ArrowRight className="h-4 w-4" /></button>}
