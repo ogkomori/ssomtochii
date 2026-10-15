@@ -10,6 +10,11 @@ import { WordScramble } from "@/activities/WordScramble";
 import { Connections } from "@/activities/Connections";
 import { EmojiPictionary } from "@/activities/EmojiPictionary";
 import { Wordle } from "@/activities/Wordle";
+import { FlowFree } from "@/activities/FlowFree";
+import { Bowling } from "@/activities/Bowling";
+import { WordSearch } from "@/activities/WordSearch";
+import { MemoryLane } from "@/activities/MemoryLane";
+import { Hangman } from "@/activities/Hangman";
 import { Botanicals } from "@/components/Botanicals";
 import { DayActivityFlow } from "@/components/DayActivityFlow";
 import { getDay } from "@/lib/days";
@@ -46,6 +51,11 @@ function DayPage() {
         if (day.activity === "connections") return <Connections onComplete={complete} />;
         if (day.activity === "emoji-pictionary") return <EmojiPictionary onComplete={complete} />;
         if (day.activity === "wordle") return <Wordle onComplete={complete} />;
+        if (day.activity === "flow-free") return <FlowFree onComplete={complete} />;
+        if (day.activity === "bowling") return <Bowling onComplete={complete} />;
+        if (day.activity === "word-search") return <WordSearch onComplete={complete} />;
+        if (day.activity === "memory-lane") return <MemoryLane onComplete={complete} />;
+        if (day.activity === "hangman") return <Hangman onComplete={complete} />;
 
         return <main className="page-shell"><Botanicals /><div className="relative mx-auto w-full max-w-md"><Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> All days</Link><div className="paper-card mt-6 p-8 text-center"><p className="text-xs font-semibold tracking-[0.2em] text-muted-foreground">DAY {day.day} · {day.label}</p><h1 className="mt-3 font-script text-5xl">Hello, you ♡</h1><p className="mt-4 text-foreground/80">This day is open for testing, but its surprise is still being wrapped.</p></div></div></main>;
       }}
