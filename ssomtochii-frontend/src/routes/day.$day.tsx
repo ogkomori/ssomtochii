@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { useState } from "react";
 import { DayOneJourney } from "@/activities/DayOneJourney";
 import { CupPong } from "@/activities/CupPong";
 import { MemoryMatch } from "@/activities/MemoryMatch";
@@ -37,6 +38,41 @@ export const Route = createFileRoute("/day/$day")({
 /** Change a day's `activity` field in lib/days.ts to move an activity. */
 function DayPage() {
   const day = Route.useLoaderData();
+  const [daySevenStarted, setDaySevenStarted] = useState(false);
+
+  if (day.day === 7 && !daySevenStarted) {
+    return (
+      <main className="page-shell">
+        <Botanicals />
+        <div className="relative mx-auto flex min-h-[calc(100dvh-1rem)] w-full max-w-md flex-col">
+          <header className="flex items-center justify-between pt-2">
+            <Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> All days</Link>
+            <span className="text-xs font-semibold tracking-[0.15em] text-muted-foreground">DAY 7 · {day.label}</span>
+          </header>
+          <section className="paper-card my-5 flex flex-1 flex-col items-center p-5 text-center sm:p-7">
+            <p className="day-one-eyebrow">A LITTLE MILESTONE</p>
+            <h1 className="mt-3 font-script text-5xl leading-none">Welcome to Day 7 ♡</h1>
+            <p className="mt-3 text-foreground/80">from day 6 to 7</p>
+            <div className="mt-6 w-full overflow-hidden rounded-2xl border border-border/60 bg-muted/40">
+              <video
+                className="block aspect-[9/16] max-h-[52dvh] w-full object-contain"
+                src="/videos/day-07-67.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                controls
+                aria-label="Day 7 video"
+              />
+            </div>
+            <button type="button" className="next-button mt-6" onClick={() => setDaySevenStarted(true)}>
+              Let’s go <ArrowRight className="h-4 w-4" />
+            </button>
+          </section>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <DayActivityFlow day={day.day}>
