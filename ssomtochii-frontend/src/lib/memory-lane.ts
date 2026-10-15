@@ -2,6 +2,7 @@ export type MemoryLanePhoto = {
   id: string;
   caption: string;
   image: string;
+  placeholder: string;
 };
 
 /**
@@ -18,25 +19,25 @@ export const MEMORY_LANE_CONTENT = {
     {
       title: "Round 1",
       photos: [
-        { id: "r1-early", caption: "A memory", image: "/memory-lane/round-1-first.jpg" },
-        { id: "r1-middle", caption: "A memory", image: "/memory-lane/round-1-middle.jpg" },
-        { id: "r1-late", caption: "A memory", image: "/memory-lane/round-1-last.jpg" },
+        { id: "r1-early", caption: "A memory", image: "/memory-lane/round-1-first.jpg", placeholder: "🌼" },
+        { id: "r1-middle", caption: "A memory", image: "/memory-lane/round-1-middle.jpg", placeholder: "🎵" },
+        { id: "r1-late", caption: "A memory", image: "/memory-lane/round-1-last.jpg", placeholder: "☀️" },
       ],
     },
     {
       title: "Round 2",
       photos: [
-        { id: "r2-early", caption: "A memory", image: "/memory-lane/round-2-first.jpg" },
-        { id: "r2-middle", caption: "A memory", image: "/memory-lane/round-2-middle.jpg" },
-        { id: "r2-late", caption: "A memory", image: "/memory-lane/round-2-last.jpg" },
+        { id: "r2-early", caption: "A memory", image: "/memory-lane/round-2-first.jpg", placeholder: "✈️" },
+        { id: "r2-middle", caption: "A memory", image: "/memory-lane/round-2-middle.jpg", placeholder: "📚" },
+        { id: "r2-late", caption: "A memory", image: "/memory-lane/round-2-last.jpg", placeholder: "🍓" },
       ],
     },
     {
       title: "Round 3",
       photos: [
-        { id: "r3-early", caption: "A memory", image: "/memory-lane/round-3-first.jpg" },
-        { id: "r3-middle", caption: "A memory", image: "/memory-lane/round-3-middle.jpg" },
-        { id: "r3-late", caption: "A memory", image: "/memory-lane/round-3-last.jpg" },
+        { id: "r3-early", caption: "A memory", image: "/memory-lane/round-3-first.jpg", placeholder: "⭐" },
+        { id: "r3-middle", caption: "A memory", image: "/memory-lane/round-3-middle.jpg", placeholder: "🌷" },
+        { id: "r3-late", caption: "A memory", image: "/memory-lane/round-3-last.jpg", placeholder: "🎬" },
       ],
     },
   ] satisfies { title: string; photos: MemoryLanePhoto[] }[],
