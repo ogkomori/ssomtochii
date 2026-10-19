@@ -32,10 +32,11 @@ export function StoryPlayer({
   story: StoryDefinition;
   onExit: () => void;
 }) {
-  const firstBeat = useMemo(
-    () => getBeat(story, story.startAt) ?? story.beats[0],
-    [story],
-  );
+  const firstBeat = useMemo(() => {
+    const initial = getBeat(story, story.startAt) ?? story.beats[0];
+    if (!initial) throw new Error("A story must contain at least one beat.");
+    return initial;
+  }, [story]);
   const [beatId, setBeatId] = useState(firstBeat.id);
   const [background, setBackground] = useState(firstBeat.background);
   const [characters, setCharacters] = useState<StoryCharacter[]>(firstBeat.characters ?? []);
