@@ -17,7 +17,7 @@ export const STORY_ENGINE_DEMO: StoryDefinition = {
         {
           id: "girlfriend",
           name: "Her",
-          image: "/images/character-reference/baseCharacter1.webp",
+          image: "/images/character-reference/pose-13-arms-crossed.png",
           position: "right",
           alt: "Character reference sprite",
         },
