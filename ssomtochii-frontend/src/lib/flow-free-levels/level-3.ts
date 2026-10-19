@@ -5,8 +5,8 @@ export const FLOW_FREE_LEVEL_3: FlowFreeLevel = {
   title: "One last puzzle.",
   size: 5,
   pairs: [
-    { id: "flow-a", start: 2, end: 22 },
-    { id: "flow-b", start: 0, end: 24 },
-    { id: "flow-c", start: 9, end: 15 },
+    { id: "flow-a", start: 0, end: 4 },
+    { id: "flow-b", start: 5, end: 10 },
+    { id: "flow-c", start: 15, end: 20 },
   ],
 };
