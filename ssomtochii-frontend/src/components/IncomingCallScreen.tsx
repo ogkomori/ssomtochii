@@ -46,6 +46,11 @@ export function IncomingCallScreen({ onAnswer }: { onAnswer: () => void }) {
         <path d="M255 640 C274 616 280 589 271 565 C263 543 243 540 232 559 L215 602 C207 623 221 643 239 650Z" fill="url(#skin)" />
         <path d="M148 635 C134 610 135 582 147 571 C159 560 174 571 178 590 L185 619Z" fill="#f5cfb2" opacity=".8" />
         <path d="M242 635 C256 610 255 582 243 571 C231 560 216 571 212 590 L205 619Z" fill="#c88768" opacity=".72" />
+        <path d="M111 350 C91 337 75 350 75 372 L78 457 C79 476 91 488 104 480 L116 469Z" fill="url(#skin)" />
+        <path d="M279 350 C299 337 315 350 315 372 L312 457 C311 476 299 488 286 480 L274 469Z" fill="url(#skin)" />
+        <path d="M83 378 Q92 371 101 382 M82 405 Q92 398 102 409 M307 378 Q298 371 289 382 M308 405 Q298 398 288 409" fill="none" stroke="#a8674e" strokeWidth="2" strokeLinecap="round" opacity=".72" />
+        <path d="M111 350 C91 337 75 350 75 372 L78 457 C79 476 91 488 104 480 L116 469Z" fill="url(#skin)" />
+        <path d="M279 350 C299 337 315 350 315 372 L312 457 C311 476 299 488 286 480 L274 469Z" fill="url(#skin)" />
         <path d="M122 584 Q136 570 148 590 M268 587 Q254 573 242 591" fill="none" stroke="#a8674e" strokeWidth="2" strokeLinecap="round" opacity=".65" />
         <g fill="#e8d8b9" opacity=".8">
           <circle cx="70" cy="210" r="2" /><circle cx="317" cy="280" r="1.7" /><circle cx="294" cy="110" r="1.5" />
