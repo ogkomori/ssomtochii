@@ -23,7 +23,7 @@ import { getDay } from "@/lib/days";
 
 export const Route = createFileRoute("/day/$day")({
   validateSearch: (search: Record<string, unknown>) => ({
-    storyTest: search.storyTest === "1",
+    storyTest: search["storyTest"] === "1",
   }),
   loader: ({ params }) => {
     const day = getDay(Number(params.day));
