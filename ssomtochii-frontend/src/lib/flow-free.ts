@@ -1,17 +1,25 @@
-export type FlowPair = { id: string; color: string; start: number; end: number };
+import { FLOW_FREE_LEVEL_1 } from "@/lib/flow-free-levels/level-1";
+import { FLOW_FREE_LEVEL_2 } from "@/lib/flow-free-levels/level-2";
+import { FLOW_FREE_LEVEL_3 } from "@/lib/flow-free-levels/level-3";
+
+export type FlowFreePair = { id: string; start: number; end: number };
+export type FlowFreeLevel = {
+  id: number;
+  title: string;
+  size: number;
+  pairs: FlowFreePair[];
+};
 
 /**
- * One editable 5x5 starter level. Cell indexes are row-major: row * 5 + column.
- * The rose path snakes through the first three rows; the other two paths fill
- * the bottom rows. All 25 cells are used in the solution.
+ * Levels are kept in separate files under src/lib/flow-free-levels/.
+ * Cell indexes are row-major: row * size + column.
+ * Example: on a 5x5 board, 0 is the top-left cell and 24 is bottom-right.
  */
-export const FLOW_FREE_CONTENT = {
-  title: "Connect the colours.",
-  intro: "Connect each matching pair. Paths cannot cross, and every square must be filled.",
-  size: 5,
-  pairs: [
-    { id: "rose", color: "#d86f83", start: 0, end: 14 },
-    { id: "green", color: "#6caa82", start: 15, end: 19 },
-    { id: "purple", color: "#a083c9", start: 20, end: 24 },
-  ] satisfies FlowPair[],
-} as const;
+export const FLOW_FREE_LEVELS: FlowFreeLevel[] = [
+  FLOW_FREE_LEVEL_1,
+  FLOW_FREE_LEVEL_2,
+  FLOW_FREE_LEVEL_3,
+];
+
+export const FLOW_FREE_INTRO =
+  "Connect each matching pair. Paths cannot cross, and every square must be filled.";
