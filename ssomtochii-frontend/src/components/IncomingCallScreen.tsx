@@ -132,10 +132,6 @@ export function IncomingCallScreen({ onAnswer }: { onAnswer: () => void }) {
         </div>
       </div>
 
-      <div className="incoming-call-caption" aria-hidden="true">
-        <span>♡ A LITTLE SURPRISE</span>
-        <span><i /> Someone’s calling</span>
-      </div>
     </main>
   );
 }
