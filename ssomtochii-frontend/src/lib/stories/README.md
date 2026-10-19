@@ -6,9 +6,9 @@ The reusable renderer lives in `src/components/StoryPlayer.tsx`. Story content b
 
 Run the frontend with `bun dev`, then open:
 
-`http://localhost:3000/day/12?storyTest=1`
+`http://localhost:5173/day/12?storyTest=1`
 
-Use the port Vite prints if it is not 3000. The query parameter opens the isolated story demo; opening `/day/12` normally keeps the existing Day 12 page.
+Use the port Vite prints if it differs. The query parameter opens the isolated story demo; opening `/day/12` normally keeps the existing Day 12 page.
 
 ## Add a story
 
