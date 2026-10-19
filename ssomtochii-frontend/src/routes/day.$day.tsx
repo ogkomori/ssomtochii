@@ -22,9 +22,6 @@ import { STORY_ENGINE_DEMO } from "@/lib/stories/demo";
 import { getDay } from "@/lib/days";
 
 export const Route = createFileRoute("/day/$day")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    storyTest: search["storyTest"] === "1",
-  }),
   loader: ({ params }) => {
     const day = getDay(Number(params.day));
     if (!day) throw notFound();
@@ -42,12 +39,11 @@ export const Route = createFileRoute("/day/$day")({
 /** Change a day's `activity` field in lib/days.ts to move an activity. */
 function DayPage() {
   const day = Route.useLoaderData();
-  const { storyTest } = Route.useSearch();
   const [daySevenStarted, setDaySevenStarted] = useState(false);
   const [daySevenVideoStarted, setDaySevenVideoStarted] = useState(false);
   const daySevenVideoRef = useRef<HTMLVideoElement>(null);
 
-  if (day.day === 12 && storyTest) {
+  if (day.day === 12) {
     return <StoryPlayer story={STORY_ENGINE_DEMO} onExit={() => window.location.assign("/day/12")} />;
   }
 
