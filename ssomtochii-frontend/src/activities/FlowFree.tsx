@@ -133,7 +133,7 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
     <p className="mb-5 text-sm text-foreground/75">{won ? "Every colour is connected and every square is filled." : FLOW_FREE_INTRO}</p>
     <div
       ref={gridRef}
-      className="mx-auto grid aspect-square w-full max-w-[19rem] touch-none select-none gap-1 rounded-xl bg-card p-2 shadow-inner"
+      className="relative mx-auto grid aspect-square w-full max-w-[19rem] touch-none select-none gap-0 overflow-hidden rounded-xl bg-card p-2 shadow-inner"
       style={{ gridTemplateColumns: `repeat(${level.size}, minmax(0, 1fr))`, gridTemplateRows: `repeat(${level.size}, minmax(0, 1fr))` }}
       onPointerDown={begin}
       onPointerMove={move}
@@ -143,18 +143,47 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
       {Array.from({ length: level.size * level.size }, (_, cell) => {
         const owner = occupied.get(cell);
         const pair = endpointMap.get(cell);
-        const colour = pairColours[owner ?? pair?.id ?? ""];
         return <div
           key={cell}
           data-cell={cell}
-          className="relative flex min-h-0 min-w-0 items-center justify-center rounded-md"
-          style={{ background: owner ? `${pairColours[owner]}35` : "var(--secondary)" }}
+          className="relative flex min-h-0 min-w-0 items-center justify-center border border-card/70 bg-secondary"
         >
-          {owner && <span className="absolute inset-0 rounded-md" style={{ background: pairColours[owner], opacity: .3 }} />}
           {pair && <span className="relative z-10 h-[58%] w-[58%] rounded-full border-[3px] border-white shadow-sm" style={{ backgroundColor: pairColours[pair.id] }} />}
-          {!pair && owner && <span className="relative z-10 h-2 w-2 rounded-full" style={{ backgroundColor: colour }} />}
         </div>;
       })}
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-2 z-[5] h-[calc(100%-1rem)] w-[calc(100%-1rem)] overflow-visible"
+        viewBox={`0 0 ${level.size} ${level.size}`}
+        preserveAspectRatio="none"
+      >
+        {level.pairs.map((pair) => {
+          const path = paths[pair.id] ?? [];
+          if (path.length < 2) return null;
+          const points = path.map((cell) =>
+            `${(cell % level.size) + 0.5},${Math.floor(cell / level.size) + 0.5}`
+          ).join(" ");
+          return <g key={pair.id}>
+            <polyline
+              points={points}
+              fill="none"
+              stroke={pairColours[pair.id]}
+              strokeWidth="0.66"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <polyline
+              points={points}
+              fill="none"
+              stroke="white"
+              strokeWidth="0.12"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              opacity="0.2"
+            />
+          </g>;
+        })}
+      </svg>
     </div>
     <p className="mt-4 min-h-10 text-sm text-muted-foreground">
       {won ? "Puzzle solved!" : `${completedPairs}/${level.pairs.length} pairs connected · ${covered.size}/${level.size * level.size} squares filled`}
