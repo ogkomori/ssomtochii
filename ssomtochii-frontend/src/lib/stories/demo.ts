@@ -18,7 +18,7 @@ export const STORY_ENGINE_DEMO: StoryDefinition = {
           id: "girlfriend",
           name: "Her",
           image: "/images/character-reference/pose-13-arms-crossed.png",
-          position: "right",
+          position: "center",
           alt: "Character reference sprite",
         },
       ],
