@@ -18,6 +18,7 @@ import { Hangman } from "@/activities/Hangman";
 import { Botanicals } from "@/components/Botanicals";
 import { DayActivityFlow } from "@/components/DayActivityFlow";
 import { StoryPlayer } from "@/components/StoryPlayer";
+import { IncomingCallScreen } from "@/components/IncomingCallScreen";
 import { STORY_ENGINE_DEMO } from "@/lib/stories/demo";
 import { getDay } from "@/lib/days";
 
@@ -39,9 +40,14 @@ export const Route = createFileRoute("/day/$day")({
 /** Change a day's `activity` field in lib/days.ts to move an activity. */
 function DayPage() {
   const day = Route.useLoaderData();
+  const [callAnswered, setCallAnswered] = useState(false);
   const [daySevenStarted, setDaySevenStarted] = useState(false);
   const [daySevenVideoStarted, setDaySevenVideoStarted] = useState(false);
   const daySevenVideoRef = useRef<HTMLVideoElement>(null);
+
+  if (day.day === 12 && !callAnswered) {
+    return <IncomingCallScreen onAnswer={() => setCallAnswered(true)} />;
+  }
 
   if (day.day === 12) {
     return <StoryPlayer story={STORY_ENGINE_DEMO} onExit={() => window.location.assign("/day/12")} />;
