@@ -360,3 +360,42 @@ button.story-dialogue-panel{cursor:pointer;font:inherit}
 @media(min-width:640px){.story-dialogue-panel{right:max(0px,calc((100vw - 42rem)/2));left:max(0px,calc((100vw - 42rem)/2));width:auto;border-right:1px solid rgb(255 255 255 / 14%);border-left:1px solid rgb(255 255 255 / 14%);padding:1.25rem 1.4rem max(1.25rem,env(safe-area-inset-bottom))}.story-dialogue-text{font-size:1.08rem}.story-sprite{bottom:clamp(14rem,29vh,20rem);height:min(72dvh,50rem)}}
 @media(max-height:650px){.story-sprite{height:56dvh;bottom:11.5rem}.story-dialogue-panel{padding-top:.75rem;gap:.35rem}.story-dialogue-text{font-size:.9rem;line-height:1.4}.story-choice-button{min-height:2.4rem;padding-block:.5rem}}
 @media(prefers-reduced-motion:reduce){.story-choice-button{transition:none}}
+
+
+/* Full-screen incoming-call opening scene */
+.incoming-call-screen{position:fixed;inset:0;z-index:120;overflow:hidden;background:#23392d;color:#fffaf0;font-family:var(--font-sans);isolation:isolate}
+.incoming-call-art{position:absolute;inset:0;width:100%;height:100%;z-index:-1}
+.incoming-call-screen::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgb(9 20 14 / 38%),transparent 24%,transparent 60%,rgb(9 20 14 / 44%))}
+.incoming-call-topline{position:absolute;top:max(1rem,env(safe-area-inset-top));left:1.25rem;right:1.25rem;display:flex;align-items:center;justify-content:space-between;gap:.75rem;color:rgb(255 250 240 / 84%);font-size:.68rem;font-weight:850;letter-spacing:.15em}
+.incoming-call-status{display:flex;align-items:center;gap:.4rem;letter-spacing:.04em;text-transform:uppercase;font-size:.62rem}
+.incoming-call-status i{width:.42rem;height:.42rem;border-radius:50%;background:#b8e6a5;box-shadow:0 0 0 0 rgb(184 230 165 / 60%);animation:call-status-pulse 1.7s ease-out infinite}
+@keyframes call-status-pulse{70%{box-shadow:0 0 0 7px rgb(184 230 165 / 0%)}100%{box-shadow:0 0 0 0 rgb(184 230 165 / 0%)}}
+.call-phone{position:absolute;left:50%;top:clamp(5.2rem,12vh,7.5rem);width:min(61vw,255px);height:min(56vh,470px);min-height:355px;transform:translateX(-50%) rotate(-3deg);filter:drop-shadow(0 24px 32px rgb(0 0 0 / 32%));animation:call-phone-ring 3.2s ease-in-out infinite}
+@keyframes call-phone-ring{0%,86%,100%{transform:translateX(-50%) rotate(-3deg)}88%{transform:translateX(calc(-50% - 3px)) rotate(-5deg)}90%{transform:translateX(calc(-50% + 3px)) rotate(0deg)}92%{transform:translateX(calc(-50% - 2px)) rotate(-5deg)}94%{transform:translateX(-50%) rotate(-3deg)}}
+.call-phone-frame{height:100%;width:100%;padding:7px;border:2px solid #8f958c;border-radius:2.25rem;background:linear-gradient(135deg,#f5f1e5,#8d948b 35%,#252a28 55%,#b7b9ae);box-shadow:inset 0 0 0 1px rgb(255 255 255 / 40%)}
+.call-phone-screen{position:relative;height:100%;overflow:hidden;border-radius:1.8rem;background:radial-gradient(ellipse at 50% 23%,#617966 0%,#354f3d 38%,#17291f 100%);display:flex;flex-direction:column;align-items:center;color:#fffaf0;padding:2.25rem .9rem 1rem}
+.call-phone-screen::before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(160deg,rgb(255 255 255 / 11%),transparent 34%,rgb(0 0 0 / 20%))}
+.call-phone-island{position:absolute;top:.48rem;left:50%;width:4.5rem;height:1.05rem;border-radius:999px;background:#080c0a;transform:translateX(-50%);z-index:2}
+.call-phone-top{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;width:100%;font-size:.63rem;font-weight:650;color:rgb(255 250 240 / 78%)}
+.call-contact{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;margin-top:clamp(2rem,7vh,3.4rem);width:100%}
+.call-avatar{display:grid;place-items:center;width:3.6rem;height:3.6rem;border:1px solid rgb(255 255 255 / 26%);border-radius:50%;background:linear-gradient(145deg,rgb(255 255 255 / 19%),rgb(255 255 255 / 5%));color:#f2e8d4;box-shadow:0 8px 24px rgb(0 0 0 / 15%)}
+.call-eyebrow{margin:1rem 0 .25rem;color:#c6d7bf;font-size:.56rem;font-weight:850;letter-spacing:.16em}
+.call-contact h1,.call-declined-state h1{max-width:100%;margin:0;padding:0 .15rem;color:#fffaf0;font-family:var(--font-sans);font-size:clamp(1.15rem,4.8vw,1.55rem);font-weight:650;line-height:1.15;overflow-wrap:anywhere;text-shadow:0 2px 10px rgb(0 0 0 / 18%)}
+.call-subtitle{margin:.4rem 0 0;color:rgb(255 250 240 / 58%);font-size:.7rem}
+.call-actions{position:relative;z-index:1;display:flex;justify-content:space-around;align-items:center;width:100%;margin-top:auto;padding:1rem .25rem .35rem}
+.call-action{display:grid;place-items:center;width:3.35rem;height:3.35rem;border:0;border-radius:50%;color:white;box-shadow:0 6px 16px rgb(0 0 0 / 20%);transition:transform .15s ease,filter .15s ease}
+.call-action:active{transform:scale(.92)}.call-action--decline{background:#d95651}.call-action--answer{background:#43ae68;animation:answer-glow 1.8s ease-in-out infinite}
+@keyframes answer-glow{50%{box-shadow:0 0 0 7px rgb(67 174 104 / 17%),0 6px 16px rgb(0 0 0 / 20%)}}
+.call-action--answer svg{transform:rotate(-10deg)}
+.call-action-captions{position:relative;z-index:1;display:flex;justify-content:space-around;width:100%;padding:0 .05rem;color:rgb(255 250 240 / 75%);font-size:.62rem}
+.call-declined-state{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;margin:auto 0}
+.call-declined-state .call-eyebrow{margin-top:1.3rem}.call-again-button{display:flex;align-items:center;justify-content:center;gap:.45rem;margin-top:2.2rem;padding:.65rem .9rem;border:1px solid rgb(255 255 255 / 20%);border-radius:999px;background:rgb(255 255 255 / 10%);color:#fffaf0;font-size:.75rem;font-weight:750}
+.caller-name-editor{position:absolute;left:1.25rem;right:1.25rem;bottom:max(1.4rem,env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:.45rem;max-width:24rem;margin-inline:auto;padding:1rem;border:1px solid rgb(255 255 255 / 20%);border-radius:1.2rem;background:rgb(20 35 26 / 62%);box-shadow:0 14px 35px rgb(0 0 0 / 15%);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.caller-name-editor label{font-size:.78rem;font-weight:800;color:#f8f1e2}
+.caller-name-editor input{width:100%;min-height:2.8rem;border:1px solid rgb(255 255 255 / 25%);border-radius:.75rem;background:rgb(255 255 255 / 10%);padding:.7rem .85rem;color:#fffaf0;font:inherit;font-size:1rem;outline:none}
+.caller-name-editor input::placeholder{color:rgb(255 250 240 / 55%)}
+.caller-name-editor input:focus{border-color:#c5dcb4;box-shadow:0 0 0 3px rgb(197 220 180 / 16%)}
+.caller-name-editor p{margin:0;color:rgb(255 250 240 / 64%);font-size:.68rem;line-height:1.35}
+@media(max-height:720px){.call-phone{top:4.5rem;height:53vh;min-height:320px}.call-contact{margin-top:1.5rem}.call-avatar{width:3rem;height:3rem}.call-actions{padding-top:.5rem}.call-action{width:2.8rem;height:2.8rem}.caller-name-editor{padding:.75rem;gap:.35rem}.caller-name-editor input{min-height:2.5rem}}
+@media(max-width:360px){.call-phone{width:59vw;min-height:320px}.call-phone-screen{padding-inline:.65rem}.call-avatar{width:3rem;height:3rem}.call-action{width:2.8rem;height:2.8rem}.incoming-call-topline{left:.8rem;right:.8rem;font-size:.58rem}}
+@media(prefers-reduced-motion:reduce){.incoming-call-status i,.call-phone,.call-action--answer{animation:none}}
