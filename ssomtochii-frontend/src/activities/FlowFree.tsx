@@ -1,28 +1,62 @@
 import { useMemo, useRef, useState } from "react";
 import { Check, RotateCcw } from "lucide-react";
 import { GameShell } from "@/activities/Connections";
-import { FLOW_FREE_CONTENT } from "@/lib/flow-free";
+import { FLOW_FREE_INTRO, FLOW_FREE_LEVELS } from "@/lib/flow-free";
 
-type Pair = (typeof FLOW_FREE_CONTENT.pairs)[number];
 type Paths = Record<string, number[]>;
-const size = FLOW_FREE_CONTENT.size;
-const endpointMap = new Map<number, Pair>();
-FLOW_FREE_CONTENT.pairs.forEach((pair) => { endpointMap.set(pair.start, pair); endpointMap.set(pair.end, pair); });
-const neighbours = (a: number, b: number) => Math.abs(Math.floor(a / size) - Math.floor(b / size)) + Math.abs(a % size - b % size) === 1;
+const PALETTE = [
+  "#e8798f", "#66a985", "#9b83d5", "#e7a64f", "#58a9c8",
+  "#d978bd", "#9aaa48", "#e47d55", "#6f83d9", "#c3a04d",
+];
+
+function assignRandomColours(count: number): string[] {
+  const shuffled = [...PALETTE];
+  for (let i = shuffled.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return Array.from({ length: count }, (_, index) => shuffled[index % shuffled.length]);
+}
 
 export function FlowFree({ onComplete }: { onComplete: () => void }) {
+  const [levelIndex, setLevelIndex] = useState(0);
+  const level = FLOW_FREE_LEVELS[levelIndex];
   const [paths, setPaths] = useState<Paths>({});
   const [drawing, setDrawing] = useState<string | null>(null);
   const [message, setMessage] = useState("Connect the matching dots.");
+  const [colours, setColours] = useState<string[]>(() => assignRandomColours(level.pairs.length));
   const gridRef = useRef<HTMLDivElement>(null);
+
+  const endpointMap = useMemo(() => {
+    const map = new Map<number, (typeof level.pairs)[number]>();
+    level.pairs.forEach((pair) => {
+      map.set(pair.start, pair);
+      map.set(pair.end, pair);
+    });
+    return map;
+  }, [level]);
+
+  const pairColours = useMemo(
+    () => Object.fromEntries(level.pairs.map((pair, index) => [pair.id, colours[index % colours.length]])),
+    [level.pairs, colours],
+  );
+
   const occupied = useMemo(() => {
     const map = new Map<number, string>();
     Object.entries(paths).forEach(([id, cells]) => cells.forEach((cell) => map.set(cell, id)));
     return map;
   }, [paths]);
   const covered = new Set(Object.values(paths).flat());
-  const completedPairs = FLOW_FREE_CONTENT.pairs.filter((pair) => { const path = paths[pair.id] ?? []; return (path[0] === pair.start && path.at(-1) === pair.end) || (path[0] === pair.end && path.at(-1) === pair.start); }).length;
-  const won = completedPairs === FLOW_FREE_CONTENT.pairs.length && covered.size === size * size;
+  const completedPairs = level.pairs.filter((pair) => {
+    const path = paths[pair.id] ?? [];
+    return (path[0] === pair.start && path.at(-1) === pair.end)
+      || (path[0] === pair.end && path.at(-1) === pair.start);
+  }).length;
+  const won = completedPairs === level.pairs.length && covered.size === level.size * level.size;
+
+  const neighbours = (a: number, b: number) =>
+    Math.abs(Math.floor(a / level.size) - Math.floor(b / level.size))
+      + Math.abs((a % level.size) - (b % level.size)) === 1;
 
   const extend = (cell: number) => {
     if (!drawing) return;
@@ -30,23 +64,27 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
       const path = current[drawing] ?? [];
       const last = path.at(-1);
       if (last === undefined || last === cell || !neighbours(last, cell)) return current;
+      const pair = level.pairs.find((item) => item.id === drawing);
+      if (!pair) return current;
+      if (path.length > 1 && (last === pair.start || last === pair.end)) return current;
       if (Object.entries(current).some(([id, cells]) => id !== drawing && cells.includes(cell))) return current;
+
       const ownIndex = path.indexOf(cell);
       if (ownIndex >= 0) return { ...current, [drawing]: path.slice(0, ownIndex + 1) };
+
       const endpoint = endpointMap.get(cell);
       if (endpoint && endpoint.id !== drawing) return current;
-      const pair = FLOW_FREE_CONTENT.pairs.find((p) => p.id === drawing)!;
-      if (path.at(-1) === pair.end && path[0] !== pair.end) return current;
-      if (path.at(-1) === pair.start && path[0] === pair.end) return current;
       return { ...current, [drawing]: [...path, cell] };
     });
   };
+
   const cellAt = (event: React.PointerEvent<HTMLDivElement>) => {
     const element = document.elementFromPoint(event.clientX, event.clientY) as HTMLElement | null;
     const cell = element?.closest<HTMLElement>("[data-cell]");
     if (cell && gridRef.current?.contains(cell)) return Number(cell.dataset.cell);
     return null;
   };
+
   const begin = (event: React.PointerEvent<HTMLDivElement>) => {
     const cell = cellAt(event);
     if (cell === null) return;
@@ -59,33 +97,77 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
     if (at >= 0) setPaths((current) => ({ ...current, [id]: current[id]!.slice(0, at + 1) }));
     else setPaths((current) => ({ ...current, [id]: pair ? [cell] : [...currentPath, cell] }));
     setDrawing(id);
+    setMessage("Follow the grid one square at a time.");
     event.currentTarget.setPointerCapture(event.pointerId);
   };
+
   const move = (event: React.PointerEvent<HTMLDivElement>) => {
-    if (drawing) { const cell = cellAt(event); if (cell !== null) extend(cell); }
+    if (drawing) {
+      const cell = cellAt(event);
+      if (cell !== null) extend(cell);
+    }
   };
   const end = () => {
     setDrawing(null);
     setMessage("Every square must be covered, with each pair connected.");
   };
-  const reset = () => { setPaths({}); setDrawing(null); setMessage("Connect the matching dots."); };
+  const reset = () => {
+    setPaths({});
+    setDrawing(null);
+    setMessage("Connect the matching dots.");
+  };
+  const nextLevel = () => {
+    if (levelIndex === FLOW_FREE_LEVELS.length - 1) {
+      onComplete();
+      return;
+    }
+    const next = FLOW_FREE_LEVELS[levelIndex + 1];
+    setLevelIndex((current) => current + 1);
+    setPaths({});
+    setDrawing(null);
+    setColours(assignRandomColours(next.pairs.length));
+    setMessage("Connect the matching dots.");
+  };
 
-  return <GameShell eyebrow="FLOW FREE" title={won ? "All connected." : FLOW_FREE_CONTENT.title} right="LEVEL 1 · 5×5">
-    <p className="mb-5 text-sm text-foreground/75">{won ? "Every colour is connected and every square is filled." : FLOW_FREE_CONTENT.intro}</p>
-    <div ref={gridRef} className="mx-auto grid aspect-square w-full max-w-[19rem] touch-none select-none gap-1 rounded-xl bg-card p-2 shadow-inner" style={{ gridTemplateColumns: `repeat(${size}, minmax(0, 1fr))` }} onPointerDown={begin} onPointerMove={move} onPointerUp={end} onPointerCancel={end}>
-      {Array.from({ length: size * size }, (_, cell) => {
+  return <GameShell eyebrow="FLOW FREE" title={won ? "All connected." : level.title} right={`LEVEL ${level.id} · ${level.size}×${level.size}`}>
+    <p className="mb-5 text-sm text-foreground/75">{won ? "Every colour is connected and every square is filled." : FLOW_FREE_INTRO}</p>
+    <div
+      ref={gridRef}
+      className="mx-auto grid aspect-square w-full max-w-[19rem] touch-none select-none gap-1 rounded-xl bg-card p-2 shadow-inner"
+      style={{ gridTemplateColumns: `repeat(${level.size}, minmax(0, 1fr))`, gridTemplateRows: `repeat(${level.size}, minmax(0, 1fr))` }}
+      onPointerDown={begin}
+      onPointerMove={move}
+      onPointerUp={end}
+      onPointerCancel={end}
+    >
+      {Array.from({ length: level.size * level.size }, (_, cell) => {
         const owner = occupied.get(cell);
         const pair = endpointMap.get(cell);
-        const color = FLOW_FREE_CONTENT.pairs.find((item) => item.id === owner || item.id === pair?.id)?.color;
-        return <div key={cell} data-cell={cell} className="relative flex min-h-0 min-w-0 items-center justify-center rounded-md" style={{ background: owner ? `${FLOW_FREE_CONTENT.pairs.find((p) => p.id === owner)!.color}55` : "var(--secondary)" }}>
-          {owner && <span className="absolute inset-0 rounded-md" style={{ background: FLOW_FREE_CONTENT.pairs.find((p) => p.id === owner)!.color, opacity: .28 }} />}
-          {pair && <span className="relative z-10 h-[58%] w-[58%] rounded-full border-[3px] border-white shadow-sm" style={{ backgroundColor: color }} />}
-          {!pair && owner && <span className="relative z-10 h-2 w-2 rounded-full" style={{ backgroundColor: color }} />}
+        const colour = pairColours[owner ?? pair?.id ?? ""];
+        return <div
+          key={cell}
+          data-cell={cell}
+          className="relative flex min-h-0 min-w-0 items-center justify-center rounded-md"
+          style={{ background: owner ? `${pairColours[owner]}35` : "var(--secondary)" }}
+        >
+          {owner && <span className="absolute inset-0 rounded-md" style={{ background: pairColours[owner], opacity: .3 }} />}
+          {pair && <span className="relative z-10 h-[58%] w-[58%] rounded-full border-[3px] border-white shadow-sm" style={{ backgroundColor: pairColours[pair.id] }} />}
+          {!pair && owner && <span className="relative z-10 h-2 w-2 rounded-full" style={{ backgroundColor: colour }} />}
         </div>;
       })}
     </div>
-    <p className="mt-4 min-h-10 text-sm text-muted-foreground">{won ? "Perfectly filled!" : `${completedPairs}/${FLOW_FREE_CONTENT.pairs.length} pairs connected · ${covered.size}/25 squares filled`}</p>
+    <p className="mt-4 min-h-10 text-sm text-muted-foreground">
+      {won ? "Puzzle solved!" : `${completedPairs}/${level.pairs.length} pairs connected · ${covered.size}/${level.size * level.size} squares filled`}
+    </p>
     <p className="mt-2 text-xs text-muted-foreground">{message}</p>
-    <div className="mt-4 flex justify-center gap-3">{won ? <button className="next-button" type="button" onClick={onComplete}>Get today’s letter <Check className="h-4 w-4" /></button> : <button className="inline-flex items-center gap-1 text-sm text-muted-foreground" type="button" onClick={reset}><RotateCcw className="h-4 w-4" /> Start over</button>}</div>
+    <div className="mt-4 flex justify-center gap-3">
+      {won
+        ? <button className="next-button" type="button" onClick={nextLevel}>
+            {levelIndex === FLOW_FREE_LEVELS.length - 1 ? "Get today’s letter" : "Next level"} <Check className="h-4 w-4" />
+          </button>
+        : <button className="inline-flex items-center gap-1 text-sm text-muted-foreground" type="button" onClick={reset}>
+            <RotateCcw className="h-4 w-4" /> Start over
+          </button>}
+    </div>
   </GameShell>;
 }
