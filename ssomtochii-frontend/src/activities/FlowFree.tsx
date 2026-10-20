@@ -41,6 +41,18 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
     [level.pairs, colours],
   );
 
+  // Each endpoint stores its own rendered colour. A tube reads the colour
+  // from its pair's start dot, so its colour cannot be randomized separately.
+  const dotColours = useMemo(() => {
+    const map = new Map<number, string>();
+    level.pairs.forEach((pair) => {
+      const colour = pairColours[pair.id];
+      map.set(pair.start, colour);
+      map.set(pair.end, colour);
+    });
+    return map;
+  }, [level.pairs, pairColours]);
+
   const occupied = useMemo(() => {
     const map = new Map<number, string>();
     Object.entries(paths).forEach(([id, cells]) => cells.forEach((cell) => map.set(cell, id)));
@@ -147,7 +159,7 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
           data-cell={cell}
           className="relative flex min-h-0 min-w-0 items-center justify-center border border-card/70 bg-secondary"
         >
-          {pair && <span className="relative z-10 h-[58%] w-[58%] rounded-full border-[3px] border-white shadow-sm" style={{ backgroundColor: pairColours[pair.id] }} />}
+          {pair && <span className="relative z-10 h-[58%] w-[58%] rounded-full border-[3px] border-white shadow-sm" style={{ backgroundColor: dotColours.get(cell) }} />}
         </div>;
       })}
       <svg
@@ -166,7 +178,7 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
             key={pair.id}
             points={points}
             fill="none"
-            stroke={pairColours[pair.id]}
+            stroke={dotColours.get(pair.start)}
             strokeWidth="0.66"
             strokeLinecap="round"
             strokeLinejoin="round"
