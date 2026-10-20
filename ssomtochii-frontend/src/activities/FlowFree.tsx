@@ -26,13 +26,17 @@ function assignRandomEmojis(count: number): FlowEmoji[] {
   return shuffled.slice(0, count);
 }
 
+// Pick each level's emoji set once at module load, outside React rendering.
+// This keeps the initial render stable even when Strict Mode invokes initializers twice.
+const EMOJIS_BY_LEVEL = FLOW_FREE_LEVELS.map((level) => assignRandomEmojis(level.pairs.length));
+
 export function FlowFree({ onComplete }: { onComplete: () => void }) {
   const [levelIndex, setLevelIndex] = useState(0);
   const level = FLOW_FREE_LEVELS[levelIndex];
   const [paths, setPaths] = useState<Paths>({});
   const [drawing, setDrawing] = useState<string | null>(null);
   const [message, setMessage] = useState("Connect the matching emojis.");
-  const [emojis, setEmojis] = useState<FlowEmoji[]>(() => assignRandomEmojis(level.pairs.length));
+  const [emojis, setEmojis] = useState<FlowEmoji[]>(EMOJIS_BY_LEVEL[0]);
   const gridRef = useRef<HTMLDivElement>(null);
 
   const endpointMap = useMemo(() => {
@@ -150,7 +154,7 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
     setLevelIndex((current) => current + 1);
     setPaths({});
     setDrawing(null);
-    setEmojis(assignRandomEmojis(next.pairs.length));
+    setEmojis(EMOJIS_BY_LEVEL[levelIndex + 1]);
     setMessage("Connect the matching emojis.");
   };
 
