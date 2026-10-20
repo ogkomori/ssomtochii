@@ -3,7 +3,7 @@
  * Keep the title in quotes; spaces and punctuation are supported.
  * Each level uses the same hint: "An Ayra Starr song."
  */
-export const HANGMAN_LEVELS = [
+export const HANGMAN_LEVELS: { answer: string; hint: string }[] = [
   {
     answer: "SONG TITLE ONE",
     hint: "An Ayra Starr song.",
@@ -16,7 +16,7 @@ export const HANGMAN_LEVELS = [
     answer: "SONG TITLE THREE",
     hint: "An Ayra Starr song.",
   },
-] as const;
+];
 
 export const HANGMAN_CONTENT = {
   title: "Name that song.",
