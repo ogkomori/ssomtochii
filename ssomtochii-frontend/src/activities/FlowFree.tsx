@@ -112,8 +112,15 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
     if (!id) return;
     const currentPath = paths[id] ?? [];
     const at = currentPath.indexOf(cell);
-    if (at >= 0) setPaths((current) => ({ ...current, [id]: current[id]!.slice(0, at + 1) }));
-    else setPaths((current) => ({ ...current, [id]: pair ? [cell] : [...currentPath, cell] }));
+    if (pair) {
+      // Tapping either endpoint always restarts that flow from the selected emoji.
+      setPaths((current) => ({ ...current, [id]: [cell] }));
+    } else if (at >= 0) {
+      // Tapping a cell along a path rewinds the flow to that point.
+      setPaths((current) => ({ ...current, [id]: current[id]!.slice(0, at + 1) }));
+    } else {
+      setPaths((current) => ({ ...current, [id]: [...currentPath, cell] }));
+    }
     setDrawing(id);
     setMessage("Follow the grid one square at a time.");
     event.currentTarget.setPointerCapture(event.pointerId);
