@@ -15,10 +15,15 @@
 export const MINI_CROSSWORD_CONTENT = {
   title: "A tiny crossword, made for you.",
   intro: "Fill the little crossings with things that belong in your world.",
-  size: 7,
+  size: 12,
   entries: [
-    { id: "smile", answer: "SMILE", clue: "Something you make very easily.", row: 2, column: 0, direction: "across" },
-    { id: "music", answer: "MUSIC", clue: "The beginning of a good soundtrack.", row: 2, column: 1, direction: "down" },
-    { id: "leaf", answer: "LEAF", clue: "A small piece of the garden.", row: 2, column: 3, direction: "down" },
+    { id: 1, answer: "SPIDERMAN", clue: "", row: 0, column: 4, direction: "down" },
+    { id: 2, answer: "ADIDAS", clue: "", row: 3, column: 3, direction: "across" },
+    { id: 3, answer: "SUMMER", clue: "", row: 3, column: 8, direction: "down" },
+    { id: 4, answer: "IRENE", clue: "", row: 4, column: 1, direction: "down" },
+    { id: 5, answer: "DRONE", clue: "", row: 4, column: 10, direction: "down" },
+    { id: 6, answer: "SMART", clue: "", row: 5, column: 7, direction: "across" },
+    { id: 7, answer: "ENGLAND", clue: "", row: 7, column: 0, direction: "across" },
+    { id: 8, answer: "GREEN", clue: "", row: 8, column: 7, direction: "across" },
   ],
 } as const;
