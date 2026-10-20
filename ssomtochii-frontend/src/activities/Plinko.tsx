@@ -137,8 +137,8 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
     <header className="flex items-center justify-between pt-2"><Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> All days</Link><span className="text-xs font-semibold tracking-[0.18em] text-muted-foreground">{Math.min(results.length + (phase === "moving" ? 1 : 0), rounds)} / {rounds} ROUNDS</span></header>
     <section className="paper-card my-5 flex flex-1 flex-col p-5 text-center">
       <p className="day-one-eyebrow">{eyebrow}</p>
-      <h1 className="mt-2 font-script text-4xl leading-none">{phase === "finished" ? "Look at you go! ♡" : "Drop a little luck."}</h1>
-      <p className="mt-2 text-sm text-foreground/75">{phase === "finished" ? `You won £${total} across {rounds} rounds!` : intro}</p>
+      <h1 className="mt-2 font-script text-4xl leading-none">{phase === "finished" ? "Look at you go! ♡" : title}</h1>
+      <p className="mt-2 text-sm text-foreground/75">{phase === "finished" ? `You won £${total} across ${rounds} rounds!` : intro}</p>
       <div className="mt-3 flex items-center justify-center gap-2 text-xs font-semibold text-muted-foreground">{prizes.map((prize, index) => <span key={prize}>{index > 0 ? " · " : ""}£{prize}</span>)}<span> per round</span></div>
       <canvas ref={canvas} className="golf-canvas my-4 w-full" style={{ touchAction: "pan-y" }} width={width} height={height} onPointerDown={chooseDrop} aria-label="Coin drop board. Tap near the top to choose where the coin starts." />
       <p className="mb-3 text-sm text-muted-foreground">{phase === "finished" ? `Your total: £${total} · Every round counts.` : phase === "moving" ? "Here it goes… good luck! ♡" : phase === "landed" ? `Round ${results.length}: £${results[results.length - 1]}!` : `Round ${results.length + 1} of ${rounds} · Tap the board to choose your drop point.`}</p>
