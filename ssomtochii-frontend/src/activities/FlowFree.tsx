@@ -171,15 +171,16 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
               strokeWidth="0.66"
               strokeLinecap="round"
               strokeLinejoin="round"
+              opacity="0.62"
             />
             <polyline
               points={points}
               fill="none"
-              stroke="white"
-              strokeWidth="0.12"
+              stroke={pairColours[pair.id]}
+              strokeWidth="0.18"
               strokeLinecap="round"
               strokeLinejoin="round"
-              opacity="0.2"
+              opacity="0.28"
             />
           </g>;
         })}
