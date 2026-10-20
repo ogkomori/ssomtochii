@@ -121,7 +121,7 @@ export function MiniCrossword({ onComplete }: { onComplete: () => void }) {
             </div>
 
             {!complete ? (
-              <div className="grid min-w-0 grid-cols-2 items-start gap-2 sm:gap-3">
+              <div className="flex min-w-0 flex-col gap-3">
                 <ClueSection title="Across" entries={across} numbers={entryNumbers} />
                 <ClueSection title="Down" entries={down} numbers={entryNumbers} />
               </div>
