@@ -96,7 +96,10 @@ export function MiniCrossword({ onComplete }: { onComplete: () => void }) {
   const [activeCell, setActiveCell] = useState<string | null>(null);
   const [activeDirection, setActiveDirection] = useState<Direction>("across");
   const inputRefs = useRef<Record<string, HTMLInputElement | null>>({});
-  const complete = cells.size > 0 && [...cells.entries()].every(([key, cell]) => values[key] === cell.answer);
+  // Unlock the reward only when every configured word is fully and correctly entered.
+  const complete = uniqueEntries.length > 0 && uniqueEntries.every((entry) =>
+    getEntryCellKeys(entry).every((key, index) => values[key] === entry.answer.toUpperCase()[index]),
+  );
   const rows = MINI_CROSSWORD_CONTENT.rows;
   const columns = MINI_CROSSWORD_CONTENT.columns;
   const gridWidth = `min(100%, ${Math.min(columns * 34, 442)}px)`;
