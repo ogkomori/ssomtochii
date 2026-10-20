@@ -45,6 +45,7 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
   const matterRef = useRef<MatterApi | null>(null);
   const engineRef = useRef<PhysicsEngine | null>(null);
   const coinRef = useRef<PhysicsBody | null>(null);
+  const pegPositionsRef = useRef<Array<{ body: PhysicsBody; x: number; y: number }>>([]);
   const phaseRef = useRef<Phase>("loading");
   const resultsRef = useRef<number[]>([]);
   const dropFrameRef = useRef(0);
@@ -124,6 +125,9 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
         isStatic: true, label: "plinko-floor", restitution: 0.1, render: { fillStyle: "#9e7957" },
       }));
       matter.World.add(engine.world, bodies);
+      pegPositionsRef.current = bodies
+        .filter((body) => body.label === "plinko-peg")
+        .map((body) => ({ body, x: body.position.x, y: body.position.y }));
       phaseRef.current = "ready";
       setPhase("ready");
     };
@@ -259,7 +263,7 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
           setPhase(nextPhase);
         } else if (dropFrameRef.current > 600) {
           // Safety fallback in case a browser frame is throttled or a collision traps the ball.
-          const index = Math.max(0, Math.min(prizes.length - 1, Math.floor((coin?.position.x ?? width / 2) / bucketWidth)));
+          const index = Math.max(0, Math.min(prizes.length - 1, Math.floor(((coin?.position.x ?? width / 2) - boardInset) / bucketWidth)));
           const nextResults = resultsRef.current.concat(prizes[index]!);
           resultsRef.current = nextResults;
           setResults(nextResults);
@@ -292,7 +296,16 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
     const engine = engineRef.current;
     if (!matter || !engine || phaseRef.current !== "ready") return;
     if (coinRef.current) matter.World.remove(engine.world, coinRef.current);
-    const coin = matter.Bodies.circle(width / 2, 55, coinRadius, {
+    // Give every round a slightly different peg field so the path is not repeated.
+    // Small offsets keep it looking like a real Plinko board rather than changing the rules.
+    for (const peg of pegPositionsRef.current) {
+      matter.Body.setPosition(peg.body, {
+        x: peg.x + (Math.random() - 0.5) * 5,
+        y: peg.y,
+      });
+    }
+    const launchX = width / 2 + (Math.random() - 0.5) * 8;
+    const coin = matter.Bodies.circle(launchX, 55, coinRadius, {
       label: "plinko-coin",
       restitution: 0.52,
       friction: 0.008,
@@ -302,7 +315,8 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
     });
     coinRef.current = coin;
     matter.World.add(engine.world, coin);
-    matter.Body.setVelocity(coin, { x: (Math.random() - 0.5) * 0.25, y: 0.3 });
+    // A meaningful, randomized sideways launch makes all five buckets reachable.
+    matter.Body.setVelocity(coin, { x: (Math.random() - 0.5) * 3.6, y: 0.3 });
     dropFrameRef.current = 0;
     phaseRef.current = "moving";
     setPhase("moving");
