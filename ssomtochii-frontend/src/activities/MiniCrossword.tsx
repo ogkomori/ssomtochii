@@ -40,11 +40,102 @@ function makeCells() {
   return cells;
 }
 
-/** The puzzle layout and clues are customised in lib/mini-crossword.ts. */
+function ClueSection({ title, entries, numbers }: { title: string; entries: readonly Entry[]; numbers: Map<string, number> }) {
+  return (
+    <section className="crossword-clues min-w-0">
+      <h2 className="text-xs font-bold uppercase tracking-[0.16em] text-primary">{title}</h2>
+      {entries.length ? entries.map((entry) => {
+        const number = numbers.get(`${entry.row}-${entry.column}`);
+        return (
+          <p className="crossword-clue" key={entry.id}>
+            <b>{number}.</b> {entry.clue || <span className="italic text-muted-foreground">Add your hint in mini-crossword.ts.</span>}
+          </p>
+        );
+      }) : <p className="text-xs text-muted-foreground">No {title.toLowerCase()} entries.</p>}
+    </section>
+  );
+}
+
+/** Edit the grid, answers, clues, and positions in lib/mini-crossword.ts. */
 export function MiniCrossword({ onComplete }: { onComplete: () => void }) {
   const cells = useMemo(makeCells, []);
+  const entryNumbers = useMemo(() => getEntryNumbers(MINI_CROSSWORD_CONTENT.entries), []);
+  const across = MINI_CROSSWORD_CONTENT.entries.filter((entry) => entry.direction === "across");
+  const down = MINI_CROSSWORD_CONTENT.entries.filter((entry) => entry.direction === "down");
   const [values, setValues] = useState<Record<string, string>>({});
   const complete = cells.size > 0 && [...cells.entries()].every(([key, cell]) => values[key] === cell.answer);
+  const size = MINI_CROSSWORD_CONTENT.size;
+  const gridWidth = `min(100%, ${Math.min(size * 34, 442)}px)`;
 
-  return <main className="page-shell"><Botanicals /><div className="relative mx-auto flex min-h-[calc(100dvh-1rem)] w-full max-w-md flex-col"><header className="pt-2"><Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> All days</Link></header><section className="paper-card my-6 flex flex-1 flex-col p-5 text-center sm:p-8"><div className="day-one-copy"><p className="day-one-eyebrow">MINI CROSSWORD</p><h1 className="font-script text-5xl leading-none">{complete ? "Lovely work." : MINI_CROSSWORD_CONTENT.title}</h1><p>{complete ? "Every little square is in its right place." : MINI_CROSSWORD_CONTENT.intro}</p></div><div className="crossword-grid my-6" style={{ gridTemplateColumns: `repeat(${MINI_CROSSWORD_CONTENT.size}, 1fr)` }}>{Array.from({ length: MINI_CROSSWORD_CONTENT.size ** 2 }, (_, index) => { const row = Math.floor(index / MINI_CROSSWORD_CONTENT.size); const column = index % MINI_CROSSWORD_CONTENT.size; const key = `${row}-${column}`; const cell = cells.get(key); return cell ? <label className="crossword-cell" key={key}>{cell.number && <span>{cell.number}</span>}<input value={values[key] ?? ""} maxLength={1} onChange={(event) => setValues((current) => ({ ...current, [key]: event.target.value.toUpperCase().replace(/[^A-Z]/g, "") }))} aria-label={`Row ${row + 1}, column ${column + 1}`} /></label> : <span className="crossword-block" key={key} />; })}</div>{!complete && <div className="crossword-clues text-left">{MINI_CROSSWORD_CONTENT.entries.map((entry) => { const number = getEntryNumbers(MINI_CROSSWORD_CONTENT.entries).get(`${entry.row}-${entry.column}`); return <p key={entry.id}><b>{number} {entry.direction}</b> · {entry.clue}</p>; })}</div>}{complete && <div className="mt-auto pt-7"><button type="button" className="next-button" onClick={onComplete}>Get today’s letter <Check className="h-4 w-4" /></button></div>}</section></div></main>;
+  return (
+    <main className="page-shell">
+      <Botanicals />
+      <div className="relative mx-auto flex min-h-[calc(100dvh-1rem)] w-full max-w-6xl flex-col">
+        <header className="pt-2">
+          <Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground">
+            <ArrowLeft className="h-4 w-4" /> All days
+          </Link>
+        </header>
+
+        <section className="paper-card my-3 flex flex-1 flex-col p-3 sm:my-4 sm:p-5 lg:p-6">
+          <div className="day-one-copy mb-3 gap-2 text-center">
+            <p className="day-one-eyebrow">MINI CROSSWORD</p>
+            <h1 className="font-script text-4xl leading-none sm:text-5xl">{complete ? "Lovely work." : MINI_CROSSWORD_CONTENT.title}</h1>
+            <p className="text-sm">{complete ? "Every little square is in its right place." : MINI_CROSSWORD_CONTENT.intro}</p>
+          </div>
+
+          <div className="grid min-h-0 flex-1 grid-cols-1 items-start gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-6">
+            <div className="flex min-w-0 justify-center lg:sticky lg:top-4">
+              <div
+                className="crossword-grid"
+                style={{
+                  gridTemplateColumns: `repeat(${size}, minmax(0, 1fr))`,
+                  width: gridWidth,
+                }}
+              >
+                {Array.from({ length: size ** 2 }, (_, index) => {
+                  const row = Math.floor(index / size);
+                  const column = index % size;
+                  const key = `${row}-${column}`;
+                  const cell = cells.get(key);
+
+                  return cell ? (
+                    <label className="crossword-cell" key={key}>
+                      {cell.number && <span>{cell.number}</span>}
+                      <input
+                        value={values[key] ?? ""}
+                        maxLength={1}
+                        onChange={(event) => setValues((current) => ({
+                          ...current,
+                          [key]: event.target.value.toUpperCase().replace(/[^A-Z]/g, ""),
+                        }))}
+                        aria-label={`Row ${row + 1}, column ${column + 1}`}
+                        autoCapitalize="characters"
+                        autoComplete="off"
+                        spellCheck={false}
+                      />
+                    </label>
+                  ) : <span className="crossword-block" key={key} />;
+                })}
+              </div>
+            </div>
+
+            {!complete ? (
+              <div className="grid min-w-0 grid-cols-2 items-start gap-2 sm:gap-3">
+                <ClueSection title="Across" entries={across} numbers={entryNumbers} />
+                <ClueSection title="Down" entries={down} numbers={entryNumbers} />
+              </div>
+            ) : (
+              <div className="flex min-h-32 flex-col items-center justify-center gap-4 text-center">
+                <p className="text-sm text-foreground/75">You found every word. Here's a little something for you.</p>
+                <button type="button" className="next-button" onClick={onComplete}>
+                  Get today’s letter <Check className="h-4 w-4" />
+                </button>
+              </div>
+            )}
+          </div>
+        </section>
+      </div>
+    </main>
+  );
 }
