@@ -165,6 +165,17 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
       context.closePath();
       context.fill();
 
+      // Draw the sloping sides cleanly; Matter.js uses matching static collision bodies.
+      context.beginPath();
+      context.moveTo(width / 2 - 10, 62);
+      context.lineTo(17, binTop + 5);
+      context.moveTo(width / 2 + 10, 62);
+      context.lineTo(width - 17, binTop + 5);
+      context.strokeStyle = "#9e7957";
+      context.lineWidth = 5;
+      context.lineCap = "round";
+      context.stroke();
+
       // Slot colours and labels are drawn underneath the physical dividers.
       const palette = ["#f1d8b9", "#edc9a7", "#e9b8a3", "#e4a3a0", "#d98d8b"];
       context.fillStyle = "#b38b63";
@@ -197,13 +208,6 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
             context.arc(body.position.x - 1.1, body.position.y - 1.1, 1.2, 0, Math.PI * 2);
             context.fillStyle = "#fff3df";
             context.fill();
-          } else if (body.label === "plinko-rail") {
-            context.save();
-            context.translate(body.position.x, body.position.y);
-            context.rotate(body.angle);
-            context.fillStyle = "#9e7957";
-            roundedRect(context, -body.vertices.reduce((max, p) => Math.max(max, Math.abs(p.x - body.position.x)), 0), -2.5, railLengthForDraw(body), 5, 2);
-            context.restore();
           } else if (body.label === "plinko-divider") {
             context.fillStyle = "#a17b58";
             context.fillRect(body.position.x - 1.5, binTop, 3, height - binTop - 12);
@@ -238,11 +242,6 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
         context.textBaseline = "middle";
         context.fillText("£", coin.position.x, coin.position.y);
       }
-    };
-
-    const railLengthForDraw = (body: PhysicsBody) => {
-      const xs = body.vertices.map((p) => p.x);
-      return Math.max(...xs) - Math.min(...xs);
     };
 
     const tick = () => {
