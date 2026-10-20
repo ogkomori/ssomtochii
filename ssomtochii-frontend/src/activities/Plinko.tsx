@@ -101,7 +101,7 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
       const topY = 62;
       const bottomY = binTop + 5;
       const topHalf = 10;
-      const bottomHalf = width / 2 - 17;
+      const bottomHalf = width / 2 - 12;
       const railLength = Math.hypot(bottomY - topY, bottomHalf - topHalf);
       const railAngle = Math.atan2(bottomY - topY, bottomHalf - topHalf);
       bodies.push(
@@ -168,9 +168,9 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
       // Draw the sloping sides cleanly; Matter.js uses matching static collision bodies.
       context.beginPath();
       context.moveTo(width / 2 - 10, 62);
-      context.lineTo(17, binTop + 5);
+      context.lineTo(12, binTop + 5);
       context.moveTo(width / 2 + 10, 62);
-      context.lineTo(width - 17, binTop + 5);
+      context.lineTo(width - 12, binTop + 5);
       context.strokeStyle = "#9e7957";
       context.lineWidth = 5;
       context.lineCap = "round";
