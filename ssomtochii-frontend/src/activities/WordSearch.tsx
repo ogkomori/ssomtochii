@@ -13,16 +13,13 @@ function getLine(start: Point, end: Point): number[] {
   return Array.from({ length: steps + 1 }, (_, i) => key({ row: start.row + Math.sign(dr) * i, col: start.col + Math.sign(dc) * i }));
 }
 const placements: Record<string, [Point, Point]> = {
-  LOVE: [{ row: 0, col: 0 }, { row: 0, col: 3 }],
-  DREAM: [{ row: 1, col: 1 }, { row: 1, col: 5 }],
-  HEART: [{ row: 2, col: 0 }, { row: 2, col: 4 }],
-  SMILE: [{ row: 3, col: 0 }, { row: 3, col: 4 }],
-  DANCE: [{ row: 4, col: 0 }, { row: 4, col: 4 }],
-  MUSIC: [{ row: 0, col: 6 }, { row: 4, col: 6 }],
-  TRAVEL: [{ row: 0, col: 7 }, { row: 5, col: 7 }],
-  STAR: [{ row: 7, col: 0 }, { row: 7, col: 3 }],
-  JOY: [{ row: 5, col: 4 }, { row: 7, col: 6 }],
+  SLOWDOWN: [{ row: 0, col: 0 }, { row: 0, col: 7 }],
+  INNIT: [{ row: 2, col: 10 }, { row: 6, col: 10 }],
+  PERIOD: [{ row: 2, col: 0 }, { row: 7, col: 5 }],
+  ASIPARKMYCAR: [{ row: 9, col: 0 }, { row: 9, col: 11 }],
+  SOONCHOPCANE: [{ row: 0, col: 8 }, { row: 11, col: 8 }],
 };
+const normaliseWord = (word: string) => word.toUpperCase().replace(/[^A-Z]/g, "");
 
 export function WordSearch({ onComplete }: { onComplete: () => void }) {
   const [start, setStart] = useState<Point | null>(null);
@@ -35,8 +32,8 @@ export function WordSearch({ onComplete }: { onComplete: () => void }) {
     const cells = getLine(start, point);
     const selectedWord = cells.map((cell) => WORD_SEARCH_CONTENT.grid[Math.floor(cell / WORD_SEARCH_CONTENT.size)]![cell % WORD_SEARCH_CONTENT.size]).join("");
     const reverse = selectedWord.split("").reverse().join("");
-    const match = words.find((word) => (word === selectedWord || word === reverse) && !found.includes(word));
-    if (match) { setFound((current) => [...current, match]); setMessage(`Found ${match}!`); }
+    const match = words.find((word) => { const normalised = normaliseWord(word); return (normalised === selectedWord || normalised === reverse) && !found.includes(normalised); });
+    if (match) { const normalised = normaliseWord(match); setFound((current) => [...current, normalised]); setMessage(`Found “${match}”!`); }
     else setMessage("Not quite. Try another line.");
     setStart(null);
   };
@@ -51,7 +48,7 @@ export function WordSearch({ onComplete }: { onComplete: () => void }) {
         return <button key={cellKey} type="button" onClick={() => choose({ row: r, col: c })} className={`aspect-square rounded-none border text-sm font-semibold transition-colors sm:text-base ${foundCells.has(cellKey) ? "border-primary bg-primary text-primary-foreground" : isStart ? "border-amber-400 bg-amber-200 text-stone-900" : "border-border bg-card text-foreground hover:bg-secondary"}`}>{letter}</button>;
       }))}
     </div>
-    <div className="mt-4 flex flex-wrap justify-center gap-2">{words.map((word) => <span key={word} className={`rounded-full px-3 py-1 text-xs font-semibold ${found.includes(word) ? "bg-primary/20 text-foreground line-through" : "bg-secondary text-muted-foreground"}`}>{word}</span>)}</div>
+    <div className="mt-4 flex flex-wrap justify-center gap-2">{words.map((word) => <span key={word} className={`rounded-full px-3 py-1 text-xs font-semibold ${found.includes(normaliseWord(word)) ? "bg-primary/20 text-foreground line-through" : "bg-secondary text-muted-foreground"}`}>{word}</span>)}</div>
     <p className="mt-4 min-h-6 text-sm text-muted-foreground">{message}</p>
     <div className="mt-3 flex justify-center gap-3">{done ? <button className="next-button" type="button" onClick={onComplete}>Get today’s letter <Check className="h-4 w-4" /></button> : <button className="inline-flex items-center gap-1 text-sm text-muted-foreground" type="button" onClick={reset}><RotateCcw className="h-4 w-4" /> Reset</button>}</div>
   </GameShell>;
