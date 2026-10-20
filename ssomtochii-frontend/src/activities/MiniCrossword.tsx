@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, Check } from "lucide-react";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { Botanicals } from "@/components/Botanicals";
 import { MINI_CROSSWORD_CONTENT } from "@/lib/mini-crossword";
 
@@ -141,7 +141,7 @@ export function MiniCrossword({ onComplete }: { onComplete: () => void }) {
     if (next) setActiveCell(next);
   };
 
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>, key: string) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>, key: string) => {
     const keyMoves: Record<string, [number, number]> = {
       ArrowLeft: [0, -1],
       ArrowRight: [0, 1],
