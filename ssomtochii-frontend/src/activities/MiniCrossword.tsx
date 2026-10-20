@@ -60,8 +60,19 @@ function ClueSection({ title, entries, numbers }: { title: string; entries: read
 export function MiniCrossword({ onComplete }: { onComplete: () => void }) {
   const cells = useMemo(makeCells, []);
   const entryNumbers = useMemo(() => getEntryNumbers(MINI_CROSSWORD_CONTENT.entries), []);
-  const across = MINI_CROSSWORD_CONTENT.entries.filter((entry) => entry.direction === "across");
-  const down = MINI_CROSSWORD_CONTENT.entries.filter((entry) => entry.direction === "down");
+  // A clue is identified by its direction and starting square. If the config
+  // accidentally contains duplicate entries for the same start, show that clue once.
+  const uniqueEntries = useMemo(() => {
+    const seen = new Set<string>();
+    return MINI_CROSSWORD_CONTENT.entries.filter((entry) => {
+      const key = `${entry.direction}-${entry.row}-${entry.column}`;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+  }, []);
+  const across = uniqueEntries.filter((entry) => entry.direction === "across");
+  const down = uniqueEntries.filter((entry) => entry.direction === "down");
   const [values, setValues] = useState<Record<string, string>>({});
   const complete = cells.size > 0 && [...cells.entries()].every(([key, cell]) => values[key] === cell.answer);
   const rows = MINI_CROSSWORD_CONTENT.rows;
