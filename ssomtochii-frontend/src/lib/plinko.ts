@@ -12,4 +12,5 @@ export const PLINKO_CONTENT = {
   firstRowPegs: 3,
   firstPegY: 95,
   pegRowGap: 28,
+  pegSpacing: 24,
 } as const;
