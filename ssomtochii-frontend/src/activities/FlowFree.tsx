@@ -4,18 +4,26 @@ import { GameShell } from "@/activities/Connections";
 import { FLOW_FREE_INTRO, FLOW_FREE_LEVELS } from "@/lib/flow-free";
 
 type Paths = Record<string, number[]>;
-const PALETTE = [
-  "#e8798f", "#66a985", "#9b83d5", "#e7a64f", "#58a9c8",
-  "#d978bd", "#9aaa48", "#e47d55", "#6f83d9", "#c3a04d",
+
+const EMOJI_OPTIONS = [
+  { emoji: "☀️", colour: "#F4A62A" },
+  { emoji: "💚", colour: "#35A86B" },
+  { emoji: "🍣", colour: "#E56B6F" },
+  { emoji: "🧸", colour: "#9B7653" },
+  { emoji: "🌼", colour: "#8D7BC8" },
+  { emoji: "💌", colour: "#D66BB1" },
+  { emoji: "🎶", colour: "#5488D9" },
 ];
 
-function assignRandomColours(count: number): string[] {
-  const shuffled = [...PALETTE];
+type FlowEmoji = (typeof EMOJI_OPTIONS)[number];
+
+function assignRandomEmojis(count: number): FlowEmoji[] {
+  const shuffled = [...EMOJI_OPTIONS];
   for (let i = shuffled.length - 1; i > 0; i -= 1) {
     const j = Math.floor(Math.random() * (i + 1));
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
-  return Array.from({ length: count }, (_, index) => shuffled[index % shuffled.length]);
+  return shuffled.slice(0, count);
 }
 
 export function FlowFree({ onComplete }: { onComplete: () => void }) {
@@ -23,8 +31,8 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
   const level = FLOW_FREE_LEVELS[levelIndex];
   const [paths, setPaths] = useState<Paths>({});
   const [drawing, setDrawing] = useState<string | null>(null);
-  const [message, setMessage] = useState("Connect the matching dots.");
-  const [colours, setColours] = useState<string[]>(() => assignRandomColours(level.pairs.length));
+  const [message, setMessage] = useState("Connect the matching emojis.");
+  const [emojis, setEmojis] = useState<FlowEmoji[]>(() => assignRandomEmojis(level.pairs.length));
   const gridRef = useRef<HTMLDivElement>(null);
 
   const endpointMap = useMemo(() => {
@@ -36,20 +44,20 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
     return map;
   }, [level]);
 
-  const pairColours = useMemo(
-    () => Object.fromEntries(level.pairs.map((pair, index) => [pair.id, colours[index % colours.length]])),
-    [level.pairs, colours],
+  const pairEmojis = useMemo(
+    () => Object.fromEntries(level.pairs.map((pair, index) => [pair.id, emojis[index]])),
+    [level.pairs, emojis],
   );
 
   const dotColours = useMemo(() => {
     const map = new Map<number, string>();
     level.pairs.forEach((pair) => {
-      const colour = pairColours[pair.id];
+      const colour = pairEmojis[pair.id]?.colour;
       map.set(pair.start, colour);
       map.set(pair.end, colour);
     });
     return map;
-  }, [level.pairs, pairColours]);
+  }, [level.pairs, pairEmojis]);
 
   const occupied = useMemo(() => {
     const map = new Map<number, string>();
@@ -124,7 +132,7 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
   const reset = () => {
     setPaths({});
     setDrawing(null);
-    setMessage("Connect the matching dots.");
+    setMessage("Connect the matching emojis.");
   };
   const nextLevel = () => {
     if (levelIndex === FLOW_FREE_LEVELS.length - 1) {
@@ -135,8 +143,8 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
     setLevelIndex((current) => current + 1);
     setPaths({});
     setDrawing(null);
-    setColours(assignRandomColours(next.pairs.length));
-    setMessage("Connect the matching dots.");
+    setEmojis(assignRandomEmojis(next.pairs.length));
+    setMessage("Connect the matching emojis.");
   };
 
   return <GameShell eyebrow="FLOW FREE" title={won ? "All connected." : level.title} right={`LEVEL ${level.id} · ${level.size}×${level.size}`}>
@@ -157,7 +165,12 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
           data-cell={cell}
           className="relative flex min-h-0 min-w-0 items-center justify-center border border-card/70 bg-secondary"
         >
-          {pair && <span className="relative z-10 h-[74%] w-[74%] rounded-full" style={{ backgroundColor: dotColours.get(cell) }} />}
+          {pair && <span
+            className="relative z-10 flex h-[82%] w-[82%] items-center justify-center rounded-full bg-white shadow-sm"
+            aria-label={pairEmojis[pair.id]?.emoji}
+          >
+            <span className="text-[clamp(1rem,4vw,1.5rem)] leading-none">{pairEmojis[pair.id]?.emoji}</span>
+          </span>}
         </div>;
       })}
       <svg
