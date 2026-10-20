@@ -1,24 +1,43 @@
 import { useState } from "react";
 import { Check, RotateCcw } from "lucide-react";
 import { GameShell } from "@/activities/Connections";
-import { HANGMAN_CONTENT } from "@/lib/hangman";
+import { HANGMAN_CONTENT, HANGMAN_LEVELS } from "@/lib/hangman";
 
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+
 export function Hangman({ onComplete }: { onComplete: () => void }) {
-  const answer = HANGMAN_CONTENT.answer.toUpperCase();
+  const [levelIndex, setLevelIndex] = useState(0);
   const [guesses, setGuesses] = useState<string[]>([]);
   const [message, setMessage] = useState("Pick a letter.");
-  const wrong = guesses.filter((letter) => !answer.includes(letter)).length;
-  const won = [...new Set(answer.split(""))].every((letter) => guesses.includes(letter));
+
+  const level = HANGMAN_LEVELS[levelIndex];
+  const answer = level.answer.toUpperCase();
+  const answerLetters = answer.replace(/[^A-Z]/g, "");
+  const wrong = guesses.filter((letter) => !answerLetters.includes(letter)).length;
+  const won = [...new Set(answerLetters.split(""))].every((letter) => guesses.includes(letter));
   const lost = wrong >= HANGMAN_CONTENT.maxWrongGuesses && !won;
   const finished = won || lost;
+  const isFinalLevel = levelIndex === HANGMAN_LEVELS.length - 1;
+
   const guess = (letter: string) => {
     if (finished || guesses.includes(letter)) return;
     setGuesses((current) => [...current, letter]);
-    setMessage(answer.includes(letter) ? "Yes, that letter is in the word." : "Not this time.");
+    setMessage(answerLetters.includes(letter) ? "Yes, that letter is in the song title." : "Not this time.");
   };
-  const reset = () => { setGuesses([]); setMessage("Pick a letter."); };
-  return <GameShell eyebrow="HANGMAN" title={won ? "You got it!" : lost ? "Nearly!" : HANGMAN_CONTENT.title} right={`${wrong}/${HANGMAN_CONTENT.maxWrongGuesses} MISSES`}>
+
+  const reset = () => {
+    setGuesses([]);
+    setMessage("Pick a letter.");
+  };
+
+  const nextLevel = () => {
+    if (!won || isFinalLevel) return;
+    setLevelIndex((current) => current + 1);
+    setGuesses([]);
+    setMessage("Pick a letter.");
+  };
+
+  return <GameShell eyebrow={`HANGMAN · LEVEL ${levelIndex + 1} OF ${HANGMAN_LEVELS.length}`} title={won ? "You got it!" : lost ? "Nearly!" : HANGMAN_CONTENT.title} right={`${wrong}/${HANGMAN_CONTENT.maxWrongGuesses} MISSES`}>
     <p className="mb-5 text-sm text-foreground/75">{HANGMAN_CONTENT.intro}</p>
     <div className="mx-auto mb-5 flex h-24 w-32 items-end justify-center" aria-label={`${wrong} incorrect guesses`}>
       <svg viewBox="0 0 120 100" className="h-full w-full" role="img" aria-label="Hangman drawing">
@@ -31,12 +50,21 @@ export function Hangman({ onComplete }: { onComplete: () => void }) {
         {wrong >= 6 && <path d="M76 67 L91 84" stroke="currentColor" strokeWidth="3" />}
       </svg>
     </div>
-    <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Hint: {HANGMAN_CONTENT.hint}</p>
-    <div className="mb-6 flex flex-wrap justify-center gap-1.5" aria-label="Word to guess">
-      {answer.split("").map((letter, index) => <span key={index} className="grid h-9 min-w-7 place-items-center border-b-2 border-primary px-1 text-lg font-bold">{guesses.includes(letter) || finished ? letter : ""}</span>)}
+    <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Hint: {level.hint}</p>
+    <div className="mb-6 flex flex-wrap items-end justify-center gap-x-1.5 gap-y-2" aria-label="Song title to guess">
+      {answer.split("").map((character, index) => {
+        if (character === " ") return <span key={index} className="w-3" aria-hidden="true" />;
+        if (!/[A-Z]/.test(character)) return <span key={index} className="px-0.5 text-lg font-bold">{character}</span>;
+        return <span key={index} className="grid h-9 min-w-7 place-items-center border-b-2 border-primary px-1 text-lg font-bold">{guesses.includes(character) || finished ? character : ""}</span>;
+      })}
     </div>
-    <div className="mx-auto grid max-w-sm grid-cols-7 gap-1.5">{alphabet.map((letter) => <button key={letter} type="button" disabled={finished || guesses.includes(letter)} onClick={() => guess(letter)} className={`grid aspect-square place-items-center rounded-md text-sm font-semibold disabled:opacity-35 ${guesses.includes(letter) ? answer.includes(letter) ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground" : "bg-secondary text-foreground"}`}>{letter}</button>)}</div>
-    <p className="mt-4 min-h-6 text-sm text-muted-foreground">{won ? "You saved the word!" : lost ? `The word was ${answer}.` : message}</p>
-    {finished && <div className="mt-4 flex justify-center gap-3"><button type="button" className="inline-flex items-center gap-1 text-sm text-muted-foreground" onClick={reset}><RotateCcw className="h-4 w-4" /> Play again</button>{won && <button type="button" className="next-button" onClick={onComplete}>Get today’s letter <Check className="h-4 w-4" /></button>}</div>}
+    <div className="mx-auto grid max-w-sm grid-cols-7 gap-1.5">{alphabet.map((letter) => <button key={letter} type="button" disabled={finished || guesses.includes(letter)} onClick={() => guess(letter)} className={`grid aspect-square place-items-center rounded-md text-sm font-semibold disabled:opacity-35 ${guesses.includes(letter) ? answerLetters.includes(letter) ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground" : "bg-secondary text-foreground"}`}>{letter}</button>)}</div>
+    <p className="mt-4 min-h-6 text-sm text-muted-foreground">{won ? (isFinalLevel ? "You guessed all three songs!" : "Song guessed! Ready for the next one?") : lost ? `The song was ${answer}.` : message}</p>
+    {finished && <div className="mt-4 flex justify-center gap-3">
+      {(!won || isFinalLevel) && <button type="button" className="inline-flex items-center gap-1 text-sm text-muted-foreground" onClick={reset}><RotateCcw className="h-4 w-4" /> Play again</button>}
+      {won && (isFinalLevel
+        ? <button type="button" className="next-button" onClick={onComplete}>Get today’s letter <Check className="h-4 w-4" /></button>
+        : <button type="button" className="next-button" onClick={nextLevel}>Next song <Check className="h-4 w-4" /></button>)}
+    </div>}
   </GameShell>;
 }
