@@ -64,8 +64,9 @@ export function MiniCrossword({ onComplete }: { onComplete: () => void }) {
   const down = MINI_CROSSWORD_CONTENT.entries.filter((entry) => entry.direction === "down");
   const [values, setValues] = useState<Record<string, string>>({});
   const complete = cells.size > 0 && [...cells.entries()].every(([key, cell]) => values[key] === cell.answer);
-  const size = MINI_CROSSWORD_CONTENT.size;
-  const gridWidth = `min(100%, ${Math.min(size * 34, 442)}px)`;
+  const rows = MINI_CROSSWORD_CONTENT.rows;
+  const columns = MINI_CROSSWORD_CONTENT.columns;
+  const gridWidth = `min(100%, ${Math.min(columns * 34, 442)}px)`;
 
   return (
     <main className="page-shell">
@@ -89,13 +90,13 @@ export function MiniCrossword({ onComplete }: { onComplete: () => void }) {
               <div
                 className="crossword-grid"
                 style={{
-                  gridTemplateColumns: `repeat(${size}, minmax(0, 1fr))`,
+                  gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
                   width: gridWidth,
                 }}
               >
-                {Array.from({ length: size ** 2 }, (_, index) => {
-                  const row = Math.floor(index / size);
-                  const column = index % size;
+                {Array.from({ length: rows * columns }, (_, index) => {
+                  const row = Math.floor(index / columns);
+                  const column = index % columns;
                   const key = `${row}-${column}`;
                   const cell = cells.get(key);
 
