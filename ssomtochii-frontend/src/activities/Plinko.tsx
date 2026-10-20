@@ -2,18 +2,17 @@ import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, RotateCcw } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Botanicals } from "@/components/Botanicals";
+import { PLINKO_CONTENT } from "@/lib/plinko";
 
-const width = 360;
-const height = 500;
-const binTop = 420;
-const binWidth = width / 5;
+const { width, height, binTop, prizes, rounds, title, intro, eyebrow } = PLINKO_CONTENT;
+const binWidth = width / prizes.length;
 const coinRadius = 8;
 type Coin = { x: number; y: number; vx: number; vy: number };
 type Phase = "ready" | "moving" | "landed" | "finished";
-const pegs = Array.from({ length: 8 }, (_, row) => {
-  const count = row % 2 === 0 ? 4 : 5;
+const pegs = Array.from({ length: PLINKO_CONTENT.pegRows }, (_, row) => {
+  const count = row % 2 === 0 ? PLINKO_CONTENT.evenRowPegs : PLINKO_CONTENT.oddRowPegs;
   const spacing = width / (count + 1);
-  return Array.from({ length: count }, (_, col) => ({ x: spacing * (col + 1) + (row % 2 === 0 ? 0 : -spacing / 2), y: 100 + row * 39 }));
+  return Array.from({ length: count }, (_, col) => ({ x: spacing * (col + 1) + (row % 2 === 0 ? 0 : -spacing / 2), y: PLINKO_CONTENT.firstPegY + row * PLINKO_CONTENT.pegRowGap }));
 }).flat();
 
 /** Five-round Plinko-style prize game. Each drop awards £1–£5. */
@@ -57,11 +56,12 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
         }
         if (current.y >= binTop - coinRadius) {
           current.y = binTop - coinRadius;
-          const prize = Math.max(1, Math.min(5, Math.floor(current.x / binWidth) + 1));
+          const prizeIndex = Math.max(0, Math.min(prizes.length - 1, Math.floor(current.x / binWidth)));
+          const prize = prizes[prizeIndex]!;
           const nextResults = [...resultsRef.current, prize];
           resultsRef.current = nextResults;
           setResults(nextResults);
-          const nextPhase: Phase = nextResults.length >= 5 ? "finished" : "landed";
+          const nextPhase: Phase = nextResults.length >= rounds ? "finished" : "landed";
           phaseRef.current = nextPhase;
           setPhase(nextPhase);
         }
@@ -83,12 +83,12 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
         context.beginPath(); context.arc(peg.x - 1, peg.y - 1, 1.5, 0, Math.PI * 2);
         context.fillStyle = "#fff8e9"; context.fill();
       }
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < prizes.length; i++) {
         context.fillStyle = ["#f0d4b7", "#eac7a5", "#e6b5a2", "#e2a49b", "#d98e8b"][i]!;
         context.fillRect(i * binWidth + 2, binTop + 2, binWidth - 4, height - binTop - 12);
         if (i > 0) { context.beginPath(); context.moveTo(i * binWidth, binTop); context.lineTo(i * binWidth, height - 8); context.strokeStyle = "#b5a17c"; context.lineWidth = 2; context.stroke(); }
         context.fillStyle = "#553d35"; context.font = "bold 18px system-ui, sans-serif"; context.textAlign = "center";
-        context.fillText(`£${i + 1}`, i * binWidth + binWidth / 2, binTop + 38);
+        context.fillText(`£${prizes[i]}`, i * binWidth + binWidth / 2, binTop + 38);
       }
       if (phaseRef.current === "ready" || phaseRef.current === "landed") {
         context.beginPath(); context.moveTo(dropX.current, 25); context.lineTo(dropX.current, 48);
@@ -134,14 +134,14 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
   };
 
   return <main className="page-shell"><Botanicals /><div className="relative mx-auto flex min-h-[calc(100dvh-1rem)] w-full max-w-md flex-col">
-    <header className="flex items-center justify-between pt-2"><Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> All days</Link><span className="text-xs font-semibold tracking-[0.18em] text-muted-foreground">{Math.min(results.length + (phase === "moving" ? 1 : 0), 5)} / 5 ROUNDS</span></header>
+    <header className="flex items-center justify-between pt-2"><Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> All days</Link><span className="text-xs font-semibold tracking-[0.18em] text-muted-foreground">{Math.min(results.length + (phase === "moving" ? 1 : 0), rounds)} / {rounds} ROUNDS</span></header>
     <section className="paper-card my-5 flex flex-1 flex-col p-5 text-center">
-      <p className="day-one-eyebrow">LUCKY DROP</p>
+      <p className="day-one-eyebrow">{eyebrow}</p>
       <h1 className="mt-2 font-script text-4xl leading-none">{phase === "finished" ? "Look at you go! ♡" : "Drop a little luck."}</h1>
-      <p className="mt-2 text-sm text-foreground/75">{phase === "finished" ? `You won £${total} across five rounds!` : "Drop a coin through the pegs. Wherever it lands is what you win that round."}</p>
-      <div className="mt-3 flex items-center justify-center gap-2 text-xs font-semibold text-muted-foreground"><span>£1</span><span>·</span><span>£2</span><span>·</span><span>£3</span><span>·</span><span>£4</span><span>·</span><span>£5 per round</span></div>
+      <p className="mt-2 text-sm text-foreground/75">{phase === "finished" ? `You won £${total} across {rounds} rounds!` : intro}</p>
+      <div className="mt-3 flex items-center justify-center gap-2 text-xs font-semibold text-muted-foreground">{prizes.map((prize, index) => <span key={prize}>{index > 0 ? " · " : ""}£{prize}</span>)}<span> per round</span></div>
       <canvas ref={canvas} className="golf-canvas my-4 w-full" style={{ touchAction: "pan-y" }} width={width} height={height} onPointerDown={chooseDrop} aria-label="Coin drop board. Tap near the top to choose where the coin starts." />
-      <p className="mb-3 text-sm text-muted-foreground">{phase === "finished" ? `Your total: £${total} · Every round counts.` : phase === "moving" ? "Here it goes… good luck! ♡" : phase === "landed" ? `Round ${results.length}: £${results[results.length - 1]}!` : `Round ${results.length + 1} of 5 · Tap the board to choose your drop point.`}</p>
+      <p className="mb-3 text-sm text-muted-foreground">{phase === "finished" ? `Your total: £${total} · Every round counts.` : phase === "moving" ? "Here it goes… good luck! ♡" : phase === "landed" ? `Round ${results.length}: £${results[results.length - 1]}!` : `Round ${results.length + 1} of ${rounds} · Tap the board to choose your drop point.`}</p>
       {results.length > 0 && <div className="mb-4 flex flex-wrap justify-center gap-2">{results.map((prize, index) => <span key={index} className="rounded-full bg-secondary px-3 py-1 text-xs font-semibold text-foreground">Round {index + 1}: £{prize}</span>)}</div>}
       <div className="mt-auto flex justify-center gap-3">
         {phase === "ready" && <button type="button" className="next-button" onClick={dropCoin}>Drop coin <ArrowRight className="h-4 w-4" /></button>}
