@@ -23,7 +23,6 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
   const dropX = useRef(width / 2);
   const phaseRef = useRef<Phase>("ready");
   const resultsRef = useRef<number[]>([]);
-  const [selectedX, setSelectedX] = useState(width / 2);
   const [phase, setPhase] = useState<Phase>("ready");
   const [results, setResults] = useState<number[]>([]);
   const total = results.reduce((sum, prize) => sum + prize, 0);
@@ -112,7 +111,6 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
     const x = Math.max(22, Math.min(width - 22, (event.clientX - rect.left) * width / rect.width));
     dropX.current = x;
     coin.current = { x, y: 65, vx: 0, vy: 0 };
-    setSelectedX(x);
   };
   const dropCoin = () => {
     if (phaseRef.current !== "ready") return;
@@ -130,7 +128,6 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
     resultsRef.current = [];
     setResults([]);
     dropX.current = width / 2;
-    setSelectedX(width / 2);
     coin.current = { x: width / 2, y: 65, vx: 0, vy: 0 };
     phaseRef.current = "ready";
     setPhase("ready");
