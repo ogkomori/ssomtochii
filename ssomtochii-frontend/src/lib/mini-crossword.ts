@@ -1,7 +1,7 @@
 /**
  * CUSTOMISE THE MINI CROSSWORD HERE.
  *
- * 1. Set `size` to the width/height of your square grid.
+ * 1. Set `rows` and `columns` to the fixed grid dimensions.
  * 2. Add one object per answer in `entries`.
  * 3. `answer` is the word the player must enter; use A-Z letters.
  * 4. `clue` is the hint shown to the player.
@@ -15,7 +15,8 @@
 export const MINI_CROSSWORD_CONTENT = {
   title: "A tiny crossword, made for you.",
   intro: "Fill the little crossings with things that belong in your world.",
-  size: 12,
+  rows: 9,
+  columns: 12,
   entries: [
     { id: 1, answer: "SPIDERMAN", clue: "", row: 0, column: 4, direction: "down" },
     { id: 2, answer: "ADIDAS", clue: "", row: 3, column: 3, direction: "across" },
