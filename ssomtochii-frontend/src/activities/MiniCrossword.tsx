@@ -1,11 +1,12 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, Check } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Botanicals } from "@/components/Botanicals";
 import { MINI_CROSSWORD_CONTENT } from "@/lib/mini-crossword";
 
 type Cell = { row: number; column: number; answer: string; number?: number };
 type Entry = (typeof MINI_CROSSWORD_CONTENT.entries)[number];
+type Direction = "across" | "down";
 
 function getEntryNumbers(entries: readonly Entry[]) {
   const starts = [...new Set(entries.map((entry) => `${entry.row}-${entry.column}`))]
@@ -16,6 +17,14 @@ function getEntryNumbers(entries: readonly Entry[]) {
     .sort((a, b) => a.row - b.row || a.column - b.column);
 
   return new Map(starts.map((start, index) => [start.key, index + 1]));
+}
+
+function getEntryCellKeys(entry: Entry) {
+  return entry.answer.toUpperCase().split("").map((_, index) => {
+    const row = entry.row + (entry.direction === "down" ? index : 0);
+    const column = entry.column + (entry.direction === "across" ? index : 0);
+    return `${row}-${column}`;
+  });
 }
 
 function makeCells() {
@@ -40,14 +49,24 @@ function makeCells() {
   return cells;
 }
 
-function ClueSection({ title, entries, numbers }: { title: string; entries: readonly Entry[]; numbers: Map<string, number> }) {
+function ClueSection({
+  title,
+  entries,
+  numbers,
+  activeEntryId,
+}: {
+  title: string;
+  entries: readonly Entry[];
+  numbers: Map<string, number>;
+  activeEntryId?: number;
+}) {
   return (
     <section className="crossword-clues min-w-0">
       <h2 className="text-xs font-bold uppercase tracking-[0.16em] text-primary">{title}</h2>
       {entries.length ? entries.map((entry) => {
         const number = numbers.get(`${entry.row}-${entry.column}`);
         return (
-          <p className="crossword-clue" key={entry.id}>
+          <p className={`crossword-clue ${entry.id === activeEntryId ? "is-active" : ""}`} key={entry.id}>
             <b>{number}.</b> {entry.clue || <span className="italic text-muted-foreground">Add your hint in mini-crossword.ts.</span>}
           </p>
         );
@@ -74,10 +93,89 @@ export function MiniCrossword({ onComplete }: { onComplete: () => void }) {
   const across = uniqueEntries.filter((entry) => entry.direction === "across");
   const down = uniqueEntries.filter((entry) => entry.direction === "down");
   const [values, setValues] = useState<Record<string, string>>({});
+  const [activeCell, setActiveCell] = useState<string | null>(null);
+  const [activeDirection, setActiveDirection] = useState<Direction>("across");
+  const inputRefs = useRef<Record<string, HTMLInputElement | null>>({});
   const complete = cells.size > 0 && [...cells.entries()].every(([key, cell]) => values[key] === cell.answer);
   const rows = MINI_CROSSWORD_CONTENT.rows;
   const columns = MINI_CROSSWORD_CONTENT.columns;
   const gridWidth = `min(100%, ${Math.min(columns * 34, 442)}px)`;
+
+  const entriesAtCell = (key: string) => uniqueEntries.filter((entry) => getEntryCellKeys(entry).includes(key));
+  const activeEntry = activeCell
+    ? uniqueEntries.find((entry) => entry.direction === activeDirection && getEntryCellKeys(entry).includes(activeCell))
+      ?? uniqueEntries.find((entry) => getEntryCellKeys(entry).includes(activeCell))
+    : undefined;
+  const activeKeys = activeEntry ? getEntryCellKeys(activeEntry) : [];
+  const activeEntryId = activeEntry?.id;
+
+  useEffect(() => {
+    if (activeCell) inputRefs.current[activeCell]?.focus();
+  }, [activeCell]);
+
+  const chooseCell = (key: string) => {
+    const entries = entriesAtCell(key);
+    if (!entries.length) return;
+    if (key === activeCell) {
+      const otherDirection = entries.find((entry) => entry.direction !== activeDirection);
+      if (otherDirection) setActiveDirection(otherDirection.direction);
+      return;
+    }
+    const preferred = entries.find((entry) => entry.direction === "across") ?? entries[0];
+    setActiveDirection(preferred.direction);
+    setActiveCell(key);
+  };
+
+  const moveWithinEntry = (key: string, offset: number) => {
+    const index = activeKeys.indexOf(key);
+    const target = activeKeys[index + offset];
+    if (target) setActiveCell(target);
+  };
+
+  const handleLetter = (key: string, rawValue: string) => {
+    const letter = rawValue.toUpperCase().replace(/[^A-Z]/g, "").slice(-1);
+    if (!letter) return;
+    setValues((current) => ({ ...current, [key]: letter }));
+    const index = activeKeys.indexOf(key);
+    const next = activeKeys[index + 1];
+    if (next) setActiveCell(next);
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>, key: string) => {
+    const keyMoves: Record<string, [number, number]> = {
+      ArrowLeft: [0, -1],
+      ArrowRight: [0, 1],
+      ArrowUp: [-1, 0],
+      ArrowDown: [1, 0],
+    };
+    if (event.key in keyMoves) {
+      event.preventDefault();
+      const [rowDelta, columnDelta] = keyMoves[event.key];
+      const [row, column] = key.split("-").map(Number);
+      const target = `${row + rowDelta}-${column + columnDelta}`;
+      if (cells.has(target)) {
+        setActiveCell(target);
+        const options = entriesAtCell(target);
+        if (!options.some((entry) => entry.direction === activeDirection)) {
+          setActiveDirection(options[0]?.direction ?? activeDirection);
+        }
+      }
+      return;
+    }
+    if (event.key === "Backspace") {
+      event.preventDefault();
+      if (values[key]) {
+        setValues((current) => ({ ...current, [key]: "" }));
+      } else {
+        const index = activeKeys.indexOf(key);
+        const previous = activeKeys[index - 1];
+        if (previous) {
+          setValues((current) => ({ ...current, [previous]: "" }));
+          setActiveCell(previous);
+        }
+      }
+    }
+  };
 
   return (
     <main className="page-shell">
@@ -110,18 +208,21 @@ export function MiniCrossword({ onComplete }: { onComplete: () => void }) {
                   const column = index % columns;
                   const key = `${row}-${column}`;
                   const cell = cells.get(key);
+                  const isActiveWord = activeKeys.includes(key);
+                  const isCurrentCell = activeCell === key;
 
                   return cell ? (
-                    <label className="crossword-cell" key={key}>
+                    <label className={`crossword-cell ${isActiveWord ? "is-active-word" : ""} ${isCurrentCell ? "is-current-cell" : ""}`} key={key}>
                       {cell.number && <span>{cell.number}</span>}
                       <input
+                        ref={(node) => { inputRefs.current[key] = node; }}
                         value={values[key] ?? ""}
                         maxLength={1}
-                        onChange={(event) => setValues((current) => ({
-                          ...current,
-                          [key]: event.target.value.toUpperCase().replace(/[^A-Z]/g, ""),
-                        }))}
+                        onClick={() => chooseCell(key)}
+                        onChange={(event) => handleLetter(key, event.target.value)}
+                        onKeyDown={(event) => handleKeyDown(event, key)}
                         aria-label={`Row ${row + 1}, column ${column + 1}`}
+                        aria-current={isCurrentCell ? "true" : undefined}
                         autoCapitalize="characters"
                         autoComplete="off"
                         spellCheck={false}
@@ -134,8 +235,8 @@ export function MiniCrossword({ onComplete }: { onComplete: () => void }) {
 
             {!complete ? (
               <div className="flex min-w-0 flex-col gap-3">
-                <ClueSection title="Across" entries={across} numbers={entryNumbers} />
-                <ClueSection title="Down" entries={down} numbers={entryNumbers} />
+                <ClueSection title="Across" entries={across} numbers={entryNumbers} activeEntryId={activeDirection === "across" ? activeEntryId : undefined} />
+                <ClueSection title="Down" entries={down} numbers={entryNumbers} activeEntryId={activeDirection === "down" ? activeEntryId : undefined} />
               </div>
             ) : (
               <div className="flex min-h-32 flex-col items-center justify-center gap-4 text-center">
