@@ -52,7 +52,7 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
   const dotColours = useMemo(() => {
     const map = new Map<number, string>();
     level.pairs.forEach((pair) => {
-      const colour = pairEmojis[pair.id]?.colour;
+      const colour = pairEmojis[pair.id].colour;
       map.set(pair.start, colour);
       map.set(pair.end, colour);
     });
@@ -148,7 +148,7 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
   };
 
   return <GameShell eyebrow="FLOW FREE" title={won ? "All connected." : level.title} right={`LEVEL ${level.id} · ${level.size}×${level.size}`}>
-    <p className="mb-5 text-sm text-foreground/75">{won ? "Every colour is connected and every square is filled." : FLOW_FREE_INTRO}</p>
+    <p className="mb-5 text-sm text-foreground/75">{won ? "Every emoji is connected and every square is filled." : FLOW_FREE_INTRO}</p>
     <div
       ref={gridRef}
       className="relative mx-auto grid aspect-square w-full max-w-[19rem] touch-none select-none gap-0 overflow-hidden rounded-xl bg-card p-2 shadow-inner"
