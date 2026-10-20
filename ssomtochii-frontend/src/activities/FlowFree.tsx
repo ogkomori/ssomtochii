@@ -141,7 +141,6 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
       onPointerCancel={end}
     >
       {Array.from({ length: level.size * level.size }, (_, cell) => {
-        const owner = occupied.get(cell);
         const pair = endpointMap.get(cell);
         return <div
           key={cell}
@@ -163,26 +162,15 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
           const points = path.map((cell) =>
             `${(cell % level.size) + 0.5},${Math.floor(cell / level.size) + 0.5}`
           ).join(" ");
-          return <g key={pair.id}>
-            <polyline
-              points={points}
-              fill="none"
-              stroke={pairColours[pair.id]}
-              strokeWidth="0.66"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              opacity="0.62"
-            />
-            <polyline
-              points={points}
-              fill="none"
-              stroke={pairColours[pair.id]}
-              strokeWidth="0.18"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              opacity="0.28"
-            />
-          </g>;
+          return <polyline
+            key={pair.id}
+            points={points}
+            fill="none"
+            stroke={pairColours[pair.id]}
+            strokeWidth="0.66"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />;
         })}
       </svg>
     </div>
