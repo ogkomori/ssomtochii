@@ -1,16 +1,14 @@
 import type { FlowFreeLevel } from "@/lib/flow-free";
 
-/**
- * Customise this board independently from the other levels.
- * Cell indexes are row * size + column; on a 7x7 board the indexes are 0–48.
- */
 export const FLOW_FREE_LEVEL_3: FlowFreeLevel = {
   id: 3,
-  title: "One last puzzle.",
-  size: 7,
+  title: "Level 3!",
+  size: 8,
   pairs: [
-    { id: "flow-a", start: 0, end: 6 },
-    { id: "flow-b", start: 21, end: 27 },
-    { id: "flow-c", start: 42, end: 48 },
+    { id: "flow-a", start: 6, end: 32 },
+    { id: "flow-b", start: 18, end: 49 },
+    { id: "flow-c", start: 7, end: 53 },
+    { id: "flow-d", start: 37, end: 61 },
+    { id: "flow-e", start: 27, end: 62 },
   ],
 };
