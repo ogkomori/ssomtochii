@@ -48,7 +48,7 @@ export function WordSearch({ onComplete }: { onComplete: () => void }) {
       {WORD_SEARCH_CONTENT.grid.flatMap((row, r) => row.map((letter, c) => {
         const cellKey = r * WORD_SEARCH_CONTENT.size + c;
         const isStart = start?.row === r && start.col === c;
-        return <button key={cellKey} type="button" onClick={() => choose({ row: r, col: c })} className={`aspect-square rounded-md text-sm font-semibold transition-colors sm:text-base ${foundCells.has(cellKey) ? "bg-primary text-primary-foreground" : isStart ? "bg-amber-200 text-stone-900" : "bg-secondary text-foreground"}`}>{letter}</button>;
+        return <button key={cellKey} type="button" onClick={() => choose({ row: r, col: c })} className={`aspect-square rounded-none border text-sm font-semibold transition-colors sm:text-base ${foundCells.has(cellKey) ? "border-primary bg-primary text-primary-foreground" : isStart ? "border-amber-400 bg-amber-200 text-stone-900" : "border-border bg-card text-foreground hover:bg-secondary"}`}>{letter}</button>;
       }))}
     </div>
     <div className="mt-4 flex flex-wrap justify-center gap-2">{words.map((word) => <span key={word} className={`rounded-full px-3 py-1 text-xs font-semibold ${found.includes(word) ? "bg-primary/20 text-foreground line-through" : "bg-secondary text-muted-foreground"}`}>{word}</span>)}</div>
