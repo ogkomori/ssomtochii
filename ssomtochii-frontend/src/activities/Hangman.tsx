@@ -50,7 +50,6 @@ export function Hangman({ onComplete }: { onComplete: () => void }) {
         {wrong >= 6 && <path d="M76 67 L91 84" stroke="currentColor" strokeWidth="3" />}
       </svg>
     </div>
-    <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-muted-foreground">Hint: {level.hint}</p>
     <div className="mb-6 flex flex-wrap items-end justify-center gap-x-1.5 gap-y-2" aria-label="Song title to guess">
       {answer.split("").map((character, index) => {
         if (character === " ") return <span key={index} className="w-3" aria-hidden="true" />;

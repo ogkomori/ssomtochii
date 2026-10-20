@@ -3,23 +3,23 @@
  * Keep the title in quotes; spaces and punctuation are supported.
  * Each level uses the same hint: "An Ayra Starr song."
  */
-export const HANGMAN_LEVELS: { answer: string; hint: string }[] = [
+export const HANGMAN_LEVELS: { answer: string }[] = [
   {
-    answer: "SONG TITLE ONE",
-    hint: "An Ayra Starr song.",
+    answer: "RUSH",
   },
   {
-    answer: "SONG TITLE TWO",
-    hint: "An Ayra Starr song.",
+    answer: "WOMAN COMMANDO",
   },
   {
-    answer: "SONG TITLE THREE",
-    hint: "An Ayra Starr song.",
+    answer: "MS PAPER",
+  },
+  {
+    answer: "HEAVEN BABY",
   },
 ];
 
 export const HANGMAN_CONTENT = {
-  title: "Name that song.",
+  title: "Name the Ayra Starr song!",
   intro: "Guess the song title one letter at a time.",
   maxWrongGuesses: 6,
 } as const;
