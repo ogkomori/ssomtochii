@@ -226,11 +226,14 @@
   .memory-card-back { @apply font-script text-3xl text-primary; }
   .crossword-grid { @apply grid shrink-0 gap-[2px]; }
   .crossword-cell { @apply relative aspect-square min-w-0 bg-card; }
-  .crossword-cell > span { @apply absolute left-0.5 top-0.5 z-10 text-[0.48rem] leading-none text-muted-foreground sm:text-[0.55rem]; }
-  .crossword-cell input { @apply h-full w-full min-w-0 border p-0 text-center text-sm font-bold uppercase outline-none focus:ring-2 focus:ring-primary sm:text-base; }
+  .crossword-cell > span { @apply pointer-events-none absolute left-0.5 top-0.5 z-10 text-[0.48rem] leading-none text-muted-foreground sm:text-[0.55rem]; }
+  .crossword-cell input { @apply h-full w-full min-w-0 border p-0 text-center text-sm font-bold uppercase outline-none transition-colors focus:ring-2 focus:ring-primary sm:text-base; }
+  .crossword-cell.is-active-word input { @apply bg-secondary/90; }
+  .crossword-cell.is-current-cell input { @apply relative z-20 border-primary bg-blossom/40 ring-2 ring-primary; }
   .crossword-block { @apply aspect-square min-w-0 bg-foreground/15; }
   .crossword-clues { @apply flex min-w-0 flex-col gap-2 rounded-xl bg-secondary/60 p-2.5 text-xs leading-snug text-foreground/80 sm:p-3 sm:text-sm; }
-  .crossword-clue { @apply break-words; }
+  .crossword-clue { @apply break-words rounded-md px-1.5 py-1 transition-colors; }
+  .crossword-clue.is-active { @apply bg-card font-semibold text-foreground ring-1 ring-primary/40; }
   .crossword-clue b { @apply mr-1 text-primary; }
   .rhythm-progress { @apply my-auto flex w-full justify-center gap-2 py-6; }
   .rhythm-progress span { @apply h-2 w-5 rounded-full bg-muted transition-all; }
