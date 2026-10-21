@@ -10,7 +10,7 @@ export interface StoryCharacter {
 }
 
 interface StoryBeatBase {
-  id: string;
+  id: number;
   background?: string;
   characters?: StoryCharacter[];
   /** Selects the camera composition for this beat. */
@@ -23,7 +23,7 @@ export interface DialogueBeat extends StoryBeatBase {
   /** Override the visible speaker tag for off-screen voices, e.g. "Tega · On the phone". */
   speakerLabel?: string;
   text: string;
-  next?: string;
+  next?: number;
 }
 
 export interface NarrationBeat extends StoryBeatBase {
@@ -56,6 +56,6 @@ export type StoryBeat = DialogueBeat | NarrationBeat | ChoiceBeat | EndBeat;
 export interface StoryDefinition {
   title: string;
   subtitle?: string;
-  startAt: string;
+  startAt: number;
   beats: StoryBeat[];
 }

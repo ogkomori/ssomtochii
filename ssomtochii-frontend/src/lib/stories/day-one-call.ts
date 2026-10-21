@@ -1,9 +1,17 @@
 import type { StoryDefinition } from "./types";
 
-const somto = {
-  id: "somto",
+const neutral = {
+  id: "neutral",
   name: "Somto",
   image: "/images/character-reference/neutral.png",
+  position: "center" as const,
+  alt: "Somto answering the phone",
+};
+
+const speaking = {
+  id: "speaking",
+  name: "Somto",
+  image: "/images/character-reference/speaking.png",
   position: "center" as const,
   alt: "Somto answering the phone",
 };
@@ -11,41 +19,54 @@ const somto = {
 export const DAY_ONE_CALL_STORY: StoryDefinition = {
   title: "A Little Call",
   subtitle: "Day 1 · A phone call from Tega",
-  startAt: "somto-hello",
+  startAt: 1,
   beats: [
     {
-      id: "somto-hello",
+      id: 1,
       type: "dialogue",
+      scene: "character",
       speakerId: "somto",
-      characters: [somto],
+      speakerLabel: "Somto",
+      characters: [neutral],
       background: "linear-gradient(180deg, #d9e8e0 0%, #f4e8e4 55%, #c5d6c0 100%)",
-      text: "Hiii 🥹",
-      next: "tega-voice",
+      text: "Hi babyyy!",
+      next: 2,
     },
     {
-      id: "tega-voice",
+      id: 2,
       type: "dialogue",
       scene: "phone",
       characters: [],
       speakerId: "somto",
       speakerLabel: "Tega · On the phone",
-      text: "Heeey, pretty girl. You picked up so fast.",
-      next: "somto-reply",
+      text: "Hey baby, how you doing?",
+      next: 3,
     },
     {
-      id: "somto-reply",
+      id: 3,
       type: "dialogue",
       scene: "character",
-      characters: [somto],
+      characters: [neutral],
       speakerId: "somto",
-      text: "As if I wasn't going to answer your call 🙄",
-      next: "choice",
+      speakerLabel: "Somto",
+      text: "I'm good my love, how are you?",
+      next: 4,
+    },
+        {
+      id: 4,
+      type: "dialogue",
+      scene: "phone",
+      characters: [],
+      speakerId: "somto",
+      speakerLabel: "Tega · On the phone",
+      text: "I'm good, I'm good.",
+      next: 5,
     },
     {
-      id: "choice",
+      id: 5,
       type: "choice",
       scene: "character",
-      characters: [somto],
+      characters: [neutral],
       speakerId: "somto",
       speakerLabel: "Somto",
       text: "What should I say?",
