@@ -1,5 +1,5 @@
 import type { StoryDefinition } from "./types";
-import { neutral, speaking } from "./character-poses";
+import { neutral } from "./character-poses";
 
 export const DAY_ONE_CALL_STORY: StoryDefinition = {
   title: "A Little Call",
