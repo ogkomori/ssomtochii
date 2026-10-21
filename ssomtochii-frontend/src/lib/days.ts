@@ -1,6 +1,23 @@
 export type DayState = "locked" | "available" | "completed";
 export type DayIcon = "flower" | "star" | "music" | "butterfly" | "mail" | "leaf" | "moon" | "sparkle";
 export type ActivityId = "day-one-journey" | "word-scramble" | "memory-match" | "mini-crossword" | "rhythm-game" | "sliding-puzzle" | "mini-golf" | "cup-pong" | "sky-hop" | "connections" | "emoji-pictionary" | "tier-list" | "flow-free" | "plinko" | "memory-lane" | "hangman" | "wordle" | "coming-soon";
+export type StoryId =
+  | "day-one-story"
+  | "day-two-story"
+  | "day-three-story"
+  | "day-four-story"
+  | "day-five-story"
+  | "day-six-story"
+  | "day-seven-story"
+  | "day-eight-story"
+  | "day-nine-story"
+  | "day-ten-story"
+  | "day-eleven-story"
+  | "day-twelve-story"
+  | "day-thirteen-story"
+  | "day-fourteen-story"
+  | "day-fifteen-story"
+  | "day-sixteen-story";
 
 export interface Day {
   day: number;
@@ -9,10 +26,17 @@ export interface Day {
   icon: DayIcon;
   image?: string;
   state: DayState;
+  story: StoryId;
   activity: ActivityId;
 }
 
 const icons: DayIcon[] = ["flower", "star", "music", "butterfly", "mail", "leaf", "moon", "sparkle"];
+const storyIds: StoryId[] = [
+  "day-one-story", "day-two-story", "day-three-story", "day-four-story",
+  "day-five-story", "day-six-story", "day-seven-story", "day-eight-story",
+  "day-nine-story", "day-ten-story", "day-eleven-story", "day-twelve-story",
+  "day-thirteen-story", "day-fourteen-story", "day-fifteen-story", "day-sixteen-story",
+];
 
 export const DAYS: Day[] = Array.from({ length: 16 }, (_, i) => {
   const d = new Date(Date.UTC(2026, 9, 23 + i));
@@ -27,6 +51,7 @@ export const DAYS: Day[] = Array.from({ length: 16 }, (_, i) => {
     // Every day is open while we prototype individual activities. Date locking
     // will be restored through the journey API before the experience launches.
     state: "available",
+    story: storyIds[i],
     activity: i === 0 ? "day-one-journey" :
               i === 1 ? "word-scramble" :
               i === 2 ? "memory-match" :
