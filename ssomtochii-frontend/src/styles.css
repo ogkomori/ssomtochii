@@ -626,3 +626,37 @@ button.story-dialogue-panel{cursor:pointer;font:inherit}
   .incoming-call-screen .call-btn .icon,
   .incoming-call-screen .again { transition: none; }
 }
+
+/* Day 1 visual-novel presentation: warm, editorial dialogue cards and phone camera. */
+.story-dialogue-panel{right:clamp(.65rem,3vw,2rem);left:clamp(.65rem,3vw,2rem);bottom:clamp(.65rem,2.5vh,1.5rem);width:auto;max-width:54rem;margin-inline:auto;gap:.7rem;border:1px solid rgb(120 81 70 / 22%);border-radius:1.15rem;background:rgb(255 250 244 / 96%);padding:1rem 1.15rem max(1rem,env(safe-area-inset-bottom));color:#3b302d;box-shadow:0 12px 38px rgb(54 35 26 / 20%);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.story-speaker-name{border:0;border-radius:.55rem;background:#ead0cf;padding:.28rem .7rem;color:#70494a;font-size:.75rem;letter-spacing:.025em}
+.story-dialogue-text{font-size:1rem;line-height:1.55}
+.story-continue-hint{color:#98716a;font-size:.7rem;letter-spacing:.035em}
+.story-bubble-tail{display:none}
+.story-choice-panel{gap:.65rem}
+.story-choice-panel .story-dialogue-text{font-family:Georgia,serif;font-size:1.05rem}
+.story-choice-list{gap:.55rem;margin-top:.25rem}
+.story-choice-button{min-height:3rem;border:1px solid #e5c9c5;border-radius:.75rem;background:#fff8f4;padding:.75rem 1rem;color:#523b39;text-align:left;font-size:.9rem;font-weight:700;line-height:1.4;box-shadow:0 2px 0 rgb(123 76 69 / 6%);transition:transform .15s ease,background .15s ease,border-color .15s ease}
+.story-choice-button:hover{background:#f8e7e3;border-color:#d7aaa6}
+.story-choice-button:active{transform:scale(.99)}
+.story-choice-button--secondary{background:#edf1e8;border-color:#d2ddc8;color:#455640;text-align:center}
+.story-ending-panel .story-ending-actions{gap:.65rem}
+.story-ending-panel .story-dialogue-text{font-family:Georgia,serif;font-size:1.05rem}
+.story-stage--phone{background:#c69a70!important;background-image:linear-gradient(145deg,rgb(255 240 213 / 24%),transparent 45%),repeating-linear-gradient(3deg,transparent 0 28px,rgb(120 77 45 / 8%) 29px 31px),linear-gradient(180deg,#dfbd93,#bb8658)!important;background-size:cover!important}
+.story-stage--phone::after{background:linear-gradient(180deg,rgb(35 23 18 / 5%),transparent 48%,rgb(49 29 19 / 18%) 100%)}
+.story-phone-table-scene{position:absolute;inset:0;z-index:4;overflow:hidden;pointer-events:none;background:radial-gradient(ellipse at 50% 42%,transparent 30%,rgb(68 43 29 / 13%) 100%)}
+.story-phone-object{position:absolute;top:7%;left:50%;width:min(46vw,21rem);height:min(68vh,37rem);padding:9px;border:2px solid #655852;border-radius:clamp(24px,4vw,38px);background:linear-gradient(135deg,#4c413e,#111 36%,#4b413c 80%,#191615);box-shadow:0 28px 34px rgb(64 38 21 / 34%),inset 0 0 0 2px #9a8a7f;transform:translateX(-50%) rotate(11deg)}
+.story-phone-display{position:relative;display:flex;height:100%;width:100%;flex-direction:column;align-items:center;justify-content:center;gap:.65rem;overflow:hidden;border-radius:clamp(18px,3vw,29px);background:radial-gradient(circle at 25% 12%,#343c35,#111714 58%,#090b0a);color:#fff8ef;font-family:Georgia,serif}
+.story-phone-camera-notch{position:absolute;top:0;left:50%;width:35%;height:13px;transform:translateX(-50%);border-radius:0 0 12px 12px;background:#050606}
+.story-phone-contact{display:grid;place-items:center;width:clamp(42px,7vw,68px);height:clamp(42px,7vw,68px);border-radius:50%;background:#657064;color:#fff8ef;font-size:clamp(1.4rem,3.4vw,2rem)}
+.story-phone-display strong{font-size:clamp(1.1rem,2.4vw,1.6rem);font-weight:500}
+.story-phone-status{font-size:clamp(.7rem,1.4vw,.9rem);font-style:italic;color:#cbd4c9}
+.story-phone-action-row{display:flex;gap:clamp(10px,2vw,18px);margin-top:1.2rem}
+.story-phone-action-row span{display:grid;place-items:center;width:clamp(29px,4.2vw,42px);height:clamp(29px,4.2vw,42px);border-radius:50%;background:#3c443e;color:#fff;font-size:1rem}
+.story-phone-display .story-phone-hangup{display:grid;place-items:center;width:clamp(38px,5vw,52px);height:clamp(38px,5vw,52px);margin-top:1.1rem;border-radius:50%;background:#d9534f;color:white;font-size:1.45rem;transform:rotate(135deg)}
+.story-desk-notebook,.story-desk-paper{position:absolute;z-index:-1;display:block;background:#f6eee2;border:1px solid rgb(105 75 54 / 30%);box-shadow:0 12px 18px rgb(74 43 25 / 18%)}
+.story-desk-notebook{right:-5%;bottom:23%;width:33%;height:14%;transform:rotate(-9deg);background:repeating-linear-gradient(180deg,#f7f0e6 0 12px,#d6c8b8 13px 14px)}
+.story-desk-paper{left:-8%;bottom:18%;width:26%;height:18%;transform:rotate(12deg);background:repeating-linear-gradient(180deg,#f8f1e7 0 13px,#d8cabb 14px 15px)}
+.story-stage--phone .story-dialogue-panel{background:rgb(255 250 244 / 97%)}
+@media(min-width:640px){.story-dialogue-panel{right:max(1rem,calc((100vw - 48rem)/2));left:max(1rem,calc((100vw - 48rem)/2));width:auto;padding:1.25rem 1.5rem max(1.25rem,env(safe-area-inset-bottom))}.story-dialogue-text{font-size:1.08rem}.story-phone-object{width:min(32vw,22rem);height:min(69vh,38rem)}}
+@media(max-width:520px){.story-dialogue-panel{right:.55rem;left:.55rem;bottom:.55rem;padding:.9rem 1rem max(.9rem,env(safe-area-inset-bottom))}.story-phone-object{top:8%;width:52vw;height:53vh}.story-choice-button{min-height:2.8rem;padding:.7rem .8rem}}
