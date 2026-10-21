@@ -55,11 +55,14 @@ export function StoryPlayer({
   const beat = getBeat(story, beatId) ?? firstBeat;
   const beatIndex = story.beats.findIndex((item) => item.id === beat.id);
   const phoneScene = beat.scene === "phone";
+  const phoneContactName = beat.phone?.contactName ?? "Tega";
+  const phoneContactInitial = beat.phone?.contactInitial ?? (phoneContactName.trim().charAt(0).toUpperCase() || "T");
+  const phoneStatusText = beat.phone?.statusText ?? "00:04:27";
   const speaker = beat.type === "dialogue" || beat.type === "choice"
     ? characters.find((character) => character.id === beat.speakerId)
     : undefined;
 
-  const goTo = (nextId?: string) => {
+  const goTo = (nextId?: StoryBeat["id"]) => {
     if (!nextId) return;
     const nextBeat = getBeat(story, nextId);
     if (!nextBeat) return;
@@ -96,7 +99,7 @@ export function StoryPlayer({
           </button>
         </header>
 
-        {phoneScene && <div className="story-phone-table-scene" aria-label="Phone resting on a wooden desk"><div className="story-phone-object"><div className="story-phone-display"><span className="story-phone-camera-notch" /><div className="story-phone-contact">T</div><strong>Tega</strong><span className="story-phone-status">00:04:27</span><div className="story-phone-action-row"><span>⌁</span><span>▦</span><span>◖</span></div><span className="story-phone-hangup">⌕</span></div></div><span className="story-desk-notebook" /><span className="story-desk-paper" /></div>}
+        {phoneScene && <div className="story-phone-table-scene" aria-label={`Phone showing a call with ${phoneContactName}`}><div className="story-phone-object"><div className="story-phone-display"><span className="story-phone-camera-notch" /><div className="story-phone-contact">{phoneContactInitial}</div><strong>{phoneContactName}</strong><span className="story-phone-status">{phoneStatusText}</span><div className="story-phone-action-row"><span>⌁</span><span>▦</span><span>◖</span></div><span className="story-phone-hangup">⌕</span></div></div><span className="story-desk-notebook" /><span className="story-desk-paper" /></div>}
 
         <div className="story-scene-characters" aria-label="Scene characters">
           {!phoneScene && characters.map((character) => {
