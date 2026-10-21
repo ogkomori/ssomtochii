@@ -77,52 +77,56 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
 
       const bodies: PhysicsBody[] = [];
       const pegRows = PLINKO_CONTENT.pegRows;
-      const pegGap = PLINKO_CONTENT.pegRowGap;
       const firstCount = PLINKO_CONTENT.firstRowPegs;
-      const firstY = PLINKO_CONTENT.firstPegY;
-      const pegSpacing = PLINKO_CONTENT.pegSpacing;
+      const pinRadius = 3.5;
+      const paddingX = 22;
+      const pinDistanceX = (width - paddingX * 2) / (firstCount + pegRows - 2);
+      const topPadding = 28;
+      const bottomPadding = 44;
+      const pinDistanceY = (binTop - topPadding - bottomPadding) / (pegRows - 1);
 
-      // Real rigid bodies: a classic triangular field, widening row by row.
+      // Board geometry follows the established triangular Matter.js Plinko layout:
+      // each row gains one pin and the outer pins define the sloped guard rails.
       for (let row = 0; row < pegRows; row++) {
         const count = firstCount + row;
-        const y = firstY + row * pegGap;
+        const y = topPadding + pinDistanceY * row;
+        const rowPaddingX = paddingX + ((pegRows - 1 - row) * pinDistanceX) / 2;
         for (let col = 0; col < count; col++) {
-          const x = width / 2 + (col - (count - 1) / 2) * pegSpacing;
-          bodies.push(matter.Bodies.circle(x, y, 4.1, {
+          const x = rowPaddingX + ((width - rowPaddingX * 2) / (count - 1)) * col;
+          bodies.push(matter.Bodies.circle(x, y, pinRadius, {
             isStatic: true,
             label: "plinko-peg",
-            restitution: 0.48,
-            friction: 0.015,
-            render: { fillStyle: "#8f6b4d" },
+            restitution: 0.8,
+            friction: 0.5,
+            render: { fillStyle: "#f8fafc" },
           }));
         }
       }
 
-      // Sloped rails, with a narrow entry at the apex and a wide mouth at the buckets.
-      const topY = 62;
-      const bottomY = binTop + 5;
-      const topHalf = 10;
-      const bottomHalf = width / 2 - 12;
-      const railLength = Math.hypot(bottomY - topY, bottomHalf - topHalf);
-      const railAngle = Math.atan2(bottomY - topY, bottomHalf - topHalf);
+      // Invisible slanted guard rails keep the coin inside the pin pyramid.
+      const firstPinX = width / 2 - pinDistanceX;
+      const lastPinX = paddingX;
+      const wallAngle = Math.atan2(firstPinX - lastPinX, binTop - topPadding - bottomPadding);
+      const wallX = firstPinX - (firstPinX - lastPinX) / 2 - pinDistanceX * 0.25;
+      const wallLength = height + 30;
       bodies.push(
-        matter.Bodies.rectangle(width / 2 - (topHalf + bottomHalf) / 2, (topY + bottomY) / 2, railLength, 5, {
-          isStatic: true, angle: -railAngle, label: "plinko-rail", render: { fillStyle: "#9e7957" },
+        matter.Bodies.rectangle(wallX, height / 2, 8, wallLength, {
+          isStatic: true, angle: wallAngle, label: "plinko-wall", render: { visible: false },
         }),
-        matter.Bodies.rectangle(width / 2 + (topHalf + bottomHalf) / 2, (topY + bottomY) / 2, railLength, 5, {
-          isStatic: true, angle: railAngle, label: "plinko-rail", render: { fillStyle: "#9e7957" },
+        matter.Bodies.rectangle(width - wallX, height / 2, 8, wallLength, {
+          isStatic: true, angle: -wallAngle, label: "plinko-wall", render: { visible: false },
         }),
       );
 
-      // Bucket dividers and a floor stop the coin in the slot it actually reaches.
+      // Five real divider walls separate the fixed £1–£5 prize bins.
       for (let i = 0; i <= prizes.length; i++) {
         const x = boardInset + i * bucketWidth;
-        bodies.push(matter.Bodies.rectangle(x, (binTop + height - 13) / 2, 3, height - binTop - 13, {
-          isStatic: true, label: "plinko-divider", restitution: 0.15, render: { fillStyle: "#a17b58" },
+        bodies.push(matter.Bodies.rectangle(x, binTop + (height - binTop) / 2, 3, height - binTop, {
+          isStatic: true, label: "plinko-divider", restitution: 0.1, render: { fillStyle: "#475569" },
         }));
       }
-      bodies.push(matter.Bodies.rectangle(width / 2, height - 4, width, 8, {
-        isStatic: true, label: "plinko-floor", restitution: 0.1, render: { fillStyle: "#9e7957" },
+      bodies.push(matter.Bodies.rectangle(width / 2, height - 3, width, 6, {
+        isStatic: true, label: "plinko-floor", restitution: 0.1, render: { fillStyle: "#475569" },
       }));
       matter.World.add(engine.world, bodies);
       pegPositionsRef.current = bodies
@@ -153,101 +157,66 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
 
     const draw = (context: CanvasRenderingContext2D) => {
       context.clearRect(0, 0, width, height);
-      context.fillStyle = "#f8f2e6";
+      // Inspired by the clean, high-contrast board treatment in AnsonH's open-source Plinko project.
+      context.fillStyle = "#0f1728";
       context.fillRect(0, 0, width, height);
+      context.fillStyle = "#172338";
+      context.fillRect(7, 7, width - 14, height - 14);
 
-      // Wood frame and soft inset board.
-      context.fillStyle = "#b38b63";
-      roundedRect(context, 5, 8, width - 10, height - 15, 13);
-      context.fillStyle = "#ead9bc";
-      roundedRect(context, 10, 13, width - 20, height - 25, 9);
-      context.fillStyle = "#f7efdf";
-      context.beginPath();
-      context.moveTo(width / 2, 52);
-      context.lineTo(width - 18, binTop + 2);
-      context.lineTo(18, binTop + 2);
-      context.closePath();
-      context.fill();
-
-      // Draw the sloping sides cleanly; Matter.js uses matching static collision bodies.
-      context.beginPath();
-      context.moveTo(width / 2 - 10, 62);
-      context.lineTo(12, binTop + 5);
-      context.moveTo(width / 2 + 10, 62);
-      context.lineTo(width - 12, binTop + 5);
-      context.strokeStyle = "#9e7957";
-      context.lineWidth = 5;
-      context.lineCap = "round";
-      context.stroke();
-
-      // Slot colours and labels are drawn underneath the physical dividers.
-      const palette = ["#f1d8b9", "#edc9a7", "#e9b8a3", "#e4a3a0", "#d98d8b"];
-      context.fillStyle = "#b38b63";
-      context.fillRect(boardInset, binTop, width - boardInset * 2, height - binTop - 12);
+      // Five bright prize bins, similar to the original game's bin strip.
+      const palette = ["#ff003f", "#ffc000", "#ffc000", "#ffc000", "#ff003f"];
+      context.fillStyle = "#0b1220";
+      context.fillRect(boardInset, binTop, width - boardInset * 2, height - binTop - 5);
       prizes.forEach((prize, index) => {
         const x = boardInset + index * bucketWidth;
-        context.fillStyle = palette[index % palette.length]!;
-        context.fillRect(x + 2, binTop + 2, bucketWidth - 4, height - binTop - 17);
-        context.fillStyle = "#563d31";
-        context.font = "700 17px system-ui, sans-serif";
+        context.fillStyle = palette[index]!;
+        context.fillRect(x + 1, binTop + 2, bucketWidth - 2, height - binTop - 7);
+        context.fillStyle = index === 0 || index === prizes.length - 1 ? "#ffffff" : "#1f2937";
+        context.font = "800 16px system-ui, sans-serif";
         context.textAlign = "center";
         context.textBaseline = "middle";
-        context.fillText("£" + prize, x + bucketWidth / 2, binTop + 27);
+        context.fillText("£" + prize, x + bucketWidth / 2, binTop + 23);
       });
 
+      // Render pins with a small shadow for depth.
       const activeEngine = engineRef.current;
       if (activeEngine) {
         const worldBodies = (activeEngine.world as { bodies?: PhysicsBody[] }).bodies ?? [];
         for (const body of worldBodies) {
           if (body.label === "plinko-peg") {
             context.beginPath();
-            context.arc(body.position.x + 1, body.position.y + 1.8, 4.5, 0, Math.PI * 2);
-            context.fillStyle = "rgba(79, 54, 35, .17)";
+            context.arc(body.position.x + 0.5, body.position.y + 1.5, 4, 0, Math.PI * 2);
+            context.fillStyle = "rgba(0, 0, 0, .35)";
             context.fill();
             context.beginPath();
-            context.arc(body.position.x, body.position.y, 4.1, 0, Math.PI * 2);
-            context.fillStyle = "#8f6b4d";
-            context.fill();
-            context.beginPath();
-            context.arc(body.position.x - 1.1, body.position.y - 1.1, 1.2, 0, Math.PI * 2);
-            context.fillStyle = "#fff3df";
+            context.arc(body.position.x, body.position.y, 3.5, 0, Math.PI * 2);
+            context.fillStyle = "#f8fafc";
             context.fill();
           } else if (body.label === "plinko-divider") {
-            context.fillStyle = "#a17b58";
-            context.fillRect(body.position.x - 1.5, binTop, 3, height - binTop - 12);
+            context.fillStyle = "#475569";
+            context.fillRect(body.position.x - 1.5, binTop, 3, height - binTop - 5);
           }
         }
       }
 
-      // Drop marker at the apex.
       if (phaseRef.current === "ready" || phaseRef.current === "landed") {
         context.beginPath();
-        context.moveTo(width / 2, 24);
-        context.lineTo(width / 2, 41);
-        context.strokeStyle = "#b86e68";
-        context.lineWidth = 2;
-        context.setLineDash([3, 4]);
-        context.stroke();
-        context.setLineDash([]);
+        context.arc(width / 2, 14, 3, 0, Math.PI * 2);
+        context.fillStyle = "#38bdf8";
+        context.fill();
       }
 
       const coin = coinRef.current;
       if (coin && phaseRef.current !== "finished") {
         context.beginPath();
         context.arc(coin.position.x, coin.position.y, coinRadius, 0, Math.PI * 2);
-        context.fillStyle = "#f9d56e";
+        context.fillStyle = "#ff003f";
         context.fill();
-        context.strokeStyle = "#a77c31";
-        context.lineWidth = 2;
+        context.strokeStyle = "#ffffff";
+        context.lineWidth = 1.5;
         context.stroke();
-        context.fillStyle = "#765321";
-        context.font = "bold 10px system-ui, sans-serif";
-        context.textAlign = "center";
-        context.textBaseline = "middle";
-        context.fillText("£", coin.position.x, coin.position.y);
       }
     };
-
     const tick = () => {
       if (engine && matter && phaseRef.current === "moving") {
         matter.Engine.update(engine, 1000 / 60);
@@ -304,19 +273,19 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
         y: peg.y,
       });
     }
-    const launchX = width / 2 + (Math.random() - 0.5) * 8;
+    const launchX = width / 2 + (Math.random() - 0.5) * 18;
     const coin = matter.Bodies.circle(launchX, 55, coinRadius, {
       label: "plinko-coin",
-      restitution: 0.52,
-      friction: 0.008,
-      frictionAir: 0.001,
+      restitution: 0.8,
+      friction: 0.5,
+      frictionAir: 0.0414,
       density: 0.004,
-      render: { fillStyle: "#f9d56e" },
+      render: { fillStyle: "#ff003f" },
     });
     coinRef.current = coin;
     matter.World.add(engine.world, coin);
     // A meaningful, randomized sideways launch makes all five buckets reachable.
-    matter.Body.setVelocity(coin, { x: (Math.random() - 0.5) * 3.6, y: 0.3 });
+    matter.Body.setVelocity(coin, { x: (Math.random() - 0.5) * 0.8, y: 0.3 });
     dropFrameRef.current = 0;
     phaseRef.current = "moving";
     setPhase("moving");
