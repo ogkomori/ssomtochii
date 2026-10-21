@@ -1,5 +1,5 @@
 import type { StoryDefinition } from "./types";
-import { neutral, smiling, facepalm } from "./character-poses";
+import { neutral, smiling, facepalm, sitting } from "./character-poses";
 
 export const DAY_ONE_STORY: StoryDefinition = {
   title: "A Little Call",
@@ -175,7 +175,7 @@ export const DAY_ONE_STORY: StoryDefinition = {
       id: 14,
       type: "end",
       scene: "character",
-      characters: [neutral],
+      characters: [sitting],
       text: "The call ends and you go back to your work.",
     },
   ],
