@@ -12,6 +12,8 @@ export interface StoryCharacter {
 interface StoryBeatBase {
   id: number;
   background?: string;
+  /** Optional colour for the visible speaker-name label on this beat (CSS colour). */
+  speakerColor?: string;
   characters?: StoryCharacter[];
   /** Selects the camera composition for this beat. */
   scene?: "character" | "phone";
