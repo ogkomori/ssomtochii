@@ -1,17 +1,19 @@
 Plinko implementation reference
 -------------------------------
 
-The triangular peg-board layout is based on the classic Matter.js Plinko pattern demonstrated by:
+Board layout and physics tuning were informed by the open-source project:
+Anson Heung, AnsonH/plinko-game
+https://github.com/AnsonH/plinko-game
+Live demo: https://plinko-web-game.netlify.app/
 
-Santhosh Santhanam, Matter.js-Plinko-Game
-https://github.com/Santhosh-S14/Matter.js-Plinko-Game
-License: MIT (see that repository's LICENSE file)
+This project uses Matter.js for the local physics simulation and adapts the
+triangular pin-field layout, sloped guard-rail concept, pin spacing, and ball
+friction approach to a five-bin, five-round birthday activity. The React UI,
+£1–£5 scoring, and countdown-app integration are project-specific.
 
 Physics engine bundled locally
 ------------------------------
 
 Matter.js 0.19.0
 https://github.com/liabru/matter-js
-License: MIT (see MATTER-LICENSE.txt)
-
-The React activity UI, five-round £1–£5 scoring, and integration with the countdown app are specific to this project.
+License: MIT (see MATTER-LICENSE.txt).
