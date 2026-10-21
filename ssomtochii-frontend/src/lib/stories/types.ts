@@ -1,3 +1,5 @@
+import type { Speaker } from "./speakers";
+
 export type CharacterPosition = "left" | "center" | "right";
 
 export interface StoryCharacter {
@@ -12,8 +14,6 @@ export interface StoryCharacter {
 interface StoryBeatBase {
   id: number;
   background?: string;
-  /** Optional colour for the visible speaker-name label on this beat (CSS colour). */
-  speakerColor?: string;
   characters?: StoryCharacter[];
   /** Selects the camera composition for this beat. */
   scene?: "character" | "phone";
@@ -27,9 +27,7 @@ interface StoryBeatBase {
 
 export interface DialogueBeat extends StoryBeatBase {
   type: "dialogue";
-  speakerId: string;
-  /** Override the visible speaker tag for off-screen voices, e.g. "Tega · On the phone". */
-  speakerLabel?: string;
+  speaker: Speaker;
   text: string;
   next?: number;
 }
@@ -48,8 +46,7 @@ export interface ChoiceOption {
 
 export interface ChoiceBeat extends StoryBeatBase {
   type: "choice";
-  speakerId?: string;
-  speakerLabel?: string;
+  speaker?: Speaker;
   text: string;
   choices: ChoiceOption[];
 }
