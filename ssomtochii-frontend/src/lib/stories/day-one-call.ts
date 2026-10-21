@@ -13,7 +13,7 @@ export const DAY_ONE_CALL_STORY: StoryDefinition = {
       speakerId: "somto",
       speakerLabel: "Somto",
       characters: [smiling],
-      background: "images/backgrounds/bedroom.png",
+      background: "/images/backgrounds/bedroom.png",
       text: "Hi babyyy!",
       next: 2,
     },
