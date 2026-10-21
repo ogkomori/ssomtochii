@@ -49,6 +49,7 @@ export function StoryPlayer({
 
   const beat = getBeat(story, beatId) ?? firstBeat;
   const beatIndex = story.beats.findIndex((item) => item.id === beat.id);
+  const phoneScene = beat.scene === "phone";
   const speaker = beat.type === "dialogue" || beat.type === "choice"
     ? characters.find((character) => character.id === beat.speakerId)
     : undefined;
@@ -76,7 +77,7 @@ export function StoryPlayer({
 
   return (
     <main className="story-player-shell">
-      <div className="story-stage" style={getBackgroundStyle(background)}>
+      <div className={`story-stage ${phoneScene ? "story-stage--phone" : ""}`} style={phoneScene ? undefined : getBackgroundStyle(background)}>
         <header className="story-test-header">
           <button type="button" className="story-exit-button" onClick={onExit}>
             <ArrowLeft className="h-4 w-4" /> {exitLabel}
@@ -90,8 +91,10 @@ export function StoryPlayer({
           </button>
         </header>
 
+        {phoneScene && <div className="story-phone-table-scene" aria-label="Phone resting on a wooden desk"><div className="story-phone-object"><div className="story-phone-display"><span className="story-phone-camera-notch" /><div className="story-phone-contact">T</div><strong>Tega</strong><span className="story-phone-status">Calling…</span><div className="story-phone-action-row"><span>⌁</span><span>▦</span><span>◖</span></div><span className="story-phone-hangup">⌕</span></div></div><span className="story-desk-notebook" /><span className="story-desk-paper" /></div>}
+
         <div className="story-scene-characters" aria-label="Scene characters">
-          {characters.map((character) => {
+          {!phoneScene && characters.map((character) => {
             const transform = [
               character.position === "center" ? "translateX(-50%)" : "",
               character.mirrored ? "scaleX(-1)" : "",
