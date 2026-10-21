@@ -660,3 +660,12 @@ button.story-dialogue-panel{cursor:pointer;font:inherit}
 .story-stage--phone .story-dialogue-panel{background:rgb(255 250 244 / 97%)}
 @media(min-width:640px){.story-dialogue-panel{right:max(1rem,calc((100vw - 48rem)/2));left:max(1rem,calc((100vw - 48rem)/2));width:auto;padding:1.25rem 1.5rem max(1.25rem,env(safe-area-inset-bottom))}.story-dialogue-text{font-size:1.08rem}.story-phone-object{width:min(32vw,22rem);height:min(69vh,38rem)}}
 @media(max-width:520px){.story-dialogue-panel{right:.55rem;left:.55rem;bottom:.55rem;padding:.9rem 1rem max(.9rem,env(safe-area-inset-bottom))}.story-phone-object{top:8%;width:52vw;height:53vh}.story-choice-button{min-height:2.8rem;padding:.7rem .8rem}}
+
+/* Use the viewport as the sizing reference for full-screen character art. */
+.story-stage .story-scene-characters{position:absolute;inset:0;overflow:hidden}
+.story-stage .story-sprite{height:calc(100dvh - clamp(5.5rem, 12dvh, 7.5rem));max-height:none;width:auto;max-width:96vw;bottom:0;object-fit:contain;object-position:center bottom}
+.story-stage .story-sprite--center{left:50%;transform:translateX(-50%)}
+.story-stage .story-dialogue-panel{z-index:20}
+.story-phone-status{font-variant-numeric:tabular-nums;letter-spacing:.08em;font-family:ui-sans-serif,system-ui,sans-serif;font-style:normal}
+@media(max-height:650px){.story-stage .story-sprite{height:calc(100dvh - 4.5rem);max-width:94vw}}
+@media(max-width:520px){.story-stage .story-sprite{height:calc(100dvh - clamp(5rem, 11dvh, 6.5rem));max-width:100vw}}
