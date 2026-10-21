@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import { Phone, PhoneOff, RotateCcw, Volume2 } from "lucide-react";
 
-const callerName = "Unknown Caller";
-
 type CallState = "ringing" | "declined";
 
 function useClock() {
@@ -17,7 +15,7 @@ function useClock() {
   return now;
 }
 
-export function IncomingCallScreen({ onAnswer }: { onAnswer: () => void }) {
+export function IncomingCallScreen({ onAnswer, callerName = "Unknown Caller" }: { onAnswer: () => void; callerName?: string }) {
   const [state, setState] = useState<CallState>("ringing");
   const now = useClock();
 
