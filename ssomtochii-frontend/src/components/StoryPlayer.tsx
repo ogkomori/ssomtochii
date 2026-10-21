@@ -1,7 +1,8 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, RotateCcw } from "lucide-react";
 import type { CSSProperties } from "react";
 import type { StoryBeat, StoryCharacter, StoryDefinition } from "@/lib/stories/types";
+import { preloadStoryAssets } from "@/lib/stories/preload-assets";
 
 function getBeat(story: StoryDefinition, id: string) {
   return story.beats.find((beat) => beat.id === id);
@@ -46,6 +47,10 @@ export function StoryPlayer({
   const [beatId, setBeatId] = useState(firstBeat.id);
   const [background, setBackground] = useState(firstBeat.background);
   const [characters, setCharacters] = useState<StoryCharacter[]>(firstBeat.characters ?? []);
+
+  useEffect(() => {
+    void preloadStoryAssets(story, firstBeat);
+  }, [story, firstBeat]);
 
   const beat = getBeat(story, beatId) ?? firstBeat;
   const beatIndex = story.beats.findIndex((item) => item.id === beat.id);
