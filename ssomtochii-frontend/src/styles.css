@@ -334,7 +334,20 @@
 }
 
 
-/* Reusable visual novel / Episode-style story player */
+/* Visual-novel dialogue UI adapted from the Lovable reference design. */
+:root {
+  --vn-panel: oklch(0.975 0.008 350 / 0.96);
+  --vn-panel-border: oklch(0.72 0.06 355);
+  --vn-text: oklch(0.22 0.01 30);
+  --vn-tag-rose: oklch(0.62 0.07 355);
+  --vn-tag-sage: oklch(0.6 0.05 160);
+  --vn-tag-text: oklch(0.99 0 0);
+  --vn-choice: oklch(0.95 0.03 355 / 0.95);
+  --vn-choice-hover: oklch(0.92 0.05 355);
+  --vn-choice-border: oklch(0.8 0.08 355);
+  --vn-arrow: oklch(0.45 0.02 30);
+  --vn-shadow: 0 4px 14px oklch(0.2 0.02 30 / 0.25);
+}
 .story-player-shell{position:fixed;inset:0;z-index:100;background:#18251e;color:#fffdf7;font-family:var(--font-sans);overflow:hidden}
 .story-stage{position:relative;width:100%;height:100dvh;min-height:30rem;overflow:hidden;background-color:#dce7d7;background-size:cover;background-position:center;isolation:isolate}
 .story-stage::after{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgb(9 18 13 / 22%),transparent 22%,transparent 56%,rgb(9 18 13 / 8%) 72%,rgb(9 18 13 / 28%) 100%)}
@@ -347,25 +360,33 @@
 .story-scene-characters{position:absolute;inset:0;z-index:5;pointer-events:none}
 .story-sprite{position:absolute;bottom:clamp(12.5rem,27vh,18rem);width:auto;height:min(68dvh,48rem);max-width:70vw;object-fit:contain;object-position:bottom;transform-origin:center bottom;filter:drop-shadow(0 8px 16px rgb(10 20 13 / 20%))}
 .story-sprite--left{left:-3%}.story-sprite--center{left:50%}.story-sprite--right{right:-3%}
-.story-dialogue-panel{position:absolute;z-index:20;right:0;bottom:0;left:0;display:flex;flex-direction:column;gap:.5rem;width:100%;max-width:none;margin:0;border:0;border-top:1px solid rgb(255 255 255 / 18%);border-radius:1.2rem 1.2rem 0 0;background:rgb(20 32 25 / 90%);padding:1rem 1.1rem max(1rem,env(safe-area-inset-bottom));color:#fffdf7;text-align:left;box-shadow:0 -12px 36px rgb(8 18 11 / 18%);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.story-dialogue-stack{position:absolute;z-index:20;right:0;bottom:0;left:0;display:flex;flex-direction:column;gap:.5rem;width:100%;max-width:920px;margin:0 auto;padding:0 4vw max(3vh,env(safe-area-inset-bottom));color:var(--vn-text)}
+.story-dialogue-wrap{position:relative;padding-top:18px}
+.story-dialogue-panel{position:relative;display:flex;flex-direction:column;gap:.5rem;width:100%;min-height:clamp(64px,10vh,84px);margin:0;border:2px solid var(--vn-panel-border);border-radius:12px;background:var(--vn-panel);padding:1.25rem 1.5rem 1.5rem;color:var(--vn-text);text-align:left;box-shadow:var(--vn-shadow);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 button.story-dialogue-panel{cursor:pointer;font:inherit}
-.story-dialogue-panel:focus-visible,.story-choice-button:focus-visible,.story-exit-button:focus-visible,.story-restart-button:focus-visible{outline:3px solid #b9d6a9;outline-offset:-4px}
-.story-bubble-tail{position:absolute;top:-13px;width:0;height:0;border-right:10px solid transparent;border-bottom:13px solid rgb(20 32 25 / 90%);border-left:10px solid transparent;transform:translateX(-50%)}
-.story-speaker-name{width:fit-content;border:1px solid rgb(208 231 191 / 22%);border-radius:999px;background:rgb(126 165 109 / 25%);padding:.2rem .7rem;color:#d8edca;font-size:.75rem;font-weight:900}
-.story-dialogue-text{display:block;font-size:1rem;line-height:1.5;white-space:pre-wrap}
-.story-continue-hint{align-self:flex-end;margin-top:.05rem;color:#c4d9bd;font-size:.68rem;font-weight:800}
-.story-dialogue-panel--narration{background:rgb(20 32 25 / 84%)}
+.story-dialogue-panel:focus-visible,.story-choice-button:focus-visible,.story-exit-button:focus-visible,.story-restart-button:focus-visible{outline:3px solid var(--vn-tag-rose);outline-offset:2px}
+.story-speaker-name{position:absolute;top:0;left:12px;z-index:10;display:flex;align-items:baseline;gap:.375rem;width:fit-content;max-width:calc(100% - 24px);border-radius:14px 14px 6px 6px;padding:.25rem 1rem;color:var(--vn-tag-text);font-size:clamp(15px,1.7vw,18px);font-weight:700;box-shadow:var(--vn-shadow)}
+.story-speaker-name--rose{background:var(--vn-tag-rose)}
+.story-speaker-name--sage{background:var(--vn-tag-sage)}
+.story-speaker-status{font-size:clamp(12px,1.3vw,14px);font-weight:500;opacity:.9}
+.story-dialogue-text{display:block;font-size:clamp(15px,1.7vw,18px);line-height:1.55;white-space:pre-wrap}
+.story-continue-hint{align-self:flex-end;display:flex;margin-top:.05rem;color:var(--vn-arrow)}
+.story-continue-hint svg{width:1rem;height:1rem;stroke-width:3;animation:vn-nudge 1.2s ease-in-out infinite}
 .story-dialogue-panel--narration .story-dialogue-text{font-style:italic}
-.story-choice-panel{gap:.65rem}
-.story-choice-list,.story-ending-actions{display:flex;flex-direction:column;gap:.5rem;margin-top:.2rem}
-.story-choice-button{display:block;width:100%;min-height:2.8rem;border:1px solid rgb(216 237 202 / 28%);border-radius:.8rem;background:rgb(216 237 202 / 10%);padding:.7rem .9rem;color:#fffdf7;text-align:left;font-size:.88rem;font-weight:750;line-height:1.35;transition:background-color .15s ease,transform .15s ease}
-.story-choice-button:hover{background:rgb(216 237 202 / 18%)}.story-choice-button:active{transform:scale(.99)}
-.story-choice-button--secondary{background:rgb(255 253 247 / 7%);text-align:center}
+.story-choice-panel{min-height:unset}
+.story-choice-list,.story-ending-actions{display:flex;flex-direction:column;gap:.5rem;margin-top:.1rem}
+.story-choice-button{display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%;min-height:2.8rem;border:2px solid var(--vn-choice-border);border-radius:10px;background:var(--vn-choice);padding:.625rem 1.25rem;color:var(--vn-text);text-align:left;font-size:clamp(14px,1.6vw,17px);font-weight:600;line-height:1.35;box-shadow:var(--vn-shadow);transition:background-color .15s ease,transform .15s ease}
+.story-choice-button:hover{background:var(--vn-choice-hover)}
+.story-choice-button:active{transform:scale(.99)}
+.story-choice-chevron{width:1rem;height:1rem;flex-shrink:0;color:var(--vn-arrow);transition:transform .15s ease}
+.story-choice-button:hover .story-choice-chevron{transform:translateX(2px)}
+.story-choice-button--secondary{background:var(--vn-choice);text-align:center}
 .story-ending-panel{gap:.85rem}.story-ending-actions{flex-direction:row}.story-ending-actions .story-choice-button{text-align:center}
-@media(min-width:640px){.story-dialogue-panel{right:max(0px,calc((100vw - 42rem)/2));left:max(0px,calc((100vw - 42rem)/2));width:auto;border-right:1px solid rgb(255 255 255 / 14%);border-left:1px solid rgb(255 255 255 / 14%);padding:1.25rem 1.4rem max(1.25rem,env(safe-area-inset-bottom))}.story-dialogue-text{font-size:1.08rem}.story-sprite{bottom:clamp(14rem,29vh,20rem);height:min(72dvh,50rem)}}
-@media(max-height:650px){.story-sprite{height:56dvh;bottom:11.5rem}.story-dialogue-panel{padding-top:.75rem;gap:.35rem}.story-dialogue-text{font-size:.9rem;line-height:1.4}.story-choice-button{min-height:2.4rem;padding-block:.5rem}}
-@media(prefers-reduced-motion:reduce){.story-choice-button{transition:none}}
-
+@media(min-width:640px){.story-dialogue-stack{padding-right:2rem;padding-left:2rem}.story-dialogue-text{font-size:clamp(16px,1.7vw,18px)}.story-sprite{bottom:clamp(14rem,29vh,20rem);height:min(72dvh,50rem)}}
+@media(max-height:650px){.story-sprite{height:56dvh;bottom:11.5rem}.story-dialogue-panel{padding-top:.85rem;padding-bottom:1rem;gap:.35rem}.story-dialogue-text{font-size:.9rem;line-height:1.4}.story-choice-button{min-height:2.4rem;padding-block:.5rem}}
+@media(max-width:420px){.story-dialogue-stack{padding-right:4vw;padding-left:4vw}.story-dialogue-panel{padding-right:1rem;padding-left:1rem}.story-ending-actions{flex-direction:column}}
+@keyframes vn-nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(3px)}}
+@media(prefers-reduced-motion:reduce){.story-choice-button{transition:none}.story-continue-hint svg{animation:none}}
 
 
 /* Day 12 incoming-call scene, adapted from the standalone Lovable design. */
