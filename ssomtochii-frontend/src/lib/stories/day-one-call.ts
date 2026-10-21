@@ -1,5 +1,5 @@
 import type { StoryDefinition } from "./types";
-import { neutral, smiling, speaking, facepalm } from "./character-poses";
+import { neutral, smiling, speaking, facepalm, sitting } from "./character-poses";
 
 export const DAY_ONE_CALL_STORY: StoryDefinition = {
   title: "A Little Call",
@@ -21,6 +21,11 @@ export const DAY_ONE_CALL_STORY: StoryDefinition = {
       id: 2,
       type: "dialogue",
       scene: "phone",
+      phone: {
+        contactName: "Tega",
+        contactInitial: "T",
+        statusText: "00:00:05",
+      },
       characters: [],
       speakerId: "tega",
       speakerLabel: "Tega · On the phone",
@@ -41,6 +46,11 @@ export const DAY_ONE_CALL_STORY: StoryDefinition = {
       id: 4,
       type: "dialogue",
       scene: "phone",
+      phone: {
+        contactName: "Tega",
+        contactInitial: "T",
+        statusText: "00:00:12",
+      },
       characters: [],
       speakerId: "tega",
       speakerLabel: "Tega · On the phone",
@@ -65,6 +75,11 @@ export const DAY_ONE_CALL_STORY: StoryDefinition = {
       id: 6,
       type: "dialogue",
       scene: "phone",
+      phone: {
+        contactName: "Tega",
+        contactInitial: "T",
+        statusText: "00:00:25",
+      },
       characters: [],
       speakerId: "tega",
       speakerLabel: "Tega · On the phone",
@@ -85,6 +100,11 @@ export const DAY_ONE_CALL_STORY: StoryDefinition = {
       id: 8,
       type: "dialogue",
       scene: "phone",
+      phone: {
+        contactName: "Tega",
+        contactInitial: "T",
+        statusText: "00:00:35",
+      },
       characters: [],
       speakerId: "tega",
       speakerLabel: "Tega · On the phone",
@@ -105,6 +125,11 @@ export const DAY_ONE_CALL_STORY: StoryDefinition = {
       id: 10,
       type: "dialogue",
       scene: "phone",
+      phone: {
+        contactName: "Tega",
+        contactInitial: "T",
+        statusText: "00:00:45",
+      },
       characters: [],
       speakerId: "tega",
       speakerLabel: "Tega · On the phone",
@@ -123,10 +148,35 @@ export const DAY_ONE_CALL_STORY: StoryDefinition = {
     },
     {
       id: 12,
-      type: "end",
+      type: "dialogue",
       scene: "phone",
+      phone: {
+        contactName: "Tega",
+        contactInitial: "T",
+        statusText: "00:00:45",
+      },
       characters: [],
-      text: "Haha, sure. Alright babe I'll talk to you later. See ya!",
+      speakerId: "tega",
+      speakerLabel: "Tega · On the phone",
+      text: "Haha, sure. Alright babe I'll talk to you later. Love you!",
+      next: 13,
+    },
+    {
+      id: 13,
+      type: "dialogue",
+      scene: "character",
+      characters: [smiling],
+      speakerId: "somto",
+      speakerLabel: "Somto",
+      text: "Love you too baby! See you!",
+      next: 14,
+    },
+    {
+      id: 14,
+      type: "end",
+      scene: "character",
+      characters: [neutral],
+      text: "The call ends and you go back to your work.",
     },
   ],
 };
