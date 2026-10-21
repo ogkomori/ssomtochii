@@ -4,8 +4,14 @@ import { neutral, smiling, facepalm, sitting } from "./character-poses";
 export const DAY_ONE_STORY: StoryDefinition = {
   title: "A Little Call",
   subtitle: "Day 1 · A phone call from Tega",
-  startAt: 1,
+  startAt: 0,
   beats: [
+    {
+      id: 0,
+      type: "incoming-call",
+      callerName: "Tega",
+      next: 1,
+    },
     {
       id: 1,
       type: "dialogue",
