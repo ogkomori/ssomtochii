@@ -30,7 +30,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
     {
       id: 3,
       type: "incoming-call",
-      callerName: "Tega",
+      callerName: "Melanie",
       next: 14,
     },
     {

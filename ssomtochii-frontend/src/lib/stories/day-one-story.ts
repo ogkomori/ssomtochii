@@ -1,5 +1,5 @@
 import type { StoryDefinition } from "./types";
-import { SOMTO, TEGA_ON_PHONE } from "./speakers";
+import { SOMTO, TEGA } from "./speakers";
 import { neutral, smiling, facepalm, sitting } from "./character-poses";
 
 export const DAY_ONE_STORY: StoryDefinition = {
@@ -33,7 +33,7 @@ export const DAY_ONE_STORY: StoryDefinition = {
         statusText: "00:00:05",
       },
       characters: [],
-      speaker: TEGA_ON_PHONE,
+      speaker: TEGA,
       text: "Hey baby, how you doing?",
       next: 3,
     },
@@ -56,7 +56,7 @@ export const DAY_ONE_STORY: StoryDefinition = {
         statusText: "00:00:12",
       },
       characters: [],
-      speaker: TEGA_ON_PHONE,
+      speaker: TEGA,
       text: "I'm good, I'm good.",
       next: 5,
     },
@@ -83,7 +83,7 @@ export const DAY_ONE_STORY: StoryDefinition = {
         statusText: "00:00:25",
       },
       characters: [],
-      speaker: TEGA_ON_PHONE,
+      speaker: TEGA,
       text: "Your wifi can't handle video calls, babe, remember?",
       next: 7,
     },
@@ -106,7 +106,7 @@ export const DAY_ONE_STORY: StoryDefinition = {
         statusText: "00:00:35",
       },
       characters: [],
-      speaker: TEGA_ON_PHONE,
+      speaker: TEGA,
       text: "Sorry, ma'am. Do I need to schedule an appointment to speak to my favourite person?",
       next: 9,
     },
@@ -129,7 +129,7 @@ export const DAY_ONE_STORY: StoryDefinition = {
         statusText: "00:00:45",
       },
       characters: [],
-      speaker: TEGA_ON_PHONE,
+      speaker: TEGA,
       text: "It's like you're manifesting this tank falling on your car...",
       next: 11,
     },
@@ -152,7 +152,7 @@ export const DAY_ONE_STORY: StoryDefinition = {
         statusText: "00:00:45",
       },
       characters: [],
-      speaker: TEGA_ON_PHONE,
+      speaker: TEGA,
       text: "Haha, sure. Alright babe I'll talk to you later. Love you!",
       next: 13,
     },

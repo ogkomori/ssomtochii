@@ -4,23 +4,17 @@ import type { Speaker } from "./types";
 export const SOMTO: Speaker = {
   id: "somto",
   label: "Somto",
-  color: "#C56B91",
+  color: "#008000",
 };
 
 export const TEGA: Speaker = {
   id: "tega",
-  label: "Tega",
-  color: "#557DA8",
-};
-
-/** Use when Tega is speaking off-screen during a phone call. */
-export const TEGA_ON_PHONE: Speaker = {
-  ...TEGA,
   label: "Tega · On the phone",
+  color: "#FF0000",
 };
 
-export const GIRLFRIEND: Speaker = {
-  id: "girlfriend",
-  label: "Her",
-  color: "#C56B91",
+export const ALEXA: Speaker = {
+  id: "alexa",
+  label: "Somto's Alexa",
+  color: "#ADD8E6",
 };
