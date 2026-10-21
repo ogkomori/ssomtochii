@@ -140,7 +140,7 @@ export function StoryPlayer({
             {speaker && <span className="story-speaker-name">{beat.type === "dialogue" ? beat.speakerLabel ?? speaker.name : speaker.name}</span>}
             <span className="story-dialogue-text">{beat.text}</span>
             <span className="story-continue-hint">Tap to continue ›</span>
-            {speaker && <span className="story-bubble-tail" style={{ left: tailOffset(speaker.position) }} aria-hidden="true" />}
+            {speaker && !(beat.type === "dialogue" && beat.speakerLabel) && <span className="story-bubble-tail" style={{ left: tailOffset(speaker.position) }} aria-hidden="true" />}
           </button>
         )}
       </div>
