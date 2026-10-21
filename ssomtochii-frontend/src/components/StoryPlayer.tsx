@@ -88,7 +88,9 @@ export function StoryPlayer({
     return (
       <IncomingCallScreen
         callerName={beat.callerName ?? "Tega"}
+        interaction={beat.interaction ?? "interactive"}
         onAnswer={() => goTo(beat.next)}
+        onContinue={() => goTo(beat.next)}
       />
     );
   }
