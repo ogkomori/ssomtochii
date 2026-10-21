@@ -15,7 +15,7 @@ function useClock() {
   return now;
 }
 
-export function IncomingCallScreen({ onAnswer, callerName = "Unknown Caller" }: { onAnswer: () => void; callerName?: string }) {
+export function IncomingCallScreen({ onAnswer, onContinue, interaction = "interactive", callerName = "Unknown Caller" }: { onAnswer?: () => void; onContinue?: () => void; interaction?: "interactive" | "display-only"; callerName?: string }) {
   const [state, setState] = useState<CallState>("ringing");
   const now = useClock();
 
@@ -81,19 +81,21 @@ export function IncomingCallScreen({ onAnswer, callerName = "Unknown Caller" }: 
 
                 <div className="controls">
                   <button
-                    className="call-btn decline"
+                    className={`call-btn decline ${interaction === "display-only" ? "call-btn--inactive" : ""}`}
                     type="button"
-                    onClick={() => setState("declined")}
-                    aria-label="Decline call"
+                    onClick={interaction === "interactive" ? () => setState("declined") : undefined}
+                    disabled={interaction === "display-only"}
+                    aria-label={interaction === "display-only" ? "Decline unavailable in this story scene" : "Decline call"}
                   >
                     <PhoneOff className="icon" aria-hidden="true" />
                     <span>Decline</span>
                   </button>
                   <button
-                    className="call-btn answer"
+                    className={`call-btn answer ${interaction === "display-only" ? "call-btn--inactive" : ""}`}
                     type="button"
-                    onClick={onAnswer}
-                    aria-label="Answer call"
+                    onClick={interaction === "interactive" ? onAnswer : undefined}
+                    disabled={interaction === "display-only"}
+                    aria-label={interaction === "display-only" ? "Answer unavailable in this story scene" : "Answer call"}
                   >
                     <Phone className="icon wiggle" aria-hidden="true" />
                     <span>Accept</span>
@@ -129,7 +131,11 @@ export function IncomingCallScreen({ onAnswer, callerName = "Unknown Caller" }: 
           <div className="home-bar" aria-hidden="true" />
         </div>
       </div>
-
+      {interaction === "display-only" && (
+        <button className="incoming-call-continue" type="button" onClick={onContinue}>
+          Continue story <span aria-hidden="true">›</span>
+        </button>
+      )}
     </main>
   );
 }
