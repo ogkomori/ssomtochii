@@ -108,12 +108,12 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
       const lastPinX = paddingX;
       const wallAngle = Math.atan2(firstPinX - lastPinX, binTop - topPadding - bottomPadding);
       const wallX = firstPinX - (firstPinX - lastPinX) / 2 - pinDistanceX * 0.25;
-      const wallLength = height + 30;
+      const wallLength = binTop - topPadding - bottomPadding + 30;
       bodies.push(
-        matter.Bodies.rectangle(wallX, height / 2, 8, wallLength, {
+        matter.Bodies.rectangle(wallX, (topPadding + binTop - bottomPadding) / 2, 8, wallLength, {
           isStatic: true, angle: wallAngle, label: "plinko-wall", render: { visible: false },
         }),
-        matter.Bodies.rectangle(width - wallX, height / 2, 8, wallLength, {
+        matter.Bodies.rectangle(width - wallX, (topPadding + binTop - bottomPadding) / 2, 8, wallLength, {
           isStatic: true, angle: -wallAngle, label: "plinko-wall", render: { visible: false },
         }),
       );
