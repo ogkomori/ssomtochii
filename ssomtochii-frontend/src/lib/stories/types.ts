@@ -15,6 +15,12 @@ interface StoryBeatBase {
   characters?: StoryCharacter[];
   /** Selects the camera composition for this beat. */
   scene?: "character" | "phone";
+  /** Optional contact details for phone scenes; defaults preserve the original Day 1 look. */
+  phone?: {
+    contactName?: string;
+    contactInitial?: string;
+    statusText?: string;
+  };
 }
 
 export interface DialogueBeat extends StoryBeatBase {
