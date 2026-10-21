@@ -25,6 +25,8 @@ export const DAY_ONE_CALL_STORY: StoryDefinition = {
     {
       id: "tega-voice",
       type: "dialogue",
+      scene: "phone",
+      characters: [],
       speakerId: "somto",
       speakerLabel: "Tega · On the phone",
       text: "Heeey, pretty girl. You picked up so fast.",
@@ -33,6 +35,8 @@ export const DAY_ONE_CALL_STORY: StoryDefinition = {
     {
       id: "somto-reply",
       type: "dialogue",
+      scene: "character",
+      characters: [somto],
       speakerId: "somto",
       text: "As if I wasn't going to answer your call 🙄",
       next: "choice",
@@ -52,6 +56,8 @@ export const DAY_ONE_CALL_STORY: StoryDefinition = {
     {
       id: "waiting-reply",
       type: "dialogue",
+      scene: "phone",
+      characters: [],
       speakerId: "somto",
       speakerLabel: "Tega · On the phone",
       text: "Aww, you were waiting for me? That is so cute. I should call you more often, then.",
@@ -60,6 +66,8 @@ export const DAY_ONE_CALL_STORY: StoryDefinition = {
     {
       id: "busy-reply",
       type: "dialogue",
+      scene: "phone",
+      characters: [],
       speakerId: "somto",
       speakerLabel: "Tega · On the phone",
       text: "Oh, I'm sorry, ma'am. Should I schedule an appointment to speak to my favourite person?",
@@ -68,6 +76,8 @@ export const DAY_ONE_CALL_STORY: StoryDefinition = {
     {
       id: "check-in-reply",
       type: "dialogue",
+      scene: "phone",
+      characters: [],
       speakerId: "somto",
       speakerLabel: "Tega · On the phone",
       text: "Nothing dramatic. I wanted to hear your voice and check on you. Is that allowed?",
