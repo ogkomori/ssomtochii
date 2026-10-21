@@ -1,0 +1,77 @@
+import type { StoryDefinition } from "./types";
+
+const somto = {
+  id: "somto",
+  name: "Somto",
+  image: "/images/character-reference/neutral.png",
+  position: "center" as const,
+  alt: "Somto answering the phone",
+};
+
+export const DAY_ONE_CALL_STORY: StoryDefinition = {
+  title: "A Little Call",
+  subtitle: "Day 1 · A phone call from Tega",
+  startAt: "somto-hello",
+  beats: [
+    {
+      id: "somto-hello",
+      type: "dialogue",
+      speakerId: "somto",
+      characters: [somto],
+      background: "linear-gradient(180deg, #d9e8e0 0%, #f4e8e4 55%, #c5d6c0 100%)",
+      text: "Hiii 🥹",
+      next: "tega-voice",
+    },
+    {
+      id: "tega-voice",
+      type: "dialogue",
+      speakerId: "somto",
+      text: "Heeey, pretty girl. You picked up so fast.",
+      next: "somto-reply",
+    },
+    {
+      id: "somto-reply",
+      type: "dialogue",
+      speakerId: "somto",
+      text: "As if I wasn't going to answer your call 🙄",
+      next: "choice",
+    },
+    {
+      id: "choice",
+      type: "choice",
+      speakerId: "somto",
+      text: "What does Somto say?",
+      choices: [
+        { id: "waiting", label: "“I was waiting for you to call.”", next: "waiting-reply" },
+        { id: "busy", label: "“You interrupted my very important work.”", next: "busy-reply" },
+        { id: "check-in", label: "“What's up, Tega?”", next: "check-in-reply" },
+      ],
+    },
+    {
+      id: "waiting-reply",
+      type: "dialogue",
+      speakerId: "somto",
+      text: "Aww, you were waiting for me? That is so cute. I should call you more often, then.",
+      next: "ending",
+    },
+    {
+      id: "busy-reply",
+      type: "dialogue",
+      speakerId: "somto",
+      text: "Oh, I'm sorry, ma'am. Should I schedule an appointment to speak to my favourite person?",
+      next: "ending",
+    },
+    {
+      id: "check-in-reply",
+      type: "dialogue",
+      speakerId: "somto",
+      text: "Nothing dramatic. I wanted to hear your voice and check on you. Is that allowed?",
+      next: "ending",
+    },
+    {
+      id: "ending",
+      type: "end",
+      text: "Okay, okay. I'll let you get back to your day. But I'm calling again later, so don't miss me too much. ❤️",
+    },
+  ],
+};
