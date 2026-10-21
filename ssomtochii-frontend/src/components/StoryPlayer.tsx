@@ -28,9 +28,15 @@ function tailOffset(position?: StoryCharacter["position"]) {
 export function StoryPlayer({
   story,
   onExit,
+  onComplete,
+  continueLabel = "Continue",
+  exitLabel = "Exit story",
 }: {
   story: StoryDefinition;
   onExit: () => void;
+  onComplete?: () => void;
+  continueLabel?: string;
+  exitLabel?: string;
 }) {
   const firstBeat = useMemo(() => {
     const initial = getBeat(story, story.startAt) ?? story.beats[0];
@@ -73,7 +79,7 @@ export function StoryPlayer({
       <div className="story-stage" style={getBackgroundStyle(background)}>
         <header className="story-test-header">
           <button type="button" className="story-exit-button" onClick={onExit}>
-            <ArrowLeft className="h-4 w-4" /> Exit test
+            <ArrowLeft className="h-4 w-4" /> {exitLabel}
           </button>
           <div className="story-heading">
             <span>{story.title}</span>
@@ -108,12 +114,12 @@ export function StoryPlayer({
             <p className="story-dialogue-text">{beat.text}</p>
             <div className="story-ending-actions">
               <button type="button" className="story-choice-button" onClick={restart}>Play again</button>
-              <button type="button" className="story-choice-button story-choice-button--secondary" onClick={onExit}>Back to Day 12</button>
+              {onComplete ? <button type="button" className="story-choice-button story-choice-button--secondary" onClick={onComplete}>{continueLabel}</button> : <button type="button" className="story-choice-button story-choice-button--secondary" onClick={onExit}>Back to Day 12</button>}
             </div>
           </section>
         ) : beat.type === "choice" ? (
           <section className="story-dialogue-panel story-choice-panel" aria-live="polite">
-            {speaker && <p className="story-speaker-name">{speaker.name}</p>}
+            {speaker && <p className="story-speaker-name">{beat.speakerLabel ?? speaker.name}</p>}
             <p className="story-dialogue-text">{beat.text}</p>
             <div className="story-choice-list">
               {beat.choices.map((choice) => (
@@ -122,7 +128,7 @@ export function StoryPlayer({
                 </button>
               ))}
             </div>
-            {speaker && <span className="story-bubble-tail" style={{ left: tailOffset(speaker.position) }} aria-hidden="true" />}
+            {speaker && !(beat.type === "dialogue" && beat.speakerLabel) && <span className="story-bubble-tail" style={{ left: tailOffset(speaker.position) }} aria-hidden="true" />}
           </section>
         ) : (
           <button
@@ -131,7 +137,7 @@ export function StoryPlayer({
             onClick={advance}
             aria-label={beat.type === "narration" ? "Continue narration" : `Continue dialogue from ${speaker?.name ?? "speaker"}`}
           >
-            {speaker && <span className="story-speaker-name">{speaker.name}</span>}
+            {speaker && <span className="story-speaker-name">{beat.type === "dialogue" ? beat.speakerLabel ?? speaker.name : speaker.name}</span>}
             <span className="story-dialogue-text">{beat.text}</span>
             <span className="story-continue-hint">Tap to continue ›</span>
             {speaker && <span className="story-bubble-tail" style={{ left: tailOffset(speaker.position) }} aria-hidden="true" />}
