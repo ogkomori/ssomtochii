@@ -669,3 +669,45 @@ button.story-dialogue-panel{cursor:pointer;font:inherit}
 .story-phone-status{font-variant-numeric:tabular-nums;letter-spacing:.08em;font-family:ui-sans-serif,system-ui,sans-serif;font-style:normal}
 @media(max-height:650px){.story-stage .story-sprite{height:calc(100dvh - 4.5rem);max-width:94vw}}
 @media(max-width:520px){.story-stage .story-sprite{height:calc(100dvh - clamp(7rem, 15dvh, 9rem));max-width:100vw;bottom:clamp(7rem, 13dvh, 11rem)}}
+
+
+/* Display-only incoming calls: the phone controls are decorative, while story progression stays outside the phone UI. */
+.incoming-call-screen .call-btn--inactive {
+  cursor: default;
+  opacity: .58;
+  filter: saturate(.55);
+}
+.incoming-call-screen .call-btn--inactive:hover .icon,
+.incoming-call-screen .call-btn--inactive:active .icon {
+  transform: none;
+  filter: none;
+}
+.incoming-call-screen .call-btn--inactive .icon.wiggle {
+  animation: none;
+}
+.incoming-call-continue {
+  position: fixed;
+  z-index: 2;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  display: inline-flex;
+  align-items: center;
+  gap: .45rem;
+  border: 1px solid rgb(255 250 240 / 45%);
+  border-radius: 999px;
+  background: rgb(255 250 240 / 94%);
+  padding: .8rem 1.2rem;
+  color: #315446;
+  font: inherit;
+  font-size: .9rem;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgb(20 34 28 / 22%);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.incoming-call-continue span {
+  font-size: 1.25rem;
+  line-height: 1;
+}
+.incoming-call-continue:hover { transform: translateY(-1px); }
+.incoming-call-continue:active { transform: scale(.97); }
