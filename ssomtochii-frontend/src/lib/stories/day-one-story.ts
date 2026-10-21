@@ -107,7 +107,7 @@ export const DAY_ONE_STORY: StoryDefinition = {
       },
       characters: [],
       speaker: TEGA,
-      text: "Sorry, ma'am. Do I need to schedule an appointment to speak to my favourite person?",
+      text: "Sorry, ma'am. Do I need to schedule an appointment to speak to my babe?",
       next: 9,
     },
     {
@@ -162,7 +162,7 @@ export const DAY_ONE_STORY: StoryDefinition = {
       scene: "character",
       characters: [smiling],
       speaker: SOMTO,
-      text: "Love you too baby! See you!",
+      text: "Alright babe, love you too!",
       next: 14,
     },
     {

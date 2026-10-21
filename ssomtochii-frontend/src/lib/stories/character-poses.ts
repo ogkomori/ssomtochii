@@ -34,3 +34,5 @@ export const pose13ArmsCrossed = pose("pose-13-arms-crossed", "pose-13-arms-cros
 export const sitting = pose("sitting", "sitting", "Somto sitting");
 export const smiling = pose("smiling", "smiling", "Somto smiling");
 export const speaking = pose("speaking", "speaking", "Somto speaking");
+export const behind = pose("behind", "behind", "Somto behind something");
+export const upwards = pose("upwards", "upwards", "Somto looking upwards");

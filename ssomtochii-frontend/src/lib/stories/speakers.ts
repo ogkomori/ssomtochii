@@ -16,5 +16,5 @@ export const TEGA: Speaker = {
 export const ALEXA: Speaker = {
   id: "alexa",
   label: "Somto's Alexa",
-  color: "#ADD8E6",
+  color: "#0000FF",
 };
