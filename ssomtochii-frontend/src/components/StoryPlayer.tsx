@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ArrowLeft, RotateCcw } from "lucide-react";
+import { ArrowLeft, ChevronRight, RotateCcw } from "lucide-react";
 import type { CSSProperties } from "react";
 import type { StoryBeat, StoryCharacter, StoryDefinition } from "@/lib/stories/types";
 
@@ -113,38 +113,57 @@ export function StoryPlayer({
         </div>
 
         {beat.type === "end" ? (
-          <section className="story-dialogue-panel story-ending-panel" aria-live="polite">
-            <p className="story-dialogue-text">{beat.text}</p>
-            <div className="story-ending-actions">
-              <button type="button" className="story-choice-button" onClick={restart}>Play again</button>
-              {onComplete ? <button type="button" className="story-choice-button story-choice-button--secondary" onClick={onComplete}>{continueLabel}</button> : <button type="button" className="story-choice-button story-choice-button--secondary" onClick={onExit}>Back to Day 12</button>}
-            </div>
-          </section>
+          <div className="story-dialogue-stack">
+            <section className="story-dialogue-panel story-ending-panel" aria-live="polite">
+              <p className="story-dialogue-text">{beat.text}</p>
+              <div className="story-ending-actions">
+                <button type="button" className="story-choice-button" onClick={restart}>Play again</button>
+                {onComplete ? <button type="button" className="story-choice-button story-choice-button--secondary" onClick={onComplete}>{continueLabel}</button> : <button type="button" className="story-choice-button story-choice-button--secondary" onClick={onExit}>Back to Day 12</button>}
+              </div>
+            </section>
+          </div>
         ) : beat.type === "choice" ? (
-          <section className="story-dialogue-panel story-choice-panel" aria-live="polite">
-            {(beat.speakerLabel || speaker) && <p className="story-speaker-name">{beat.speakerLabel ?? speaker?.name}</p>}
-            <p className="story-dialogue-text">{beat.text}</p>
+          <div className="story-dialogue-stack story-dialogue-stack--choices" aria-live="polite">
+            <div className="story-dialogue-wrap">
+              {(beat.speakerLabel || speaker) && (
+                <div className={`story-speaker-name ${(beat.speakerLabel ?? speaker?.name ?? "").includes("Somto") ? "story-speaker-name--rose" : "story-speaker-name--sage"}`}>
+                  <span>{beat.speakerLabel ?? speaker?.name}</span>
+                  {beat.speakerLabel?.includes("·") && <span className="story-speaker-status">{beat.speakerLabel.split("·").slice(1).join("·").trim()}</span>}
+                </div>
+              )}
+              <section className="story-dialogue-panel story-choice-panel">
+                <p className="story-dialogue-text">{beat.text}</p>
+              </section>
+            </div>
             <div className="story-choice-list">
               {beat.choices.map((choice) => (
                 <button key={choice.id} type="button" className="story-choice-button" onClick={() => goTo(choice.next)}>
-                  {choice.label}
+                  <span>{choice.label}</span>
+                  <ChevronRight className="story-choice-chevron" aria-hidden="true" />
                 </button>
               ))}
             </div>
-            {speaker && !(beat.type === "dialogue" && beat.speakerLabel) && <span className="story-bubble-tail" style={{ left: tailOffset(speaker.position) }} aria-hidden="true" />}
-          </section>
+          </div>
         ) : (
-          <button
-            type="button"
-            className={`story-dialogue-panel ${beat.type === "narration" ? "story-dialogue-panel--narration" : ""}`}
-            onClick={advance}
-            aria-label={beat.type === "narration" ? "Continue narration" : `Continue dialogue from ${speaker?.name ?? "speaker"}`}
-          >
-            {(beat.type === "dialogue" ? beat.speakerLabel || speaker : speaker) && <span className="story-speaker-name">{beat.type === "dialogue" ? beat.speakerLabel ?? speaker?.name : speaker?.name}</span>}
-            <span className="story-dialogue-text">{beat.text}</span>
-            <span className="story-continue-hint">Tap to continue ›</span>
-            {speaker && !(beat.type === "dialogue" && beat.speakerLabel) && <span className="story-bubble-tail" style={{ left: tailOffset(speaker.position) }} aria-hidden="true" />}
-          </button>
+          <div className="story-dialogue-stack">
+            <div className="story-dialogue-wrap">
+              {(beat.type === "dialogue" ? beat.speakerLabel || speaker : speaker) && (
+                <div className={`story-speaker-name ${(beat.type === "dialogue" ? beat.speakerLabel ?? speaker?.name : speaker?.name ?? "").includes("Somto") ? "story-speaker-name--rose" : "story-speaker-name--sage"}`}>
+                  <span>{beat.type === "dialogue" ? beat.speakerLabel ?? speaker?.name : speaker?.name}</span>
+                  {beat.type === "dialogue" && beat.speakerLabel?.includes("·") && <span className="story-speaker-status">{beat.speakerLabel.split("·").slice(1).join("·").trim()}</span>}
+                </div>
+              )}
+              <button
+                type="button"
+                className={`story-dialogue-panel ${beat.type === "narration" ? "story-dialogue-panel--narration" : ""}`}
+                onClick={advance}
+                aria-label={beat.type === "narration" ? "Continue narration" : `Continue dialogue from ${speaker?.name ?? "speaker"}`}
+              >
+                <span className="story-dialogue-text">{beat.text}</span>
+                <span className="story-continue-hint"><ChevronRight aria-hidden="true" /></span>
+              </button>
+            </div>
+          </div>
         )}
       </div>
     </main>
