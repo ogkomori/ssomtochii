@@ -140,7 +140,7 @@ export function StoryPlayer({
           </section>
         ) : beat.type === "choice" ? (
           <section className="story-dialogue-panel story-choice-panel" aria-live="polite">
-            {speaker && <p className="story-speaker-name" style={{ color: speaker.color, borderColor: speaker.color }}>{speaker.label}</p>}
+            {speaker && <p className="story-speaker-name" style={{ color: speaker.color, borderColor: speaker.color, backgroundColor: `color-mix(in srgb, ${speaker.color} 18%, transparent)` }}>{speaker.label}</p>}
             <p className="story-dialogue-text">{beat.text}</p>
             <div className="story-choice-list">
               {beat.choices.map((choice) => (
@@ -158,7 +158,7 @@ export function StoryPlayer({
             onClick={advance}
             aria-label={beat.type === "narration" ? "Continue narration" : `Continue dialogue from ${speaker?.label ?? "speaker"}`}
           >
-            {speaker && <span className="story-speaker-name" style={{ color: speaker.color, borderColor: speaker.color }}>{speaker.label}</span>}
+            {speaker && <span className="story-speaker-name" style={{ color: speaker.color, borderColor: speaker.color, backgroundColor: `color-mix(in srgb, ${speaker.color} 18%, transparent)` }}>{speaker.label}</span>}
             <span className="story-dialogue-text">{beat.text}</span>
             <span className="story-continue-hint">Tap to continue ›</span>
             {speakerCharacter && <span className="story-bubble-tail" style={{ left: tailOffset(speakerCharacter.position) }} aria-hidden="true" />}
