@@ -57,7 +57,14 @@ export interface EndBeat extends StoryBeatBase {
   text: string;
 }
 
-export type StoryBeat = DialogueBeat | NarrationBeat | ChoiceBeat | EndBeat;
+/** A reusable incoming-call screen that pauses the story until the call is answered. */
+export interface IncomingCallBeat extends StoryBeatBase {
+  type: "incoming-call";
+  callerName?: string;
+  next: number;
+}
+
+export type StoryBeat = DialogueBeat | NarrationBeat | ChoiceBeat | EndBeat | IncomingCallBeat;
 
 export interface StoryDefinition {
   title: string;
