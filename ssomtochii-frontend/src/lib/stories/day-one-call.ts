@@ -44,6 +44,8 @@ export const DAY_ONE_CALL_STORY: StoryDefinition = {
     {
       id: "choice",
       type: "choice",
+      scene: "character",
+      characters: [somto],
       speakerId: "somto",
       speakerLabel: "Somto",
       text: "What should I say?",
@@ -86,6 +88,8 @@ export const DAY_ONE_CALL_STORY: StoryDefinition = {
     {
       id: "ending",
       type: "end",
+      scene: "phone",
+      characters: [],
       text: "Okay, okay. I'll let you get back to your day. But I'm calling again later, so don't miss me too much. ❤️",
     },
   ],
