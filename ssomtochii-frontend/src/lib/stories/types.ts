@@ -13,6 +13,8 @@ interface StoryBeatBase {
   id: string;
   background?: string;
   characters?: StoryCharacter[];
+  /** Selects the camera composition for this beat. */
+  scene?: "character" | "phone";
 }
 
 export interface DialogueBeat extends StoryBeatBase {
