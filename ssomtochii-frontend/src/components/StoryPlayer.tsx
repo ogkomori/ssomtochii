@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, RotateCcw } from "lucide-react";
 import type { CSSProperties } from "react";
 import type { StoryBeat, StoryCharacter, StoryDefinition } from "@/lib/stories/types";
+import { IncomingCallScreen } from "@/components/IncomingCallScreen";
 import { preloadStoryAssets } from "@/lib/stories/preload-assets";
 
 function getBeat(story: StoryDefinition, id: StoryBeat["id"]) {
@@ -82,6 +83,16 @@ export function StoryPlayer({
     setBackground(firstBeat.background);
     setCharacters(firstBeat.characters ?? []);
   };
+
+  // The same incoming-call UI used before Day 1 can also appear mid-story.
+  if (beat.type === "incoming-call") {
+    return (
+      <IncomingCallScreen
+        callerName={beat.callerName ?? "Tega"}
+        onAnswer={() => goTo(beat.next)}
+      />
+    );
+  }
 
   return (
     <main className="story-player-shell">
