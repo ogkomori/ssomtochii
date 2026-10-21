@@ -3,9 +3,10 @@ import { ArrowLeft, ArrowRight, Check, Play } from "lucide-react";
 import { useState } from "react";
 import { DAY_ONE_CONTENT } from "@/lib/day-one";
 import { Botanicals } from "@/components/Botanicals";
+import { DayOneCallStory } from "@/activities/DayOneCallStory";
 
-type Step = "introduction" | "video" | "quiz" | "completion";
-const STEPS: Step[] = ["introduction", "video", "quiz", "completion"];
+type Step = "introduction" | "video" | "story" | "quiz" | "completion";
+const STEPS: Step[] = ["introduction", "video", "story", "quiz", "completion"];
 /** A reusable activity, assignable to any day from lib/days.ts. */
 export function DayOneJourney({ onComplete }: { onComplete: () => void }) {
   const [step, setStep] = useState<Step>("introduction");
@@ -16,8 +17,8 @@ export function DayOneJourney({ onComplete }: { onComplete: () => void }) {
   return <main className="page-shell day-one-shell"><Botanicals /><div className="relative mx-auto flex min-h-[calc(100dvh-1rem)] w-full max-w-md flex-col">
     <header className="flex items-center justify-between pt-2"><Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> All days</Link><span className="text-xs font-semibold tracking-[0.18em] text-muted-foreground">{currentStep + 1} / {STEPS.length}</span></header>
     <section className="paper-card day-one-card my-6 flex flex-1 flex-col p-6 sm:p-8" aria-live="polite">
-      {step === "introduction" && <Introduction />}{step === "video" && <Video />}{step === "quiz" && <Quiz selected={selectedAnswer} onSelect={setSelectedAnswer} />}{step === "completion" && <Completion />}
-      {step !== "completion" ? <div className="mt-auto flex justify-end pt-8"><button type="button" className="next-button" onClick={next} disabled={step === "quiz" && selectedAnswer === null}>Next <ArrowRight className="h-4 w-4" /></button></div> : <div className="mt-auto flex justify-end pt-8"><button type="button" className="next-button" onClick={onComplete}>Get today’s letter <ArrowRight className="h-4 w-4" /></button></div>}
+      {step === "introduction" && <Introduction />}{step === "video" && <Video />}{step === "story" && <DayOneCallStory onComplete={() => setStep("quiz")} />}{step === "quiz" && <Quiz selected={selectedAnswer} onSelect={setSelectedAnswer} />}{step === "completion" && <Completion />}
+      {step === "story" ? null : step !== "completion" ? <div className="mt-auto flex justify-end pt-8"><button type="button" className="next-button" onClick={next} disabled={step === "quiz" && selectedAnswer === null}>Next <ArrowRight className="h-4 w-4" /></button></div> : <div className="mt-auto flex justify-end pt-8"><button type="button" className="next-button" onClick={onComplete}>Get today’s letter <ArrowRight className="h-4 w-4" /></button></div>}
     </section>
   </div></main>;
 }
