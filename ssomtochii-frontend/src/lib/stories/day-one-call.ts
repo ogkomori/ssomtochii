@@ -1,5 +1,5 @@
 import type { StoryDefinition } from "./types";
-import { neutral } from "./character-poses";
+import { neutral, smiling } from "./character-poses";
 
 export const DAY_ONE_CALL_STORY: StoryDefinition = {
   title: "A Little Call",
@@ -12,8 +12,8 @@ export const DAY_ONE_CALL_STORY: StoryDefinition = {
       scene: "character",
       speakerId: "somto",
       speakerLabel: "Somto",
-      characters: [neutral],
-      background: "linear-gradient(180deg, #d9e8e0 0%, #f4e8e4 55%, #c5d6c0 100%)",
+      characters: [smiling],
+      background: "images/backgrounds/bedroom.png",
       text: "Hi babyyy!",
       next: 2,
     },
@@ -31,7 +31,7 @@ export const DAY_ONE_CALL_STORY: StoryDefinition = {
       id: 3,
       type: "dialogue",
       scene: "character",
-      characters: [neutral],
+      characters: [smiling],
       speakerId: "somto",
       speakerLabel: "Somto",
       text: "I'm good my love, how are you?",
