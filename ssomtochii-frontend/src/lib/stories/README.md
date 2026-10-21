@@ -21,7 +21,7 @@ Create a file such as `day-01.ts` and export a `StoryDefinition` (see `demo.ts` 
 
 Each beat can set `background` and `characters`. If either is omitted, the previous visual state remains. A background can be a CSS color/gradient while prototyping, or an asset path such as `/images/story/day-01/school-corridor.webp`.
 
-Each character has a stable `id`, a `name`, an `image` path, and a `position` (`left`, `center`, or `right`). Dialogue's `speakerId` should match a visible character's ID so the bubble tail points towards them. Set `mirrored: true` for a sprite that should be flipped horizontally.
+Each character has a stable `id`, a `name`, an `image` path, and a `position` (`left`, `center`, or `right`). A beat's `speaker` is a reusable `Speaker` object from `speakers.ts`; its `id` should match the visible character's ID so the bubble tail points towards them. Each speaker defines `id`, `label`, and `color`. Add and export reusable speakers in `speakers.ts`, then use `speaker: YOUR_SPEAKER` on dialogue or choice beats. For a context-specific label, export another speaker based on an existing one (for example, `TEGA_ON_PHONE`). Set `mirrored: true` for a sprite that should be flipped horizontally.
 
 ## Asset locations
 
