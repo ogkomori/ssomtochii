@@ -38,20 +38,13 @@ import { DAY_SIXTEEN_STORY } from "@/lib/stories/day-sixteen-story";
 import { getDay } from "@/lib/days";
 
 const STORIES: Record<Exclude<StoryId, "day-one-story">, StoryDefinition> = {
-  "day-two-story": DAY_TWO_STORY,
-  "day-three-story": DAY_THREE_STORY,
-  "day-four-story": DAY_FOUR_STORY,
-  "day-five-story": DAY_FIVE_STORY,
-  "day-six-story": DAY_SIX_STORY,
-  "day-seven-story": DAY_SEVEN_STORY,
-  "day-eight-story": DAY_EIGHT_STORY,
-  "day-nine-story": DAY_NINE_STORY,
-  "day-ten-story": DAY_TEN_STORY,
-  "day-eleven-story": DAY_ELEVEN_STORY,
-  "day-twelve-story": DAY_TWELVE_STORY,
-  "day-thirteen-story": DAY_THIRTEEN_STORY,
-  "day-fourteen-story": DAY_FOURTEEN_STORY,
-  "day-fifteen-story": DAY_FIFTEEN_STORY,
+  "day-two-story": DAY_TWO_STORY, "day-three-story": DAY_THREE_STORY,
+  "day-four-story": DAY_FOUR_STORY, "day-five-story": DAY_FIVE_STORY,
+  "day-six-story": DAY_SIX_STORY, "day-seven-story": DAY_SEVEN_STORY,
+  "day-eight-story": DAY_EIGHT_STORY, "day-nine-story": DAY_NINE_STORY,
+  "day-ten-story": DAY_TEN_STORY, "day-eleven-story": DAY_ELEVEN_STORY,
+  "day-twelve-story": DAY_TWELVE_STORY, "day-thirteen-story": DAY_THIRTEEN_STORY,
+  "day-fourteen-story": DAY_FOURTEEN_STORY, "day-fifteen-story": DAY_FIFTEEN_STORY,
   "day-sixteen-story": DAY_SIXTEEN_STORY,
 };
 
@@ -79,12 +72,7 @@ function DayPage() {
   const [daySevenVideoStarted, setDaySevenVideoStarted] = useState(false);
   const daySevenVideoRef = useRef<HTMLVideoElement>(null);
 
-  // Day 1 has its own welcome, introduction video, story, and remaining journey.
-  if (day.day === 1) {
-    return <DayOneJourney onComplete={() => window.location.assign("/")} />;
-  }
-
-  if (!welcomeStarted) {
+  if (day.day !== 1 && !welcomeStarted) {
     return (
       <main className="page-shell day-one-shell">
         <Botanicals />
@@ -96,7 +84,7 @@ function DayPage() {
           <section className="paper-card day-one-card my-6 flex flex-1 flex-col items-center justify-center p-6 text-center sm:p-8">
             <p className="day-one-eyebrow">DAY {day.day} · {day.label}</p>
             <h1 className="font-script text-5xl leading-none sm:text-6xl">Welcome to Day {day.day} ♡</h1>
-            <p className="mt-5 min-h-6 whitespace-pre-wrap text-foreground/80">{/* Optional message: add it here when desired. */}</p>
+            <p className="mt-5 min-h-6 whitespace-pre-wrap text-foreground/80">{/* Optional message can be added here later. */}</p>
             <button type="button" className="next-button mt-8" onClick={() => setWelcomeStarted(true)}>Start Day {day.day} <ArrowRight className="h-4 w-4" /></button>
           </section>
         </div>
@@ -104,17 +92,9 @@ function DayPage() {
     );
   }
 
-  if (!storyComplete) {
+  if (day.day !== 1 && !storyComplete) {
     const story = STORIES[day.story as Exclude<StoryId, "day-one-story">];
-    return (
-      <StoryPlayer
-        story={story}
-        exitLabel="Back to welcome"
-        onExit={() => setWelcomeStarted(false)}
-        onComplete={() => setStoryComplete(true)}
-        continueLabel={`Continue to Day ${day.day}'s activity ♡`}
-      />
-    );
+    return <StoryPlayer story={story} exitLabel="Back to welcome" onExit={() => setWelcomeStarted(false)} onComplete={() => setStoryComplete(true)} continueLabel={`Continue to Day ${day.day}'s activity ♡`} />;
   }
 
   if (day.day === 7 && !daySevenStarted) {
@@ -122,14 +102,9 @@ function DayPage() {
       <main className="page-shell">
         <Botanicals />
         <div className="relative mx-auto flex min-h-[calc(100dvh-1rem)] w-full max-w-md flex-col">
-          <header className="flex items-center justify-between pt-2">
-            <Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> All days</Link>
-            <span className="text-xs font-semibold tracking-[0.15em] text-muted-foreground">DAY 7 · {day.label}</span>
-          </header>
+          <header className="flex items-center justify-between pt-2"><Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> All days</Link><span className="text-xs font-semibold tracking-[0.15em] text-muted-foreground">DAY 7 · {day.label}</span></header>
           <section className="paper-card my-5 flex flex-1 flex-col items-center p-5 text-center sm:p-7">
-            <p className="day-one-eyebrow">A LITTLE MILESTONE</p>
-            <h1 className="mt-3 font-script text-5xl leading-none">Welcome to Day 7 ♡</h1>
-            <p className="mt-3 text-foreground/80">from day 6 to 7</p>
+            <p className="day-one-eyebrow">A LITTLE MILESTONE</p><h1 className="mt-3 font-script text-5xl leading-none">Welcome to Day 7 ♡</h1><p className="mt-3 text-foreground/80">from day 6 to 7</p>
             <div className="relative mt-6 w-full overflow-hidden rounded-2xl border border-border/60 bg-muted/40">
               <video ref={daySevenVideoRef} className="block aspect-[9/16] max-h-[52dvh] w-full object-contain" src="/videos/day-07-67.mp4" loop playsInline controls aria-label="Day 7 video" onPlay={() => setDaySevenVideoStarted(true)} />
               {!daySevenVideoStarted && <button type="button" className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/25 text-white transition-colors hover:bg-black/35" onClick={() => { const video = daySevenVideoRef.current; if (video) void video.play().catch(() => {}); }} aria-label="Play Day 7 video with sound"><span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 text-foreground shadow-lg"><Play className="ml-1 h-7 w-7 fill-current" /></span><span className="text-sm font-semibold drop-shadow">Tap to play with sound</span></button>}
@@ -144,6 +119,7 @@ function DayPage() {
   return (
     <DayActivityFlow day={day.day}>
       {(complete) => {
+        if (day.activity === "day-one-journey") return <DayOneJourney onComplete={complete} />;
         if (day.activity === "cup-pong") return <CupPong onComplete={complete} />;
         if (day.activity === "word-scramble") return <WordScramble onComplete={complete} />;
         if (day.activity === "memory-match") return <MemoryMatch onComplete={complete} />;
