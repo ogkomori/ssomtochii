@@ -1,20 +1,5 @@
 import type { StoryDefinition } from "./types";
-
-const neutral = {
-  id: "neutral",
-  name: "Somto",
-  image: "/images/character-reference/neutral.png",
-  position: "center" as const,
-  alt: "Somto answering the phone",
-};
-
-const speaking = {
-  id: "speaking",
-  name: "Somto",
-  image: "/images/character-reference/speaking.png",
-  position: "center" as const,
-  alt: "Somto answering the phone",
-};
+import { neutral, speaking } from "./character-poses";
 
 export const DAY_ONE_CALL_STORY: StoryDefinition = {
   title: "A Little Call",
