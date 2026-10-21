@@ -11,6 +11,7 @@ export const DAY_ONE_STORY: StoryDefinition = {
       id: 0,
       type: "incoming-call",
       callerName: "Tega",
+      interaction: "display-only",
       next: 1,
     },
     {
