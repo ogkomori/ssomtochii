@@ -1,6 +1,13 @@
-import type { Speaker } from "./speakers";
-
 export type CharacterPosition = "left" | "center" | "right";
+
+export interface Speaker {
+  /** Matches the speaker's visible StoryCharacter.id when the character is on screen. */
+  id: string;
+  /** Text shown in the dialogue name tag. */
+  label: string;
+  /** CSS colour used for the dialogue name tag. */
+  color: string;
+}
 
 export interface StoryCharacter {
   id: string;
