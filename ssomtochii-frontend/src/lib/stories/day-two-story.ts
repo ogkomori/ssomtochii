@@ -1,4 +1,4 @@
-import { facepalm, sitting, smiling } from "./character-poses";
+import { facepalm, sitting } from "./character-poses";
 import type { StoryDefinition } from "./types";
 
 /** Day 2 story. Replace this starter beat with the story for Day 2. */
@@ -26,6 +26,12 @@ export const DAY_TWO_STORY: StoryDefinition = {
       speakerLabel: "Somto",
       characters: [sitting],
       text: "Alright. Time to get some sleep.",
+      next: 3,
+    },
+    {
+      id: 3,
+      type: "incoming-call",
+      callerName: "Tega",
       next: 14,
     },
     {
