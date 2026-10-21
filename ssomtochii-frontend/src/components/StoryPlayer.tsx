@@ -91,7 +91,7 @@ export function StoryPlayer({
           </button>
         </header>
 
-        {phoneScene && <div className="story-phone-table-scene" aria-label="Phone resting on a wooden desk"><div className="story-phone-object"><div className="story-phone-display"><span className="story-phone-camera-notch" /><div className="story-phone-contact">T</div><strong>Tega</strong><span className="story-phone-status">Calling…</span><div className="story-phone-action-row"><span>⌁</span><span>▦</span><span>◖</span></div><span className="story-phone-hangup">⌕</span></div></div><span className="story-desk-notebook" /><span className="story-desk-paper" /></div>}
+        {phoneScene && <div className="story-phone-table-scene" aria-label="Phone resting on a wooden desk"><div className="story-phone-object"><div className="story-phone-display"><span className="story-phone-camera-notch" /><div className="story-phone-contact">T</div><strong>Tega</strong><span className="story-phone-status">00:04:27</span><div className="story-phone-action-row"><span>⌁</span><span>▦</span><span>◖</span></div><span className="story-phone-hangup">⌕</span></div></div><span className="story-desk-notebook" /><span className="story-desk-paper" /></div>}
 
         <div className="story-scene-characters" aria-label="Scene characters">
           {!phoneScene && characters.map((character) => {
