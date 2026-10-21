@@ -132,8 +132,15 @@ export function IncomingCallScreen({ onAnswer, onContinue, interaction = "intera
         </div>
       </div>
       {interaction === "display-only" && (
-        <button className="incoming-call-continue" type="button" onClick={onContinue}>
-          Continue story <span aria-hidden="true">›</span>
+        <button
+          type="button"
+          className="story-dialogue-panel incoming-call-dialogue"
+          onClick={onContinue}
+          aria-label="Continue story from incoming call"
+        >
+          <span className="story-speaker-name incoming-call-speaker">{callerName}</span>
+          <span className="story-dialogue-text"><em>incoming call...</em></span>
+          <span className="story-continue-hint">Tap to continue ›</span>
         </button>
       )}
     </main>
