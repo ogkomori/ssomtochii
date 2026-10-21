@@ -4,7 +4,7 @@ import type { CSSProperties } from "react";
 import type { StoryBeat, StoryCharacter, StoryDefinition } from "@/lib/stories/types";
 import { preloadStoryAssets } from "@/lib/stories/preload-assets";
 
-function getBeat(story: StoryDefinition, id: string) {
+function getBeat(story: StoryDefinition, id: StoryBeat["id"]) {
   return story.beats.find((beat) => beat.id === id);
 }
 

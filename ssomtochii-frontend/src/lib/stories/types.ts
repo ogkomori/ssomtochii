@@ -29,7 +29,7 @@ export interface DialogueBeat extends StoryBeatBase {
 export interface NarrationBeat extends StoryBeatBase {
   type: "narration";
   text: string;
-  next?: string;
+  next?: number;
 }
 
 export interface ChoiceOption {
