@@ -6,8 +6,10 @@
 export const DAY_ONE_CONTENT = {
   introduction: {
     eyebrow: "DAY 1 · OCTOBER 23",
-    title: "A little something, just for you.",
-    body: "For the next sixteen days, a small surprise will be waiting here for you. Some will be silly, some will be sweet, and all of them are made with you in mind.",
+    title: "Welcome to Day 1 ♡",
+    // Leave this empty if you don't want an extra message on the welcome screen.
+    body: "",
+    buttonLabel: "Start Day 1",
   },
   video: {
     // Put the file in public/videos, then change this to "/videos/day-one-introduction.mp4".
