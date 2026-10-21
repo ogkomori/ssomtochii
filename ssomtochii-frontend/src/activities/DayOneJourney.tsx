@@ -3,7 +3,7 @@ import { ArrowLeft, ArrowRight, Check, Play } from "lucide-react";
 import { useState } from "react";
 import { DAY_ONE_CONTENT } from "@/lib/day-one";
 import { Botanicals } from "@/components/Botanicals";
-import { DayOneStory } from "@/activities/DayOneStory";
+import { DayOneStory } from "@/activities/stories/DayOneStory";
 
 type Step = "introduction" | "video" | "story" | "quiz" | "completion";
 const STEPS: Step[] = ["introduction", "video", "story", "quiz", "completion"];
