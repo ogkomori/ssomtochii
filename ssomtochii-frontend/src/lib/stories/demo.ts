@@ -1,4 +1,5 @@
 import type { StoryDefinition } from "./types";
+import { GIRLFRIEND } from "./speakers";
 
 /**
  * A small implementation test, not the final Day 12 story.
@@ -28,14 +29,14 @@ export const STORY_ENGINE_DEMO: StoryDefinition = {
     {
       id: "message",
       type: "dialogue",
-      speakerId: "girlfriend",
+      speaker: GIRLFRIEND,
       text: "Okay… why are they being so mysterious?",
       next: "choice",
     },
     {
       id: "choice",
       type: "choice",
-      speakerId: "girlfriend",
+      speaker: GIRLFRIEND,
       text: "What should she do?",
       choices: [
         { id: "reply", label: "Reply immediately", next: "reply-result" },
@@ -46,7 +47,7 @@ export const STORY_ENGINE_DEMO: StoryDefinition = {
       id: "reply-result",
       type: "dialogue",
       background: "linear-gradient(180deg, #f0d9d5 0%, #f8ebdf 58%, #c9d9b8 100%)",
-      speakerId: "girlfriend",
+      speaker: GIRLFRIEND,
       text: "No point overthinking it. If I want to know, I'll just ask.",
       next: "ending",
     },
@@ -54,7 +55,7 @@ export const STORY_ENGINE_DEMO: StoryDefinition = {
       id: "wait-result",
       type: "dialogue",
       background: "linear-gradient(180deg, #d5d8f0 0%, #eee8dc 60%, #a7c5b5 100%)",
-      speakerId: "girlfriend",
+      speaker: GIRLFRIEND,
       text: "I'll wait a little. Let them wonder what I'm thinking for once.",
       next: "ending",
     },
