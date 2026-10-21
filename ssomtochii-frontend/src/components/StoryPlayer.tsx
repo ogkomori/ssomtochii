@@ -59,9 +59,8 @@ export function StoryPlayer({
   const phoneContactName = beat.phone?.contactName ?? "Tega";
   const phoneContactInitial = beat.phone?.contactInitial ?? (phoneContactName.trim().charAt(0).toUpperCase() || "T");
   const phoneStatusText = beat.phone?.statusText ?? "00:04:27";
-  const speaker = beat.type === "dialogue" || beat.type === "choice"
-    ? characters.find((character) => character.id === beat.speakerId)
-    : undefined;
+  const speaker = beat.type === "dialogue" || beat.type === "choice" ? beat.speaker : undefined;
+  const speakerCharacter = speaker ? characters.find((character) => character.id === speaker.id) : undefined;
 
   const goTo = (nextId?: StoryBeat["id"]) => {
     if (!nextId) return;
@@ -141,7 +140,7 @@ export function StoryPlayer({
           </section>
         ) : beat.type === "choice" ? (
           <section className="story-dialogue-panel story-choice-panel" aria-live="polite">
-            {(beat.speakerLabel || speaker) && <p className="story-speaker-name" style={beat.speakerColor ? { color: beat.speakerColor, borderColor: beat.speakerColor } : undefined}>{beat.speakerLabel ?? speaker?.name}</p>}
+            {speaker && <p className="story-speaker-name" style={{ color: speaker.color, borderColor: speaker.color }}>{speaker.label}</p>}
             <p className="story-dialogue-text">{beat.text}</p>
             <div className="story-choice-list">
               {beat.choices.map((choice) => (
@@ -150,19 +149,19 @@ export function StoryPlayer({
                 </button>
               ))}
             </div>
-            {speaker && !(beat.type === "dialogue" && beat.speakerLabel) && <span className="story-bubble-tail" style={{ left: tailOffset(speaker.position) }} aria-hidden="true" />}
+            {speakerCharacter && <span className="story-bubble-tail" style={{ left: tailOffset(speakerCharacter.position) }} aria-hidden="true" />}
           </section>
         ) : (
           <button
             type="button"
             className={`story-dialogue-panel ${beat.type === "narration" ? "story-dialogue-panel--narration" : ""}`}
             onClick={advance}
-            aria-label={beat.type === "narration" ? "Continue narration" : `Continue dialogue from ${speaker?.name ?? "speaker"}`}
+            aria-label={beat.type === "narration" ? "Continue narration" : `Continue dialogue from ${speaker?.label ?? "speaker"}`}
           >
-            {(beat.type === "dialogue" ? beat.speakerLabel || speaker : speaker) && <span className="story-speaker-name" style={beat.speakerColor ? { color: beat.speakerColor, borderColor: beat.speakerColor } : undefined}>{beat.type === "dialogue" ? beat.speakerLabel ?? speaker?.name : speaker?.name}</span>}
+            {speaker && <span className="story-speaker-name" style={{ color: speaker.color, borderColor: speaker.color }}>{speaker.label}</span>}
             <span className="story-dialogue-text">{beat.text}</span>
             <span className="story-continue-hint">Tap to continue ›</span>
-            {speaker && !(beat.type === "dialogue" && beat.speakerLabel) && <span className="story-bubble-tail" style={{ left: tailOffset(speaker.position) }} aria-hidden="true" />}
+            {speakerCharacter && <span className="story-bubble-tail" style={{ left: tailOffset(speakerCharacter.position) }} aria-hidden="true" />}
           </button>
         )}
       </div>
