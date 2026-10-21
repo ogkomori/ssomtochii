@@ -18,9 +18,42 @@ import { Hangman } from "@/activities/Hangman";
 import { Botanicals } from "@/components/Botanicals";
 import { DayActivityFlow } from "@/components/DayActivityFlow";
 import { StoryPlayer } from "@/components/StoryPlayer";
-import { IncomingCallScreen } from "@/components/IncomingCallScreen";
-import { STORY_ENGINE_DEMO } from "@/lib/stories/demo";
+import type { StoryDefinition } from "@/lib/stories/types";
+import type { StoryId } from "@/lib/days";
+import { DAY_TWO_STORY } from "@/lib/stories/day-two-story";
+import { DAY_THREE_STORY } from "@/lib/stories/day-three-story";
+import { DAY_FOUR_STORY } from "@/lib/stories/day-four-story";
+import { DAY_FIVE_STORY } from "@/lib/stories/day-five-story";
+import { DAY_SIX_STORY } from "@/lib/stories/day-six-story";
+import { DAY_SEVEN_STORY } from "@/lib/stories/day-seven-story";
+import { DAY_EIGHT_STORY } from "@/lib/stories/day-eight-story";
+import { DAY_NINE_STORY } from "@/lib/stories/day-nine-story";
+import { DAY_TEN_STORY } from "@/lib/stories/day-ten-story";
+import { DAY_ELEVEN_STORY } from "@/lib/stories/day-eleven-story";
+import { DAY_TWELVE_STORY } from "@/lib/stories/day-twelve-story";
+import { DAY_THIRTEEN_STORY } from "@/lib/stories/day-thirteen-story";
+import { DAY_FOURTEEN_STORY } from "@/lib/stories/day-fourteen-story";
+import { DAY_FIFTEEN_STORY } from "@/lib/stories/day-fifteen-story";
+import { DAY_SIXTEEN_STORY } from "@/lib/stories/day-sixteen-story";
 import { getDay } from "@/lib/days";
+
+const STORIES: Record<Exclude<StoryId, "day-one-story">, StoryDefinition> = {
+  "day-two-story": DAY_TWO_STORY,
+  "day-three-story": DAY_THREE_STORY,
+  "day-four-story": DAY_FOUR_STORY,
+  "day-five-story": DAY_FIVE_STORY,
+  "day-six-story": DAY_SIX_STORY,
+  "day-seven-story": DAY_SEVEN_STORY,
+  "day-eight-story": DAY_EIGHT_STORY,
+  "day-nine-story": DAY_NINE_STORY,
+  "day-ten-story": DAY_TEN_STORY,
+  "day-eleven-story": DAY_ELEVEN_STORY,
+  "day-twelve-story": DAY_TWELVE_STORY,
+  "day-thirteen-story": DAY_THIRTEEN_STORY,
+  "day-fourteen-story": DAY_FOURTEEN_STORY,
+  "day-fifteen-story": DAY_FIFTEEN_STORY,
+  "day-sixteen-story": DAY_SIXTEEN_STORY,
+};
 
 export const Route = createFileRoute("/day/$day")({
   loader: ({ params }) => {
@@ -37,20 +70,27 @@ export const Route = createFileRoute("/day/$day")({
   component: DayPage,
 });
 
-/** Change a day's `activity` field in lib/days.ts to move an activity. */
+/** A day's story is selected in lib/days.ts and plays before its activity. */
 function DayPage() {
   const day = Route.useLoaderData();
-  const [callAnswered, setCallAnswered] = useState(false);
+  const [storyComplete, setStoryComplete] = useState(false);
   const [daySevenStarted, setDaySevenStarted] = useState(false);
   const [daySevenVideoStarted, setDaySevenVideoStarted] = useState(false);
   const daySevenVideoRef = useRef<HTMLVideoElement>(null);
 
-  if (day.day === 12 && !callAnswered) {
-    return <IncomingCallScreen onAnswer={() => setCallAnswered(true)} />;
-  }
-
-  if (day.day === 12) {
-    return <StoryPlayer story={STORY_ENGINE_DEMO} onExit={() => window.location.assign("/day/12")} />;
+  // Day 1 Journey already contains its special story sequence.
+  // All other days play the story registered in their Day configuration first.
+  if (day.day !== 1 && !storyComplete) {
+    const story = STORIES[day.story as Exclude<StoryId, "day-one-story">];
+    return (
+      <StoryPlayer
+        story={story}
+        exitLabel="Back to calendar"
+        onExit={() => window.location.assign("/")}
+        onComplete={() => setStoryComplete(true)}
+        continueLabel={`Continue to Day ${day.day}'s activity ♡`}
+      />
+    );
   }
 
   if (day.day === 7 && !daySevenStarted) {
