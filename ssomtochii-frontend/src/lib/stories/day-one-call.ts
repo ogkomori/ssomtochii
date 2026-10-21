@@ -1,5 +1,5 @@
 import type { StoryDefinition } from "./types";
-import { neutral, smiling } from "./character-poses";
+import { neutral, smiling, sitting } from "./character-poses";
 
 export const DAY_ONE_CALL_STORY: StoryDefinition = {
   title: "A Little Call",
@@ -56,43 +56,43 @@ export const DAY_ONE_CALL_STORY: StoryDefinition = {
       speakerLabel: "Somto",
       text: "What should I say?",
       choices: [
-        { id: "waiting", label: "“I was waiting for you to call.”", next: "waiting-reply" },
-        { id: "busy", label: "“You interrupted my very important work.”", next: "busy-reply" },
-        { id: "check-in", label: "“What's up, Tega?”", next: "check-in-reply" },
+        { id: "waiting", label: "“I was waiting for you to call.”", next: 6 },
+        { id: "busy", label: "“You interrupted my very important work.”", next: 7 },
+        { id: "check-in", label: "“What's up, Tega?”", next: 8 },
       ],
     },
     {
-      id: "waiting-reply",
+      id: 6,
       type: "dialogue",
       scene: "phone",
       characters: [],
       speakerId: "somto",
       speakerLabel: "Tega · On the phone",
       text: "Aww, you were waiting for me? That is so cute. I should call you more often, then.",
-      next: "ending",
+      next: 9,
     },
     {
-      id: "busy-reply",
+      id: 7,
       type: "dialogue",
       scene: "phone",
       characters: [],
       speakerId: "somto",
       speakerLabel: "Tega · On the phone",
       text: "Oh, I'm sorry, ma'am. Should I schedule an appointment to speak to my favourite person?",
-      next: "ending",
+      next: 9,
     },
     {
-      id: "check-in-reply",
+      id: 8,
       type: "dialogue",
       scene: "phone",
       characters: [],
       speakerId: "somto",
       speakerLabel: "Tega · On the phone",
       text: "Nothing dramatic. I wanted to hear your voice and check on you. Is that allowed?",
-      next: "ending",
+      next: 9,
     },
     {
-      id: "ending",
+      id: 9,
       type: "end",
       scene: "phone",
       characters: [],

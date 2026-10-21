@@ -35,7 +35,7 @@ export interface NarrationBeat extends StoryBeatBase {
 export interface ChoiceOption {
   id: string;
   label: string;
-  next: string;
+  next: number;
 }
 
 export interface ChoiceBeat extends StoryBeatBase {
