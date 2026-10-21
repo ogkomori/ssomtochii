@@ -1,5 +1,6 @@
 import { facepalm, sitting } from "./character-poses";
 import type { StoryDefinition } from "./types";
+import { SOMTO } from "./speakers";
 
 /** Day 2 story. Replace this starter beat with the story for Day 2. */
 export const DAY_TWO_STORY: StoryDefinition = {
@@ -11,8 +12,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       id: 1,
       type: "dialogue",
       scene: "character",
-      speakerId: "somto",
-      speakerLabel: "Somto",
+      speaker: SOMTO,
       characters: [facepalm],
       background: "/images/backgrounds/bedroom-at-night.png",
       text: "I'm so tired, I can't believe I stayed up this late.",
@@ -22,8 +22,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       id: 2,
       type: "dialogue",
       scene: "character",
-      speakerId: "somto",
-      speakerLabel: "Somto",
+      speaker: SOMTO,
       characters: [sitting],
       text: "Alright. Time to get some sleep.",
       next: 3,
