@@ -17,6 +17,8 @@ export interface StoryCharacter {
   mirrored?: boolean;
   /** Optional scale multiplier for poses that need a closer camera crop. */
   scale?: number;
+  /** Optional vertical offset in pixels; positive values move the sprite down. */
+  offsetY?: number;
   alt?: string;
 }
 
