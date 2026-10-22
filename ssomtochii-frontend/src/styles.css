@@ -718,3 +718,10 @@ button.story-dialogue-panel{cursor:pointer;font:inherit}
 .incoming-call-screen .incoming-call-dialogue .story-continue-hint {
   align-self: flex-end;
 }
+
+
+/* Keep two-character dialogue scenes readable on phone-sized screens. */
+.story-stage--duo .story-sprite{max-width:52vw}
+.story-stage--duo .story-sprite--left{left:-2%}
+.story-stage--duo .story-sprite--right{right:-2%}
+@media(max-width:520px){.story-stage--duo .story-sprite{max-width:52vw;height:calc(100dvh - clamp(7rem, 15dvh, 9rem))}.story-stage--duo .story-sprite--left{left:-2%}.story-stage--duo .story-sprite--right{right:-2%}}
