@@ -24,3 +24,9 @@ export const PARTY_PLANNERS: Speaker = {
   label: "Party Planners · On the phone",
   color: "#FFA500",
 };
+
+export const ZARA: Speaker = {
+  id: "zara",
+  label: "Zara",
+  color: "#9A4E8A",
+};
