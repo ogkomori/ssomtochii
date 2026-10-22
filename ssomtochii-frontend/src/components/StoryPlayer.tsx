@@ -119,6 +119,7 @@ export function StoryPlayer({
               character.position === "center" ? "translateX(-50%)" : "",
               character.mirrored ? "scaleX(-1)" : "",
               character.scale && character.scale !== 1 ? `scale(${character.scale})` : "",
+              character.offsetY ? `translateY(${character.offsetY}px)` : "",
             ].filter(Boolean).join(" ") || undefined;
 
             return (
