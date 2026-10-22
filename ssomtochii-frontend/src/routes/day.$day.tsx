@@ -86,8 +86,8 @@ function DayPage() {
     }
   }, []);
   useEffect(() => {
-    setDayAvailable(isDayUnlocked({ date: day.date }));
-  }, [day.date]);
+    setDayAvailable(isDayUnlocked({ date: day.date, day: day.day }));
+  }, [day.date, day.day]);
 
   const daySevenVideoRef = useRef<HTMLVideoElement>(null);
 
