@@ -1,6 +1,6 @@
 import type { StoryDefinition } from "./types";
 import { SOMTO, TEGA } from "./speakers";
-import { neutral, smiling, facepalm, sitting } from "./character-poses";
+import { neutral, smiling, facepalm, sitting, speaking } from "./character-poses";
 
 export const DAY_ONE_STORY: StoryDefinition = {
   title: "A Little Call",
@@ -28,11 +28,7 @@ export const DAY_ONE_STORY: StoryDefinition = {
       id: 2,
       type: "dialogue",
       scene: "phone",
-      phone: {
-        contactName: "Tega",
-        contactInitial: "T",
-        statusText: "00:00:05",
-      },
+      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:05" },
       characters: [],
       speaker: TEGA,
       text: "Hey baby, how you doing?",
@@ -47,15 +43,11 @@ export const DAY_ONE_STORY: StoryDefinition = {
       text: "I'm good my love, how are you?",
       next: 4,
     },
-        {
+    {
       id: 4,
       type: "dialogue",
       scene: "phone",
-      phone: {
-        contactName: "Tega",
-        contactInitial: "T",
-        statusText: "00:00:12",
-      },
+      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:12" },
       characters: [],
       speaker: TEGA,
       text: "I'm good, I'm good.",
@@ -69,20 +61,25 @@ export const DAY_ONE_STORY: StoryDefinition = {
       speaker: SOMTO,
       text: "What should I say?",
       choices: [
-        { id: "vc", label: "“Why is this a voice call and not a video call?”", next: 6 },
-        { id: "busy", label: "“You're interrupting my work babe.”", next: 8 },
-        { id: "ask", label: "“As I park my car for inside compound...”", next: 10 },
+        { id: "vc", label: "“Why is this a voice call and not a video call?”", next: 15 },
+        { id: "busy", label: "“You're interrupting my work babe.”", next: 17 },
+        { id: "ask", label: "“As I park my car for inside compound...”", next: 19 },
       ],
+    },
+    {
+      id: 15,
+      type: "dialogue",
+      scene: "character",
+      characters: [speaking],
+      speaker: SOMTO,
+      text: "Why is this a voice call and not a video call?",
+      next: 6,
     },
     {
       id: 6,
       type: "dialogue",
       scene: "phone",
-      phone: {
-        contactName: "Tega",
-        contactInitial: "T",
-        statusText: "00:00:25",
-      },
+      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:25" },
       characters: [],
       speaker: TEGA,
       text: "Your wifi can't handle video calls, babe, remember?",
@@ -98,14 +95,19 @@ export const DAY_ONE_STORY: StoryDefinition = {
       next: 12,
     },
     {
+      id: 17,
+      type: "dialogue",
+      scene: "character",
+      characters: [neutral],
+      speaker: SOMTO,
+      text: "You're interrupting my work babe.",
+      next: 8,
+    },
+    {
       id: 8,
       type: "dialogue",
       scene: "phone",
-      phone: {
-        contactName: "Tega",
-        contactInitial: "T",
-        statusText: "00:00:35",
-      },
+      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:35" },
       characters: [],
       speaker: TEGA,
       text: "Sorry, ma'am. Do I need to schedule an appointment to speak to my babe?",
@@ -121,14 +123,19 @@ export const DAY_ONE_STORY: StoryDefinition = {
       next: 12,
     },
     {
+      id: 19,
+      type: "dialogue",
+      scene: "character",
+      characters: [speaking],
+      speaker: SOMTO,
+      text: "As I park my car for inside compound...",
+      next: 10,
+    },
+    {
       id: 10,
       type: "dialogue",
       scene: "phone",
-      phone: {
-        contactName: "Tega",
-        contactInitial: "T",
-        statusText: "00:00:45",
-      },
+      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:45" },
       characters: [],
       speaker: TEGA,
       text: "It's like you're manifesting this tank falling on your car...",
@@ -147,11 +154,7 @@ export const DAY_ONE_STORY: StoryDefinition = {
       id: 12,
       type: "dialogue",
       scene: "phone",
-      phone: {
-        contactName: "Tega",
-        contactInitial: "T",
-        statusText: "00:00:45",
-      },
+      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:45" },
       characters: [],
       speaker: TEGA,
       text: "Haha, sure. Alright babe I'll talk to you later. Love you!",
