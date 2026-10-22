@@ -1,8 +1,9 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { DAYS } from "@/lib/days";
 import { DayCard } from "@/components/DayCard";
 import { Botanicals } from "@/components/Botanicals";
+import { getBerlinDateKey, getDayState, readProgress } from "@/lib/progress";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,6 +28,31 @@ function centeredScrollLeft(carousel: HTMLElement, slide: HTMLElement) {
 function Index() {
   const carouselRef = useRef<HTMLElement>(null);
   const recenterTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [calendarDate, setCalendarDate] = useState<string | null>(null);
+  const [completedDays, setCompletedDays] = useState<number[]>([]);
+
+  useEffect(() => {
+    const refreshProgress = () => {
+      setCalendarDate(getBerlinDateKey());
+      setCompletedDays(readProgress().completedDays);
+    };
+    refreshProgress();
+    const interval = window.setInterval(refreshProgress, 60_000);
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === "ssomtochii-progress-v1" || event.key === null) refreshProgress();
+    };
+    window.addEventListener("storage", onStorage);
+    return () => {
+      window.clearInterval(interval);
+      window.removeEventListener("storage", onStorage);
+    };
+  }, []);
+
+  const displayDays = DAYS.map((day) => ({
+    ...day,
+    state: calendarDate ? getDayState(day, completedDays, calendarDate) : "locked" as const,
+  }));
+  const allDaysUnlocked = calendarDate !== null && calendarDate >= "2026-11-07";
 
   useEffect(() => {
     const carousel = carouselRef.current;
@@ -78,7 +104,7 @@ function Index() {
             16 Days of Somto <span className="text-blossom">♡</span>
           </h1>
           <p className="mt-1 text-sm text-foreground/80 sm:mt-2 sm:text-base">A little something for you, one day at a time.</p>
-          <p className="mt-1 text-[0.7rem] font-medium tracking-[0.2em] text-muted-foreground sm:mt-1.5">DAY 16 IS LOCKED FOR NOW</p>
+          <p className="mt-1 text-[0.7rem] font-medium tracking-[0.2em] text-muted-foreground sm:mt-1.5">{allDaysUnlocked ? "ALL 16 DAYS ARE OPEN" : "DAY 16 UNLOCKS NOVEMBER 7"}</p>
         </header>
         <section
           ref={carouselRef}
@@ -86,7 +112,7 @@ function Index() {
           aria-label="Sixteen days. Swipe horizontally to explore each day, looping from the last day back to the first."
           onScroll={handleCarouselScroll}
         >
-          {[0, 1, 2].flatMap((cycle) => DAYS.map((d, i) => (
+          {[0, 1, 2].flatMap((cycle) => displayDays.map((d, i) => (
             <div
               className="day-carousel-slide"
               key={`${cycle}-${d.day}`}
@@ -97,7 +123,7 @@ function Index() {
             </div>
           )))}
         </section>
-        <p className="mt-1 text-center font-script text-base text-muted-foreground sm:mt-6 sm:text-xl">Come back tomorrow for the next one. ♡</p>
+        <p className="mt-1 text-center font-script text-base text-muted-foreground sm:mt-6 sm:text-xl">A little surprise, one day at a time. ♡</p>
       </div>
     </main>
   );
