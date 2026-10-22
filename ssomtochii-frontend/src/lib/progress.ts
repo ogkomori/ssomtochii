@@ -4,20 +4,24 @@ export const PROGRESS_STORAGE_KEY = "ssomtochii-progress-v1";
 export const PARTY_SIZE_CHOICE_KEY = "ssomtochii-party-size-choice";
 
 export interface LocalProgress {
+  unlockedDays: number[];
   completedDays: number[];
   lettersByDay: Record<string, string>;
 }
 
-const EMPTY_PROGRESS: LocalProgress = { completedDays: [], lettersByDay: {} };
+const EMPTY_PROGRESS: LocalProgress = { unlockedDays: [], completedDays: [], lettersByDay: {} };
 
 export function readProgress(): LocalProgress {
-  if (typeof window === "undefined") return { ...EMPTY_PROGRESS, lettersByDay: {} };
+  if (typeof window === "undefined") return { ...EMPTY_PROGRESS, unlockedDays: [], completedDays: [], lettersByDay: {} };
 
   try {
     const raw = window.localStorage.getItem(PROGRESS_STORAGE_KEY);
     if (!raw) return { ...EMPTY_PROGRESS, lettersByDay: {} };
     const parsed = JSON.parse(raw) as Partial<LocalProgress>;
     return {
+      unlockedDays: Array.isArray(parsed.unlockedDays)
+        ? parsed.unlockedDays.filter((day): day is number => Number.isInteger(day) && day >= 1 && day <= 16)
+        : [],
       completedDays: Array.isArray(parsed.completedDays)
         ? parsed.completedDays.filter((day): day is number => Number.isInteger(day) && day >= 1 && day <= 16)
         : [],
@@ -70,11 +74,22 @@ export function isDayUnlocked(day: Pick<Day, "date">, today = getBerlinDateKey()
 
 export function getDayState(
   day: Pick<Day, "date" | "day">,
-  completedDays: number[],
+  progress: LocalProgress,
   today: string,
 ): DayState {
-  if (completedDays.includes(day.day)) return "completed";
-  return isDayUnlocked(day, today) ? "available" : "locked";
+  if (progress.completedDays.includes(day.day)) return "completed";
+  if (progress.unlockedDays.includes(day.day) || isDayUnlocked(day, today)) return "available";
+  return "locked";
+}
+
+export function recordUnlockedDays(dayNumbers: number[]): LocalProgress {
+  const progress = readProgress();
+  const next: LocalProgress = {
+    ...progress,
+    unlockedDays: [...new Set([...progress.unlockedDays, ...dayNumbers])].sort((a, b) => a - b),
+  };
+  writeProgress(next);
+  return next;
 }
 
 export function markDayCompleted(day: number): LocalProgress {
