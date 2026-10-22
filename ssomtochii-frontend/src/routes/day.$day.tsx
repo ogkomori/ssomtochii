@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Play } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { DayOneJourney } from "@/activities/DayOneJourney";
 import { CupPong } from "@/activities/CupPong";
 import { MemoryMatch } from "@/activities/MemoryMatch";
@@ -23,7 +23,7 @@ import type { StoryId } from "@/lib/days";
 import { DAY_TWO_STORY } from "@/lib/stories/day-two-story";
 import { DAY_THREE_STORY } from "@/lib/stories/day-three-story";
 import { DAY_FOUR_STORY } from "@/lib/stories/day-four-story";
-import { DAY_FIVE_STORY } from "@/lib/stories/day-five-story";
+import { DAY_FIVE_STORY, getDayFiveStory, type PartySizeChoice } from "@/lib/stories/day-five-story";
 import { DAY_SIX_STORY } from "@/lib/stories/day-six-story";
 import { DAY_SEVEN_STORY } from "@/lib/stories/day-seven-story";
 import { DAY_EIGHT_STORY } from "@/lib/stories/day-eight-story";
@@ -36,6 +36,8 @@ import { DAY_FOURTEEN_STORY } from "@/lib/stories/day-fourteen-story";
 import { DAY_FIFTEEN_STORY } from "@/lib/stories/day-fifteen-story";
 import { DAY_SIXTEEN_STORY } from "@/lib/stories/day-sixteen-story";
 import { getDay } from "@/lib/days";
+
+const PARTY_SIZE_CHOICE_KEY = "ssomtochii-party-size-choice";
 
 const STORIES: Record<Exclude<StoryId, "day-one-story">, StoryDefinition> = {
   "day-two-story": DAY_TWO_STORY, "day-three-story": DAY_THREE_STORY,
@@ -69,6 +71,18 @@ function DayPage() {
   const [welcomeStarted, setWelcomeStarted] = useState(false);
   const [storyComplete, setStoryComplete] = useState(false);
   const [daySevenVideoStarted, setDaySevenVideoStarted] = useState(false);
+  const [partySizeChoice, setPartySizeChoice] = useState<PartySizeChoice | null>(null);
+
+  useEffect(() => {
+    try {
+      const savedChoice = window.localStorage.getItem(PARTY_SIZE_CHOICE_KEY);
+      if (savedChoice === "party-size-10-pay-extra" || savedChoice === "party-size-5-total") {
+        setPartySizeChoice(savedChoice);
+      }
+    } catch {
+      // Story playback still works if browser storage is unavailable.
+    }
+  }, []);
   const daySevenVideoRef = useRef<HTMLVideoElement>(null);
 
   if (day.day !== 1 && !welcomeStarted) {
@@ -101,8 +115,8 @@ function DayPage() {
   }
 
   if (day.day !== 1 && !storyComplete) {
-    const story = STORIES[day.story as Exclude<StoryId, "day-one-story">];
-    return <StoryPlayer story={story} exitLabel="Back to welcome" onExit={() => setWelcomeStarted(false)} onComplete={() => setStoryComplete(true)} continueLabel={`Continue to Day ${day.day}'s activity ♡`} />;
+    const story = day.day === 5 ? getDayFiveStory(partySizeChoice) : STORIES[day.story as Exclude<StoryId, "day-one-story">];
+    return <StoryPlayer story={story} exitLabel="Back to welcome" onExit={() => setWelcomeStarted(false)} onComplete={() => setStoryComplete(true)} continueLabel={`Continue to Day ${day.day}'s activity ♡`} onChoiceSelected={(choiceId) => { if (day.day !== 4 || (choiceId !== "party-size-10-pay-extra" && choiceId !== "party-size-5-total")) return; setPartySizeChoice(choiceId); try { window.localStorage.setItem(PARTY_SIZE_CHOICE_KEY, choiceId); } catch { /* Day 5 defaults to the smaller-party story without storage. */ } }} />;
   }
 
 
