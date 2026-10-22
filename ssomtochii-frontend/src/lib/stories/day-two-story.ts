@@ -2,7 +2,7 @@ import { facepalm, neutral, sitting, speaking, upwards } from "./character-poses
 import type { StoryDefinition } from "./types";
 import { SOMTO, ALEXA, PARTY_PLANNERS } from "./speakers";
 
-/** Day 2 story. Replace this starter beat with the story for Day 2. */
+/** Day 2: Somto answers the party planners' three questions. */
 export const DAY_TWO_STORY: StoryDefinition = {
   title: "Day 2 Story",
   subtitle: "Day 2",
@@ -90,15 +90,90 @@ export const DAY_TWO_STORY: StoryDefinition = {
       scene: "character",
       speaker: SOMTO,
       characters: [speaking],
-      text: "Okay I'm listening. What do you need to know?",
+      text: "Okay, I'm listening. What do you need to know?",
+      next: 10,
+    },
+    {
+      id: 10,
+      type: "choice",
+      scene: "phone",
+      phone: {
+        contactName: "Party Planners",
+        contactInitial: "PP",
+        statusText: "00:00:08",
+      },
+      characters: [],
+      speaker: PARTY_PLANNERS,
+      text: "First up, what colour should we use as the theme for your party?",
+      choices: [
+        { id: "party-theme-green", label: "Green", next: 11 },
+        { id: "party-theme-gold", label: "Gold", next: 11 },
+        { id: "party-theme-red", label: "Red", next: 11 },
+      ],
+    },
+    {
+      id: 11,
+      type: "choice",
+      scene: "phone",
+      phone: {
+        contactName: "Party Planners",
+        contactInitial: "PP",
+        statusText: "00:00:15",
+      },
+      characters: [],
+      speaker: PARTY_PLANNERS,
+      text: "Lovely. And for your VIP section, would you prefer it to be alcohol-free, or is alcohol okay there?",
+      choices: [
+        { id: "vip-alcohol-free", label: "Keep the VIP section alcohol-free", next: 12 },
+        { id: "vip-alcohol-allowed", label: "Alcohol is fine in the VIP section", next: 12 },
+      ],
+    },
+    {
+      id: 12,
+      type: "choice",
+      scene: "phone",
+      phone: {
+        contactName: "Party Planners",
+        contactInitial: "PP",
+        statusText: "00:00:24",
+      },
+      characters: [],
+      speaker: PARTY_PLANNERS,
+      text: "One last thing. The booking is for 10 people, and entry is €50 per person. We know you're still trying to find the last couple of guests. You can keep the 10-person booking and pay for any places you can't fill, or reduce the group to you and just 3 other people. Which would you prefer?",
+      choices: [
+        { id: "party-size-10-pay-extra", label: "Keep the 10-person booking and cover any unfilled places", next: 13 },
+        { id: "party-size-4-total", label: "Reduce it to 4 people total (you and 3 others)", next: 13 },
+      ],
+    },
+    {
+      id: 13,
+      type: "dialogue",
+      scene: "phone",
+      phone: {
+        contactName: "Party Planners",
+        contactInitial: "PP",
+        statusText: "00:00:42",
+      },
+      characters: [],
+      speaker: PARTY_PLANNERS,
+      text: "Perfect, that's everything we need for now. We'll use your preferences as we finalise the plans. Sorry again for calling so late!",
       next: 14,
     },
     {
       id: 14,
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [sitting],
+      text: "No worries. Now please let me get some sleep!",
+      next: 15,
+    },
+    {
+      id: 15,
       type: "end",
       scene: "character",
       characters: [sitting],
-      text: "The end of day 2",
+      text: "Somto ends the call and finally tries to get some sleep.",
     },
   ],
 };
