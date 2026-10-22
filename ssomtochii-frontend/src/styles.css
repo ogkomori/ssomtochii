@@ -355,6 +355,8 @@ button.story-dialogue-panel{cursor:pointer;font:inherit}
 .story-dialogue-text{display:block;font-size:1rem;line-height:1.5;white-space:pre-wrap}
 .story-continue-hint{align-self:flex-end;margin-top:.05rem;color:#c4d9bd;font-size:.68rem;font-weight:800}
 .story-dialogue-panel--narration{background:rgb(20 32 25 / 84%)}
+/* Narration has no speaker label, but reserve its space so the card feels like a full chat bubble. */
+.story-dialogue-panel--narration::before{content:"";display:block;flex:0 0 1.2rem;}
 .story-dialogue-panel--narration .story-dialogue-text{font-style:italic}
 .story-choice-panel{gap:.65rem}
 .story-choice-list,.story-ending-actions{display:flex;flex-direction:column;gap:.5rem;margin-top:.2rem}
