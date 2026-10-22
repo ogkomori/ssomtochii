@@ -18,6 +18,12 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+function centeredScrollLeft(carousel: HTMLElement, slide: HTMLElement) {
+  const carouselRect = carousel.getBoundingClientRect();
+  const slideRect = slide.getBoundingClientRect();
+  return carousel.scrollLeft + slideRect.left - carouselRect.left + slideRect.width / 2 - carousel.clientWidth / 2;
+}
+
 function Index() {
   const carouselRef = useRef<HTMLElement>(null);
   const recenterTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -27,7 +33,7 @@ function Index() {
     if (!carousel) return;
     const firstMiddleSlide = carousel.querySelector<HTMLElement>('[data-carousel-index="16"]');
     if (firstMiddleSlide) {
-      carousel.scrollLeft = firstMiddleSlide.offsetLeft + firstMiddleSlide.offsetWidth / 2 - carousel.clientWidth / 2;
+      carousel.scrollLeft = centeredScrollLeft(carousel, firstMiddleSlide);
     }
     return () => {
       if (recenterTimer.current) clearTimeout(recenterTimer.current);
@@ -57,10 +63,7 @@ function Index() {
         const targetIndex = 16 + (index % 16);
         const target = slides.find((slide) => Number(slide.dataset.carouselIndex) === targetIndex);
         if (target) {
-          carousel.scrollTo({
-            left: target.offsetLeft + target.offsetWidth / 2 - carousel.clientWidth / 2,
-            behavior: "instant",
-          });
+          carousel.scrollLeft = centeredScrollLeft(carousel, target);
         }
       }
     }, 140);
