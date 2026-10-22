@@ -36,6 +36,7 @@ import { DAY_FOURTEEN_STORY } from "@/lib/stories/day-fourteen-story";
 import { DAY_FIFTEEN_STORY } from "@/lib/stories/day-fifteen-story";
 import { DAY_SIXTEEN_STORY } from "@/lib/stories/day-sixteen-story";
 import { getDay } from "@/lib/days";
+import { isDayUnlocked } from "@/lib/progress";
 
 const PARTY_SIZE_CHOICE_KEY = "ssomtochii-party-size-choice";
 
@@ -72,6 +73,7 @@ function DayPage() {
   const [storyComplete, setStoryComplete] = useState(false);
   const [daySevenVideoStarted, setDaySevenVideoStarted] = useState(false);
   const [partySizeChoice, setPartySizeChoice] = useState<PartySizeChoice | null>(null);
+  const [dayAvailable, setDayAvailable] = useState<boolean | null>(null);
 
   useEffect(() => {
     try {
@@ -83,7 +85,38 @@ function DayPage() {
       // Story playback still works if browser storage is unavailable.
     }
   }, []);
+  useEffect(() => {
+    setDayAvailable(isDayUnlocked(day));
+  }, [day.day]);
+
   const daySevenVideoRef = useRef<HTMLVideoElement>(null);
+
+  if (dayAvailable === null) {
+    return (
+      <main className="page-shell day-one-shell">
+        <Botanicals />
+        <div className="relative mx-auto flex min-h-[70dvh] w-full max-w-md flex-col items-center justify-center text-center">
+          <p className="font-script text-4xl">One little moment… ♡</p>
+          <p className="mt-3 text-sm text-muted-foreground">Checking today&apos;s date.</p>
+        </div>
+      </main>
+    );
+  }
+
+  if (!dayAvailable) {
+    return (
+      <main className="page-shell day-one-shell">
+        <Botanicals />
+        <div className="relative mx-auto flex min-h-[70dvh] w-full max-w-md flex-col items-center justify-center text-center">
+          <Link to="/" className="absolute left-0 top-2 inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> All days</Link>
+          <p className="day-one-eyebrow">DAY {day.day} · {day.label}</p>
+          <h1 className="mt-3 font-script text-5xl leading-none">Not just yet ♡</h1>
+          <p className="mt-4 max-w-xs text-foreground/80">This little surprise opens on {day.label}. Come back then — it will be waiting for you.</p>
+          <Link to="/" className="next-button mt-8">Back to all days</Link>
+        </div>
+      </main>
+    );
+  }
 
   if (day.day !== 1 && !welcomeStarted) {
     return (
