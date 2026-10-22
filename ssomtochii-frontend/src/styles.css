@@ -813,3 +813,24 @@ button.story-dialogue-panel{cursor:pointer;font:inherit}
   .day-carousel{gap:1.25rem;padding-inline:calc((100% - 25rem)/2);margin-inline:0}
   .day-carousel-slide{flex-basis:25rem}
 }
+
+
+/* Clear status colours; locked cards stay entirely monochrome. */
+.day-status--available{
+  color:oklch(.43 .11 78);
+  background:oklch(.88 .13 88);
+  border-color:oklch(.68 .13 82);
+}
+.day-status--completed{
+  color:oklch(.36 .11 150);
+  background:oklch(.86 .09 150);
+  border-color:oklch(.62 .12 150);
+}
+.day-status--locked{
+  color:oklch(.43 .16 25);
+  background:oklch(.91 .07 25);
+  border-color:oklch(.68 .15 25);
+}
+.day-carousel-slide .day-locked{
+  filter:grayscale(1);
+}
