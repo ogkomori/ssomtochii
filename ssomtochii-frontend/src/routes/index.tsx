@@ -3,7 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { DAYS } from "@/lib/days";
 import { DayCard } from "@/components/DayCard";
 import { Botanicals } from "@/components/Botanicals";
-import { getBerlinDateKey, getDayState, readProgress } from "@/lib/progress";
+import { getBerlinDateKey, getDayState, isPreviewMode, readProgress, recordUnlockedDays } from "@/lib/progress";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,7 +29,7 @@ function Index() {
   const carouselRef = useRef<HTMLElement>(null);
   const recenterTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [calendarDate, setCalendarDate] = useState<string | null>(null);
-  const [completedDays, setCompletedDays] = useState<number[]>([]);
+  const [progress, setProgress] = useState(() => ({ unlockedDays: [] as number[], completedDays: [] as number[], lettersByDay: {} as Record<string, string> }));
   const [previewMode, setPreviewMode] = useState(false);
 
   useEffect(() => {
@@ -41,8 +41,12 @@ function Index() {
       setPreviewMode(previewFromUrl);
     }
     const refreshProgress = () => {
-      setCalendarDate(getBerlinDateKey());
-      setCompletedDays(readProgress().completedDays);
+      const today = getBerlinDateKey();
+      if (!isPreviewMode()) {
+        recordUnlockedDays(DAYS.filter((day) => day.date <= today).map((day) => day.day));
+      }
+      setCalendarDate(today);
+      setProgress(readProgress());
     };
     refreshProgress();
     const interval = window.setInterval(refreshProgress, 60_000);
@@ -58,7 +62,7 @@ function Index() {
 
   const displayDays = DAYS.map((day) => ({
     ...day,
-    state: calendarDate ? getDayState(day, completedDays, calendarDate) : "locked" as const,
+    state: calendarDate ? getDayState(day, progress, calendarDate) : "locked" as const,
   }));
   const allDaysUnlocked = calendarDate !== null && calendarDate >= "2026-11-07";
 
