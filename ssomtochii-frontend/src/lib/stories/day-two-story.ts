@@ -1,5 +1,5 @@
 import type { StoryCharacter, StoryDefinition } from "./types";
-import { placeCharacter, pose6Walking, neutral, smiling, speaking, pose8Thinking, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraLaughing, zaraSurprised, zaraExplaining } from "./character-poses";
+import { placeCharacter, upwards, pose6Walking, neutral, smiling, speaking, pose8Thinking, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraLaughing, zaraSurprised, zaraExplaining } from "./character-poses";
 import { SOMTO, ZARA } from "./speakers";
 
 const somtoLeft = (pose: StoryCharacter) => placeCharacter(pose, "somto", "Somto", "left");
@@ -18,16 +18,16 @@ export const DAY_TWO_STORY: StoryDefinition = {
       scene: "character",
       background: "/images/backgrounds/road.jpg",
       characters: [pose6Walking],
-      text: "Walking to work...",
+      text: "Somto walks to the lab, thinking about her birthday plans and who she wants to invite.",
       next: 2,
     },
     {
       id: 2,
-      type: "dialogue",
+      type: "narration",
       scene: "character",
-      speaker: SOMTO,
-      characters: together(smiling, zaraNeutral),
-      text: "Zara! You actually got here before me.",
+      background: "/images/backgrounds/lab.png",
+      characters: [neutral],
+      text: "She arrives at the lab and starts working.",
       next: 3,
     },
     {
@@ -35,17 +35,17 @@ export const DAY_TWO_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: together(neutral, zaraLaughing),
-      text: "I know. Take a picture; it might never happen again.",
+      characters: [neutral],
+      text: "Hi, are you Somto?",
       next: 4,
-    },
+    }, 
     {
       id: 4,
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: together(smiling, zaraHappy),
-      text: "I'm serious, though. I'm glad you're here.",
+      characters: [upwards],
+      text: "Yes I am. And you are?",
       next: 5,
     },
     {
@@ -53,8 +53,8 @@ export const DAY_TWO_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: together(neutral, zaraHappyDialogue),
-      text: "Of course. I was going to see you anyway. And this place has good coffee.",
+      characters: [zaraHappyDialogue],
+      text: "So sorry to bother you! Hi, I'm Zara. I just moved into the neighborhood and wanted to introduce myself. I also make a mean cup of coffee, if you like.",
       next: 6,
     },
     {

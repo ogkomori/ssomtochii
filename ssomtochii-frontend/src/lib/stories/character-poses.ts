@@ -29,7 +29,11 @@ export const pose2Happy = pose("pose-2-happy", "pose-2-happy", "Somto looking ha
 export const pose3Shy = pose("pose-3-shy", "pose-3-shy", "Somto looking shy");
 export const pose4Sad = pose("pose-4-sad", "pose-4-sad", "Somto looking sad");
 export const pose5Surprised = pose("pose-5-surprised", "pose-5-surprised", "Somto looking surprised");
-export const pose6Walking = pose("pose-6-walking", "pose-6-walking", "Somto walking");
+export const pose6Walking: StoryCharacter = {
+  ...pose("pose-6-walking", "pose-6-walking", "Somto walking"),
+  scale: 1.5,
+  offsetY: 70,
+};
 export const pose7HappyDialogue = pose("pose-7-happy-dialogue", "pose-7-happy-dialogue", "Somto speaking happily");
 export const pose8Thinking = pose("pose-8-thinking", "pose-8-thinking", "Somto thinking");
 export const pose9Laughing = pose("pose-9-laughing", "pose-9-laughing", "Somto laughing");
