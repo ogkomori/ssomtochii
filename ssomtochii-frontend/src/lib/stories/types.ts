@@ -15,6 +15,8 @@ export interface StoryCharacter {
   image: string;
   position: CharacterPosition;
   mirrored?: boolean;
+  /** Optional scale multiplier for poses that need a closer camera crop. */
+  scale?: number;
   alt?: string;
 }
 
