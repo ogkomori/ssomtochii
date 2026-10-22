@@ -30,8 +30,16 @@ function Index() {
   const recenterTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [calendarDate, setCalendarDate] = useState<string | null>(null);
   const [completedDays, setCompletedDays] = useState<number[]>([]);
+  const [previewMode, setPreviewMode] = useState(false);
 
   useEffect(() => {
+    const previewFromUrl = new URLSearchParams(window.location.search).get("preview") === "1";
+    try {
+      if (previewFromUrl) window.sessionStorage.setItem("ssomtochii-preview-unlock", "1");
+      setPreviewMode(previewFromUrl || window.sessionStorage.getItem("ssomtochii-preview-unlock") === "1");
+    } catch {
+      setPreviewMode(previewFromUrl);
+    }
     const refreshProgress = () => {
       setCalendarDate(getBerlinDateKey());
       setCompletedDays(readProgress().completedDays);
@@ -104,7 +112,7 @@ function Index() {
             16 Days of Somto <span className="text-blossom">♡</span>
           </h1>
           <p className="mt-1 text-sm text-foreground/80 sm:mt-2 sm:text-base">A little something for you, one day at a time.</p>
-          <p className="mt-1 text-[0.7rem] font-medium tracking-[0.2em] text-muted-foreground sm:mt-1.5">{allDaysUnlocked ? "ALL 16 DAYS ARE OPEN" : "DAY 16 UNLOCKS NOVEMBER 7"}</p>
+          <p className="mt-1 text-[0.7rem] font-medium tracking-[0.2em] text-muted-foreground sm:mt-1.5">{previewMode ? "PREVIEW MODE · ALL DAYS UNLOCKED" : allDaysUnlocked ? "ALL 16 DAYS ARE OPEN" : "DAY 16 UNLOCKS NOVEMBER 7"}</p>
         </header>
         <section
           ref={carouselRef}
