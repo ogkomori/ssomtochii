@@ -1,0 +1,30 @@
+name: Frontend checks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "ssomtochii-frontend/**"
+      - ".github/workflows/frontend-checks.yml"
+  pull_request:
+    paths:
+      - "ssomtochii-frontend/**"
+      - ".github/workflows/frontend-checks.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ssomtochii-frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+      - name: Build production app
+        run: bun run build
+      - name: Lint
+        run: bun run lint
