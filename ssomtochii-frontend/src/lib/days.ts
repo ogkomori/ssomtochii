@@ -40,7 +40,7 @@ const storyIds: StoryId[] = [
 
 export const DAYS: Day[] = Array.from({ length: 16 }, (_, i) => {
   const d = new Date(Date.UTC(2026, 9, 23 + i));
-  const label = `${d.toLocaleString("en-US", { month: "short", timeZone: "UTC" }).toUpperCase()} ${d.getUTCDate()}`;
+  const label = `${d.toLocaleString("en-US", { month: "long", timeZone: "UTC" })} ${d.getUTCDate()}`;
   return {
     day: i + 1,
     date: d.toISOString().slice(0, 10),
