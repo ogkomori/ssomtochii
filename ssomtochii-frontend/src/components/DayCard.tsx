@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Camera, Lock, Check, Circle, CircleCheck, CircleLock } from "lucide-react";
+import { Camera, Lock, Check, Circle, CircleCheck } from "lucide-react";
 import type { Day } from "@/lib/days";
 
 export function DayCard({ day, index }: { day: Day; index: number }) {
@@ -8,7 +8,7 @@ export function DayCard({ day, index }: { day: Day; index: number }) {
   const tilt = ["-rotate-1", "rotate-1", "rotate-0", "-rotate-[0.5deg]"][index % 4];
 
   const status = locked
-    ? { label: "Locked", Icon: CircleLock, className: "day-status--locked" }
+    ? { label: "Locked", Icon: Lock, className: "day-status--locked" }
     : completed
       ? { label: "Completed", Icon: CircleCheck, className: "day-status--completed" }
       : { label: "Available", Icon: Circle, className: "day-status--available" };
