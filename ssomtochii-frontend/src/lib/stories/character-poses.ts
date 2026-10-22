@@ -34,7 +34,7 @@ export const pose13ArmsCrossed = pose("pose-13-arms-crossed", "pose-13-arms-cros
 export const sitting: StoryCharacter = {
   ...pose("sitting", "sitting", "Somto sitting"),
   scale: 1.2,
-  offsetY: 30,
+  offsetY: 100,
 };
 export const smiling = pose("smiling", "smiling", "Somto smiling");
 export const speaking = pose("speaking", "speaking", "Somto speaking");

@@ -1,6 +1,6 @@
-import { facepalm, neutral, sitting, upwards } from "./character-poses";
+import { facepalm, neutral, sitting, speaking, upwards } from "./character-poses";
 import type { StoryDefinition } from "./types";
-import { SOMTO, ALEXA } from "./speakers";
+import { SOMTO, ALEXA, PARTY_PLANNERS } from "./speakers";
 
 /** Day 2 story. Replace this starter beat with the story for Day 2. */
 export const DAY_TWO_STORY: StoryDefinition = {
@@ -33,7 +33,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       scene: "character",
       speaker: SOMTO,
       characters: [neutral],
-      text: "Ugh, I can't believe I stayed up this late.",
+      text: "Chai, I can't believe I stayed up this late.",
       next: 4,
     },
     {
@@ -48,7 +48,8 @@ export const DAY_TWO_STORY: StoryDefinition = {
     {
       id: 5,
       type: "incoming-call",
-      callerName: "Melanie",
+      callerName: "Party Planners",
+      interaction: "display-only",
       next: 6,
     },
     {
@@ -57,7 +58,39 @@ export const DAY_TWO_STORY: StoryDefinition = {
       scene: "character",
       speaker: SOMTO,
       characters: [facepalm],
-      text: "Huh? Why on earth would she call me at this time?",
+      text: "Huh? Why on earth would they call me at this time?",
+      next: 7,
+    },
+    {
+      id: 7,
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [neutral],
+      text: "Hello?",
+      next: 8,
+    },
+    {
+      id: 8,
+      type: "dialogue",
+      scene: "phone",
+      phone: {
+        contactName: "Party Planners",
+        contactInitial: "PP",
+        statusText: "00:00:02",
+      },
+      characters: [],
+      speaker: PARTY_PLANNERS,
+      text: "Hello, Somto! Apologies for the bad timing, but this is urgent. We have a few questions about your birthday party plans.",
+      next: 9,
+    },
+    {
+      id: 9,
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [speaking],
+      text: "Okay I'm listening. What do you need to know?",
       next: 14,
     },
     {

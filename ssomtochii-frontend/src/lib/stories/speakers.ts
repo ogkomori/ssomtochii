@@ -18,3 +18,9 @@ export const ALEXA: Speaker = {
   label: "Somto's Alexa",
   color: "#0000FF",
 };
+
+export const PARTY_PLANNERS: Speaker = {
+  id: "party-planners",
+  label: "Party Planners · On the phone",
+  color: "#FFA500",
+};
