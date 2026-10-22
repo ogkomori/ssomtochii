@@ -54,7 +54,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       scene: "character",
       speaker: ZARA,
       characters: [zaraHappyDialogue],
-      text: "So sorry to bother you! Hi, I'm Zara. I just moved into the neighborhood and wanted to introduce myself. I also make a mean cup of coffee, if you like.",
+      text: "So sorry to bother you! Hi, I'm Zara. I just moved into the neighborhood and wanted to introduce myself! I also make a mean cup of coffee, if you like.",
       next: 6,
     },
     {
