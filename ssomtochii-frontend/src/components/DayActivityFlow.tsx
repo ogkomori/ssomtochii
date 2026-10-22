@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { DailyWheel } from "@/components/DailyWheel";
+import { markDayCompleted, readProgress } from "@/lib/progress";
 
 export function DayActivityFlow({
   day,
@@ -10,7 +11,12 @@ export function DayActivityFlow({
 }) {
   const [completed, setCompleted] = useState(false);
 
+  useEffect(() => {
+    setCompleted(readProgress().completedDays.includes(day));
+  }, [day]);
+
   const complete = () => {
+    markDayCompleted(day);
     setCompleted(true);
   };
 
