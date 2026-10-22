@@ -25,7 +25,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       id: 2,
       type: "narration",
       scene: "character",
-      background: "/images/backgrounds/lab.png",
+      background: "/images/backgrounds/lab.jpg",
       characters: [neutral],
       text: "She arrives at the lab and starts working.",
       next: 3,
