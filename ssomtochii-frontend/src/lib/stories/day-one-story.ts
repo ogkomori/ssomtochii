@@ -11,7 +11,6 @@ export const DAY_ONE_STORY: StoryDefinition = {
       id: 0,
       type: "incoming-call",
       callerName: "Tega",
-      interaction: "display-only",
       next: 1,
     },
     {
@@ -72,7 +71,7 @@ export const DAY_ONE_STORY: StoryDefinition = {
       scene: "character",
       characters: [speaking],
       speaker: SOMTO,
-      text: "Why is this a voice call and not a video call?",
+      text: "Tega, why is this a voice call and not a video call?",
       next: 6,
     },
     {
@@ -126,7 +125,7 @@ export const DAY_ONE_STORY: StoryDefinition = {
       id: 19,
       type: "dialogue",
       scene: "character",
-      characters: [speaking],
+      characters: [smiling],
       speaker: SOMTO,
       text: "As I park my car for inside compound...",
       next: 10,
@@ -138,7 +137,7 @@ export const DAY_ONE_STORY: StoryDefinition = {
       phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:45" },
       characters: [],
       speaker: TEGA,
-      text: "It's like you're manifesting this tank falling on your car...",
+      text: "With which driver's license?",
       next: 11,
     },
     {
