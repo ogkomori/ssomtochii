@@ -29,9 +29,11 @@ function Index() {
           <p className="mt-1 text-sm text-foreground/80 sm:mt-2 sm:text-base">A little something for you, one day at a time.</p>
           <p className="mt-1 text-[0.7rem] font-medium tracking-[0.2em] text-muted-foreground sm:mt-1.5">DAY 16 IS LOCKED FOR NOW</p>
         </header>
-        <section className="grid grid-cols-4 gap-1.5 sm:gap-4" aria-label="Sixteen days">
+        <section className="day-carousel" aria-label="Sixteen days. Swipe horizontally to explore each day.">
           {DAYS.map((d, i) => (
-            <DayCard key={d.day} day={d} index={i} />
+            <div className="day-carousel-slide" key={d.day}>
+              <DayCard day={d} index={i} />
+            </div>
           ))}
         </section>
         <p className="mt-1 text-center font-script text-base text-muted-foreground sm:mt-6 sm:text-xl">Come back tomorrow for the next one. ♡</p>
