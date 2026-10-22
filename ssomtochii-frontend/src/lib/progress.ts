@@ -54,8 +54,18 @@ export function getBerlinDateKey(now: Date = new Date()): string {
   return `${part("year")}-${part("month")}-${part("day")}`;
 }
 
+export function isPreviewMode(): boolean {
+  if (typeof window === "undefined") return false;
+  if (new URLSearchParams(window.location.search).get("preview") === "1") return true;
+  try {
+    return window.sessionStorage.getItem("ssomtochii-preview-unlock") === "1";
+  } catch {
+    return false;
+  }
+}
+
 export function isDayUnlocked(day: Pick<Day, "date">, today = getBerlinDateKey()): boolean {
-  return day.date <= today;
+  return isPreviewMode() || day.date <= today;
 }
 
 export function getDayState(
