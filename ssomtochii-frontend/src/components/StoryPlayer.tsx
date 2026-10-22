@@ -58,6 +58,7 @@ export function StoryPlayer({
   const beat = getBeat(story, beatId) ?? firstBeat;
   const beatIndex = story.beats.findIndex((item) => item.id === beat.id);
   const phoneScene = beat.scene === "phone";
+  const duoScene = !phoneScene && characters.length > 1;
   const phoneContactName = beat.phone?.contactName ?? "Tega";
   const phoneContactInitial = beat.phone?.contactInitial ?? (phoneContactName.trim().charAt(0).toUpperCase() || "T");
   const phoneStatusText = beat.phone?.statusText ?? "00:04:27";
@@ -99,7 +100,7 @@ export function StoryPlayer({
 
   return (
     <main className="story-player-shell">
-      <div className={`story-stage ${phoneScene ? "story-stage--phone" : ""}`} style={phoneScene ? undefined : getBackgroundStyle(background)}>
+      <div className={`story-stage ${phoneScene ? "story-stage--phone" : ""} ${duoScene ? "story-stage--duo" : ""}`} style={phoneScene ? undefined : getBackgroundStyle(background)}>
         <header className="story-test-header">
           <button type="button" className="story-exit-button" onClick={onExit}>
             <ArrowLeft className="h-4 w-4" /> {exitLabel}
