@@ -836,15 +836,14 @@ button.story-dialogue-panel{cursor:pointer;font:inherit}
 }
 
 
-/* Large contact avatar on the in-scene phone. Add Tega's photo at
-   public/images/tega-profile.jpg; the initial remains as a fallback. */
+/* Extra-large contact avatar on the in-scene phone. */
 .story-phone-contact{
   position:relative;
-  width:clamp(76px,12vw,112px);
-  height:clamp(76px,12vw,112px);
+  width:clamp(100px,17vw,150px);
+  height:clamp(100px,17vw,150px);
   flex-shrink:0;
   overflow:hidden;
-  font-size:clamp(2rem,5vw,3.1rem);
+  font-size:clamp(2.6rem,6vw,4rem);
 }
 .story-phone-contact>span{position:relative;z-index:0}
 .story-phone-contact img{
