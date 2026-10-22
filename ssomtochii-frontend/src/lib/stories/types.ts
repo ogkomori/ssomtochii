@@ -32,6 +32,8 @@ interface StoryBeatBase {
   phone?: {
     contactName?: string;
     contactInitial?: string;
+    /** Optional profile image path for the phone contact. */
+    contactImage?: string;
     statusText?: string;
   };
 }
