@@ -3,6 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { DAYS } from "@/lib/days";
 import { DayCard } from "@/components/DayCard";
 import { Botanicals } from "@/components/Botanicals";
+import { PwaInstall } from "@/components/PwaInstall";
 import { getBerlinDateKey, getDayState, isPreviewMode, readProgress, recordUnlockedDays } from "@/lib/progress";
 
 export const Route = createFileRoute("/")({
@@ -136,6 +137,7 @@ function Index() {
           )))}
         </section>
         <p className="mt-6 text-center font-script text-base text-muted-foreground sm:mt-6 sm:text-xl">A little surprise, one day at a time. ♡</p>
+        <PwaInstall />
       </div>
     </main>
   );
