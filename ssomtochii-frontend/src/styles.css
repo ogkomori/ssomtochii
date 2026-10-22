@@ -732,6 +732,8 @@ button.story-dialogue-panel{cursor:pointer;font:inherit}
 /* Home page: a roomy, infinitely looping day-card carousel. */
 .day-carousel{
   display:flex;
+  flex:1 0 auto;
+  align-items:center;
   gap:1rem;
   overflow-x:auto;
   overscroll-behavior-x:contain;
