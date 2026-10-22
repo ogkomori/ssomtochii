@@ -1,15 +1,21 @@
-import type { StoryCharacter } from "./types";
+import type { CharacterPosition, StoryCharacter } from "./types";
 
 /**
- * Reusable Somto character assets.
- *
- * Import the poses a story needs instead of redefining image paths inside
- * each day file. Public asset paths intentionally omit "/public".
+ * Reusable character assets.
+ * Public paths mirror the character-specific folders under public/images.
  */
 const pose = (id: string, filename: string, alt: string): StoryCharacter => ({
   id,
   name: "Somto",
-  image: `/images/character-reference/${filename}.png`,
+  image: "/images/character-reference/Somto/" + filename + ".png",
+  position: "center",
+  alt,
+});
+
+const zaraPose = (id: string, filename: string, alt: string): StoryCharacter => ({
+  id,
+  name: "Zara",
+  image: "/images/character-reference/Zara/" + filename + ".png",
   position: "center",
   alt,
 });
@@ -40,3 +46,21 @@ export const smiling = pose("smiling", "smiling", "Somto smiling");
 export const speaking = pose("speaking", "speaking", "Somto speaking");
 export const behind = pose("behind", "behind", "Somto behind something");
 export const upwards = pose("upwards", "upwards", "Somto looking upwards");
+
+/** Zara's nine uploaded character-reference poses. */
+export const zaraNeutral = zaraPose("zara-neutral", "zara-pose-1-neutral", "Zara in a neutral pose");
+export const zaraHappy = zaraPose("zara-happy", "zara-pose-2-happy-final", "Zara looking happy");
+export const zaraSad = zaraPose("zara-sad", "zara-pose-4-sad", "Zara looking sad");
+export const zaraSurprised = zaraPose("zara-surprised", "zara-pose-5-surprised", "Zara looking surprised");
+export const zaraHappyDialogue = zaraPose("zara-happy-dialogue", "zara-pose-7-happy-dialogue-left-transparent", "Zara speaking happily and facing left");
+export const zaraThinking = zaraPose("zara-thinking", "zara-pose-8-thinking", "Zara thinking");
+export const zaraLaughing = zaraPose("zara-laughing", "zara-pose-9-laughing", "Zara laughing");
+export const zaraExplaining = zaraPose("zara-explaining", "zara-pose-10-explaining", "Zara explaining something");
+export const zaraConcerned = zaraPose("zara-serious-concerned", "zara-pose-11-serious-concerned", "Zara looking serious and concerned");
+
+export const placeCharacter = (
+  character: StoryCharacter,
+  id: string,
+  name: string,
+  position: CharacterPosition,
+): StoryCharacter => ({ ...character, id, name, position });
