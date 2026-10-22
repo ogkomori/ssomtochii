@@ -118,6 +118,7 @@ export function StoryPlayer({
             const transform = [
               character.position === "center" ? "translateX(-50%)" : "",
               character.mirrored ? "scaleX(-1)" : "",
+              character.scale && character.scale !== 1 ? `scale(${character.scale})` : "",
             ].filter(Boolean).join(" ") || undefined;
 
             return (
