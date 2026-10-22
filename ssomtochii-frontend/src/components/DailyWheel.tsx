@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Trophy } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { readProgress, saveDayLetter } from "@/lib/progress";
 import { Botanicals } from "@/components/Botanicals";
 import { CHARACTER_POOL } from "@/lib/day-one";
 
@@ -13,6 +14,10 @@ export function DailyWheel({ day }: { day: number }) {
   const [letter, setLetter] = useState<string | null>(null);
   const [stopAt, setStopAt] = useState(0);
 
+  useEffect(() => {
+    setLetter(readProgress().lettersByDay[String(day)] ?? null);
+  }, [day]);
+
   const spin = () => {
     if (spinning || letter) return;
 
@@ -21,7 +26,9 @@ export function DailyWheel({ day }: { day: number }) {
     setSpinning(true);
 
     window.setTimeout(() => {
-      setLetter(CHARACTER_POOL[nextIndex]);
+      const earnedLetter = CHARACTER_POOL[nextIndex];
+      saveDayLetter(day, earnedLetter);
+      setLetter(earnedLetter);
       setSpinning(false);
     }, 4200);
   };
