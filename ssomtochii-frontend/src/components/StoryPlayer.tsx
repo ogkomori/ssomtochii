@@ -61,6 +61,7 @@ export function StoryPlayer({
   const duoScene = !phoneScene && characters.length > 1;
   const phoneContactName = beat.phone?.contactName ?? "Tega";
   const phoneContactInitial = beat.phone?.contactInitial ?? (phoneContactName.trim().charAt(0).toUpperCase() || "T");
+  const phoneContactImage = beat.phone?.contactImage ?? (phoneContactName.trim().toLowerCase() === "tega" ? "/images/tega-profile.jpg" : undefined);
   const phoneStatusText = beat.phone?.statusText ?? "00:04:27";
   const speaker = beat.type === "dialogue" || beat.type === "choice" ? beat.speaker : undefined;
   const speakerCharacter = speaker ? characters.find((character) => character.id === speaker.id) : undefined;
@@ -114,7 +115,7 @@ export function StoryPlayer({
           </button>
         </header>
 
-        {phoneScene && <div className="story-phone-table-scene" aria-label={`Phone showing a call with ${phoneContactName}`}><div className="story-phone-object"><div className="story-phone-display"><span className="story-phone-camera-notch" /><div className="story-phone-contact">{phoneContactInitial}</div><strong>{phoneContactName}</strong><span className="story-phone-status">{phoneStatusText}</span><div className="story-phone-action-row"><span>⌁</span><span>▦</span><span>◖</span></div><span className="story-phone-hangup">⌕</span></div></div><span className="story-desk-notebook" /><span className="story-desk-paper" /></div>}
+        {phoneScene && <div className="story-phone-table-scene" aria-label={`Phone showing a call with ${phoneContactName}`}><div className="story-phone-object"><div className="story-phone-display"><span className="story-phone-camera-notch" /><div className={`story-phone-contact${phoneContactImage ? " story-phone-contact--has-image" : ""}`}><span>{phoneContactInitial}</span>{phoneContactImage && <img src={phoneContactImage} alt={`${phoneContactName} profile`} onError={(event) => event.currentTarget.remove()} />}</div><strong>{phoneContactName}</strong><span className="story-phone-status">{phoneStatusText}</span><div className="story-phone-action-row"><span>⌁</span><span>▦</span><span>◖</span></div><span className="story-phone-hangup">⌕</span></div></div><span className="story-desk-notebook" /><span className="story-desk-paper" /></div>}
 
         <div className="story-scene-characters" aria-label="Scene characters">
           {!phoneScene && characters.map((character) => {
