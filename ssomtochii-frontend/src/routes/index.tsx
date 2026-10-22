@@ -110,7 +110,7 @@ function Index() {
   return (
     <main className="page-shell">
       <Botanicals />
-      <div className="relative mx-auto w-full max-w-xl">
+      <div className="relative mx-auto flex min-h-[calc(100dvh-1rem)] w-full max-w-xl flex-col">
         <header className="mb-2 pt-11 text-center sm:mb-8 sm:pt-0">
           <h1 className="font-script text-5xl leading-none text-foreground sm:text-6xl">
             16 Days of Somto <span className="text-blossom">♡</span>
@@ -135,7 +135,7 @@ function Index() {
             </div>
           )))}
         </section>
-        <p className="mt-1 text-center font-script text-base text-muted-foreground sm:mt-6 sm:text-xl">A little surprise, one day at a time. ♡</p>
+        <p className="mt-6 text-center font-script text-base text-muted-foreground sm:mt-6 sm:text-xl">A little surprise, one day at a time. ♡</p>
       </div>
     </main>
   );
