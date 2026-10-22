@@ -1,5 +1,5 @@
 import type { StoryCharacter, StoryDefinition } from "./types";
-import { placeCharacter, neutral, smiling, speaking, pose8Thinking, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraLaughing, zaraSurprised, zaraExplaining } from "./character-poses";
+import { placeCharacter, pose6Walking, neutral, smiling, speaking, pose8Thinking, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraLaughing, zaraSurprised, zaraExplaining } from "./character-poses";
 import { SOMTO, ZARA } from "./speakers";
 
 const somtoLeft = (pose: StoryCharacter) => placeCharacter(pose, "somto", "Somto", "left");
@@ -16,9 +16,9 @@ export const DAY_TWO_STORY: StoryDefinition = {
       id: 1,
       type: "narration",
       scene: "character",
-      background: "linear-gradient(180deg, #d9e8e0 0%, #f4e8e4 58%, #d7dfc7 100%)",
-      characters: together(neutral, zaraNeutral),
-      text: "At work, Somto spots Zara already settled in, looking far too pleased with herself for someone who arrived before everyone else.",
+      background: "/images/backgrounds/road.jpg",
+      characters: [pose6Walking],
+      text: "Walking to work...",
       next: 2,
     },
     {
