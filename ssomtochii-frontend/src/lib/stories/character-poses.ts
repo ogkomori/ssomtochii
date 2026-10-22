@@ -31,7 +31,10 @@ export const pose10Explaining = pose("pose-10-explaining", "pose-10-explaining",
 export const pose11SeriousConcerned = pose("pose-11-serious-concerned", "pose-11-serious-concerned", "Somto looking serious and concerned");
 export const pose12ConfidentStanding = pose("pose-12-confident-standing", "pose-12-confident-standing", "Somto standing confidently");
 export const pose13ArmsCrossed = pose("pose-13-arms-crossed", "pose-13-arms-crossed", "Somto with her arms crossed");
-export const sitting = pose("sitting", "sitting", "Somto sitting");
+export const sitting: StoryCharacter = {
+  ...pose("sitting", "sitting", "Somto sitting"),
+  scale: 1.2,
+};
 export const smiling = pose("smiling", "smiling", "Somto smiling");
 export const speaking = pose("speaking", "speaking", "Somto speaking");
 export const behind = pose("behind", "behind", "Somto behind something");
