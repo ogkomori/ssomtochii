@@ -61,7 +61,7 @@ export function StoryPlayer({
   const duoScene = !phoneScene && characters.length > 1;
   const phoneContactName = beat.phone?.contactName ?? "Tega";
   const phoneContactInitial = beat.phone?.contactInitial ?? (phoneContactName.trim().charAt(0).toUpperCase() || "T");
-  const phoneContactImage = beat.phone?.contactImage ?? (phoneContactName.trim().toLowerCase() === "tega" ? "/images/tega-profile.jpg" : undefined);
+  const phoneContactImage = beat.phone?.contactImage ?? (phoneContactName.trim().toLowerCase() === "tega" ? "/images/tega-profile.jpeg" : undefined);
   const phoneStatusText = beat.phone?.statusText ?? "00:04:27";
   const speaker = beat.type === "dialogue" || beat.type === "choice" ? beat.speaker : undefined;
   const speakerCharacter = speaker ? characters.find((character) => character.id === speaker.id) : undefined;
