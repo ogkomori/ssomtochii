@@ -48,9 +48,9 @@ export const DAYS: Day[] = Array.from({ length: 16 }, (_, i) => {
     icon: icons[i % icons.length] as DayIcon,
     // Drop each photo into public/images/days using the matching filename.
     image: `/images/days/day-${String(i + 1).padStart(2, "0")}.jpg`,
-    // Every day is open while we prototype individual activities. Date locking
-    // will be restored through the journey API before the experience launches.
-    state: "available",
+    // The home screen calculates the real state in the browser using the Berlin date.
+    // Keep the server-rendered default locked to avoid build-time date drift.
+    state: "locked",
     story: storyIds[i],
     activity: i === 0 ? "day-one-journey" :
               i === 1 ? "word-scramble" :
