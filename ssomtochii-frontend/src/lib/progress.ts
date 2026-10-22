@@ -68,8 +68,8 @@ export function isPreviewMode(): boolean {
   }
 }
 
-export function isDayUnlocked(day: Pick<Day, "date">, today = getBerlinDateKey()): boolean {
-  return isPreviewMode() || day.date <= today;
+export function isDayUnlocked(day: Pick<Day, "date" | "day">, today = getBerlinDateKey()): boolean {
+  return isPreviewMode() || day.date <= today || readProgress().unlockedDays.includes(day.day);
 }
 
 export function getDayState(
@@ -84,10 +84,9 @@ export function getDayState(
 
 export function recordUnlockedDays(dayNumbers: number[]): LocalProgress {
   const progress = readProgress();
-  const next: LocalProgress = {
-    ...progress,
-    unlockedDays: [...new Set([...progress.unlockedDays, ...dayNumbers])].sort((a, b) => a - b),
-  };
+  const unlockedDays = [...new Set([...progress.unlockedDays, ...dayNumbers])].sort((a, b) => a - b);
+  if (unlockedDays.length === progress.unlockedDays.length && unlockedDays.every((day, index) => day === progress.unlockedDays[index])) return progress;
+  const next: LocalProgress = { ...progress, unlockedDays };
   writeProgress(next);
   return next;
 }
