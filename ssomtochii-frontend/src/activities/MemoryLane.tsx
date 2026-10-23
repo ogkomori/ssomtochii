@@ -48,6 +48,6 @@ export function MemoryLane({ onComplete }: { onComplete: () => void }) {
       <p className="mt-4 min-h-6 text-sm text-muted-foreground">{message}</p>
       <div className="mt-3 flex justify-center gap-3"><button type="button" className="next-button" onClick={check}>Check order <Check className="h-4 w-4" /></button><button type="button" className="inline-flex items-center gap-1 text-sm text-muted-foreground" onClick={resetRound}><RotateCcw className="h-4 w-4" /> Reset</button></div>
     </>}
-    {complete && <button type="button" className="next-button" onClick={onComplete}>Get today’s letter <Check className="h-4 w-4" /></button>}
+    {complete && <button type="button" className="next-button" onClick={onComplete}>Get today’s compliment <Check className="h-4 w-4" /></button>}
   </GameShell>;
 }
