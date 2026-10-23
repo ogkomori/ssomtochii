@@ -1,28 +1,87 @@
 import { Link } from "@tanstack/react-router";
 import { Heart, Volume2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Botanicals } from "@/components/Botanicals";
 import { COMPLIMENTS } from "@/lib/compliments";
 
 const slots = Array.from({ length: 10 }, () => COMPLIMENTS).flat();
 const height = 54;
+const DAILY_COMPLIMENTS_STORAGE_KEY = "ssomtochii-daily-compliments-v1";
+// Temporary fixed birthday entry until the dedicated Day 16 compliment is added.
+const BIRTHDAY_COMPLIMENT_WORD = "radiant";
+
+type SavedCompliments = Record<string, string>;
+
+function readSavedCompliments(): SavedCompliments {
+  if (typeof window === "undefined") return {};
+  try {
+    const parsed = JSON.parse(window.localStorage.getItem(DAILY_COMPLIMENTS_STORAGE_KEY) ?? "{}");
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed)
+      ? parsed as SavedCompliments
+      : {};
+  } catch {
+    return {};
+  }
+}
+
+function saveCompliment(day: number, word: string) {
+  if (typeof window === "undefined") return;
+  try {
+    const saved = readSavedCompliments();
+    saved[String(day)] = word;
+    window.localStorage.setItem(DAILY_COMPLIMENTS_STORAGE_KEY, JSON.stringify(saved));
+  } catch {
+    // Keep the reward usable when browser storage is unavailable.
+  }
+}
 
 /** End-of-day reward: one randomly selected dictionary-style compliment. */
 export function DailyWheel({ day }: { day: number }) {
   const [spinning, setSpinning] = useState(false);
-  const [prizeIndex, setPrizeIndex] = useState<number | null>(null);
+  const [prizeWord, setPrizeWord] = useState<string | null>(() => {
+    if (day === 16) return BIRTHDAY_COMPLIMENT_WORD;
+    const savedWord = readSavedCompliments()[String(day)];
+    return savedWord && COMPLIMENTS.some((item) => item.word === savedWord) ? savedWord : null;
+  });
   const [stopAt, setStopAt] = useState(0);
 
-  const spin = () => {
-    if (spinning || prizeIndex !== null) return;
+  useEffect(() => {
+    if (day === 16) saveCompliment(16, BIRTHDAY_COMPLIMENT_WORD);
+  }, [day]);
 
-    // Every compliment entry is a distinct, equally likely prize.
-    const nextIndex = Math.floor(Math.random() * COMPLIMENTS.length);
-    setStopAt(7 * COMPLIMENTS.length + nextIndex);
+  const prizeIndex = prizeWord === null ? null : COMPLIMENTS.findIndex((item) => item.word === prizeWord);
+  const prize = prizeIndex === null || prizeIndex < 0 ? null : COMPLIMENTS[prizeIndex];
+
+  const spin = () => {
+    if (spinning || prize !== null) return;
+
+    const saved = readSavedCompliments();
+    const usedWords = new Set(
+      Object.entries(saved)
+        .filter(([savedDay]) => savedDay !== String(day) && savedDay !== "16")
+        .map(([, word]) => word),
+    );
+    usedWords.add(BIRTHDAY_COMPLIMENT_WORD);
+
+    // Avoid repeats while unused compliments remain. If the pool is exhausted,
+    // allow a repeat rather than leaving a day without a reward.
+    let candidates = COMPLIMENTS
+      .map((item, index) => ({ item, index }))
+      .filter(({ item }) => !usedWords.has(item.word));
+    if (candidates.length === 0) {
+      candidates = COMPLIMENTS
+        .map((item, index) => ({ item, index }))
+        .filter(({ item }) => item.word !== BIRTHDAY_COMPLIMENT_WORD);
+    }
+    if (candidates.length === 0) return;
+
+    const selected = candidates[Math.floor(Math.random() * candidates.length)];
+    setStopAt(7 * COMPLIMENTS.length + selected.index);
     setSpinning(true);
 
     window.setTimeout(() => {
-      setPrizeIndex(nextIndex);
+      saveCompliment(day, selected.item.word);
+      setPrizeWord(selected.item.word);
       setSpinning(false);
     }, 4200);
   };
@@ -41,7 +100,7 @@ export function DailyWheel({ day }: { day: number }) {
   };
 
   const offset = stopAt ? stopAt * height - height : 0;
-  const prize = prizeIndex === null ? null : COMPLIMENTS[prizeIndex];
+
 
   return (
     <main className="page-shell">
