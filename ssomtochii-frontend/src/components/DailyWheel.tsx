@@ -38,6 +38,7 @@ function saveCompliment(day: number, word: string) {
 /** End-of-day reward: one randomly selected dictionary-style compliment. */
 export function DailyWheel({ day }: { day: number }) {
   const [spinning, setSpinning] = useState(false);
+  const [poolExhausted, setPoolExhausted] = useState(false);
   const [prizeWord, setPrizeWord] = useState<string | null>(() => {
     if (day === 16) return BIRTHDAY_COMPLIMENT_WORD;
     const savedWord = readSavedCompliments()[String(day)];
@@ -63,17 +64,14 @@ export function DailyWheel({ day }: { day: number }) {
     );
     usedWords.add(BIRTHDAY_COMPLIMENT_WORD);
 
-    // Avoid repeats while unused compliments remain. If the pool is exhausted,
-    // allow a repeat rather than leaving a day without a reward.
-    let candidates = COMPLIMENTS
+    // Never repeat a compliment. Add another entry to COMPLIMENTS if the pool runs out.
+    const candidates = COMPLIMENTS
       .map((item, index) => ({ item, index }))
       .filter(({ item }) => !usedWords.has(item.word));
     if (candidates.length === 0) {
-      candidates = COMPLIMENTS
-        .map((item, index) => ({ item, index }))
-        .filter(({ item }) => item.word !== BIRTHDAY_COMPLIMENT_WORD);
+      setPoolExhausted(true);
+      return;
     }
-    if (candidates.length === 0) return;
 
     const selected = candidates[Math.floor(Math.random() * candidates.length)];
     setStopAt(7 * COMPLIMENTS.length + selected.index);
@@ -152,7 +150,7 @@ export function DailyWheel({ day }: { day: number }) {
           ) : (
             <>
               <h2 className="font-script text-4xl leading-none">A little gift, just for you.</h2>
-              <p>Every box holds a compliment. Let&apos;s see which one is yours today. ♡</p>
+              <p>{poolExhausted ? "We need one more compliment for this day. ♡" : "Every box holds a compliment. Let&apos;s see which one is yours today. ♡"}</p>
               <div className="reel-machine">
                 <span className="reel-label">COMPLIMENT OF THE DAY</span>
                 <div className="reel-window" aria-label="Gift boxes spinning">
@@ -166,8 +164,8 @@ export function DailyWheel({ day }: { day: number }) {
                   <span className="reel-marker" aria-hidden="true" />
                 </div>
               </div>
-              <button type="button" className="next-button" onClick={spin} disabled={spinning}>
-                {spinning ? "Unwrapping…" : "Open a gift"}
+              <button type="button" className="next-button" onClick={spin} disabled={spinning || poolExhausted}>
+                {poolExhausted ? "Add another compliment" : spinning ? "Unwrapping…" : "Open a gift"}
               </button>
             </>
           )}
