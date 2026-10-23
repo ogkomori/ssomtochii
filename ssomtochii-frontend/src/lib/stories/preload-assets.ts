@@ -1,6 +1,7 @@
 import type { StoryBeat, StoryDefinition } from "./types";
 
 const imageLoads = new Map<string, Promise<void>>();
+const loadedImages = new Set<string>();
 
 function preloadImage(src: string, priority = false): Promise<void> {
   const cached = imageLoads.get(src);
@@ -13,7 +14,10 @@ function preloadImage(src: string, priority = false): Promise<void> {
       image.fetchPriority = priority ? "high" : "low";
     }
 
-    const finish = () => resolve();
+    const finish = () => {
+      loadedImages.add(src);
+      resolve();
+    };
     image.onload = finish;
     image.onerror = finish;
     image.src = src;
@@ -73,4 +77,15 @@ export async function preloadStoryAssets(story: StoryDefinition, openingBeat: St
   });
 
   await Promise.all(workers);
+}
+
+
+/** True when every image referenced by this story has already finished loading. */
+export function areStoryAssetsLoaded(story: StoryDefinition, openingBeat: StoryBeat): boolean {
+  const sources = new Set<string>();
+  for (const beat of story.beats) {
+    for (const source of getBeatImageSources(beat)) sources.add(source);
+  }
+  for (const source of getBeatImageSources(openingBeat)) sources.add(source);
+  return [...sources].every((source) => loadedImages.has(source));
 }
