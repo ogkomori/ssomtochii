@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, RotateCcw } from "lucide-react";
 import type { CSSProperties } from "react";
 import type { StoryBeat, StoryCharacter, StoryDefinition } from "@/lib/stories/types";
 import { IncomingCallScreen } from "@/components/IncomingCallScreen";
-import { areStoryAssetsLoaded, preloadStoryAssets } from "@/lib/stories/preload-assets";
+import { areBeatAssetsLoaded, preloadBeatAssets, preloadStoryAssets } from "@/lib/stories/preload-assets";
 
 function getBeat(story: StoryDefinition, id: StoryBeat["id"]) {
   return story.beats.find((beat) => beat.id === id);
@@ -50,18 +50,24 @@ export function StoryPlayer({
   const [beatId, setBeatId] = useState(firstBeat.id);
   const [background, setBackground] = useState(firstBeat.background);
   const [characters, setCharacters] = useState<StoryCharacter[]>(firstBeat.characters ?? []);
-  const [assetsReady, setAssetsReady] = useState(() => areStoryAssetsLoaded(story, firstBeat));
+  const [assetsReady, setAssetsReady] = useState(() => areBeatAssetsLoaded(firstBeat));
+  const [transitioning, setTransitioning] = useState(false);
+  const transitionLock = useRef(false);
 
   useEffect(() => {
     let cancelled = false;
-    if (areStoryAssetsLoaded(story, firstBeat)) {
+    if (areBeatAssetsLoaded(firstBeat)) {
       setAssetsReady(true);
-      return () => { cancelled = true; };
+    } else {
+      setAssetsReady(false);
+      void preloadBeatAssets(firstBeat, true).then(() => {
+        if (!cancelled) setAssetsReady(true);
+      });
     }
-    setAssetsReady(false);
-    void preloadStoryAssets(story, firstBeat).then(() => {
-      if (!cancelled) setAssetsReady(true);
-    });
+
+    // This resolves after the opening scene is ready, then warms all later
+    // story assets in the background. It does not block the player on them.
+    void preloadStoryAssets(story, firstBeat);
     return () => { cancelled = true; };
   }, [story, firstBeat]);
 
@@ -76,13 +82,24 @@ export function StoryPlayer({
   const speaker = beat.type === "dialogue" || beat.type === "choice" ? beat.speaker : undefined;
   const speakerCharacter = speaker ? characters.find((character) => character.id === speaker.id) : undefined;
 
-  const goTo = (nextId?: StoryBeat["id"]) => {
-    if (!nextId) return;
+  const goTo = async (nextId?: StoryBeat["id"]) => {
+    if (!nextId || transitionLock.current) return;
     const nextBeat = getBeat(story, nextId);
     if (!nextBeat) return;
-    if (nextBeat.background !== undefined) setBackground(nextBeat.background);
-    if (nextBeat.characters !== undefined) setCharacters(nextBeat.characters);
-    setBeatId(nextBeat.id);
+
+    transitionLock.current = true;
+    setTransitioning(true);
+    try {
+      // If background preloading hasn't reached this scene yet, wait here
+      // instead of briefly showing missing characters or a blank background.
+      await preloadBeatAssets(nextBeat, true);
+      if (nextBeat.background !== undefined) setBackground(nextBeat.background);
+      if (nextBeat.characters !== undefined) setCharacters(nextBeat.characters);
+      setBeatId(nextBeat.id);
+    } finally {
+      transitionLock.current = false;
+      setTransitioning(false);
+    }
   };
 
   const advance = () => {
@@ -92,16 +109,14 @@ export function StoryPlayer({
   };
 
   const restart = () => {
-    setBeatId(firstBeat.id);
-    setBackground(firstBeat.background);
-    setCharacters(firstBeat.characters ?? []);
+    void goTo(firstBeat.id);
   };
 
-  if (!assetsReady) {
+  if (!assetsReady || transitioning) {
     return (
       <main className="story-player-shell">
         <div className="story-stage flex min-h-[70dvh] items-center justify-center text-center">
-          <p className="font-script text-4xl">Getting the scenes ready… ♡</p>
+          <p className="font-script text-4xl">{transitioning ? "One moment… ♡" : "Getting the scenes ready… ♡"}</p>
         </div>
       </main>
     );
