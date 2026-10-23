@@ -78,9 +78,24 @@ export function getBerlinDateKey(now: Date = new Date()): string {
   return `${part("year")}-${part("month")}-${part("day")}`;
 }
 
+const PREVIEW_SESSION_KEY = "ssomtochii-preview-session";
+
 export function isPreviewMode(): boolean {
   if (typeof window === "undefined") return false;
-  return new URLSearchParams(window.location.search).get("preview") === "1";
+
+  try {
+    // The preview flag is only needed on the entry URL. Remember it for this
+    // tab so navigating to /day/2, /day/3, etc. doesn't drop preview access.
+    if (new URLSearchParams(window.location.search).get("preview") === "1") {
+      window.sessionStorage.setItem(PREVIEW_SESSION_KEY, "1");
+      return true;
+    }
+
+    return window.sessionStorage.getItem(PREVIEW_SESSION_KEY) === "1";
+  } catch {
+    // If session storage is unavailable, preview still works on the entry URL.
+    return new URLSearchParams(window.location.search).get("preview") === "1";
+  }
 }
 
 export function isDayUnlocked(day: Pick<Day, "date" | "day">, today = getBerlinDateKey()): boolean {
