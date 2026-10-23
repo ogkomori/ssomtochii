@@ -4,28 +4,50 @@ const imageLoads = new Map<string, Promise<void>>();
 const loadedImages = new Set<string>();
 
 function preloadImage(src: string, priority = false): Promise<void> {
+  if (loadedImages.has(src)) return Promise.resolve();
+
   const cached = imageLoads.get(src);
   if (cached) return cached;
 
+  let finish!: (success: boolean) => void;
+  let settled = false;
   const load = new Promise<void>((resolve) => {
-    const image = new Image();
-    image.decoding = "async";
-    if ("fetchPriority" in image) {
-      image.fetchPriority = priority ? "high" : "low";
-    }
-
-    const finish = () => {
-      loadedImages.add(src);
+    finish = (success) => {
+      if (settled) return;
+      settled = true;
+      if (success) {
+        loadedImages.add(src);
+      } else {
+        // Don't permanently cache a failed request; a later visit can retry.
+        imageLoads.delete(src);
+      }
       resolve();
     };
-    image.onload = finish;
-    image.onerror = finish;
-    image.src = src;
-
-    if (image.complete) finish();
   });
 
   imageLoads.set(src, load);
+  const image = new Image();
+  image.decoding = "async";
+  if ("fetchPriority" in image) {
+    image.fetchPriority = priority ? "high" : "low";
+  }
+
+  image.onload = () => {
+    // Wait for decode where supported so the first visible frame is less likely
+    // to flash while the browser decodes a large character sprite.
+    if (typeof image.decode === "function") {
+      void image.decode().then(
+        () => finish(true),
+        () => finish(image.naturalWidth > 0),
+      );
+    } else {
+      finish(image.naturalWidth > 0);
+    }
+  };
+  image.onerror = () => finish(false);
+  image.src = src;
+
+  if (image.complete) finish(image.naturalWidth > 0);
   return load;
 }
 
@@ -49,8 +71,10 @@ function getBeatImageSources(beat: StoryBeat): string[] {
 }
 
 /**
- * Load every image used by the story before playback begins. The module-level
- * cache avoids re-requesting images across beats and visits to the same story.
+ * Load every image used by a story before playback begins. The module-level
+ * cache deduplicates requests across the welcome screen, story playback, and
+ * later visits. The opening scene is prioritised; the rest are fetched with a
+ * small concurrency limit to avoid overwhelming mobile connections.
  */
 export async function preloadStoryAssets(story: StoryDefinition, openingBeat: StoryBeat): Promise<void> {
   const openingSources = getBeatImageSources(openingBeat);
@@ -67,7 +91,7 @@ export async function preloadStoryAssets(story: StoryDefinition, openingBeat: St
 
   const queue = [...remainingSources];
   let nextIndex = 0;
-  const workerCount = Math.min(6, queue.length);
+  const workerCount = Math.min(4, queue.length);
   const workers = Array.from({ length: workerCount }, async () => {
     while (nextIndex < queue.length) {
       const source = queue[nextIndex];
@@ -79,8 +103,7 @@ export async function preloadStoryAssets(story: StoryDefinition, openingBeat: St
   await Promise.all(workers);
 }
 
-
-/** True when every image referenced by this story has already finished loading. */
+/** True only when every image referenced by this story loaded and decoded. */
 export function areStoryAssetsLoaded(story: StoryDefinition, openingBeat: StoryBeat): boolean {
   const sources = new Set<string>();
   for (const beat of story.beats) {
