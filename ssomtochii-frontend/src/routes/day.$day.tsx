@@ -74,9 +74,32 @@ function DayPage() {
   const [partySizeChoice, setPartySizeChoice] = useState<PartySizeChoice | null>(null);
   const [dayAvailable, setDayAvailable] = useState<boolean | null>(null);
 
+  const storyToPreload = day.day === 1
+    ? undefined
+    : day.day === 9
+      ? getDayNineStory(partySizeChoice)
+      : STORIES[day.story as Exclude<StoryId, "day-one-story">];
+  const openingBeatToPreload = storyToPreload?.beats.find((beat) => beat.id === storyToPreload.startAt)
+    ?? storyToPreload?.beats[0];
+
   useEffect(() => {
     setDayAvailable(isDayUnlocked({ date: day.date, day: day.day }));
   }, [day.date, day.day]);
+
+  // Preload while the welcome screen is visible, before Start is tapped.
+  // Day 1 is intentionally excluded and remains unchanged.
+  useEffect(() => {
+    if (
+      day.day === 1 ||
+      !dayAvailable ||
+      welcomeStarted ||
+      storyComplete ||
+      !storyToPreload ||
+      !openingBeatToPreload
+    ) return;
+
+    void preloadStoryAssets(storyToPreload, openingBeatToPreload);
+  }, [day.day, dayAvailable, welcomeStarted, storyComplete, storyToPreload, openingBeatToPreload]);
 
   const daySevenVideoRef = useRef<HTMLVideoElement>(null);
 
