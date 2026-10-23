@@ -67,8 +67,9 @@ export async function preloadStoryAssets(story: StoryDefinition, openingBeat: St
   const workerCount = Math.min(3, queue.length);
   const workers = Array.from({ length: workerCount }, async () => {
     while (nextIndex < queue.length) {
-      const source = queue[nextIndex++];
-      await preloadImage(source);
+      const source = queue[nextIndex];
+      nextIndex += 1;
+      if (source) await preloadImage(source);
     }
   });
 
