@@ -200,10 +200,16 @@
   .day-one-video { @apply aspect-video w-full rounded-xl bg-foreground/10 object-cover; }
   .quiz-options { @apply flex flex-col gap-2 text-left; }
   .quiz-option { @apply flex min-h-12 items-center gap-3 rounded-xl border bg-card px-3 text-left text-sm font-medium text-foreground transition-colors active:scale-[.99]; }
-  .quiz-option span { @apply grid h-6 w-6 shrink-0 place-items-center rounded-full bg-secondary text-xs text-primary; }
+  .quiz-option-marker { @apply grid h-6 w-6 shrink-0 place-items-center rounded-full bg-secondary text-xs text-primary; }
+  .quiz-option-text { @apply min-w-0 flex-1; }
   .quiz-option.is-selected { @apply border-primary bg-secondary; }
+  .quiz-option.is-incorrect { @apply border-red-500 bg-red-50 text-red-900; }
+  .quiz-option.is-incorrect .quiz-option-marker { @apply bg-red-600 text-white; }
+  .quiz-option.is-correct { @apply border-emerald-600 bg-emerald-50 text-emerald-950; }
+  .quiz-option.is-correct .quiz-option-marker { @apply bg-emerald-600 text-white; }
   .quiz-feedback { @apply rounded-xl bg-secondary/70 p-3 text-sm text-foreground/80; }
-  .quiz-feedback.is-correct { @apply text-primary; }
+  .quiz-feedback.is-correct { @apply bg-emerald-50 text-emerald-900; }
+  .quiz-feedback.is-incorrect { @apply border border-red-200 bg-red-50 text-red-900; }
   .completion-mark { @apply mx-auto grid h-16 w-16 place-items-center rounded-full bg-secondary text-primary; }
   .award-letter { @apply grid h-28 w-28 place-items-center rounded-2xl border-2 border-dashed border-blossom bg-card font-script text-8xl text-blossom shadow-sm; transform: rotate(-3deg); }
   .reel-machine { @apply mx-auto my-1 w-44 rounded-2xl border-4 border-primary bg-primary p-2 shadow-md; }
