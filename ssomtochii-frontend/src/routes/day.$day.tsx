@@ -37,6 +37,7 @@ import { DAY_FIFTEEN_STORY } from "@/lib/stories/day-fifteen-story";
 import { DAY_SIXTEEN_STORY } from "@/lib/stories/day-sixteen-story";
 import { getDay } from "@/lib/days";
 import { isDayUnlocked } from "@/lib/progress";
+import { preloadStoryAssets } from "@/lib/stories/preload-assets";
 
 const STORIES: Record<Exclude<StoryId, "day-one-story">, StoryDefinition> = {
   "day-two-story": DAY_TWO_STORY, "day-three-story": DAY_THREE_STORY,
