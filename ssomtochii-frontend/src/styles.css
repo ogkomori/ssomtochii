@@ -1136,3 +1136,89 @@ button.story-dialogue-panel{cursor:pointer;font:inherit}
 @media (prefers-reduced-motion:reduce){
   .story-transition-indicator{animation:none}
 }
+
+
+/* Dictionary-style compliment reveal: a little entry that becomes a love note. */
+.dictionary-page{
+  width:100%;
+  max-width:30rem;
+  margin:1rem auto 0;
+  padding:clamp(1.1rem,5vw,1.75rem);
+  border:1px solid oklch(.83 .045 72);
+  border-radius:1.15rem;
+  background:linear-gradient(160deg,oklch(.985 .018 83),oklch(.955 .032 70));
+  color:oklch(.32 .035 48);
+  text-align:left;
+  box-shadow:0 18px 42px -24px oklch(.35 .055 48 / .35),inset 0 0 0 4px oklch(.985 .018 83 / .75);
+  font-family:Georgia,"Times New Roman",serif;
+}
+.dictionary-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:.75rem;
+  padding-bottom:.8rem;
+  border-bottom:1px solid oklch(.84 .045 72);
+  color:oklch(.52 .045 49);
+  font-family:ui-sans-serif,system-ui,sans-serif;
+  font-size:.62rem;
+  font-weight:800;
+  letter-spacing:.16em;
+}
+.dictionary-header svg{width:1.1rem;height:1.1rem;color:oklch(.59 .12 12);fill:oklch(.78 .08 12 / .28)}
+.dictionary-word-block{padding:1.4rem 0 1.2rem}
+.dictionary-word-block h1{
+  margin:0;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(2.5rem,10vw,3.8rem);
+  font-weight:600;
+  letter-spacing:-.055em;
+  line-height:1.03;
+  overflow-wrap:anywhere;
+  color:oklch(.3 .045 43);
+}
+.dictionary-pronunciation-row{display:flex;align-items:center;gap:.65rem;margin-top:.55rem}
+.dictionary-pronunciation{color:oklch(.51 .04 48);font-family:Georgia,"Times New Roman",serif;font-size:.98rem;font-style:italic}
+.dictionary-speak-button{
+  display:grid;
+  width:2.25rem;
+  height:2.25rem;
+  flex-shrink:0;
+  place-items:center;
+  border:1px solid oklch(.79 .07 12);
+  border-radius:999px;
+  background:oklch(.96 .035 24);
+  color:oklch(.48 .12 12);
+  cursor:pointer;
+  transition:transform .18s ease,background .18s ease;
+}
+.dictionary-speak-button:hover{background:oklch(.92 .06 20);transform:translateY(-1px)}
+.dictionary-speak-button:focus-visible{outline:2px solid oklch(.58 .13 12);outline-offset:3px}
+.dictionary-speak-button svg{width:1.05rem;height:1.05rem}
+.dictionary-part-of-speech{display:inline-block;margin-top:.55rem;color:oklch(.55 .045 48);font-family:ui-sans-serif,system-ui,sans-serif;font-size:.72rem;font-style:italic}
+.dictionary-definition{padding:1rem 0 1.2rem;border-top:1px solid oklch(.84 .045 72)}
+.dictionary-section-label{margin:0 0 .5rem;color:oklch(.53 .105 14);font-family:ui-sans-serif,system-ui,sans-serif;font-size:.65rem;font-weight:800;letter-spacing:.17em}
+.dictionary-definition>p:last-child{margin:0;font-size:1.04rem;line-height:1.65}
+.dictionary-personal-note{
+  margin-top:.2rem;
+  padding:1.05rem;
+  border:1px solid oklch(.86 .055 35);
+  border-radius:.85rem;
+  background:linear-gradient(135deg,oklch(.94 .035 40),oklch(.96 .025 20));
+}
+.dictionary-note-heading{display:flex;align-items:center;gap:.5rem;margin-bottom:.7rem;color:oklch(.49 .105 12);font-family:ui-sans-serif,system-ui,sans-serif;font-size:.82rem;font-weight:750}
+.dictionary-note-heading svg{width:1.05rem;height:1.05rem;fill:oklch(.76 .085 12 / .3)}
+.dictionary-personal-note>p{margin:0;font-size:1rem;line-height:1.7;white-space:pre-wrap;overflow-wrap:anywhere}
+.dictionary-personal-note .dictionary-note-placeholder{color:oklch(.56 .035 48);font-size:.88rem;font-style:italic}
+.dictionary-personal-note .dictionary-signoff{margin-top:.8rem;color:oklch(.51 .105 12);font-size:.9rem;font-style:italic;text-align:right}
+.dictionary-footer{display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-top:1rem;color:oklch(.57 .035 48);font-family:ui-sans-serif,system-ui,sans-serif;font-size:.62rem;font-weight:750;letter-spacing:.08em}
+.dictionary-footer>span:last-child{display:flex;align-items:center;gap:.35rem;text-align:right}
+.dictionary-footer svg{width:.9rem;height:.9rem;color:oklch(.57 .105 12)}
+@media(max-width:360px){
+  .dictionary-page{padding:1rem}
+  .dictionary-word-block h1{font-size:2.45rem}
+  .dictionary-pronunciation{font-size:.88rem}
+  .dictionary-personal-note{padding:.85rem}
+  .dictionary-footer{font-size:.55rem}
+}
+@media(prefers-reduced-motion:reduce){.dictionary-speak-button{transition:none}}
