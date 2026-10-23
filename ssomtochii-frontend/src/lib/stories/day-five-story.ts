@@ -1,5 +1,5 @@
 import type { StoryCharacter, StoryDefinition } from "./types";
-import { placeCharacter, smiling, neutral, speaking, pose8Thinking, pose7HappyDialogue, pose10Explaining, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraLaughing, zaraThinking, zaraExplaining } from "./character-poses";
+import { placeCharacter, smiling, neutral, speaking, pose8Thinking, pose7HappyDialogue, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraLaughing, zaraThinking, zaraExplaining } from "./character-poses";
 import { SOMTO, ZARA } from "./speakers";
 
 const somtoLeft = (pose: StoryCharacter) => placeCharacter(pose, "somto", "Somto", "left");
