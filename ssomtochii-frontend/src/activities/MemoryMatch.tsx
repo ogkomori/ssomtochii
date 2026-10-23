@@ -12,7 +12,7 @@ function makeCards() {
     .sort(() => Math.random() - 0.5);
 }
 
-/** Reusable card-matching activity; replace pair image URLs in lib/memory-match.ts. */
+/** Reusable card-matching activity using the first eight daily photos as pairs. */
 export function MemoryMatch({ onComplete }: { onComplete: () => void }) {
   const [cards, setCards] = useState<Card[]>(makeCards);
   const [flipped, setFlipped] = useState<string[]>([]);
