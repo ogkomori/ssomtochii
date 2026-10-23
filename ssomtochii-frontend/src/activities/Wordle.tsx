@@ -109,7 +109,7 @@ export function Wordle({ onComplete }: { onComplete: () => void }) {
     setAwaitingNext(false);
   };
 
-  if (finished) return <GameShell eyebrow="WORDLE" title="Four little words." right="COMPLETE"><div className="day-one-copy items-center text-center"><div className="completion-mark">♡</div><p>That is the whole little Wordle challenge. Nicely done.</p><button type="button" className="next-button" onClick={onComplete}>Get today’s letter</button></div></GameShell>;
+  if (finished) return <GameShell eyebrow="WORDLE" title="Four little words." right="COMPLETE"><div className="day-one-copy items-center text-center"><div className="completion-mark">♡</div><p>That is the whole little Wordle challenge. Nicely done.</p><button type="button" className="next-button" onClick={onComplete}>Get today’s compliment</button></div></GameShell>;
 
   return <GameShell eyebrow="WORDLE" title={WORDLE_CONTENT.title} right={`${wordIndex + 1}/${WORDLE_CONTENT.words.length}`}><div className="day-one-copy">
     <p>{wordIndex === 0 ? WORDLE_CONTENT.intro : "One more little word."}</p>
