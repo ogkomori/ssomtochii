@@ -6,8 +6,15 @@ import { smiling, neutral, speaking, pose8Thinking } from "./character-poses";
 export const DAY_TWO_STORY: StoryDefinition = {
   title: "Making It Her Own",
   subtitle: "Day 2",
-  startAt: 1,
+  startAt: 0,
   beats: [
+    {
+      id: 0,
+      type: "incoming-call",
+      callerName: "Party Planners",
+      interaction: "display-only",
+      next: 1,
+    },
     {
       id: 1,
       type: "dialogue",
