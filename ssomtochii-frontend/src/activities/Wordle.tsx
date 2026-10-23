@@ -71,22 +71,16 @@ export function Wordle({ onComplete }: { onComplete: () => void }) {
     setMessage("");
 
     if (word === answer) {
-      if (wordIndex === WORDLE_CONTENT.words.length - 1) {
-        setFinished(true);
-      } else {
-        setAwaitingNext(true);
-        setMessage("Got it. Here is the next one.");
-      }
+      setAwaitingNext(true);
+      setMessage(wordIndex === WORDLE_CONTENT.words.length - 1
+        ? "Got it! You got the last word."
+        : "Got it. Here is the next one.");
       return;
     }
 
     if (nextGuesses.length === 6) {
-      if (wordIndex === WORDLE_CONTENT.words.length - 1) {
-        setFinished(true);
-      } else {
-        setAwaitingNext(true);
-        setMessage(`The word was ${answer}.`);
-      }
+      setAwaitingNext(true);
+      setMessage(`The word was ${answer}.`);
     }
   };
 
@@ -102,6 +96,10 @@ export function Wordle({ onComplete }: { onComplete: () => void }) {
   }, [finished, awaitingNext, current, guesses, wordIndex, answer]);
 
   const nextWord = () => {
+    if (wordIndex === WORDLE_CONTENT.words.length - 1) {
+      setFinished(true);
+      return;
+    }
     setWordIndex((index) => index + 1);
     setGuesses([]);
     setCurrent("");
@@ -125,7 +123,7 @@ export function Wordle({ onComplete }: { onComplete: () => void }) {
         </div>;
       })}
     </div>
-    <div className="mt-4 flex min-h-11 items-center justify-between gap-3 text-sm text-muted-foreground"><p className="text-left">{message}</p>{awaitingNext && <button type="button" className="next-button shrink-0" onClick={nextWord}>Next word</button>}</div>
+    <div className="mt-4 flex min-h-11 items-center justify-between gap-3 text-sm text-muted-foreground"><p className="text-left">{message}</p>{awaitingNext && <button type="button" className="next-button shrink-0" onClick={nextWord}>{wordIndex === WORDLE_CONTENT.words.length - 1 ? "Continue" : "Next word"}</button>}</div>
     <div className="mt-4 space-y-2">
       {KEYBOARD_ROWS.map((row) => <div key={row} className="flex justify-center gap-1">{row.split("").map((letter) => {
         const state = keyboardStates[letter];
