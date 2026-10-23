@@ -20,6 +20,7 @@ import { DayActivityFlow } from "@/components/DayActivityFlow";
 import { StoryPlayer } from "@/components/StoryPlayer";
 import type { StoryDefinition } from "@/lib/stories/types";
 import type { StoryId } from "@/lib/days";
+import { DAY_ONE_STORY } from "@/lib/stories/day-one-story";
 import { DAY_TWO_STORY } from "@/lib/stories/day-two-story";
 import { DAY_THREE_STORY } from "@/lib/stories/day-three-story";
 import { DAY_FOUR_STORY } from "@/lib/stories/day-four-story";
@@ -75,7 +76,7 @@ function DayPage() {
   const [dayAvailable, setDayAvailable] = useState<boolean | null>(null);
 
   const storyToPreload = day.day === 1
-    ? undefined
+    ? DAY_ONE_STORY
     : day.day === 9
       ? getDayNineStory(partySizeChoice)
       : STORIES[day.story as Exclude<StoryId, "day-one-story">];
@@ -86,11 +87,10 @@ function DayPage() {
     setDayAvailable(isDayUnlocked({ date: day.date, day: day.day }));
   }, [day.date, day.day]);
 
-  // Preload while the welcome screen is visible, before Start is tapped.
-  // Day 1 is intentionally excluded and remains unchanged.
+  // Preload story assets while the intro/welcome screen is visible, before the story starts.
+  // Day 1 keeps its existing intro/video/story flow; only asset loading starts earlier.
   useEffect(() => {
     if (
-      day.day === 1 ||
       !dayAvailable ||
       welcomeStarted ||
       storyComplete ||
