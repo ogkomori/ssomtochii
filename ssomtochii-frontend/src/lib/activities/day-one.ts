@@ -21,12 +21,13 @@ export const DAY_ONE_CONTENT = {
   quiz: {
     question: "Why do you think I chose 16 days?",
     answers: [
-      "Because it is your lucky number",
-      "Because of High School Musical 3 — 16 minutes left",
-      "Because I wanted a very long countdown",
-      "Because 16 is a nice even number",
+      "We met in JMC and we were admitted in 2016",
+      "We were 16 the first time we got together",
+      "The Final 16 Minutes of High School Musical 3",
+      "Our birthdays are 16 weeks apart",
+      "It was just random",
     ],
-    correctAnswer: 1,
+    correctAnswer: 2,
     correctFeedback: "Exactly. A very specific nod to the opening basketball scene in High School Musical 3. ♡",
     incorrectFeedback: "A very fair guess — but think High School Musical 3 and the opening basketball scene.",
   },
