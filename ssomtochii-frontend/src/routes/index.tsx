@@ -4,7 +4,7 @@ import { DAYS } from "@/lib/days";
 import { DayCard } from "@/components/DayCard";
 import { Botanicals } from "@/components/Botanicals";
 import { PwaInstall } from "@/components/PwaInstall";
-import { getBerlinDateKey, getDayState, isPreviewMode, readProgress, recordUnlockedDays } from "@/lib/progress";
+import { getBerlinDateKey, getDayState, readProgress } from "@/lib/progress";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -33,34 +33,16 @@ function Index() {
   const recenterTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [calendarDate, setCalendarDate] = useState<string | null>(null);
   const [progress, setProgress] = useState(() => ({ unlockedDays: [] as number[], completedDays: [] as number[], lettersByDay: {} as Record<string, string> }));
-  const [previewMode, setPreviewMode] = useState(false);
+  const [previewMode] = useState(true);
 
   useEffect(() => {
-    const previewFromUrl = new URLSearchParams(window.location.search).get("preview") === "1";
-    try {
-      if (previewFromUrl) window.sessionStorage.setItem("ssomtochii-preview-unlock", "1");
-      setPreviewMode(previewFromUrl || window.sessionStorage.getItem("ssomtochii-preview-unlock") === "1");
-    } catch {
-      setPreviewMode(previewFromUrl);
-    }
     const refreshProgress = () => {
-      const today = getBerlinDateKey();
-      if (!isPreviewMode()) {
-        recordUnlockedDays(DAYS.filter((day) => day.date <= today).map((day) => day.day));
-      }
-      setCalendarDate(today);
+      setCalendarDate(getBerlinDateKey());
       setProgress(readProgress());
     };
     refreshProgress();
     const interval = window.setInterval(refreshProgress, 60_000);
-    const onStorage = (event: StorageEvent) => {
-      if (event.key === "ssomtochii-progress-v1" || event.key === null) refreshProgress();
-    };
-    window.addEventListener("storage", onStorage);
-    return () => {
-      window.clearInterval(interval);
-      window.removeEventListener("storage", onStorage);
-    };
+    return () => window.clearInterval(interval);
   }, []);
 
   const displayDays = DAYS.map((day) => ({
