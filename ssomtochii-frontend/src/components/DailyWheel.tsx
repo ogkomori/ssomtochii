@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Gift, Trophy } from "lucide-react";
+import { Trophy } from "lucide-react";
 import { useState } from "react";
 import { Botanicals } from "@/components/Botanicals";
 import { COMPLIMENTS } from "@/lib/activities/day-one";
