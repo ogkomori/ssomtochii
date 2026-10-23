@@ -148,7 +148,7 @@ export function IncomingCallScreen({ onAnswer, onContinue, interaction = "intera
           aria-label="Continue story from incoming call"
         >
           <span className="story-speaker-name incoming-call-speaker">{callerName}</span>
-          <span className="story-dialogue-text"><em>incoming call...</em></span>
+          <span className="story-dialogue-text"><em>{callType === "outgoing" ? "outgoing call..." : "incoming call..."}</em></span>
           <span className="story-continue-hint">Tap to continue ›</span>
         </button>
       )}
