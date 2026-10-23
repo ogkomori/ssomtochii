@@ -63,7 +63,7 @@ export const pose10ExplainingAlone: StoryCharacter = {
 };;
 export const pose11SeriousConcerned: StoryCharacter = {
   ...pose("pose-11-serious-concerned", "pose-11-serious-concerned", "Somto looking serious and concerned"),
-  scale: 1.8,
+  scale: 2,
   offsetY: 0,
 };
 export const pose12ConfidentStanding: StoryCharacter = {
@@ -75,6 +75,11 @@ export const pose13ArmsCrossed: StoryCharacter = {
   ...pose("pose-13-arms-crossed", "pose-13-arms-crossed", "Somto with her arms crossed"),
   scale: 3.4,
   offsetY: 90,
+};
+export const pose13ArmsCrossedAlone: StoryCharacter = {
+  ...pose("pose-13-arms-crossed", "pose-13-arms-crossed", "Somto with her arms crossed"),
+  scale: 1.8,
+  offsetY: 110,
 };
 export const sitting: StoryCharacter = {
   ...pose("sitting", "sitting", "Somto sitting"),
@@ -120,9 +125,16 @@ export const zaraLaughing: StoryCharacter = {
 export const zaraLaughingAlone: StoryCharacter = {
   ...zaraPose("zara-laughing", "zara-pose-9-laughing", "Zara laughing"),
 };
-export const zaraExplaining: StoryCharacter = zaraPose("zara-explaining", "zara-pose-10-explaining", "Zara explaining something");
-export const zaraConcerned: StoryCharacter = zaraPose("zara-serious-concerned", "zara-pose-11-serious-concerned", "Zara looking serious and concerned");
-
+export const zaraExplaining: StoryCharacter = {
+  ...zaraPose("zara-explaining", "zara-pose-10-explaining", "Zara explaining something"),
+  scale: 1.7,
+  offsetY: -28,
+};
+export const zaraConcernedAlone: StoryCharacter = {
+  ...zaraPose("zara-serious-concerned", "zara-pose-11-serious-concerned", "Zara looking serious and concerned"),
+  scale: 1.3,
+  offsetY: 0,
+};
 export const placeCharacter = (
   character: StoryCharacter,
   id: string,
