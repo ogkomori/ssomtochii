@@ -45,9 +45,8 @@ function getBeatImageSources(beat: StoryBeat): string[] {
 }
 
 /**
- * Load opening-frame assets first, then warm the rest without flooding the
- * connection with every image in the story at once. The module-level cache
- * avoids re-requesting images across beats and visits to the same story.
+ * Load every image used by the story before playback begins. The module-level
+ * cache avoids re-requesting images across beats and visits to the same story.
  */
 export async function preloadStoryAssets(story: StoryDefinition, openingBeat: StoryBeat): Promise<void> {
   const openingSources = getBeatImageSources(openingBeat);
@@ -64,7 +63,7 @@ export async function preloadStoryAssets(story: StoryDefinition, openingBeat: St
 
   const queue = [...remainingSources];
   let nextIndex = 0;
-  const workerCount = Math.min(3, queue.length);
+  const workerCount = Math.min(6, queue.length);
   const workers = Array.from({ length: workerCount }, async () => {
     while (nextIndex < queue.length) {
       const source = queue[nextIndex];
@@ -73,7 +72,5 @@ export async function preloadStoryAssets(story: StoryDefinition, openingBeat: St
     }
   });
 
-  void Promise.all(workers).catch(() => {
-    // Image failures should not prevent the story from being played.
-  });
+  await Promise.all(workers);
 }
