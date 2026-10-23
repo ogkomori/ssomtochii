@@ -132,6 +132,8 @@ export function StoryPlayer({
                 className={`story-sprite story-sprite--${character.position}`}
                 src={character.image}
                 alt={character.alt ?? character.name}
+                decoding="async"
+                fetchPriority="high"
                 style={{ transform }}
               />
             );
