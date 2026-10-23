@@ -939,3 +939,85 @@ button.story-dialogue-panel{cursor:pointer;font:inherit}
 @media (prefers-reduced-motion: reduce) {
   .day-sixteen-spark { animation: none; }
 }
+
+
+/* Crown and confetti frame the final day without covering the card content. */
+.day-carousel-slide:has(.day-sixteen) {
+  overflow: visible;
+  padding-top: 1.4rem;
+  padding-bottom: 1.35rem;
+}
+.day-carousel-slide .day-sixteen {
+  overflow: visible;
+}
+.day-sixteen-extras {
+  position: absolute;
+  z-index: 5;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+.day-sixteen-crown {
+  position: absolute;
+  top: -2.15rem;
+  left: 50%;
+  display: grid;
+  width: 3.15rem;
+  height: 2.8rem;
+  place-items: center;
+  transform: translateX(-50%) rotate(-4deg);
+  color: oklch(.68 .15 72);
+  filter: drop-shadow(0 3px 2px oklch(.35 .1 50 / .28));
+}
+.day-sixteen-crown::before {
+  position: absolute;
+  inset: .35rem .15rem .1rem;
+  border: 1px solid oklch(.96 .08 88 / .9);
+  border-radius: .65rem;
+  background: linear-gradient(145deg, oklch(.96 .16 91), oklch(.75 .16 72) 55%, oklch(.88 .16 82));
+  content: "";
+  box-shadow: 0 2px 8px oklch(.58 .14 65 / .25);
+}
+.day-sixteen-crown svg {
+  position: relative;
+  width: 2.25rem;
+  height: 2.25rem;
+  stroke: oklch(.48 .12 52);
+  stroke-width: 1.8;
+  fill: oklch(.91 .16 83);
+}
+.day-sixteen-confetti {
+  position: absolute;
+  left: -1rem;
+  width: calc(100% + 2rem);
+  height: 1.6rem;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+.day-sixteen-confetti--top {
+  top: -1.25rem;
+  background-image:
+    radial-gradient(ellipse at 7% 55%, oklch(.75 .17 30) 0 3px, transparent 3.5px),
+    radial-gradient(ellipse at 17% 30%, oklch(.78 .15 145) 0 2px, transparent 2.5px),
+    radial-gradient(ellipse at 29% 68%, oklch(.8 .15 85) 0 3px, transparent 3.5px),
+    radial-gradient(ellipse at 73% 32%, oklch(.72 .16 335) 0 2.5px, transparent 3px),
+    radial-gradient(ellipse at 85% 66%, oklch(.76 .16 205) 0 3px, transparent 3.5px),
+    radial-gradient(ellipse at 96% 28%, oklch(.76 .17 35) 0 2px, transparent 2.5px);
+}
+.day-sixteen-confetti--bottom {
+  bottom: -1.2rem;
+  background-image:
+    radial-gradient(ellipse at 5% 35%, oklch(.78 .15 85) 0 2.5px, transparent 3px),
+    radial-gradient(ellipse at 15% 72%, oklch(.73 .16 335) 0 3px, transparent 3.5px),
+    radial-gradient(ellipse at 32% 30%, oklch(.75 .17 30) 0 2px, transparent 2.5px),
+    radial-gradient(ellipse at 68% 70%, oklch(.78 .15 145) 0 3px, transparent 3.5px),
+    radial-gradient(ellipse at 82% 30%, oklch(.76 .16 205) 0 2px, transparent 2.5px),
+    radial-gradient(ellipse at 95% 68%, oklch(.8 .15 85) 0 3px, transparent 3.5px);
+}
+@media (max-width: 420px) {
+  .day-sixteen-crown { top: -1.9rem; transform: translateX(-50%) scale(.88) rotate(-4deg); }
+  .day-carousel-slide:has(.day-sixteen) { padding-top: 1.2rem; padding-bottom: 1.1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .day-sixteen-crown { filter: none; }
+}
