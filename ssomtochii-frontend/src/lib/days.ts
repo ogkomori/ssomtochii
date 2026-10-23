@@ -63,10 +63,10 @@ export const DAYS: Day[] = Array.from({ length: 16 }, (_, i) => {
               i === 8 ? "cup-pong" :
               i === 9 ? "connections" :
               i === 10 ? "mini-crossword" :
-              i === 11 ? "coming-soon" :
+              i === 11 ? "word-scramble" :
               i === 12 ? "memory-lane" :
-              i === 13 ? "word-scramble" :
-              "plinko",
+              i === 13 ? "plinko":
+              "coming-soon",
   };
 });
 
