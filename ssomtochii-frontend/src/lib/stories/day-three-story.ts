@@ -7,7 +7,7 @@ const zaraRight = (pose: StoryCharacter) => placeCharacter(pose, "zara", "Zara",
 const together = (somtoPose: StoryCharacter, zaraPose: StoryCharacter) => [somtoLeft(somtoPose), zaraRight(zaraPose)];
 
 /** Day 3: Somto meets Zara and decides how much to let her in. */
-export const DAY_TWO_STORY: StoryDefinition = {
+export const DAY_THREE_STORY: StoryDefinition = {
   title: "An Extra Invitation",
   subtitle: "Day 3",
   startAt: 1,
