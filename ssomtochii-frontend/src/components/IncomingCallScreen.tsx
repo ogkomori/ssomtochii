@@ -15,7 +15,7 @@ function useClock() {
   return now;
 }
 
-export function IncomingCallScreen({ onAnswer, onContinue, interaction = "interactive", callerName = "Unknown Caller" }: { onAnswer?: () => void; onContinue?: () => void; interaction?: "interactive" | "display-only"; callerName?: string }) {
+export function IncomingCallScreen({ onAnswer, onContinue, interaction = "interactive", callerName = "Unknown Caller", callType = "incoming" }: { onAnswer?: () => void; onContinue?: () => void; interaction?: "interactive" | "display-only"; callerName?: string; callType?: "incoming" | "outgoing" }) {
   const [state, setState] = useState<CallState>("ringing");
   const now = useClock();
 
@@ -38,7 +38,7 @@ export function IncomingCallScreen({ onAnswer, onContinue, interaction = "intera
       .toUpperCase() || "♡";
 
   return (
-    <main className="incoming-call-screen scene-bg">
+    <main className={`incoming-call-screen scene-bg${callType === "outgoing" ? " outgoing-call-screen" : ""}`}>
       <div className="scene">
         <img
           src="/images/hand-phone.jpg"
@@ -74,32 +74,41 @@ export function IncomingCallScreen({ onAnswer, onContinue, interaction = "intera
                   <div className="avatar ringing" aria-hidden="true">
                     <span>{initials}</span>
                   </div>
-                  <p className="label">incoming call</p>
+                  <p className="label">{callType === "outgoing" ? "outgoing call" : "incoming call"}</p>
                   <h1 className="name">{callerName}</h1>
                   <p className="sub">mobile</p>
                 </div>
 
-                <div className="controls">
-                  <button
-                    className={`call-btn decline ${interaction === "display-only" ? "call-btn--inactive" : ""}`}
-                    type="button"
-                    onClick={interaction === "interactive" ? () => setState("declined") : undefined}
-                    disabled={interaction === "display-only"}
-                    aria-label={interaction === "display-only" ? "Decline unavailable in this story scene" : "Decline call"}
-                  >
-                    <PhoneOff className="icon" aria-hidden="true" />
-                    <span>Decline</span>
-                  </button>
-                  <button
-                    className={`call-btn answer ${interaction === "display-only" ? "call-btn--inactive" : ""}`}
-                    type="button"
-                    onClick={interaction === "interactive" ? onAnswer : undefined}
-                    disabled={interaction === "display-only"}
-                    aria-label={interaction === "display-only" ? "Answer unavailable in this story scene" : "Answer call"}
-                  >
-                    <Phone className="icon wiggle" aria-hidden="true" />
-                    <span>Accept</span>
-                  </button>
+                <div className={`controls${callType === "outgoing" ? " single" : ""}`}>
+                  {callType === "outgoing" ? (
+                    <div className="call-btn decline outgoing-decline" aria-label="Decline call button illustration">
+                      <PhoneOff className="icon" aria-hidden="true" />
+                      <span>Decline</span>
+                    </div>
+                  ) : (
+                    <>
+                      <button
+                        className={`call-btn decline ${interaction === "display-only" ? "call-btn--inactive" : ""}`}
+                        type="button"
+                        onClick={interaction === "interactive" ? () => setState("declined") : undefined}
+                        disabled={interaction === "display-only"}
+                        aria-label={interaction === "display-only" ? "Decline unavailable in this story scene" : "Decline call"}
+                      >
+                        <PhoneOff className="icon" aria-hidden="true" />
+                        <span>Decline</span>
+                      </button>
+                      <button
+                        className={`call-btn answer ${interaction === "display-only" ? "call-btn--inactive" : ""}`}
+                        type="button"
+                        onClick={interaction === "interactive" ? onAnswer : undefined}
+                        disabled={interaction === "display-only"}
+                        aria-label={interaction === "display-only" ? "Answer unavailable in this story scene" : "Answer call"}
+                      >
+                        <Phone className="icon wiggle" aria-hidden="true" />
+                        <span>Accept</span>
+                      </button>
+                    </>
+                  )}
                 </div>
               </>
             ) : (
