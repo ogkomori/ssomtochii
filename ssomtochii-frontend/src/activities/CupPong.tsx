@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowLeft, RotateCcw } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Botanicals } from "@/components/Botanicals";
-import { CUP_PONG_CONTENT, type PongCup } from "@/lib/cup-pong";
+import { CUP_PONG_CONTENT, type PongCup } from "@/lib/activities/cup-pong";
 
 const width = 360; const height = 500; const start = { x: 180, y: 425 }; const ballRadius = 9;
 type Ball = { x: number; y: number; vx: number; vy: number };

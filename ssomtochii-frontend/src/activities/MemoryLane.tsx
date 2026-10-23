@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ArrowDown, ArrowUp, Check, RotateCcw } from "lucide-react";
 import { GameShell } from "@/activities/Connections";
-import { MEMORY_LANE_CONTENT, type MemoryLanePhoto } from "@/lib/memory-lane";
+import { MEMORY_LANE_CONTENT, type MemoryLanePhoto } from "@/lib/activities/memory-lane";
 
 function shuffled<T>(items: readonly T[]): T[] {
   const result = [...items];

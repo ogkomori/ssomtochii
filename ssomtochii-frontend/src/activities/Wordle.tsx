@@ -1,7 +1,7 @@
 import { Delete } from "lucide-react";
 import { useEffect, useState } from "react";
 import { GameShell } from "@/activities/Connections";
-import { WORDLE_CONTENT } from "@/lib/wordle";
+import { WORDLE_CONTENT } from "@/lib/activities/wordle";
 
 type TileState = "empty" | "correct" | "present" | "absent";
 type Guess = { word: string; states: TileState[] };

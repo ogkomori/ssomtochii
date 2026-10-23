@@ -1,7 +1,7 @@
 import { useMemo, useRef, useState } from "react";
 import { Check, RotateCcw } from "lucide-react";
 import { GameShell } from "@/activities/Connections";
-import { FLOW_FREE_INTRO, FLOW_FREE_LEVELS } from "@/lib/flow-free";
+import { FLOW_FREE_INTRO, FLOW_FREE_LEVELS } from "@/lib/activities/flow-free";
 
 type Paths = Record<string, number[]>;
 

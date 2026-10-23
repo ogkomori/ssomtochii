@@ -1,5 +1,5 @@
 import type { StoryCharacter, StoryDefinition } from "./types";
-import { placeCharacter, upwards, pose6Walking, neutral, smiling, speaking, pose8Thinking, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraLaughing, zaraSurprised, zaraExplaining, pose7HappyDialogue, pose1Neutral, pose10Explaining, pose9Laughing, pose13ArmsCrossed, pose12ConfidentStanding, zaraLaughingAlone, pose10ExplainingAlone, pose7HappyDialogueAlone } from "./character-poses";
+import { placeCharacter, upwards, pose6Walking, neutral, smiling, speaking, pose8Thinking, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraLaughing, zaraSurprised, zaraExplaining, pose7HappyDialogue, pose1Neutral, pose10Explaining, pose9Laughing, pose13ArmsCrossed, pose12ConfidentStanding, zaraLaughingAlone, pose10ExplainingAlone, pose7HappyDialogueAlone, zaraHappyAlone } from "./character-poses";
 import { SOMTO, ZARA } from "./speakers";
 
 const somtoLeft = (pose: StoryCharacter) => placeCharacter(pose, "somto", "Somto", "left");
@@ -159,6 +159,14 @@ export const DAY_TWO_STORY: StoryDefinition = {
       scene: "character",
       characters: [zaraLaughingAlone],
       text: "Somto finds her hard not to like. Zara is funny, stylish, and effortlessly confident. Still, Somto can already imagine her becoming the centre of attention without even trying. She isn't sure whether that will be a good thing or a headache.",
+      next: 37,
+    },
+    {
+      id: 37,
+      type: "narration",
+      scene: "character",
+      characters: [pose8Thinking],
+      text: "She remembers that she has a birthday coming up, and wonders if she should invite Zara. She doesn't know her well enough to be sure, but she likes her energy and thinks she could be fun to have around.",
       next: 34,
     },
     {
@@ -183,8 +191,8 @@ export const DAY_TWO_STORY: StoryDefinition = {
       id: 36,
       type: "end",
       scene: "character",
-      characters: [zaraLaughingAlone],
-      text: "It's only been a few minutes, but Somto has a feeling Zara is not someone people overlook.",
+      characters: [zaraHappyAlone],
+      text: "It's only been a few minutes, but Somto has a feeling Zara is not someone people easily overlook.",
     },
   ],
 };

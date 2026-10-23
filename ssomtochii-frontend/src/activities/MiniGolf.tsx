@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, RotateCcw } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Botanicals } from "@/components/Botanicals";
-import { MINI_GOLF_CONTENT, type GolfWall } from "@/lib/mini-golf";
+import { MINI_GOLF_CONTENT, type GolfWall } from "@/lib/activities/mini-golf";
 
 const width = 360; const height = 500; const ballRadius = 10;
 type Point = { x: number; y: number };

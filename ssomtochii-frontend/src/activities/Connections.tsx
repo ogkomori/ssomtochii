@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowLeft, Check, RotateCcw, ArrowRight } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Botanicals } from "@/components/Botanicals";
-import { CONNECTIONS_CONTENT, shuffledConnectionsItems } from "@/lib/connections";
+import { CONNECTIONS_CONTENT, shuffledConnectionsItems } from "@/lib/activities/connections";
 
 /** Two-round, data-driven four-by-four grouping activity. */
 export function Connections({ onComplete }: { onComplete: () => void }) {

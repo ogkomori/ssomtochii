@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Check, RotateCcw } from "lucide-react";
 import { GameShell } from "@/activities/Connections";
-import { HANGMAN_CONTENT, HANGMAN_LEVELS } from "@/lib/hangman";
+import { HANGMAN_CONTENT, HANGMAN_LEVELS } from "@/lib/activities/hangman";
 
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
@@ -22,7 +22,7 @@ export function Hangman({ onComplete }: { onComplete: () => void }) {
   const guess = (letter: string) => {
     if (finished || guesses.includes(letter)) return;
     setGuesses((current) => [...current, letter]);
-    setMessage(answerLetters.includes(letter) ? "Yes, that letter is in the song title." : "Not this time.");
+    setMessage(answerLetters.includes(letter) ? "Getting closer..." : "Nope!");
   };
 
   const reset = () => {

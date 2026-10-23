@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Check, Play } from "lucide-react";
 import { useState } from "react";
-import { DAY_ONE_CONTENT } from "@/lib/day-one";
+import { DAY_ONE_CONTENT } from "@/lib/activities/day-one";
 import { Botanicals } from "@/components/Botanicals";
 import { StoryPlayer } from "@/components/StoryPlayer";
 import { DAY_ONE_STORY } from "@/lib/stories/day-one-story";

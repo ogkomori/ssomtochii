@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowLeft, Check, RotateCcw } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Botanicals } from "@/components/Botanicals";
-import { MEMORY_MATCH_CONTENT } from "@/lib/memory-match";
+import { MEMORY_MATCH_CONTENT } from "@/lib/activities/memory-match";
 
 type Card = (typeof MEMORY_MATCH_CONTENT.pairs)[number] & { cardId: string };
 

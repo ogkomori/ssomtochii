@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, RotateCcw } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Botanicals } from "@/components/Botanicals";
-import { PLINKO_CONTENT } from "@/lib/plinko";
+import { PLINKO_CONTENT } from "@/lib/activities/plinko";
 
 const { width, height, binTop, prizes, rounds, title, intro, eyebrow } = PLINKO_CONTENT;
 const boardInset = 13;

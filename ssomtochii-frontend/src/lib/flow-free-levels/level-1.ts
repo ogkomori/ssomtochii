@@ -1,4 +1,4 @@
-import type { FlowFreeLevel } from "@/lib/flow-free";
+import type { FlowFreeLevel } from "@/lib/activities/flow-free";
 
 export const FLOW_FREE_LEVEL_1: FlowFreeLevel = {
   id: 1,

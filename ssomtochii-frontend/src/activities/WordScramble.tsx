@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Check, RotateCcw } from "lucide-react";
 import { useState } from "react";
 import { Botanicals } from "@/components/Botanicals";
-import { WORD_SCRAMBLE_CONTENT } from "@/lib/word-scramble";
+import { WORD_SCRAMBLE_CONTENT } from "@/lib/activities/word-scramble";
 
 /**
  * Reusable Word Scramble activity. Its content is supplied from

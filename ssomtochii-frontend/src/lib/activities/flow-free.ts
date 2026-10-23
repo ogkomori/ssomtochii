@@ -1,8 +1,8 @@
 import { FLOW_FREE_LEVEL_1 } from "@/lib/flow-free-levels/level-1";
 import { FLOW_FREE_LEVEL_2 } from "@/lib/flow-free-levels/level-2";
 import { FLOW_FREE_LEVEL_3 } from "@/lib/flow-free-levels/level-3";
-import { FLOW_FREE_LEVEL_4 } from "./flow-free-levels/level-4";
-import { FLOW_FREE_LEVEL_5 } from "./flow-free-levels/level-5";
+import { FLOW_FREE_LEVEL_4 } from "../flow-free-levels/level-4";
+import { FLOW_FREE_LEVEL_5 } from "../flow-free-levels/level-5";
 
 export type FlowFreePair = { id: string; start: number; end: number };
 export type FlowFreeLevel = {

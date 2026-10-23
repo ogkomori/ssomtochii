@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowLeft, Check } from "lucide-react";
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { Botanicals } from "@/components/Botanicals";
-import { MINI_CROSSWORD_CONTENT } from "@/lib/mini-crossword";
+import { MINI_CROSSWORD_CONTENT } from "@/lib/activities/mini-crossword";
 
 type Cell = { row: number; column: number; answer: string; number?: number };
 type Entry = (typeof MINI_CROSSWORD_CONTENT.entries)[number];

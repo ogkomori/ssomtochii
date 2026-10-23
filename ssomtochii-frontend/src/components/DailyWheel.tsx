@@ -3,7 +3,7 @@ import { Trophy } from "lucide-react";
 import { useEffect, useState } from "react";
 import { readProgress, saveDayLetter } from "@/lib/progress";
 import { Botanicals } from "@/components/Botanicals";
-import { CHARACTER_POOL } from "@/lib/day-one";
+import { CHARACTER_POOL } from "@/lib/activities/day-one";
 
 const slots = Array.from({ length: 10 }, () => CHARACTER_POOL).flat();
 const height = 54;

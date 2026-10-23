@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowLeft, Check, RotateCcw } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Botanicals } from "@/components/Botanicals";
-import { SLIDING_PUZZLE_CONTENT } from "@/lib/sliding-puzzle";
+import { SLIDING_PUZZLE_CONTENT } from "@/lib/activities/sliding-puzzle";
 
 const { gridSize } = SLIDING_PUZZLE_CONTENT;
 const blankTile = gridSize * gridSize - 1;
