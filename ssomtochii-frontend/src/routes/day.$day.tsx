@@ -37,7 +37,7 @@ import { DAY_FOURTEEN_STORY } from "@/lib/stories/day-fourteen-story";
 import { DAY_FIFTEEN_STORY } from "@/lib/stories/day-fifteen-story";
 import { DAY_SIXTEEN_STORY } from "@/lib/stories/day-sixteen-story";
 import { getDay } from "@/lib/days";
-import { isDayUnlocked } from "@/lib/progress";
+import { isDayUnlocked, readStoryChoice, saveStoryChoice } from "@/lib/progress";
 import { preloadStoryAssets } from "@/lib/stories/preload-assets";
 
 const STORIES: Record<Exclude<StoryId, "day-one-story">, StoryDefinition> = {
@@ -86,6 +86,13 @@ function DayPage() {
   useEffect(() => {
     setDayAvailable(isDayUnlocked({ date: day.date, day: day.day }));
   }, [day.date, day.day]);
+
+  useEffect(() => {
+    const savedChoice = readStoryChoice("day-eight-story:12");
+    if (savedChoice === "party-size-10-pay-extra" || savedChoice === "party-size-5-total") {
+      setPartySizeChoice(savedChoice);
+    }
+  }, []);
 
   // Preload story assets while the intro/welcome screen is visible, before the story starts.
   // Day 1 keeps its existing intro/video/story flow; only asset loading starts earlier.
@@ -161,7 +168,7 @@ function DayPage() {
 
   if (day.day !== 1 && !storyComplete) {
     const story = day.day === 9 ? getDayNineStory(partySizeChoice) : STORIES[day.story as Exclude<StoryId, "day-one-story">];
-    return <StoryPlayer story={story} exitLabel="Back to welcome" onExit={() => setWelcomeStarted(false)} onComplete={() => setStoryComplete(true)} continueLabel={`Continue to Day ${day.day}'s activity ♡`} onChoiceSelected={(choiceId) => { if (day.day !== 8 || (choiceId !== "party-size-10-pay-extra" && choiceId !== "party-size-5-total")) return; setPartySizeChoice(choiceId); }} />;
+    return <StoryPlayer story={story} exitLabel="Back to welcome" onExit={() => setWelcomeStarted(false)} onComplete={() => setStoryComplete(true)} continueLabel={`Continue to Day ${day.day}'s activity ♡`} onChoiceSelected={(choiceId, beatId) => { saveStoryChoice(`${day.story}:${beatId}`, choiceId); if (day.day === 8 && beatId === 12 && (choiceId === "party-size-10-pay-extra" || choiceId === "party-size-5-total")) setPartySizeChoice(choiceId); }} />;
   }
 
 
