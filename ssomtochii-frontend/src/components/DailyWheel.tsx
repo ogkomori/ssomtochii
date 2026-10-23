@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Trophy } from "lucide-react";
 import { useState } from "react";
 import { Botanicals } from "@/components/Botanicals";
-import { COMPLIMENTS } from "@/lib/activities/day-one";
+import { COMPLIMENTS } from "@/lib/compliments";
 
 const slots = Array.from({ length: 10 }, () => COMPLIMENTS).flat();
 const height = 54;
