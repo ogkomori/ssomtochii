@@ -3,7 +3,7 @@ import type { StoryDefinition } from "./types";
 import { SOMTO, ALEXA, PARTY_PLANNERS } from "./speakers";
 
 /** Day 7: Somto answers the party planners' three questions. */
-export const DAY_FOUR_STORY: StoryDefinition = {
+export const DAY_SEVEN_STORY: StoryDefinition = {
   title: "The Party Plans",
   subtitle: "Day 7",
   startAt: 1,
