@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { DailyWheel } from "@/components/DailyWheel";
-import { markDayCompleted, readProgress } from "@/lib/progress";
+import { markDayCompleted } from "@/lib/progress";
 
 export function DayActivityFlow({
   day,
@@ -9,26 +9,12 @@ export function DayActivityFlow({
   day: number;
   children: (complete: () => void) => React.ReactNode;
 }) {
-  const [completed, setCompleted] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    setCompleted(readProgress().completedDays.includes(day));
-  }, [day]);
+  const [completed, setCompleted] = useState(false);
 
   const complete = () => {
     markDayCompleted(day);
     setCompleted(true);
   };
-
-  if (completed === null) {
-    return (
-      <main className="page-shell">
-        <div className="relative mx-auto flex min-h-[70dvh] w-full max-w-md items-center justify-center text-center">
-          <p className="font-script text-4xl">One little moment… ♡</p>
-        </div>
-      </main>
-    );
-  }
 
   if (completed) return <DailyWheel day={day} />;
 
