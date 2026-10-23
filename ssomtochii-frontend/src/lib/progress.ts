@@ -11,40 +11,15 @@ export interface LocalProgress {
 
 const EMPTY_PROGRESS: LocalProgress = { unlockedDays: [], completedDays: [], lettersByDay: {} };
 
+// TEMPORARY TEST MODE: progress is kept only in the current React view.
+// Nothing is read from or written to browser storage. Remove this override
+// when persistent progress is ready to be re-enabled.
 export function readProgress(): LocalProgress {
-  if (typeof window === "undefined") return { ...EMPTY_PROGRESS, unlockedDays: [], completedDays: [], lettersByDay: {} };
-
-  try {
-    const raw = window.localStorage.getItem(PROGRESS_STORAGE_KEY);
-    if (!raw) return { ...EMPTY_PROGRESS, lettersByDay: {} };
-    const parsed = JSON.parse(raw) as Partial<LocalProgress>;
-    return {
-      unlockedDays: Array.isArray(parsed.unlockedDays)
-        ? parsed.unlockedDays.filter((day): day is number => Number.isInteger(day) && day >= 1 && day <= 16)
-        : [],
-      completedDays: Array.isArray(parsed.completedDays)
-        ? parsed.completedDays.filter((day): day is number => Number.isInteger(day) && day >= 1 && day <= 16)
-        : [],
-      lettersByDay: parsed.lettersByDay && typeof parsed.lettersByDay === "object"
-        ? Object.fromEntries(
-            Object.entries(parsed.lettersByDay).filter(([day, letter]) =>
-              /^([1-9]|1[0-6])$/.test(day) && typeof letter === "string" && letter.length > 0,
-            ),
-          )
-        : {},
-    };
-  } catch {
-    return { ...EMPTY_PROGRESS, lettersByDay: {} };
-  }
+  return { ...EMPTY_PROGRESS, unlockedDays: [], completedDays: [], lettersByDay: {} };
 }
 
-export function writeProgress(progress: LocalProgress): void {
-  if (typeof window === "undefined") return;
-  try {
-    window.localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(progress));
-  } catch {
-    // The experience remains playable when browser storage is disabled or full.
-  }
+export function writeProgress(_progress: LocalProgress): void {
+  // Persistence intentionally disabled while testing the full experience.
 }
 
 export function getBerlinDateKey(now: Date = new Date()): string {
@@ -59,13 +34,8 @@ export function getBerlinDateKey(now: Date = new Date()): string {
 }
 
 export function isPreviewMode(): boolean {
-  if (typeof window === "undefined") return false;
-  if (new URLSearchParams(window.location.search).get("preview") === "1") return true;
-  try {
-    return window.sessionStorage.getItem("ssomtochii-preview-unlock") === "1";
-  } catch {
-    return false;
-  }
+  // TEMPORARY TEST MODE: allow every day to be opened regardless of date.
+  return true;
 }
 
 export function isDayUnlocked(day: Pick<Day, "date" | "day">, today = getBerlinDateKey()): boolean {
