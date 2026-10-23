@@ -23,7 +23,8 @@ import type { StoryId } from "@/lib/days";
 import { DAY_TWO_STORY } from "@/lib/stories/day-two-story";
 import { DAY_THREE_STORY } from "@/lib/stories/day-three-story";
 import { DAY_FOUR_STORY } from "@/lib/stories/day-four-story";
-import { DAY_FIVE_STORY, getDayFiveStory, type PartySizeChoice } from "@/lib/stories/day-five-story";
+import { DAY_FIVE_STORY } from "@/lib/stories/day-five-story";
+import { DAY_EIGHT_STORY, getDayEightStory, type PartySizeChoice } from "@/lib/stories/day-eight-story";
 import { DAY_SIX_STORY } from "@/lib/stories/day-six-story";
 import { DAY_SEVEN_STORY } from "@/lib/stories/day-seven-story";
 import { DAY_EIGHT_STORY } from "@/lib/stories/day-eight-story";
@@ -136,8 +137,8 @@ function DayPage() {
   }
 
   if (day.day !== 1 && !storyComplete) {
-    const story = day.day === 5 ? getDayFiveStory(partySizeChoice) : STORIES[day.story as Exclude<StoryId, "day-one-story">];
-    return <StoryPlayer story={story} exitLabel="Back to welcome" onExit={() => setWelcomeStarted(false)} onComplete={() => setStoryComplete(true)} continueLabel={`Continue to Day ${day.day}'s activity ♡`} onChoiceSelected={(choiceId) => { if (day.day !== 4 || (choiceId !== "party-size-10-pay-extra" && choiceId !== "party-size-5-total")) return; setPartySizeChoice(choiceId); }} />;
+    const story = day.day === 8 ? getDayEightStory(partySizeChoice) : STORIES[day.story as Exclude<StoryId, "day-one-story">];
+    return <StoryPlayer story={story} exitLabel="Back to welcome" onExit={() => setWelcomeStarted(false)} onComplete={() => setStoryComplete(true)} continueLabel={`Continue to Day ${day.day}'s activity ♡`} onChoiceSelected={(choiceId) => { if (day.day !== 7 || (choiceId !== "party-size-10-pay-extra" && choiceId !== "party-size-5-total")) return; setPartySizeChoice(choiceId); }} />;
   }
 
 
