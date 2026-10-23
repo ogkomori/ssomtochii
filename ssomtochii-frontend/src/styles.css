@@ -869,3 +869,73 @@ button.story-dialogue-panel{cursor:pointer;font:inherit}
   object-fit:cover;
   border-radius:inherit;
 }
+
+
+/* Make the final countdown card feel like a little birthday celebration. */
+.day-carousel-slide .day-sixteen {
+  position: relative;
+  border-color: oklch(.76 .13 78);
+  background: linear-gradient(145deg, oklch(.99 .025 88), oklch(.96 .045 65) 55%, oklch(.98 .025 20));
+  box-shadow: 0 8px 24px -10px oklch(.58 .14 65 / .42), 0 0 0 2px oklch(.82 .12 78 / .45);
+}
+.day-carousel-slide .day-sixteen::before {
+  position: absolute;
+  z-index: 2;
+  inset: .35rem;
+  border: 1px solid oklch(.78 .12 78 / .65);
+  border-radius: .85rem;
+  content: "";
+  pointer-events: none;
+}
+.day-sixteen-visual::after {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, oklch(.2 .04 40 / .2), transparent 30%, transparent 62%, oklch(.2 .04 40 / .32));
+  content: "";
+  pointer-events: none;
+}
+.day-sixteen-celebration {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+}
+.day-sixteen-ribbon {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  padding: .48rem .85rem .42rem;
+  transform: translateX(-50%) rotate(-2deg);
+  border: 1px solid oklch(.97 .04 88 / .85);
+  border-radius: 999px;
+  background: linear-gradient(110deg, oklch(.69 .15 35), oklch(.77 .15 65), oklch(.7 .14 20));
+  box-shadow: 0 3px 10px oklch(.2 .04 35 / .25);
+  color: white;
+  font-size: clamp(.62rem, 2.6vw, .8rem);
+  font-weight: 900;
+  letter-spacing: .18em;
+  line-height: 1;
+  white-space: nowrap;
+}
+.day-sixteen-spark {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  color: oklch(.96 .13 85);
+  filter: drop-shadow(0 2px 3px oklch(.25 .08 50 / .4));
+  animation: day-sixteen-twinkle 2.4s ease-in-out infinite;
+}
+.day-sixteen-spark svg { width: clamp(1.2rem, 5vw, 2rem); height: auto; stroke-width: 2.2; }
+.day-sixteen-spark--one { top: 16%; left: 8%; }
+.day-sixteen-spark--two { top: 28%; right: 9%; animation-delay: .35s; }
+.day-sixteen-spark--three { right: 12%; bottom: 15%; animation-delay: .7s; }
+.day-sixteen-spark--four { bottom: 10%; left: 10%; animation-delay: 1.05s; }
+.day-carousel-slide .day-sixteen .day-card-number { color: oklch(.43 .14 35); }
+.day-carousel-slide .day-sixteen .day-card-full-date { color: oklch(.48 .09 45); }
+@keyframes day-sixteen-twinkle {
+  0%, 100% { opacity: .72; transform: scale(.9) rotate(-8deg); }
+  50% { opacity: 1; transform: scale(1.13) rotate(8deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .day-sixteen-spark { animation: none; }
+}
