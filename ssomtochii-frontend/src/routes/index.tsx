@@ -44,10 +44,10 @@ function Index() {
     let cancelled = false;
     let nextIndex = 0;
 
-    const warmImage = (src: string) => new Promise<void>((resolve) => {
+    const warmImage = (src: string, priority: boolean) => new Promise<void>((resolve) => {
       const image = new Image();
       image.decoding = "async";
-      if ("fetchPriority" in image) image.fetchPriority = nextIndex === 1 ? "low" : "high";
+      if ("fetchPriority" in image) image.fetchPriority = priority ? "high" : "low";
       const finish = () => resolve();
       image.onload = finish;
       image.onerror = finish;
@@ -57,8 +57,9 @@ function Index() {
 
     const workers = Array.from({ length: Math.min(2, sources.length) }, async () => {
       while (!cancelled && nextIndex < sources.length) {
-        const src = sources[nextIndex++];
-        if (src) await warmImage(src);
+        const sourceIndex = nextIndex++;
+        const src = sources[sourceIndex];
+        if (src) await warmImage(src, sourceIndex === 0);
       }
     });
 
