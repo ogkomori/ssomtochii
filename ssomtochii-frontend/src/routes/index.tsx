@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { DAYS } from "@/lib/days";
 import { DayCard } from "@/components/DayCard";
@@ -67,7 +67,7 @@ function Index() {
   }));
   const allDaysUnlocked = calendarDate !== null && calendarDate >= "2026-11-07";
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel) return;
     const firstMiddleSlide = carousel.querySelector<HTMLElement>('[data-carousel-index="16"]');
