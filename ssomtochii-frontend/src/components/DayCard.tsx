@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Camera, Lock, Circle, CircleCheck, Sparkles, Star } from "lucide-react";
+import { Camera, Lock, Circle, CircleCheck, Sparkles, Star, Crown } from "lucide-react";
 import type { Day } from "@/lib/days";
 
 export function DayCard({ day, index, eager = false, priority = false }: { day: Day; index: number; eager?: boolean; priority?: boolean }) {
@@ -16,6 +16,13 @@ export function DayCard({ day, index, eager = false, priority = false }: { day: 
 
   const inner = (
     <>
+      {isFinalDay && (
+        <div className="day-sixteen-extras" aria-hidden="true">
+          <span className="day-sixteen-crown"><Crown /></span>
+          <span className="day-sixteen-confetti day-sixteen-confetti--top" />
+          <span className="day-sixteen-confetti day-sixteen-confetti--bottom" />
+        </div>
+      )}
       <div className={`day-visual ${isFinalDay ? "day-sixteen-visual" : ""}`}>
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 border border-dashed border-primary/25 bg-secondary/50 text-primary/65">
           <Camera className="h-4 w-4 sm:h-6 sm:w-6" strokeWidth={1.5} />
