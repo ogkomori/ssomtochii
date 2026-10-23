@@ -38,8 +38,6 @@ import { DAY_SIXTEEN_STORY } from "@/lib/stories/day-sixteen-story";
 import { getDay } from "@/lib/days";
 import { isDayUnlocked } from "@/lib/progress";
 
-const PARTY_SIZE_CHOICE_KEY = "ssomtochii-party-size-choice";
-
 const STORIES: Record<Exclude<StoryId, "day-one-story">, StoryDefinition> = {
   "day-two-story": DAY_TWO_STORY, "day-three-story": DAY_THREE_STORY,
   "day-four-story": DAY_FOUR_STORY, "day-five-story": DAY_FIVE_STORY,
@@ -75,16 +73,6 @@ function DayPage() {
   const [partySizeChoice, setPartySizeChoice] = useState<PartySizeChoice | null>(null);
   const [dayAvailable, setDayAvailable] = useState<boolean | null>(null);
 
-  useEffect(() => {
-    try {
-      const savedChoice = window.localStorage.getItem(PARTY_SIZE_CHOICE_KEY);
-      if (savedChoice === "party-size-10-pay-extra" || savedChoice === "party-size-5-total") {
-        setPartySizeChoice(savedChoice);
-      }
-    } catch {
-      // Story playback still works if browser storage is unavailable.
-    }
-  }, []);
   useEffect(() => {
     setDayAvailable(isDayUnlocked({ date: day.date, day: day.day }));
   }, [day.date, day.day]);
@@ -149,7 +137,7 @@ function DayPage() {
 
   if (day.day !== 1 && !storyComplete) {
     const story = day.day === 5 ? getDayFiveStory(partySizeChoice) : STORIES[day.story as Exclude<StoryId, "day-one-story">];
-    return <StoryPlayer story={story} exitLabel="Back to welcome" onExit={() => setWelcomeStarted(false)} onComplete={() => setStoryComplete(true)} continueLabel={`Continue to Day ${day.day}'s activity ♡`} onChoiceSelected={(choiceId) => { if (day.day !== 4 || (choiceId !== "party-size-10-pay-extra" && choiceId !== "party-size-5-total")) return; setPartySizeChoice(choiceId); try { window.localStorage.setItem(PARTY_SIZE_CHOICE_KEY, choiceId); } catch { /* Day 5 defaults to the smaller-party story without storage. */ } }} />;
+    return <StoryPlayer story={story} exitLabel="Back to welcome" onExit={() => setWelcomeStarted(false)} onComplete={() => setStoryComplete(true)} continueLabel={`Continue to Day ${day.day}'s activity ♡`} onChoiceSelected={(choiceId) => { if (day.day !== 4 || (choiceId !== "party-size-10-pay-extra" && choiceId !== "party-size-5-total")) return; setPartySizeChoice(choiceId); }} />;
   }
 
 
