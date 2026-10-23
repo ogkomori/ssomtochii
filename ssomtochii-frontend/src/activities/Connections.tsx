@@ -92,7 +92,7 @@ export function Connections({ onComplete }: { onComplete: () => void }) {
         </>
       ) : (
         finalRound
-          ? <button type="button" className="next-button mt-5" onClick={onComplete}>Get today’s letter</button>
+          ? <button type="button" className="next-button mt-5" onClick={onComplete}>Get today’s compliment</button>
           : <button type="button" className="next-button mt-5" onClick={nextRound}>Next round <ArrowRight className="h-4 w-4" /></button>
       )}
     </>
