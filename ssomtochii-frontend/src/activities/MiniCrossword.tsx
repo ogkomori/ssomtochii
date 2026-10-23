@@ -245,7 +245,7 @@ export function MiniCrossword({ onComplete }: { onComplete: () => void }) {
               <div className="flex min-h-32 flex-col items-center justify-center gap-4 text-center">
                 <p className="text-sm text-foreground/75">You found every word. Here's a little something for you.</p>
                 <button type="button" className="next-button" onClick={onComplete}>
-                  Get today’s letter <Check className="h-4 w-4" />
+                  Get today’s compliment <Check className="h-4 w-4" />
                 </button>
               </div>
             )}
