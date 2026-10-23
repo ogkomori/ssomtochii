@@ -4,6 +4,7 @@ import { useState } from "react";
 import { DAY_ONE_CONTENT } from "@/lib/activities/day-one";
 import { Botanicals } from "@/components/Botanicals";
 import { StoryPlayer } from "@/components/StoryPlayer";
+import { ConfettiBurst } from "@/components/ConfettiBurst";
 import { DAY_ONE_STORY } from "@/lib/stories/day-one-story";
 
 type Step = "introduction" | "story" | "quiz" | "completion";
@@ -12,13 +13,18 @@ const STEPS: Step[] = ["introduction", "story", "quiz", "completion"];
 export function DayOneJourney({ onComplete }: { onComplete: () => void }) {
   const [step, setStep] = useState<Step>("introduction");
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [confettiTrigger, setConfettiTrigger] = useState(0);
+  const selectAnswer = (answer: number) => {
+    setSelectedAnswer(answer);
+    if (answer === DAY_ONE_CONTENT.quiz.correctAnswer) setConfettiTrigger((trigger) => trigger + 1);
+  };
   const currentStep = STEPS.indexOf(step);
   const next = () => setStep(STEPS[currentStep + 1] ?? "completion");
 
-  return <main className="page-shell day-one-shell"><Botanicals /><div className="relative mx-auto flex min-h-[calc(100dvh-1rem)] w-full max-w-md flex-col">
+  return <main className="page-shell day-one-shell"><Botanicals /><ConfettiBurst trigger={confettiTrigger} /><div className="relative mx-auto flex min-h-[calc(100dvh-1rem)] w-full max-w-md flex-col">
     <header className="flex items-center justify-between pt-2"><Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> All days</Link><span className="text-xs font-semibold tracking-[0.18em] text-muted-foreground">{currentStep + 1} / {STEPS.length}</span></header>
     <section className="paper-card day-one-card my-6 flex flex-1 flex-col p-6 sm:p-8" aria-live="polite">
-      {step === "introduction" && <><Introduction /><Video /></>}{step === "story" && <StoryPlayer story={DAY_ONE_STORY} exitLabel="Back" onExit={() => setStep("introduction")} onComplete={() => setStep("quiz")} continueLabel="Continue Day 1 ♡" />}{step === "quiz" && <Quiz selected={selectedAnswer} onSelect={setSelectedAnswer} />}{step === "completion" && <Completion />}
+      {step === "introduction" && <><Introduction /><Video /></>}{step === "story" && <StoryPlayer story={DAY_ONE_STORY} exitLabel="Back" onExit={() => setStep("introduction")} onComplete={() => setStep("quiz")} continueLabel="Continue Day 1 ♡" />}{step === "quiz" && <Quiz selected={selectedAnswer} onSelect={selectAnswer} />}{step === "completion" && <Completion />}
       {step === "story" ? null : step !== "completion" ? <div className="mt-auto flex justify-end pt-8"><button type="button" className="next-button" onClick={next} disabled={step === "quiz" && selectedAnswer !== DAY_ONE_CONTENT.quiz.correctAnswer}>{step === "introduction" ? DAY_ONE_CONTENT.introduction.buttonLabel : "Next"} <ArrowRight className="h-4 w-4" /></button></div> : <div className="mt-auto flex justify-end pt-8"><button type="button" className="next-button" onClick={onComplete}>Get today’s compliment <ArrowRight className="h-4 w-4" /></button></div>}
     </section>
   </div></main>;
