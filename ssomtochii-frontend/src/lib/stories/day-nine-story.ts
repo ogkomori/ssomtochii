@@ -22,7 +22,7 @@ const somtoLeft = (pose: StoryCharacter) => placeCharacter(pose, "somto", "Somto
 const zaraRight = (pose: StoryCharacter) => placeCharacter(pose, "zara", "Zara", "right");
 const together = (somtoPose: StoryCharacter, zaraPose: StoryCharacter) => [somtoLeft(somtoPose), zaraRight(zaraPose)];
 
-const DAY_EIGHT_LARGE_PARTY_STORY: StoryDefinition = {
+const DAY_NINE_LARGE_PARTY_STORY: StoryDefinition = {
   title: "A Small Favour",
   subtitle: "Day 9",
   startAt: 1,
@@ -157,7 +157,7 @@ const DAY_EIGHT_LARGE_PARTY_STORY: StoryDefinition = {
   ],
 };
 
-const DAY_EIGHT_SMALL_PARTY_STORY: StoryDefinition = {
+const DAY_NINE_SMALL_PARTY_STORY: StoryDefinition = {
   title: "The Smaller List",
   subtitle: "Day 9",
   startAt: 101,
@@ -254,10 +254,10 @@ const DAY_EIGHT_SMALL_PARTY_STORY: StoryDefinition = {
   ],
 };
 
-/** Choose Day 8's scene based on the guest-count decision from Day 7. */
+/** Choose Day 9's scene based on the guest-count decision from Day 8. */
 export function getDayNineStory(choice: PartySizeChoice | null): StoryDefinition {
-  return choice === "party-size-10-pay-extra" ? DAY_EIGHT_LARGE_PARTY_STORY : DAY_EIGHT_SMALL_PARTY_STORY;
+  return choice === "party-size-10-pay-extra" ? DAY_NINE_LARGE_PARTY_STORY : DAY_NINE_SMALL_PARTY_STORY;
 }
 
-/** Default when Day 8 is opened without a saved Day 7 decision. */
-export const DAY_NINE_STORY = DAY_EIGHT_SMALL_PARTY_STORY;
+/** Default when Day 9 is opened without a saved Day 8 decision. */
+export const DAY_NINE_STORY = DAY_NINE_SMALL_PARTY_STORY;
