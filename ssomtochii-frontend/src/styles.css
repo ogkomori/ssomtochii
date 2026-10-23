@@ -1067,3 +1067,12 @@ button.story-dialogue-panel{cursor:pointer;font:inherit}
 @media (prefers-reduced-motion: reduce) {
   .day-sixteen-crown { filter: none; }
 }
+
+
+/* Reusable full-screen confetti burst */
+.confetti-burst { position: fixed; inset: 0; z-index: 100; overflow: hidden; pointer-events: none; }
+.confetti-piece { position: absolute; top: -12px; left: calc(var(--piece) * 2.0833%); width: 8px; height: 12px; border-radius: 2px; background: hsl(var(--hue) 78% 62%); opacity: 0; animation: confetti-fall 1500ms cubic-bezier(.15,.65,.35,1) both; animation-delay: calc((var(--piece) % 12) * 18ms); }
+.confetti-piece:nth-child(3n) { width: 6px; height: 6px; border-radius: 50%; }
+.confetti-piece:nth-child(3n + 1) { width: 5px; height: 15px; }
+@keyframes confetti-fall { 0% { transform: translate3d(0, -2vh, 0) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 100% { transform: translate3d(calc((var(--piece) - 24) * 3px), 108vh, 0) rotate(calc(var(--piece) * 53deg)); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .confetti-piece { animation-duration: 1ms; } }
