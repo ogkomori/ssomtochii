@@ -156,7 +156,7 @@ export const DAY_ONE_STORY: StoryDefinition = {
       phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:45" },
       characters: [],
       speaker: TEGA,
-      text: "Haha, sure. Alright babe I'll talk to you later. Love you!",
+      text: "Haha, sure. Alright babe I'll call you later today. Love you!",
       next: 13,
     },
     {
