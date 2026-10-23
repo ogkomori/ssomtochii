@@ -1,39 +1,34 @@
 import { Link } from "@tanstack/react-router";
-import { Trophy } from "lucide-react";
-import { useEffect, useState } from "react";
-import { readProgress, saveDayLetter } from "@/lib/progress";
+import { Gift, Trophy } from "lucide-react";
+import { useState } from "react";
 import { Botanicals } from "@/components/Botanicals";
-import { CHARACTER_POOL } from "@/lib/activities/day-one";
+import { COMPLIMENTS } from "@/lib/activities/day-one";
 
-const slots = Array.from({ length: 10 }, () => CHARACTER_POOL).flat();
+const slots = Array.from({ length: 10 }, () => COMPLIMENTS).flat();
 const height = 54;
 
-/** End-of-day reward. The character only lives in component state while testing. */
+/** End-of-day reward: one randomly selected compliment, with a personal note. */
 export function DailyWheel({ day }: { day: number }) {
   const [spinning, setSpinning] = useState(false);
-  const [letter, setLetter] = useState<string | null>(null);
+  const [prizeIndex, setPrizeIndex] = useState<number | null>(null);
   const [stopAt, setStopAt] = useState(0);
 
-  useEffect(() => {
-    setLetter(readProgress().lettersByDay[String(day)] ?? null);
-  }, [day]);
-
   const spin = () => {
-    if (spinning || letter) return;
+    if (spinning || prizeIndex !== null) return;
 
-    const nextIndex = Math.floor(Math.random() * CHARACTER_POOL.length);
-    setStopAt(7 * CHARACTER_POOL.length + nextIndex);
+    // Every compliment entry is a distinct, equally likely prize.
+    const nextIndex = Math.floor(Math.random() * COMPLIMENTS.length);
+    setStopAt(7 * COMPLIMENTS.length + nextIndex);
     setSpinning(true);
 
     window.setTimeout(() => {
-      const earnedLetter = CHARACTER_POOL[nextIndex];
-      saveDayLetter(day, earnedLetter);
-      setLetter(earnedLetter);
+      setPrizeIndex(nextIndex);
       setSpinning(false);
     }, 4200);
   };
 
   const offset = stopAt ? stopAt * height - height : 0;
+  const prize = prizeIndex === null ? null : COMPLIMENTS[prizeIndex];
 
   return (
     <main className="page-shell">
@@ -42,24 +37,30 @@ export function DailyWheel({ day }: { day: number }) {
         <div className="day-one-copy reward-page-shell items-center text-center">
           <Trophy className="h-8 w-8 text-blossom" />
           <p className="day-one-eyebrow">DAY {day} REWARD</p>
-          {letter ? <>
-            <div className="award-letter">{letter}</div>
-            <h2 className="font-script text-4xl leading-none">Keep this one safe.</h2>
-            <p>Another piece of the surprise is yours. ♡</p>
-            <Link to="/" className="next-button">Back to all days</Link>
+          {prize ? <>
+            <div className="compliment-prize" aria-label={`Your compliment is ${prize.word}`}>
+              <span className="compliment-prize-eyebrow">TODAY'S COMPLIMENT</span>
+              <h1 className="font-script text-5xl leading-tight">{prize.word}</h1>
+              <span className="compliment-prize-letter">A little word for the letter {prize.letter}</span>
+            </div>
+            <p className="mt-4 max-w-sm text-foreground/80">{prize.message || "Your little message goes here. ♡"}</p>
+            <h2 className="mt-3 font-script text-3xl leading-none">A little reminder of how lovely you are. ♡</h2>
+            <Link to="/" className="next-button mt-5">Back to all days</Link>
           </> : <>
-            <h2 className="font-script text-4xl leading-none">Give the wheel a spin.</h2>
-            <p>One character is yours for today.</p>
+            <h2 className="font-script text-4xl leading-none">A little gift, just for you.</h2>
+            <p>Every box holds a compliment. Let&apos;s see which one is yours today. ♡</p>
             <div className="reel-machine">
-              <span className="reel-label">LUCKY LETTER</span>
-              <div className="reel-window">
+              <span className="reel-label">COMPLIMENT OF THE DAY</span>
+              <div className="reel-window" aria-label="Gift boxes spinning">
                 <div className="reel-track" style={{ transform: `translateY(-${offset}px)` }}>
-                  {slots.map((value, index) => <span className="reel-character" key={`${value}-${index}`}>{value}</span>)}
+                  {slots.map((_, index) => <span className="reel-character" key={index} aria-hidden="true">
+                    <span className="reel-gift-box"><span className="reel-gift-ribbon" /><span className="reel-gift-bow" /></span>
+                  </span>)}
                 </div>
-                <span className="reel-marker" aria-hidden />
+                <span className="reel-marker" aria-hidden="true" />
               </div>
             </div>
-            <button type="button" className="next-button" onClick={spin} disabled={spinning}>{spinning ? "Spinning…" : "Spin the wheel"}</button>
+            <button type="button" className="next-button" onClick={spin} disabled={spinning}>{spinning ? "Unwrapping…" : "Open a gift"}</button>
           </>}
         </div>
       </div>
