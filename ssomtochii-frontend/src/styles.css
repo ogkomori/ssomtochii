@@ -266,7 +266,7 @@
   .golf-canvas { @apply w-full rounded-xl border bg-secondary shadow-inner; touch-action: none; max-height: 31rem; }
   .game-message { @apply mx-auto mb-5 max-w-sm text-sm text-foreground/75; }
   .connection-grid { @apply grid grid-cols-4 gap-2; }
-  .connection-tile { @apply min-h-14 rounded-xl border bg-card px-1 text-xs font-bold text-foreground shadow-sm transition active:scale-95; }
+  .connection-tile { @apply min-h-14 min-w-0 rounded-xl border bg-card px-0.5 font-bold text-foreground shadow-sm transition active:scale-95; font-size: clamp(0.48rem, 2.25vw, 0.7rem); letter-spacing: -0.035em; white-space: nowrap; }
   .connection-tile.is-selected { @apply border-primary bg-secondary ring-2 ring-primary/25; }
   .connection-solved { @apply mb-2 rounded-xl bg-secondary p-3 text-left text-sm; }
   .connection-solved strong { @apply block text-primary; } .connection-solved span { @apply text-xs text-muted-foreground; }
