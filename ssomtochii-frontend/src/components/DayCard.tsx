@@ -21,6 +21,7 @@ export function DayCard({ day, index, eager = false, priority = false }: { day: 
           <span className="day-sixteen-crown"><Crown /></span>
           <span className="day-sixteen-confetti day-sixteen-confetti--top" />
           <span className="day-sixteen-confetti day-sixteen-confetti--bottom" />
+          <span className="day-sixteen-confetti--sides" />
         </div>
       )}
       <div className={`day-visual ${isFinalDay ? "day-sixteen-visual" : ""}`}>
