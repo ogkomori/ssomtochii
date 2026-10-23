@@ -197,7 +197,7 @@
   .video-placeholder p { @apply mb-0 mt-2 font-semibold; }
   .video-placeholder span { @apply mt-1 text-center text-xs text-muted-foreground; }
   .video-placeholder code { @apply rounded bg-card px-1 py-0.5 text-[0.68rem]; }
-  .day-one-video { @apply aspect-video w-full rounded-xl bg-foreground/10 object-cover; }
+  .day-one-video { @apply w-full rounded-xl bg-foreground/10 object-contain; aspect-ratio: 9 / 16; max-height: 52dvh; }
   .quiz-options { @apply flex flex-col gap-2 text-left; }
   .quiz-option { @apply flex min-h-12 items-center gap-3 rounded-xl border bg-card px-3 text-left text-sm font-medium text-foreground transition-colors active:scale-[.99]; }
   .quiz-option-marker { @apply grid h-6 w-6 shrink-0 place-items-center rounded-full bg-secondary text-xs text-primary; }
