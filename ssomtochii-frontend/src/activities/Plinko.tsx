@@ -325,7 +325,7 @@ export function Plinko({ onComplete }: { onComplete: () => void }) {
       <div className="mt-auto flex justify-center gap-3">
         {phase === "ready" && <button type="button" className="next-button" onClick={dropCoin}>Drop coin <ArrowRight className="h-4 w-4" /></button>}
         {phase === "landed" && <button type="button" className="next-button" onClick={nextRound}>Next round <ArrowRight className="h-4 w-4" /></button>}
-        {phase === "finished" && <><button type="button" className="inline-flex items-center gap-1 text-sm text-muted-foreground" onClick={restart}><RotateCcw className="h-4 w-4" /> Play again</button><button type="button" className="next-button" onClick={onComplete}>Get today’s letter</button></>}
+        {phase === "finished" && <><button type="button" className="inline-flex items-center gap-1 text-sm text-muted-foreground" onClick={restart}><RotateCcw className="h-4 w-4" /> Play again</button><button type="button" className="next-button" onClick={onComplete}>Get today’s compliment</button></>}
       </div>
     </section>
   </div></main>;
