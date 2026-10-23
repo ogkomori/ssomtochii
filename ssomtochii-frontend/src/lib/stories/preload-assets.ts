@@ -100,7 +100,12 @@ export async function preloadStoryAssets(story: StoryDefinition, openingBeat: St
     }
   }
 
-  await Promise.all(openingSources.map((source) => preloadImage(source, true)));
+  // Start the opening images at high priority, but don't wait for them before
+  // starting the background queue. That way, later scenes begin downloading as
+  // soon as the day is opened, while the opening scene still gets priority.
+  const openingLoads = Promise.all(
+    openingSources.map((source) => preloadImage(source, true)),
+  );
 
   const queue = [...remainingSources];
   let nextIndex = 0;
@@ -111,6 +116,9 @@ export async function preloadStoryAssets(story: StoryDefinition, openingBeat: St
       if (source) await preloadImage(source);
     }
   });
-  // Warm the remaining images without making playback wait for the whole story.
+
+  // Background downloads continue independently; only the opening scene is
+  // awaited by callers, and per-scene loading remains the safety net.
   void Promise.all(workers);
+  await openingLoads;
 }
