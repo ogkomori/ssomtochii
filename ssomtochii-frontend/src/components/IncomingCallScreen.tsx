@@ -72,7 +72,11 @@ export function IncomingCallScreen({ onAnswer, onContinue, interaction = "intera
 
                 <div className="caller">
                   <div className="avatar ringing" aria-hidden="true">
-                    <span>{initials}</span>
+                    {callerName.trim().toLowerCase() === "tega" ? (
+                      <img className="caller-profile-image" src="/images/tega-profile.png" alt="" />
+                    ) : (
+                      <span>{initials}</span>
+                    )}
                   </div>
                   <p className="label">{callType === "outgoing" ? "outgoing call" : "incoming call"}</p>
                   <h1 className="name">{callerName}</h1>
