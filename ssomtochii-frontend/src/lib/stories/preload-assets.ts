@@ -2,6 +2,7 @@ import type { StoryBeat, StoryDefinition } from "./types";
 
 const imageLoads = new Map<string, Promise<void>>();
 const loadedImages = new Set<string>();
+const imageAspectRatios = new Map<string, number>();
 
 function preloadImage(src: string, priority = false): Promise<void> {
   if (loadedImages.has(src)) return Promise.resolve();
@@ -30,7 +31,14 @@ function preloadImage(src: string, priority = false): Promise<void> {
   image.decoding = "async";
   if ("fetchPriority" in image) image.fetchPriority = priority ? "high" : "low";
 
+  const recordDimensions = () => {
+    if (image.naturalWidth > 0 && image.naturalHeight > 0) {
+      imageAspectRatios.set(src, image.naturalWidth / image.naturalHeight);
+    }
+  };
+
   image.onload = () => {
+    recordDimensions();
     if (typeof image.decode === "function") {
       void image.decode().then(
         () => finish(true),
@@ -43,7 +51,10 @@ function preloadImage(src: string, priority = false): Promise<void> {
   image.onerror = () => finish(false);
   image.src = src;
 
-  if (image.complete) finish(image.naturalWidth > 0);
+  if (image.complete) {
+    recordDimensions();
+    finish(image.naturalWidth > 0);
+  }
   return load;
 }
 
@@ -72,6 +83,11 @@ function getBeatImageSources(beat: StoryBeat): string[] {
   }
 
   return [...sources];
+}
+
+/** Return a decoded image's intrinsic width-to-height ratio, when available. */
+export function getImageAspectRatio(src: string): number | undefined {
+  return imageAspectRatios.get(src);
 }
 
 /** Check whether all images for one scene have loaded successfully. */
