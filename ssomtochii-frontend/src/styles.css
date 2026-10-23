@@ -739,7 +739,7 @@ button.story-dialogue-panel{cursor:pointer;font:inherit}
 @media(max-width:520px){.story-stage--duo .story-sprite{max-width:52vw;height:calc(100dvh - clamp(7rem, 15dvh, 9rem))}.story-stage--duo .story-sprite--left{left:-2%}.story-stage--duo .story-sprite--right{right:-2%}}
 
 
-/* Home page: a roomy, infinitely looping day-card carousel. */
+/* Home page: a finite day-card carousel, ordered from Day 1 through Day 16. */
 .day-carousel{
   display:flex;
   flex:1 0 auto;
