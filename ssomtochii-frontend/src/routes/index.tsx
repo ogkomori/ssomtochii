@@ -38,25 +38,32 @@ function Index() {
 
 
   useEffect(() => {
-    // Warm every unique card photo after the homepage mounts, so carousel
-    // swipes can reuse cached images instead of starting a fresh request.
-    const sources = Array.from(new Set(DAYS.map((day) => day.image).filter(Boolean))) as string[];
+    // Warm only the first few cards. The remaining photos stay lazy-loaded so
+    // the home screen doesn't compete with itself for bandwidth or memory.
+    const sources = Array.from(new Set(DAYS.slice(0, 3).map((day) => day.image).filter(Boolean))) as string[];
+    let cancelled = false;
     let nextIndex = 0;
-    const workers = Array.from({ length: Math.min(6, sources.length) }, async () => {
-      while (nextIndex < sources.length) {
+
+    const warmImage = (src: string) => new Promise<void>((resolve) => {
+      const image = new Image();
+      image.decoding = "async";
+      if ("fetchPriority" in image) image.fetchPriority = nextIndex === 1 ? "low" : "high";
+      const finish = () => resolve();
+      image.onload = finish;
+      image.onerror = finish;
+      image.src = src;
+      if (image.complete) finish();
+    });
+
+    const workers = Array.from({ length: Math.min(2, sources.length) }, async () => {
+      while (!cancelled && nextIndex < sources.length) {
         const src = sources[nextIndex++];
-        if (!src) continue;
-        await new Promise<void>((resolve) => {
-          const image = new Image();
-          image.decoding = "async";
-          image.onload = () => resolve();
-          image.onerror = () => resolve();
-          image.src = src;
-          if (image.complete) resolve();
-        });
+        if (src) await warmImage(src);
       }
     });
+
     void Promise.all(workers);
+    return () => { cancelled = true; };
   }, []);
 
   const displayDays = DAYS.map((day) => ({
