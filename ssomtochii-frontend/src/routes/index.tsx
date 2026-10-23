@@ -24,7 +24,6 @@ export const Route = createFileRoute("/")({
 function Index() {
   const [calendarDate, setCalendarDate] = useState<string | null>(null);
   const [progress, setProgress] = useState(() => ({ unlockedDays: [] as number[], completedDays: [] as number[], lettersByDay: {} as Record<string, string> }));
-  const [previewMode] = useState(true);
 
   useEffect(() => {
     const refreshProgress = () => {
@@ -71,7 +70,10 @@ function Index() {
     ...day,
     state: calendarDate ? getDayState(day, progress, calendarDate) : "locked" as const,
   }));
-  const allDaysUnlocked = calendarDate !== null && calendarDate >= "2026-11-07";
+  const currentDayNumber = calendarDate
+    ? Math.max(1, Math.min(16, Math.floor((Date.parse(`${calendarDate}T00:00:00Z`) - Date.parse("2026-10-23T00:00:00Z")) / 86_400_000) + 1))
+    : 1;
+  const daysLeft = 16 - currentDayNumber;
 
 
   return (
@@ -83,7 +85,7 @@ function Index() {
             16 Days of Somto <span className="text-blossom">♡</span>
           </h1>
           <p className="mt-1 text-sm text-foreground/80 sm:mt-2 sm:text-base">A little something for you, one day at a time.</p>
-          <p className="mt-1 text-[0.7rem] font-medium tracking-[0.2em] text-muted-foreground sm:mt-1.5">{previewMode ? "PREVIEW MODE · ALL DAYS UNLOCKED" : allDaysUnlocked ? "ALL 16 DAYS ARE OPEN" : "DAY 16 UNLOCKS NOVEMBER 7"}</p>
+          <p className="mt-1 text-[0.7rem] font-medium tracking-[0.2em] text-muted-foreground sm:mt-1.5">{`${daysLeft} DAYS LEFT` }</p>
         </header>
         <section
           className="day-carousel"
