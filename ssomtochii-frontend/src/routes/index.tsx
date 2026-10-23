@@ -26,6 +26,8 @@ function centeredScrollLeft(carousel: HTMLElement, slide: HTMLElement) {
   return carousel.scrollLeft + slideRect.left - carouselRect.left + slideRect.width / 2 - carousel.clientWidth / 2;
 }
 
+const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
 function Index() {
   const carouselRef = useRef<HTMLElement>(null);
   const recenterTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -67,7 +69,7 @@ function Index() {
   }));
   const allDaysUnlocked = calendarDate !== null && calendarDate >= "2026-11-07";
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel) return;
     const firstMiddleSlide = carousel.querySelector<HTMLElement>('[data-carousel-index="16"]');
