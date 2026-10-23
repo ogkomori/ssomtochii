@@ -1,6 +1,6 @@
 import type { StoryDefinition } from "./types";
 import { SOMTO, PARTY_PLANNERS } from "./speakers";
-import { smiling, neutral, speaking, pose8Thinking } from "./character-poses";
+import { smiling, neutral, speaking, pose8Thinking, sitting } from "./character-poses";
 
 /** Day 2: Somto calls the Party Planners to confirm her birthday preferences. */
 export const DAY_TWO_STORY: StoryDefinition = {
@@ -10,9 +10,8 @@ export const DAY_TWO_STORY: StoryDefinition = {
   beats: [
     {
       id: 0,
-      type: "incoming-call",
+      type: "outgoing-call",
       callerName: "Party Planners",
-      interaction: "display-only",
       next: 1,
     },
     {
@@ -40,7 +39,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       type: "choice",
       scene: "character",
       speaker: SOMTO,
-      characters: [pose8Thinking],
+      characters: [sitting],
       text: "What colour should the party be built around?",
       choices: [
         { id: "party-theme-green", label: "Green", next: 30 },
@@ -54,7 +53,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       scene: "character",
       speaker: SOMTO,
       characters: [smiling],
-      text: "Green. I want it to feel fresh and pretty.",
+      text: "Green for sure. That's actually my favourite colour!",
       next: 4,
     },
     {
@@ -63,7 +62,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       scene: "character",
       speaker: SOMTO,
       characters: [smiling],
-      text: "Gold. I want it to feel elegant and a little glamorous.",
+      text: "Gold would be great. I want the party to feel really special.",
       next: 4,
     },
     {
@@ -71,8 +70,8 @@ export const DAY_TWO_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: [speaking],
-      text: "Red. I want something bold that really stands out.",
+      characters: [smiling],
+      text: "Red would be nice. I've been told I look good in red, haha!",
       next: 4,
     },
     {
@@ -90,7 +89,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       type: "choice",
       scene: "character",
       speaker: SOMTO,
-      characters: [neutral],
+      characters: [sitting],
       text: "What should Somto tell them about the VIP section?",
       choices: [
         { id: "vip-alcohol-free", label: "Keep it alcohol-free", next: 40 },
@@ -102,7 +101,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: [smiling],
+      characters: [neutral],
       text: "I'd rather keep the VIP section alcohol-free, please.",
       next: 6,
     },
@@ -111,8 +110,8 @@ export const DAY_TWO_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: [speaking],
-      text: "Alcohol is fine in the VIP section. That's not a problem for me.",
+      characters: [smiling],
+      text: "Alcohol is fine in the VIP section. In fact, put as much as you like in there.",
       next: 6,
     },
     {
@@ -122,7 +121,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       phone: { contactName: "Party Planners", contactInitial: "PP", statusText: "00:00:24" },
       characters: [],
       speaker: PARTY_PLANNERS,
-      text: "And what kind of dress code are you imagining for the guests?",
+      text: "No worries, that can be arranged. And what kind of dress code are you imagining for the guests?",
       next: 7,
     },
     {
@@ -130,7 +129,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       type: "choice",
       scene: "character",
       speaker: SOMTO,
-      characters: [pose8Thinking],
+      characters: [sitting],
       text: "What dress code would suit the party?",
       choices: [
         { id: "dress-code-glam", label: "Dress to impress", next: 50 },
@@ -143,8 +142,8 @@ export const DAY_TWO_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: [smiling],
-      text: "Dress to impress. It's a birthday, so let's make it a little special.",
+      characters: [speaking],
+      text: "Dress to impress. It's literally my birthday, like let's make it a little special.",
       next: 8,
     },
     {
@@ -152,7 +151,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: [neutral],
+      characters: [speaking],
       text: "Smart casual. I want everyone to look nice but still feel comfortable.",
       next: 8,
     },
@@ -161,7 +160,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: [smiling],
+      characters: [speaking],
       text: "Nothing too strict. I want everyone to feel comfortable coming as themselves.",
       next: 8,
     },
@@ -172,7 +171,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       phone: { contactName: "Party Planners", contactInitial: "PP", statusText: "00:00:35" },
       characters: [],
       speaker: PARTY_PLANNERS,
-      text: "One last preference: what kind of music would you like us to plan around?",
+      text: "Okayyy, I hear you. One last question: what kind of music would you like us to plan around?",
       next: 9,
     },
     {
@@ -180,7 +179,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       type: "choice",
       scene: "character",
       speaker: SOMTO,
-      characters: [pose8Thinking],
+      characters: [sitting],
       text: "What should the party soundtrack feel like?",
       choices: [
         { id: "music-afrobeats", label: "Afrobeats all night", next: 60 },
@@ -194,7 +193,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       scene: "character",
       speaker: SOMTO,
       characters: [smiling],
-      text: "Afrobeats all night. I need people on the dance floor.",
+      text: "Afrobeats all night. I love me some Wizkid you know!",
       next: 10,
     },
     {
@@ -222,7 +221,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       phone: { contactName: "Party Planners", contactInitial: "PP", statusText: "00:00:48" },
       characters: [],
       speaker: PARTY_PLANNERS,
-      text: "Perfect. Just a reminder that your booking is for ten people, and each person needs to pay €50. That's €500 in total, so you'll need ten guests who can each cover their own entry. If fewer people confirm, we'll need to discuss the remaining places with you.",
+      text: "Perfect! Just a reminder that your booking is for ten people, and each person needs to pay €50, so you'll need ten guests who can each cover their own entry. If fewer people confirm, we'll need to discuss the remaining places with you.",
       next: 11,
     },
     {
@@ -230,8 +229,8 @@ export const DAY_TWO_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: [pose8Thinking],
-      text: "Right, ten people at fifty euros each. I'll need to make sure I have enough people confirmed.",
+      characters: [speaking],
+      text: "Alright. I'm still looking for more people to come, but I'll keep you updated.",
       next: 12,
     },
     {
@@ -241,7 +240,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       phone: { contactName: "Party Planners", contactInitial: "PP", statusText: "00:01:02" },
       characters: [],
       speaker: PARTY_PLANNERS,
-      text: "Exactly. We'll note these preferences and use them as we finalise the party details. Is there anything else you'd like us to know?",
+      text: "Excellent. We'll note these preferences and use them as we finalise the party details. Is there anything else you'd like us to know?",
       next: 13,
     },
     {
@@ -257,7 +256,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       id: 14,
       type: "end",
       scene: "character",
-      characters: [smiling],
+      characters: [sitting],
       text: "Somto ends the call feeling excited about the party's look—but the reminder about ten paid places leaves her thinking about the guest list.",
     },
   ],
