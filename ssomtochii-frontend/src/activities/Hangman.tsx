@@ -50,12 +50,15 @@ export function Hangman({ onComplete }: { onComplete: () => void }) {
         {wrong >= 6 && <path d="M76 67 L91 84" stroke="currentColor" strokeWidth="3" />}
       </svg>
     </div>
-    <div className="mb-6 flex flex-wrap items-end justify-center gap-x-1.5 gap-y-2" aria-label="Song title to guess">
-      {answer.split("").map((character, index) => {
-        if (character === " ") return <span key={index} className="w-3" aria-hidden="true" />;
-        if (!/[A-Z]/.test(character)) return <span key={index} className="px-0.5 text-lg font-bold">{character}</span>;
-        return <span key={index} className="grid h-9 min-w-7 place-items-center border-b-2 border-primary px-1 text-lg font-bold">{guesses.includes(character) || finished ? character : ""}</span>;
-      })}
+    <div className="mb-6 flex flex-wrap items-end justify-center gap-x-3 gap-y-2" aria-label="Song title to guess">
+      {answer.split(" ").filter(Boolean).map((word, wordIndex) => (
+        <span key={wordIndex} className="inline-flex flex-nowrap items-end gap-x-1.5 whitespace-nowrap">
+          {word.split("").map((character, index) => {
+            if (!/[A-Z]/.test(character)) return <span key={index} className="px-0.5 text-lg font-bold">{character}</span>;
+            return <span key={index} className="grid h-9 min-w-7 shrink-0 place-items-center border-b-2 border-primary px-1 text-lg font-bold">{guesses.includes(character) || finished ? character : ""}</span>;
+          })}
+        </span>
+      ))}
     </div>
     <div className="mx-auto grid max-w-sm grid-cols-7 gap-1.5">{alphabet.map((letter) => <button key={letter} type="button" disabled={finished || guesses.includes(letter)} onClick={() => guess(letter)} className={`grid aspect-square place-items-center rounded-md text-sm font-semibold disabled:opacity-35 ${guesses.includes(letter) ? answerLetters.includes(letter) ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground" : "bg-secondary text-foreground"}`}>{letter}</button>)}</div>
     <p className="mt-4 min-h-6 text-sm text-muted-foreground">{won ? (isFinalLevel ? "You guessed all three songs!" : "Song guessed! Ready for the next one?") : lost ? `The song was ${answer}.` : message}</p>
