@@ -119,6 +119,17 @@ export function StoryPlayer({
     );
   }
 
+  if (beat.type === "outgoing-call") {
+    return (
+      <IncomingCallScreen
+        callerName={beat.callerName ?? "Tega"}
+        callType="outgoing"
+        interaction="display-only"
+        onContinue={() => goTo(beat.next)}
+      />
+    );
+  }
+
   return (
     <main className="story-player-shell">
       <div className={`story-stage ${phoneScene ? "story-stage--phone" : ""} ${duoScene ? "story-stage--duo" : ""}`} style={phoneScene ? undefined : getBackgroundStyle(background)}>
