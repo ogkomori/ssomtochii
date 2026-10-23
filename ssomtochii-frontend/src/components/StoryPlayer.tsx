@@ -108,8 +108,19 @@ export function StoryPlayer({
     goTo(nextId);
   };
 
-  const restart = () => {
-    void goTo(firstBeat.id);
+  const restart = async () => {
+    if (transitionLock.current) return;
+    transitionLock.current = true;
+    setTransitioning(true);
+    try {
+      await preloadBeatAssets(firstBeat, true);
+      setBeatId(firstBeat.id);
+      setBackground(firstBeat.background);
+      setCharacters(firstBeat.characters ?? []);
+    } finally {
+      transitionLock.current = false;
+      setTransitioning(false);
+    }
   };
 
   if (!assetsReady || transitioning) {
