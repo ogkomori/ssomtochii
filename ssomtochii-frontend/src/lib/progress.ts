@@ -11,15 +11,60 @@ export interface LocalProgress {
 
 const EMPTY_PROGRESS: LocalProgress = { unlockedDays: [], completedDays: [], lettersByDay: {} };
 
-// TEMPORARY TEST MODE: progress is kept only in the current React view.
-// Nothing is read from or written to browser storage. Remove this override
-// when persistent progress is ready to be re-enabled.
 export function readProgress(): LocalProgress {
-  return { ...EMPTY_PROGRESS, unlockedDays: [], completedDays: [], lettersByDay: {} };
+  if (typeof window === "undefined") return { ...EMPTY_PROGRESS };
+  try {
+    const stored = window.localStorage.getItem(PROGRESS_STORAGE_KEY);
+    if (!stored) return { ...EMPTY_PROGRESS };
+    const parsed = JSON.parse(stored) as Partial<LocalProgress>;
+    return {
+      unlockedDays: Array.isArray(parsed.unlockedDays) ? parsed.unlockedDays.filter(Number.isInteger) : [],
+      completedDays: Array.isArray(parsed.completedDays) ? parsed.completedDays.filter(Number.isInteger) : [],
+      lettersByDay: parsed.lettersByDay && typeof parsed.lettersByDay === "object" ? parsed.lettersByDay : {},
+    };
+  } catch {
+    return { ...EMPTY_PROGRESS };
+  }
 }
 
-export function writeProgress(_progress: LocalProgress): void {
-  // Persistence intentionally disabled while testing the full experience.
+export function writeProgress(progress: LocalProgress): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(progress));
+  } catch {
+    // Keep the app usable if browser storage is unavailable or full.
+  }
+}
+
+export const STORY_CHOICES_STORAGE_KEY = "ssomtochii-story-choices-v1";
+
+export type SavedStoryChoices = Record<string, string>;
+
+export function readStoryChoices(): SavedStoryChoices {
+  if (typeof window === "undefined") return {};
+  try {
+    const stored = window.localStorage.getItem(STORY_CHOICES_STORAGE_KEY);
+    if (!stored) return {};
+    const parsed = JSON.parse(stored);
+    return parsed && typeof parsed === "object" && !Array.isArray(parsed) ? parsed as SavedStoryChoices : {};
+  } catch {
+    return {};
+  }
+}
+
+export function readStoryChoice(key: string): string | null {
+  return readStoryChoices()[key] ?? null;
+}
+
+export function saveStoryChoice(key: string, choiceId: string): void {
+  if (typeof window === "undefined") return;
+  try {
+    const choices = readStoryChoices();
+    choices[key] = choiceId;
+    window.localStorage.setItem(STORY_CHOICES_STORAGE_KEY, JSON.stringify(choices));
+  } catch {
+    // Story playback should continue even if storage is unavailable.
+  }
 }
 
 export function getBerlinDateKey(now: Date = new Date()): string {
@@ -34,8 +79,8 @@ export function getBerlinDateKey(now: Date = new Date()): string {
 }
 
 export function isPreviewMode(): boolean {
-  // TEMPORARY TEST MODE: allow every day to be opened regardless of date.
-  return true;
+  if (typeof window === "undefined") return false;
+  return new URLSearchParams(window.location.search).get("preview") === "1";
 }
 
 export function isDayUnlocked(day: Pick<Day, "date" | "day">, today = getBerlinDateKey()): boolean {
