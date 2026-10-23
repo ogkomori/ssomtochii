@@ -65,7 +65,7 @@ export function Hangman({ onComplete }: { onComplete: () => void }) {
     {finished && <div className="mt-4 flex justify-center gap-3">
       {(!won || isFinalLevel) && <button type="button" className="inline-flex items-center gap-1 text-sm text-muted-foreground" onClick={reset}><RotateCcw className="h-4 w-4" /> Play again</button>}
       {won && (isFinalLevel
-        ? <button type="button" className="next-button" onClick={onComplete}>Get today’s letter <Check className="h-4 w-4" /></button>
+        ? <button type="button" className="next-button" onClick={onComplete}>Get today’s compliment <Check className="h-4 w-4" /></button>
         : <button type="button" className="next-button" onClick={nextLevel}>Next song <Check className="h-4 w-4" /></button>)}
     </div>}
   </GameShell>;
