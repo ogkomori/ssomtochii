@@ -40,7 +40,7 @@ export function StoryPlayer({
   onComplete?: () => void;
   continueLabel?: string;
   exitLabel?: string;
-  onChoiceSelected?: (choiceId: string) => void;
+  onChoiceSelected?: (choiceId: string, beatId: number) => void;
 }) {
   const firstBeat = useMemo(() => {
     const initial = getBeat(story, story.startAt) ?? story.beats[0];
@@ -222,7 +222,7 @@ export function StoryPlayer({
             <p className="story-dialogue-text">{beat.text}</p>
             <div className="story-choice-list">
               {beat.choices.map((choice) => (
-                <button key={choice.id} type="button" className="story-choice-button" onClick={() => { onChoiceSelected?.(choice.id); goTo(choice.next); }}>
+                <button key={choice.id} type="button" className="story-choice-button" onClick={() => { onChoiceSelected?.(choice.id, beat.id); goTo(choice.next); }}>
                   {choice.label}
                 </button>
               ))}
