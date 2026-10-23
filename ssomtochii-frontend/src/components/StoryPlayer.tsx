@@ -123,11 +123,11 @@ export function StoryPlayer({
     }
   };
 
-  if (!assetsReady || transitioning) {
+  if (!assetsReady) {
     return (
       <main className="story-player-shell">
         <div className="story-stage flex min-h-[70dvh] items-center justify-center text-center">
-          <p className="font-script text-4xl">{transitioning ? "One moment… ♡" : "Getting the scenes ready… ♡"}</p>
+          <p className="font-script text-4xl">Getting the opening scene ready… ♡</p>
         </div>
       </main>
     );
@@ -196,6 +196,12 @@ export function StoryPlayer({
             );
           })}
         </div>
+
+        {transitioning && (
+          <div className="story-transition-overlay" role="status" aria-live="polite">
+            <span className="story-transition-indicator">Just a moment… ♡</span>
+          </div>
+        )}
 
         {beat.type === "end" ? (
           <section className="story-dialogue-panel story-ending-panel" aria-live="polite">
