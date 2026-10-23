@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Camera, Lock, Check, Circle, CircleCheck } from "lucide-react";
 import type { Day } from "@/lib/days";
 
-export function DayCard({ day, index }: { day: Day; index: number }) {
+export function DayCard({ day, index, eager = false, priority = false }: { day: Day; index: number; eager?: boolean; priority?: boolean }) {
   const locked = day.state === "locked";
   const completed = day.state === "completed";
   const tilt = ["-rotate-1", "rotate-1", "rotate-0", "-rotate-[0.5deg]"][index % 4];
@@ -24,6 +24,9 @@ export function DayCard({ day, index }: { day: Day; index: number }) {
           <img
             src={day.image}
             alt={`Photo for day ${day.day}`}
+            loading={eager ? "eager" : "lazy"}
+            decoding="async"
+            fetchPriority={priority ? "high" : "auto"}
             className={`absolute inset-0 h-full w-full object-cover transition-[filter] duration-300 ${locked ? "grayscale" : "grayscale-0"}`}
             onError={(event) => event.currentTarget.remove()}
           />
