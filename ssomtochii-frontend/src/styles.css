@@ -1091,3 +1091,11 @@ button.story-dialogue-panel{cursor:pointer;font:inherit}
 .outgoing-call-screen .outgoing-decline .icon {
   background: oklch(0.62 0.19 25);
 }
+
+.incoming-call-screen .avatar .caller-profile-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+}
