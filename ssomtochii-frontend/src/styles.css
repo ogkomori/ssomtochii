@@ -988,31 +988,45 @@ button.story-dialogue-panel{cursor:pointer;font:inherit}
 }
 .day-sixteen-confetti {
   position: absolute;
-  left: -1rem;
-  width: calc(100% + 2rem);
-  height: 1.6rem;
+  left: -1.4rem;
+  width: calc(100% + 2.8rem);
+  height: 2.4rem;
   background-repeat: no-repeat;
   pointer-events: none;
 }
 .day-sixteen-confetti--top {
-  top: -1.25rem;
+  top: -1.65rem;
   background-image:
-    radial-gradient(ellipse at 7% 55%, oklch(.75 .17 30) 0 3px, transparent 3.5px),
-    radial-gradient(ellipse at 17% 30%, oklch(.78 .15 145) 0 2px, transparent 2.5px),
-    radial-gradient(ellipse at 29% 68%, oklch(.8 .15 85) 0 3px, transparent 3.5px),
-    radial-gradient(ellipse at 73% 32%, oklch(.72 .16 335) 0 2.5px, transparent 3px),
-    radial-gradient(ellipse at 85% 66%, oklch(.76 .16 205) 0 3px, transparent 3.5px),
-    radial-gradient(ellipse at 96% 28%, oklch(.76 .17 35) 0 2px, transparent 2.5px);
+    radial-gradient(circle, #f18a64 0 4px, transparent 4.8px),
+    radial-gradient(circle, #62aa83 0 3.5px, transparent 4.3px),
+    radial-gradient(circle, #f0c34e 0 4.5px, transparent 5.2px),
+    radial-gradient(circle, #d779a8 0 4px, transparent 4.8px),
+    radial-gradient(circle, #68a9d6 0 4px, transparent 4.8px),
+    linear-gradient(115deg, transparent 42%, #e5a33d 43% 75%, transparent 76%),
+    linear-gradient(65deg, transparent 42%, #d779a8 43% 75%, transparent 76%),
+    linear-gradient(130deg, transparent 42%, #62aa83 43% 75%, transparent 76%),
+    linear-gradient(75deg, transparent 42%, #68a9d6 43% 75%, transparent 76%),
+    radial-gradient(circle, #f18a64 0 3.5px, transparent 4.3px),
+    radial-gradient(circle, #d779a8 0 3.5px, transparent 4.3px);
+  background-size: 10px 10px, 9px 9px, 11px 11px, 10px 10px, 10px 10px, 9px 17px, 8px 16px, 8px 18px, 8px 16px, 9px 9px, 9px 9px;
+  background-position: 5% 65%, 17% 25%, 29% 72%, 43% 38%, 58% 70%, 11% 15%, 36% 70%, 64% 22%, 84% 62%, 76% 20%, 96% 55%;
 }
 .day-sixteen-confetti--bottom {
-  bottom: -1.2rem;
+  bottom: -1.65rem;
   background-image:
-    radial-gradient(ellipse at 5% 35%, oklch(.78 .15 85) 0 2.5px, transparent 3px),
-    radial-gradient(ellipse at 15% 72%, oklch(.73 .16 335) 0 3px, transparent 3.5px),
-    radial-gradient(ellipse at 32% 30%, oklch(.75 .17 30) 0 2px, transparent 2.5px),
-    radial-gradient(ellipse at 68% 70%, oklch(.78 .15 145) 0 3px, transparent 3.5px),
-    radial-gradient(ellipse at 82% 30%, oklch(.76 .16 205) 0 2px, transparent 2.5px),
-    radial-gradient(ellipse at 95% 68%, oklch(.8 .15 85) 0 3px, transparent 3.5px);
+    radial-gradient(circle, #f0c34e 0 4px, transparent 4.8px),
+    radial-gradient(circle, #d779a8 0 4px, transparent 4.8px),
+    radial-gradient(circle, #f18a64 0 3.5px, transparent 4.3px),
+    radial-gradient(circle, #62aa83 0 4.5px, transparent 5.2px),
+    radial-gradient(circle, #68a9d6 0 4px, transparent 4.8px),
+    linear-gradient(65deg, transparent 42%, #68a9d6 43% 75%, transparent 76%),
+    linear-gradient(120deg, transparent 42%, #f18a64 43% 75%, transparent 76%),
+    linear-gradient(75deg, transparent 42%, #e5a33d 43% 75%, transparent 76%),
+    linear-gradient(130deg, transparent 42%, #d779a8 43% 75%, transparent 76%),
+    radial-gradient(circle, #62aa83 0 3.5px, transparent 4.3px),
+    radial-gradient(circle, #f0c34e 0 3.5px, transparent 4.3px);
+  background-size: 11px 11px, 10px 10px, 9px 9px, 11px 11px, 10px 10px, 8px 16px, 9px 17px, 8px 18px, 9px 16px, 9px 9px, 9px 9px;
+  background-position: 4% 32%, 19% 72%, 33% 25%, 49% 65%, 65% 28%, 13% 64%, 39% 18%, 71% 70%, 91% 28%, 83% 22%, 97% 75%;
 }
 @media (max-width: 420px) {
   .day-sixteen-crown { top: -1.9rem; transform: translateX(-50%) scale(.88) rotate(-4deg); }
