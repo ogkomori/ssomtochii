@@ -215,7 +215,7 @@ export function FlowFree({ onComplete }: { onComplete: () => void }) {
     <div className="mt-4 flex justify-center gap-3">
       {won
         ? <button className="next-button" type="button" onClick={nextLevel}>
-            {levelIndex === FLOW_FREE_LEVELS.length - 1 ? "Get today’s letter" : "Next level"} <Check className="h-4 w-4" />
+            {levelIndex === FLOW_FREE_LEVELS.length - 1 ? "Get today’s compliment" : "Next level"} <Check className="h-4 w-4" />
           </button>
         : <button className="inline-flex items-center gap-1 text-sm text-muted-foreground" type="button" onClick={reset}>
             <RotateCcw className="h-4 w-4" /> Start over
