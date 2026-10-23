@@ -51,7 +51,6 @@ export function StoryPlayer({
   const [background, setBackground] = useState(firstBeat.background);
   const [characters, setCharacters] = useState<StoryCharacter[]>(firstBeat.characters ?? []);
   const [assetsReady, setAssetsReady] = useState(() => areBeatAssetsLoaded(firstBeat));
-  const [transitioning, setTransitioning] = useState(false);
   const transitionLock = useRef(false);
 
   useEffect(() => {
@@ -72,6 +71,23 @@ export function StoryPlayer({
   }, [story, firstBeat]);
 
   const beat = getBeat(story, beatId) ?? firstBeat;
+
+  // Warm the immediately reachable scene(s) while this one is on screen.
+  // For choices, prepare each branch so whichever option is tapped is ready.
+  useEffect(() => {
+    const nextIds = beat.type === "choice"
+      ? beat.choices.map((choice) => choice.next)
+      : "next" in beat && beat.next !== undefined
+        ? [beat.next]
+        : [];
+    const nextBeats = [...new Set(nextIds)]
+      .map((id) => getBeat(story, id))
+      .filter((nextBeat): nextBeat is StoryBeat => Boolean(nextBeat));
+    for (const nextBeat of nextBeats) {
+      void preloadBeatAssets(nextBeat, true);
+    }
+  }, [beat, story]);
+
   const beatIndex = story.beats.findIndex((item) => item.id === beat.id);
   const phoneScene = beat.scene === "phone";
   const duoScene = !phoneScene && characters.length > 1;
@@ -88,17 +104,16 @@ export function StoryPlayer({
     if (!nextBeat) return;
 
     transitionLock.current = true;
-    setTransitioning(true);
     try {
-      // If background preloading hasn't reached this scene yet, wait here
-      // instead of briefly showing missing characters or a blank background.
+      // Keep the current scene fully visible until every image for the next
+      // scene has loaded and decoded. The next beat is also prefetched while
+      // the viewer reads, so this usually completes before they tap.
       await preloadBeatAssets(nextBeat, true);
       if (nextBeat.background !== undefined) setBackground(nextBeat.background);
       if (nextBeat.characters !== undefined) setCharacters(nextBeat.characters);
       setBeatId(nextBeat.id);
     } finally {
       transitionLock.current = false;
-      setTransitioning(false);
     }
   };
 
@@ -111,7 +126,6 @@ export function StoryPlayer({
   const restart = async () => {
     if (transitionLock.current) return;
     transitionLock.current = true;
-    setTransitioning(true);
     try {
       await preloadBeatAssets(firstBeat, true);
       setBeatId(firstBeat.id);
@@ -119,7 +133,6 @@ export function StoryPlayer({
       setCharacters(firstBeat.characters ?? []);
     } finally {
       transitionLock.current = false;
-      setTransitioning(false);
     }
   };
 
@@ -196,12 +209,6 @@ export function StoryPlayer({
             );
           })}
         </div>
-
-        {transitioning && (
-          <div className="story-transition-overlay" role="status" aria-live="polite">
-            <span className="story-transition-indicator">Just a moment… ♡</span>
-          </div>
-        )}
 
         {beat.type === "end" ? (
           <section className="story-dialogue-panel story-ending-panel" aria-live="polite">
