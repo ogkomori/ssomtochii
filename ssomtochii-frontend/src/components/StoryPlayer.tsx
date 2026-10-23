@@ -50,9 +50,15 @@ export function StoryPlayer({
   const [beatId, setBeatId] = useState(firstBeat.id);
   const [background, setBackground] = useState(firstBeat.background);
   const [characters, setCharacters] = useState<StoryCharacter[]>(firstBeat.characters ?? []);
+  const [assetsReady, setAssetsReady] = useState(false);
 
   useEffect(() => {
-    void preloadStoryAssets(story, firstBeat);
+    let cancelled = false;
+    setAssetsReady(false);
+    void preloadStoryAssets(story, firstBeat).then(() => {
+      if (!cancelled) setAssetsReady(true);
+    });
+    return () => { cancelled = true; };
   }, [story, firstBeat]);
 
   const beat = getBeat(story, beatId) ?? firstBeat;
@@ -86,6 +92,16 @@ export function StoryPlayer({
     setBackground(firstBeat.background);
     setCharacters(firstBeat.characters ?? []);
   };
+
+  if (!assetsReady) {
+    return (
+      <main className="story-player-shell">
+        <div className="story-stage flex min-h-[70dvh] items-center justify-center text-center">
+          <p className="font-script text-4xl">Getting the scenes ready… ♡</p>
+        </div>
+      </main>
+    );
+  }
 
   // The same incoming-call UI used before Day 1 can also appear mid-story.
   if (beat.type === "incoming-call") {
