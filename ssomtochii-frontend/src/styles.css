@@ -210,7 +210,17 @@
   .reel-label { @apply mb-1 block text-[0.6rem] font-bold tracking-[0.2em] text-primary-foreground; }
   .reel-window { @apply relative h-[162px] overflow-hidden rounded-lg border-2 border-card bg-card; }
   .reel-track { transition: transform 4.1s cubic-bezier(.12,.68,.1,1); }
-  .reel-character { @apply grid h-[54px] place-items-center font-script text-5xl text-foreground; }
+  .reel-character { @apply grid h-[54px] place-items-center; }
+  .reel-gift-box { @apply relative block h-8 w-9 rounded-sm border border-emerald-900/40 bg-emerald-600 shadow-sm; background-image: linear-gradient(to bottom, #31a56c, #16804d); }
+  .reel-gift-ribbon { @apply absolute inset-y-0 left-1/2 w-2 -translate-x-1/2; background: linear-gradient(to right, #c99a2e, #ffe7a0, #c99a2e); }
+  .reel-gift-ribbon::before { content: ""; @apply absolute -top-1 left-1/2 h-2 w-2 -translate-x-1/2 rounded-full; background: #f7d675; }
+  .reel-gift-bow { @apply absolute -top-2 left-1/2 h-3 w-5 -translate-x-1/2; }
+  .reel-gift-bow::before, .reel-gift-bow::after { content: ""; @apply absolute top-0 h-2.5 w-3 rounded-full border border-amber-700/50; background: linear-gradient(135deg, #ffe7a0, #c99a2e); }
+  .reel-gift-bow::before { @apply left-0; transform: rotate(28deg); }
+  .reel-gift-bow::after { @apply right-0; transform: rotate(-28deg); }
+  .compliment-prize { @apply mt-2 flex w-full max-w-xs flex-col items-center rounded-2xl border border-amber-300/70 bg-emerald-50/90 px-5 py-6 text-emerald-950 shadow-sm; }
+  .compliment-prize-eyebrow { @apply mb-2 text-[0.65rem] font-bold tracking-[0.2em] text-emerald-800; }
+  .compliment-prize-letter { @apply mt-2 text-xs text-emerald-800/80; }
   .reel-marker { @apply pointer-events-none absolute inset-x-0 top-[52px] h-[54px] border-y-2 border-dashed border-blossom bg-blossom/10; }
   .scramble-clue { @apply rounded-xl bg-secondary/60 p-3 text-sm text-foreground/80; }
   .scramble-letters { @apply flex flex-wrap justify-center gap-2 py-2; touch-action: none; }
