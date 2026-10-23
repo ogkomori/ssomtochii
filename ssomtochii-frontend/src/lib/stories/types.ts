@@ -78,7 +78,14 @@ export interface IncomingCallBeat extends StoryBeatBase {
   next: number;
 }
 
-export type StoryBeat = DialogueBeat | NarrationBeat | ChoiceBeat | EndBeat | IncomingCallBeat;
+/** A display-only outgoing call screen with a single red decline icon. */
+export interface OutgoingCallBeat extends StoryBeatBase {
+  type: "outgoing-call";
+  callerName?: string;
+  next: number;
+}
+
+export type StoryBeat = DialogueBeat | NarrationBeat | ChoiceBeat | EndBeat | IncomingCallBeat | OutgoingCallBeat;
 
 export interface StoryDefinition {
   title: string;
