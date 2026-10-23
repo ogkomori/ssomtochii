@@ -63,18 +63,31 @@ function getBeatImageSources(beat: StoryBeat): string[] {
     }
   }
 
+  // The phone scene includes this profile image outside the character list.
+  if (beat.scene === "phone") {
+    const contactName = beat.phone?.contactName ?? "Tega";
+    const contactImage = beat.phone?.contactImage
+      ?? (contactName.trim().toLowerCase() === "tega" ? "/images/tega-profile.png" : undefined);
+    if (contactImage) sources.add(contactImage);
+  }
+
   return [...sources];
 }
 
-/** True when the opening scene's images have loaded successfully. */
-export function areStoryAssetsLoaded(_story: StoryDefinition, openingBeat: StoryBeat): boolean {
-  return getBeatImageSources(openingBeat).every((source) => loadedImages.has(source));
+/** Check whether all images for one scene have loaded successfully. */
+export function areBeatAssetsLoaded(beat: StoryBeat): boolean {
+  return getBeatImageSources(beat).every((source) => loadedImages.has(source));
+}
+
+/** Ensure one scene's images are loaded and decoded before it is displayed. */
+export async function preloadBeatAssets(beat: StoryBeat, priority = true): Promise<void> {
+  await Promise.all(getBeatImageSources(beat).map((source) => preloadImage(source, priority)));
 }
 
 /**
- * Prioritise the opening scene so playback can begin quickly, then warm the
- * remaining scene assets in the background. A later scene should never keep
- * the entire story blocked behind a slow or missing image.
+ * Prioritise the opening scene so playback can begin quickly, then warm later
+ * scene assets in story order in the background. Per-scene loading remains
+ * available as a fallback when the user reaches a scene before it is ready.
  */
 export async function preloadStoryAssets(story: StoryDefinition, openingBeat: StoryBeat): Promise<void> {
   const openingSources = getBeatImageSources(openingBeat);
@@ -87,12 +100,8 @@ export async function preloadStoryAssets(story: StoryDefinition, openingBeat: St
     }
   }
 
-  // Only the first scene is a hard gate. Failed requests resolve too, so a
-  // missing asset can't leave the player stuck on its loading screen.
   await Promise.all(openingSources.map((source) => preloadImage(source, true)));
 
-  // Continue warming later scenes without making StoryPlayer wait for every
-  // image in the full story before it can render.
   const queue = [...remainingSources];
   let nextIndex = 0;
   const workerCount = Math.min(3, queue.length);
@@ -102,5 +111,6 @@ export async function preloadStoryAssets(story: StoryDefinition, openingBeat: St
       if (source) await preloadImage(source);
     }
   });
+  // Warm the remaining images without making playback wait for the whole story.
   void Promise.all(workers);
 }
