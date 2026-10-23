@@ -45,6 +45,29 @@ function Index() {
     return () => window.clearInterval(interval);
   }, []);
 
+
+  useEffect(() => {
+    // Warm every unique card photo after the homepage mounts, so carousel
+    // swipes can reuse cached images instead of starting a fresh request.
+    const sources = Array.from(new Set(DAYS.map((day) => day.image).filter(Boolean))) as string[];
+    let nextIndex = 0;
+    const workers = Array.from({ length: Math.min(6, sources.length) }, async () => {
+      while (nextIndex < sources.length) {
+        const src = sources[nextIndex++];
+        if (!src) continue;
+        await new Promise<void>((resolve) => {
+          const image = new Image();
+          image.decoding = "async";
+          image.onload = () => resolve();
+          image.onerror = () => resolve();
+          image.src = src;
+          if (image.complete) resolve();
+        });
+      }
+    });
+    void Promise.all(workers);
+  }, []);
+
   const displayDays = DAYS.map((day) => ({
     ...day,
     state: calendarDate ? getDayState(day, progress, calendarDate) : "locked" as const,
