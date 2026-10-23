@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Trophy } from "lucide-react";
+import { BookOpen, Heart, Trophy, Volume2 } from "lucide-react";
 import { useState } from "react";
 import { Botanicals } from "@/components/Botanicals";
 import { COMPLIMENTS } from "@/lib/compliments";
@@ -7,7 +7,7 @@ import { COMPLIMENTS } from "@/lib/compliments";
 const slots = Array.from({ length: 10 }, () => COMPLIMENTS).flat();
 const height = 54;
 
-/** End-of-day reward: one randomly selected compliment, with a personal note. */
+/** End-of-day reward: one randomly selected dictionary-style compliment. */
 export function DailyWheel({ day }: { day: number }) {
   const [spinning, setSpinning] = useState(false);
   const [prizeIndex, setPrizeIndex] = useState<number | null>(null);
@@ -27,6 +27,19 @@ export function DailyWheel({ day }: { day: number }) {
     }, 4200);
   };
 
+  const speakWord = (word: string) => {
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = "en-GB";
+    utterance.rate = 0.82;
+    const britishVoice = window.speechSynthesis
+      .getVoices()
+      .find((voice) => voice.lang.toLowerCase() === "en-gb");
+    if (britishVoice) utterance.voice = britishVoice;
+    window.speechSynthesis.speak(utterance);
+  };
+
   const offset = stopAt ? stopAt * height - height : 0;
   const prize = prizeIndex === null ? null : COMPLIMENTS[prizeIndex];
 
@@ -37,31 +50,77 @@ export function DailyWheel({ day }: { day: number }) {
         <div className="day-one-copy reward-page-shell items-center text-center">
           <Trophy className="h-8 w-8 text-blossom" />
           <p className="day-one-eyebrow">DAY {day} REWARD</p>
-          {prize ? <>
-            <div className="compliment-prize" aria-label={`Your compliment is ${prize.word}`}>
-              <span className="compliment-prize-eyebrow">TODAY'S COMPLIMENT</span>
-              <h1 className="font-script text-5xl leading-tight">{prize.word}</h1>
-              <span className="compliment-prize-letter">A little word for the letter {prize.letter}</span>
-            </div>
-            <p className="mt-4 max-w-sm text-foreground/80">{prize.message || "Your little message goes here. ♡"}</p>
-            <h2 className="mt-3 font-script text-3xl leading-none">A little reminder of how lovely you are. ♡</h2>
-            <Link to="/" className="next-button mt-5">Back to all days</Link>
-          </> : <>
-            <h2 className="font-script text-4xl leading-none">A little gift, just for you.</h2>
-            <p>Every box holds a compliment. Let&apos;s see which one is yours today. ♡</p>
-            <div className="reel-machine">
-              <span className="reel-label">COMPLIMENT OF THE DAY</span>
-              <div className="reel-window" aria-label="Gift boxes spinning">
-                <div className="reel-track" style={{ transform: `translateY(-${offset}px)` }}>
-                  {slots.map((_, index) => <span className="reel-character" key={index} aria-hidden="true">
-                    <span className="reel-gift-box"><span className="reel-gift-ribbon" /><span className="reel-gift-bow" /></span>
-                  </span>)}
+          {prize ? (
+            <>
+              <article className="dictionary-page" aria-label={`Dictionary entry for ${prize.word}`}>
+                <header className="dictionary-header">
+                  <span>HER LITTLE DICTIONARY</span>
+                  <Heart aria-hidden="true" />
+                </header>
+
+                <div className="dictionary-word-block">
+                  <h1>{prize.word}</h1>
+                  <div className="dictionary-pronunciation-row">
+                    <span className="dictionary-pronunciation">{prize.pronunciation}</span>
+                    <button
+                      type="button"
+                      className="dictionary-speak-button"
+                      onClick={() => speakWord(prize.word)}
+                      aria-label={`Hear ${prize.word} pronounced`}
+                      title="Hear pronunciation"
+                    >
+                      <Volume2 aria-hidden="true" />
+                    </button>
+                  </div>
+                  <span className="dictionary-part-of-speech">{prize.partOfSpeech}</span>
                 </div>
-                <span className="reel-marker" aria-hidden="true" />
+
+                <section className="dictionary-definition">
+                  <p className="dictionary-section-label">DEFINITION</p>
+                  <p>{prize.definition}</p>
+                </section>
+
+                <section className="dictionary-personal-note">
+                  <div className="dictionary-note-heading">
+                    <Heart aria-hidden="true" />
+                    <span>A little note from me</span>
+                  </div>
+                  <p className={prize.message ? "" : "dictionary-note-placeholder"}>
+                    {prize.message || "Your personal message for this word will go here. ♡"}
+                  </p>
+                  {prize.message && <p className="dictionary-signoff">— yours, always ♡</p>}
+                </section>
+
+                <footer className="dictionary-footer">
+                  <span>{String(prizeIndex + 1).padStart(2, "0")} / {String(COMPLIMENTS.length).padStart(2, "0")}</span>
+                  <span><BookOpen aria-hidden="true" /> MADE JUST FOR YOU</span>
+                </footer>
+              </article>
+              <h2 className="mt-4 font-script text-3xl leading-none">A little reminder of how lovely you are. ♡</h2>
+              <Link to="/" className="next-button mt-5">Back to all days</Link>
+            </>
+          ) : (
+            <>
+              <h2 className="font-script text-4xl leading-none">A little gift, just for you.</h2>
+              <p>Every box holds a compliment. Let&apos;s see which one is yours today. ♡</p>
+              <div className="reel-machine">
+                <span className="reel-label">COMPLIMENT OF THE DAY</span>
+                <div className="reel-window" aria-label="Gift boxes spinning">
+                  <div className="reel-track" style={{ transform: `translateY(-${offset}px)` }}>
+                    {slots.map((_, index) => (
+                      <span className="reel-character" key={index} aria-hidden="true">
+                        <span className="reel-gift-box"><span className="reel-gift-ribbon" /><span className="reel-gift-bow" /></span>
+                      </span>
+                    ))}
+                  </div>
+                  <span className="reel-marker" aria-hidden="true" />
+                </div>
               </div>
-            </div>
-            <button type="button" className="next-button" onClick={spin} disabled={spinning}>{spinning ? "Unwrapping…" : "Open a gift"}</button>
-          </>}
+              <button type="button" className="next-button" onClick={spin} disabled={spinning}>
+                {spinning ? "Unwrapping…" : "Open a gift"}
+              </button>
+            </>
+          )}
         </div>
       </div>
     </main>
