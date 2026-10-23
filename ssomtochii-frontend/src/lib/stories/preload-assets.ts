@@ -28,13 +28,9 @@ function preloadImage(src: string, priority = false): Promise<void> {
   imageLoads.set(src, load);
   const image = new Image();
   image.decoding = "async";
-  if ("fetchPriority" in image) {
-    image.fetchPriority = priority ? "high" : "low";
-  }
+  if ("fetchPriority" in image) image.fetchPriority = priority ? "high" : "low";
 
   image.onload = () => {
-    // Wait for decode where supported so the first visible frame is less likely
-    // to flash while the browser decodes a large character sprite.
     if (typeof image.decode === "function") {
       void image.decode().then(
         () => finish(true),
@@ -70,11 +66,15 @@ function getBeatImageSources(beat: StoryBeat): string[] {
   return [...sources];
 }
 
+/** True when the opening scene's images have loaded successfully. */
+export function areStoryAssetsLoaded(_story: StoryDefinition, openingBeat: StoryBeat): boolean {
+  return getBeatImageSources(openingBeat).every((source) => loadedImages.has(source));
+}
+
 /**
- * Load every image used by a story before playback begins. The module-level
- * cache deduplicates requests across the welcome screen, story playback, and
- * later visits. The opening scene is prioritised; the rest are fetched with a
- * small concurrency limit to avoid overwhelming mobile connections.
+ * Prioritise the opening scene so playback can begin quickly, then warm the
+ * remaining scene assets in the background. A later scene should never keep
+ * the entire story blocked behind a slow or missing image.
  */
 export async function preloadStoryAssets(story: StoryDefinition, openingBeat: StoryBeat): Promise<void> {
   const openingSources = getBeatImageSources(openingBeat);
@@ -87,28 +87,20 @@ export async function preloadStoryAssets(story: StoryDefinition, openingBeat: St
     }
   }
 
+  // Only the first scene is a hard gate. Failed requests resolve too, so a
+  // missing asset can't leave the player stuck on its loading screen.
   await Promise.all(openingSources.map((source) => preloadImage(source, true)));
 
+  // Continue warming later scenes without making StoryPlayer wait for every
+  // image in the full story before it can render.
   const queue = [...remainingSources];
   let nextIndex = 0;
-  const workerCount = Math.min(4, queue.length);
+  const workerCount = Math.min(3, queue.length);
   const workers = Array.from({ length: workerCount }, async () => {
     while (nextIndex < queue.length) {
-      const source = queue[nextIndex];
-      nextIndex += 1;
+      const source = queue[nextIndex++];
       if (source) await preloadImage(source);
     }
   });
-
-  await Promise.all(workers);
-}
-
-/** True only when every image referenced by this story loaded and decoded. */
-export function areStoryAssetsLoaded(story: StoryDefinition, openingBeat: StoryBeat): boolean {
-  const sources = new Set<string>();
-  for (const beat of story.beats) {
-    for (const source of getBeatImageSources(beat)) sources.add(source);
-  }
-  for (const source of getBeatImageSources(openingBeat)) sources.add(source);
-  return [...sources].every((source) => loadedImages.has(source));
+  void Promise.all(workers);
 }
