@@ -1,5 +1,5 @@
 import type { StoryCharacter, StoryDefinition } from "./types";
-import { placeCharacter, upwards, pose6Walking, neutral, smiling, speaking, pose8Thinking, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraLaughing, zaraSurprised, zaraExplaining, pose7HappyDialogue, pose1Neutral, pose10Explaining, pose9Laughing, pose13ArmsCrossed, pose12ConfidentStanding, zaraLaughingAlone, pose10ExplainingAlone, pose7HappyDialogueAlone, zaraHappyAlone, pose13ArmsCrossedAlone, zaraConcernedAlone, pose11SeriousConcerned } from "./character-poses";
+import { placeCharacter, upwards, pose6Walking, neutral, smiling, speaking, pose8Thinking, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraLaughing, zaraSurprised, zaraExplaining, pose7HappyDialogue, pose1Neutral, pose10Explaining, pose9Laughing, pose13ArmsCrossed, pose12ConfidentStanding, zaraLaughingAlone, pose10ExplainingAlone, pose7HappyDialogueAlone, zaraHappyAlone, pose13ArmsCrossedAlone, zaraConcernedAlone, pose11SeriousConcerned, behind } from "./character-poses";
 import { SOMTO, ZARA } from "./speakers";
 
 const somtoLeft = (pose: StoryCharacter) => placeCharacter(pose, "somto", "Somto", "left");
@@ -34,7 +34,7 @@ export const DAY_FOUR_STORY: StoryDefinition = {
       id: 3,
       type: "narration",
       scene: "character",
-      characters: [upwards],
+      characters: [behind],
       text: "All of a sudden, she overhears someone being rude to another coworker...",
       next: 4,
     },

@@ -257,7 +257,7 @@ export const DAY_TWO_STORY: StoryDefinition = {
       type: "end",
       scene: "character",
       characters: [sitting],
-      text: "Somto ends the call feeling excited about the party's look—but the reminder about ten paid places leaves her thinking about the guest list.",
+      text: "Somto ends the call feeling excited about the party's look, but the reminder about ten paid places leaves her thinking about the guest list.",
     },
   ],
 };
