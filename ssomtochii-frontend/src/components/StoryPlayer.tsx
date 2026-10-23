@@ -12,9 +12,11 @@ function getBeat(story: StoryDefinition, id: StoryBeat["id"]) {
 function getBackgroundStyle(background?: string): CSSProperties {
   if (!background) return {};
   if (background.startsWith("/")) {
-    // File backgrounds are rendered as an <img> layer so they can be decoded
-    // alongside character sprites before the scene becomes visible.
-    return {};
+    return {
+      backgroundImage: `linear-gradient(180deg, rgb(20 34 28 / 8%), rgb(20 34 28 / 12%)), url("${background}")`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+    };
   }
   return { background };
 }
@@ -157,17 +159,6 @@ export function StoryPlayer({
   return (
     <main className="story-player-shell">
       <div className={`story-stage ${phoneScene ? "story-stage--phone" : ""} ${duoScene ? "story-stage--duo" : ""}`} style={phoneScene ? undefined : getBackgroundStyle(background)}>
-        {!phoneScene && background?.startsWith("/") && (
-          <img
-            key={background}
-            className="story-background-image"
-            src={background}
-            alt=""
-            aria-hidden="true"
-            decoding="async"
-            fetchPriority="high"
-          />
-        )}
         <header className="story-test-header">
           <button type="button" className="story-exit-button" onClick={onExit}>
             <ArrowLeft className="h-4 w-4" /> {exitLabel}
