@@ -53,21 +53,20 @@ export const DAYS: Day[] = Array.from({ length: 16 }, (_, i) => {
     state: "locked",
     story: storyIds[i],
     activity: i === 0 ? "day-one-journey" :
-              i === 1 ? "word-scramble" :
-              i === 2 ? "memory-match" :
-              i === 3 ? "mini-crossword" :
-              i === 4 ? "wordle" :
-              i === 5 ? "sliding-puzzle" :
-              i === 6 ? "mini-golf" :
-              i === 7 ? "cup-pong" :
-              i === 8 ? "connections" :
-              i === 9 ? "emoji-pictionary" :
-              i === 10 ? "flow-free" :
+              i === 1 ? "hangman" :
+              i === 2 ? "sliding-puzzle" :
+              i === 3 ? "emoji-pictionary" :
+              i === 4 ? "mini-golf" :
+              i === 5 ? "wordle" :
+              i === 6 ? "flow-free" :
+              i === 7 ? "memory-match" :
+              i === 8 ? "cup-pong" :
+              i === 9 ? "connections" :
+              i === 10 ? "mini-crossword" :
               i === 11 ? "coming-soon" :
-              i === 12 ? "plinko" :
-              i === 13 ? "memory-lane" :
-              i === 14 ? "hangman" :
-              "coming-soon",
+              i === 12 ? "memory-lane" :
+              i === 13 ? "word-scramble" :
+              "plinko",
   };
 });
 
