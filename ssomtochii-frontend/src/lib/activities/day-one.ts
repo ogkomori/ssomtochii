@@ -14,7 +14,7 @@ export const DAY_ONE_CONTENT = {
   video: {
     // Put the file in public/videos, then change this to "/videos/day-one-introduction.mp4".
     // A hosted video URL works here too.
-    src: "",
+    src: "/videos/day-one-introduction.mp4",
     poster: "",
     caption: "A tiny note before we begin.",
   },
