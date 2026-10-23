@@ -3,7 +3,7 @@ import { ArrowLeft, RotateCcw } from "lucide-react";
 import type { CSSProperties } from "react";
 import type { StoryBeat, StoryCharacter, StoryDefinition } from "@/lib/stories/types";
 import { IncomingCallScreen } from "@/components/IncomingCallScreen";
-import { preloadStoryAssets } from "@/lib/stories/preload-assets";
+import { areStoryAssetsLoaded, preloadStoryAssets } from "@/lib/stories/preload-assets";
 
 function getBeat(story: StoryDefinition, id: StoryBeat["id"]) {
   return story.beats.find((beat) => beat.id === id);
@@ -50,10 +50,14 @@ export function StoryPlayer({
   const [beatId, setBeatId] = useState(firstBeat.id);
   const [background, setBackground] = useState(firstBeat.background);
   const [characters, setCharacters] = useState<StoryCharacter[]>(firstBeat.characters ?? []);
-  const [assetsReady, setAssetsReady] = useState(false);
+  const [assetsReady, setAssetsReady] = useState(() => areStoryAssetsLoaded(story, firstBeat));
 
   useEffect(() => {
     let cancelled = false;
+    if (areStoryAssetsLoaded(story, firstBeat)) {
+      setAssetsReady(true);
+      return () => { cancelled = true; };
+    }
     setAssetsReady(false);
     void preloadStoryAssets(story, firstBeat).then(() => {
       if (!cancelled) setAssetsReady(true);
