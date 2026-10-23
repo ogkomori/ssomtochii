@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { BookOpen, Heart, Trophy, Volume2 } from "lucide-react";
+import { Heart, Volume2 } from "lucide-react";
 import { useState } from "react";
 import { Botanicals } from "@/components/Botanicals";
 import { COMPLIMENTS } from "@/lib/compliments";
@@ -48,13 +48,11 @@ export function DailyWheel({ day }: { day: number }) {
       <Botanicals />
       <div className="relative mx-auto w-full max-w-md">
         <div className="day-one-copy reward-page-shell items-center text-center">
-          <Trophy className="h-8 w-8 text-blossom" />
-          <p className="day-one-eyebrow">DAY {day} REWARD</p>
           {prize ? (
             <>
               <article className="dictionary-page" aria-label={`Dictionary entry for ${prize.word}`}>
                 <header className="dictionary-header">
-                  <span>HER LITTLE DICTIONARY</span>
+                  <span>COMPLIMENT OF THE DAY</span>
                   <Heart aria-hidden="true" />
                 </header>
 
@@ -83,20 +81,13 @@ export function DailyWheel({ day }: { day: number }) {
                 <section className="dictionary-personal-note">
                   <div className="dictionary-note-heading">
                     <Heart aria-hidden="true" />
-                    <span>A little note from me</span>
                   </div>
                   <p className={prize.message ? "" : "dictionary-note-placeholder"}>
                     {prize.message || "Your personal message for this word will go here. ♡"}
                   </p>
-                  {prize.message && <p className="dictionary-signoff">— yours, always ♡</p>}
+                  {prize.message && <p className="dictionary-signoff">— yours truly ♡</p>}
                 </section>
-
-                <footer className="dictionary-footer">
-                  <span>{String(prizeIndex + 1).padStart(2, "0")} / {String(COMPLIMENTS.length).padStart(2, "0")}</span>
-                  <span><BookOpen aria-hidden="true" /> MADE JUST FOR YOU</span>
-                </footer>
               </article>
-              <h2 className="mt-4 font-script text-3xl leading-none">A little reminder of how lovely you are. ♡</h2>
               <Link to="/" className="next-button mt-5">Back to all days</Link>
             </>
           ) : (
