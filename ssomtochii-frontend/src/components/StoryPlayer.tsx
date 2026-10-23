@@ -3,7 +3,7 @@ import { ArrowLeft, RotateCcw } from "lucide-react";
 import type { CSSProperties } from "react";
 import type { StoryBeat, StoryCharacter, StoryDefinition } from "@/lib/stories/types";
 import { IncomingCallScreen } from "@/components/IncomingCallScreen";
-import { areBeatAssetsLoaded, preloadBeatAssets, preloadStoryAssets } from "@/lib/stories/preload-assets";
+import { areBeatAssetsLoaded, getImageAspectRatio, preloadBeatAssets, preloadStoryAssets } from "@/lib/stories/preload-assets";
 
 function getBeat(story: StoryDefinition, id: StoryBeat["id"]) {
   return story.beats.find((beat) => beat.id === id);
@@ -184,14 +184,19 @@ export function StoryPlayer({
             ].filter(Boolean).join(" ") || undefined;
 
             return (
-              <img
+              <div
                 key={character.id}
                 className={`story-sprite story-sprite--${character.position}`}
-                src={character.image}
-                alt={character.alt ?? character.name}
-                decoding="async"
-                fetchPriority="high"
-                style={{ transform }}
+                role="img"
+                aria-label={character.alt ?? character.name}
+                style={{
+                  backgroundImage: `url("${character.image}")`,
+                  backgroundSize: "contain",
+                  backgroundPosition: "center bottom",
+                  backgroundRepeat: "no-repeat",
+                  aspectRatio: String(getImageAspectRatio(character.image) ?? (2 / 3)),
+                  transform,
+                }}
               />
             );
           })}
