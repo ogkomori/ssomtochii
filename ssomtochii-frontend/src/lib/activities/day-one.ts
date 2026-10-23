@@ -23,23 +23,23 @@ export const DAY_ONE_CONTENT = {
     answers: [
       {
         text: "We met in JMC and we were admitted in 2016",
-        feedback: "The JMC and 2016 connection is a cute guess, but that isn't the reason I picked this countdown. ♡",
+        feedback: "Not a bad guess. We didn't meet in 2016 tho...",
       },
       {
         text: "We were 16 the first time we got together",
-        feedback: "That would make a lovely story, wouldn't it? But the number 16 came from something a little more cinematic.",
+        feedback: "Nope, we were actually 15 the first time we got together",
       },
       {
         text: "The Final 16 Minutes of High School Musical 3",
-        feedback: "YESSS, you got it! It's a nod to the final 16 minutes of High School Musical 3. You know me too well. ♡",
+        feedback: "You got it!",
       },
       {
         text: "Our birthdays are 16 weeks apart",
-        feedback: "The birthday maths was tempting, I'll give you that — but this one is actually a High School Musical 3 reference.",
+        feedback: "The math isn't mathing babe, our birthdays are 19 weeks apart",
       },
       {
         text: "It was just random",
-        feedback: "You really thought I'd choose 16 days for no reason? 😭 There's a High School Musical 3 reference behind it.",
+        feedback: "Haba. I know you don't believe that.",
       },
     ],
     correctAnswer: 2,
