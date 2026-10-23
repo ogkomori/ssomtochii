@@ -1,29 +1,14 @@
 import type { StoryCharacter, StoryDefinition } from "./types";
-import {
-  placeCharacter,
-  smiling,
-  neutral,
-  speaking,
-  pose8Thinking,
-  pose11SeriousConcerned,
-  zaraNeutral,
-  zaraHappy,
-  zaraSad,
-  zaraHappyDialogue,
-  zaraThinking,
-  zaraExplaining,
-  zaraSurprised,
-} from "./character-poses";
+import { placeCharacter, smiling, neutral, speaking, pose8Thinking, pose7HappyDialogue, pose10Explaining, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraLaughing, zaraThinking, zaraExplaining } from "./character-poses";
 import { SOMTO, ZARA } from "./speakers";
-
-export type PartySizeChoice = "party-size-10-pay-extra" | "party-size-5-total";
 
 const somtoLeft = (pose: StoryCharacter) => placeCharacter(pose, "somto", "Somto", "left");
 const zaraRight = (pose: StoryCharacter) => placeCharacter(pose, "zara", "Zara", "right");
 const together = (somtoPose: StoryCharacter, zaraPose: StoryCharacter) => [somtoLeft(somtoPose), zaraRight(zaraPose)];
 
-const DAY_FIVE_LARGE_PARTY_STORY: StoryDefinition = {
-  title: "A Small Favour",
+/** Day 5: Somto and Zara get coffee and start getting to know each other. */
+export const DAY_FIVE_STORY: StoryDefinition = {
+  title: "Coffee with Zara",
   subtitle: "Day 5",
   startAt: 1,
   beats: [
@@ -33,7 +18,7 @@ const DAY_FIVE_LARGE_PARTY_STORY: StoryDefinition = {
       scene: "character",
       background: "linear-gradient(180deg, #d9e8e0 0%, #f4e8e4 58%, #d7dfc7 100%)",
       characters: together(neutral, zaraNeutral),
-      text: "The next day, Zara catches Somto between tasks and asks how the birthday plans are coming along.",
+      text: "The next day, Somto meets Zara for coffee. She's still not quite sure what to make of her, but she's curious enough to find out.",
       next: 2,
     },
     {
@@ -42,7 +27,7 @@ const DAY_FIVE_LARGE_PARTY_STORY: StoryDefinition = {
       scene: "character",
       speaker: ZARA,
       characters: together(neutral, zaraHappyDialogue),
-      text: "So, birthday girl. Have the plans started coming together yet?",
+      text: "Look at us, actually making time for coffee. I was starting to think you'd decided I was too much trouble.",
       next: 3,
     },
     {
@@ -51,7 +36,7 @@ const DAY_FIVE_LARGE_PARTY_STORY: StoryDefinition = {
       scene: "character",
       speaker: SOMTO,
       characters: together(pose8Thinking, zaraNeutral),
-      text: "Mostly. The venue has a booking for ten, but I only have six people confirmed. If I can't fill the other places, I'd have to pay for them myself.",
+      text: "I did consider it. But I figured I should get to know you before I make that decision.",
       next: 4,
     },
     {
@@ -59,8 +44,8 @@ const DAY_FIVE_LARGE_PARTY_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: together(neutral, zaraThinking),
-      text: "And how much is each place?",
+      characters: together(neutral, zaraLaughing),
+      text: "Wow. At least you're honest. I respect that.",
       next: 5,
     },
     {
@@ -68,8 +53,8 @@ const DAY_FIVE_LARGE_PARTY_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: together(speaking, zaraNeutral),
-      text: "Fifty euros. I can manage some of it, but paying for empty places feels ridiculous.",
+      characters: together(smiling, zaraNeutral),
+      text: "So why did you move here? New job, or was there more to it?",
       next: 6,
     },
     {
@@ -77,8 +62,8 @@ const DAY_FIVE_LARGE_PARTY_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: together(neutral, zaraHappy),
-      text: "Then let me help you cover the gap. It's your birthday, not a financial stress test.",
+      characters: together(neutral, zaraExplaining),
+      text: "Mostly the job. I wanted a fresh start, and I thought a new place might be good for me. I'm still figuring it out, though.",
       next: 7,
     },
     {
@@ -86,8 +71,8 @@ const DAY_FIVE_LARGE_PARTY_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: together(smiling, zaraHappy),
-      text: "Are you sure? I don't want you to feel like you have to.",
+      characters: together(speaking, zaraNeutral),
+      text: "I get that. Starting over can be exciting, but it can also be a lot.",
       next: 8,
     },
     {
@@ -95,47 +80,53 @@ const DAY_FIVE_LARGE_PARTY_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: together(neutral, zaraExplaining),
-      text: "I'm sure. But if I'm helping, let me help make the party amazing too. I know a place, I know a DJ, and I could bring a few people who'd make the night unforgettable.",
+      characters: together(neutral, zaraThinking),
+      text: "Exactly. And you? You seem like you know your way around here.",
       next: 9,
     },
     {
       id: 9,
-      type: "choice",
+      type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: together(pose8Thinking, zaraHappy),
-      text: "That's generous of her. But if I accept, I might have to share control of the plans. What should I do?",
-      choices: [
-        { id: "zara-money-accept-influence", label: "Let Zara help shape the party", next: 10 },
-        { id: "zara-money-boundary", label: "Accept the help, but keep the final say", next: 12 },
-      ],
+      characters: together(pose7HappyDialogue, zaraNeutral),
+      text: "I've been here a while. Work keeps me busy, and I'm trying to plan my birthday without stressing myself out.",
+      next: 10,
     },
     {
       id: 10,
       type: "dialogue",
       scene: "character",
-      speaker: SOMTO,
-      characters: together(smiling, zaraHappy),
-      text: "Okay. Help me make it amazing, then. Just promise me we'll still make it feel like my birthday.",
+      speaker: ZARA,
+      characters: together(neutral, zaraHappyDialogue),
+      text: "Birthday? When is it? And what are you planning?",
       next: 11,
     },
     {
       id: 11,
       type: "dialogue",
       scene: "character",
-      speaker: ZARA,
-      characters: together(neutral, zaraHappyDialogue),
-      text: "Obviously! Leave it to me. You're going to love what I come up with.",
-      next: 13,
+      speaker: SOMTO,
+      characters: together(pose8Thinking, zaraNeutral),
+      text: "Soon. I want a good night with my people, but I'm still figuring out the guest list.",
+      next: 12,
     },
     {
       id: 12,
       type: "dialogue",
       scene: "character",
+      speaker: ZARA,
+      characters: together(neutral, zaraHappy),
+      text: "Well, if you're looking for another person to invite, I'd be offended if you didn't at least consider me.",
+      next: 13,
+    },
+    {
+      id: 13,
+      type: "dialogue",
+      scene: "character",
       speaker: SOMTO,
-      characters: together(speaking, zaraNeutral),
-      text: "I'd really appreciate the help. But I want to make the final decisions about my own birthday, okay?",
+      characters: together(pose8Thinking, zaraNeutral),
+      text: "You know what? I was going to wait, but I've actually enjoyed this. Would you want to come to my birthday?",
       next: 14,
     },
     {
@@ -143,121 +134,16 @@ const DAY_FIVE_LARGE_PARTY_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: together(neutral, zaraThinking),
-      text: "Of course, babe. It's your birthday. I'll just be your very expensive support system.",
-      next: 13,
+      characters: together(smiling, zaraHappyDialogue),
+      text: "Obviously! I was hoping you'd ask.",
+      next: 15,
     },
     {
-      id: 13,
+      id: 15,
       type: "end",
       scene: "character",
       characters: together(smiling, zaraHappy),
-      text: "Zara is happy to help. Somto is grateful, though she wonders how much influence the favour will bring with it.",
+      text: "Somto leaves the coffee meet feeling better about Zara than she expected. She still isn't sure what their friendship will look like, but at least the birthday guest list has one more name.",
     },
   ],
 };
-
-const DAY_FIVE_SMALL_PARTY_STORY: StoryDefinition = {
-  title: "The Smaller List",
-  subtitle: "Day 5",
-  startAt: 101,
-  beats: [
-    {
-      id: 101,
-      type: "narration",
-      scene: "character",
-      background: "linear-gradient(180deg, #d9e8e0 0%, #f4e8e4 58%, #d7dfc7 100%)",
-      characters: together(neutral, zaraNeutral),
-      text: "The next day, Zara catches Somto between tasks and asks about the birthday plans. Somto has reduced the booking to five people, which means she has to decide what to do about her newest invitation.",
-      next: 102,
-    },
-    {
-      id: 102,
-      type: "dialogue",
-      scene: "character",
-      speaker: ZARA,
-      characters: together(neutral, zaraHappyDialogue),
-      text: "So, are we still celebrating together? I've been thinking about what I could wear.",
-      next: 103,
-    },
-    {
-      id: 103,
-      type: "dialogue",
-      scene: "character",
-      speaker: SOMTO,
-      characters: together(pose8Thinking, zaraNeutral),
-      text: "I had to reduce the booking to five people. I already had my original list before I invited you, so now I have to decide whether to change that list or tell you I'm sorry.",
-      next: 104,
-    },
-    {
-      id: 104,
-      type: "choice",
-      scene: "character",
-      speaker: SOMTO,
-      characters: together(pose8Thinking, zaraThinking),
-      text: "I do want Zara there. But I also don't want my birthday to become something I didn't plan. What should I do?",
-      choices: [
-        { id: "zara-keep-small-party", label: "Keep Zara and rethink the guest list", next: 105 },
-        { id: "zara-uninvite-small-party", label: "Stick with my original five and uninvite Zara", next: 108 },
-      ],
-    },
-    {
-      id: 105,
-      type: "dialogue",
-      scene: "character",
-      speaker: SOMTO,
-      characters: together(smiling, zaraSurprised),
-      text: "I want you there, Zara. I'll work out the guest list, but I need you to understand this is still my birthday.",
-      next: 106,
-    },
-    {
-      id: 106,
-      type: "dialogue",
-      scene: "character",
-      speaker: ZARA,
-      characters: together(neutral, zaraHappy),
-      text: "Of course, babe! I can be chill. Mostly.",
-      next: 107,
-    },
-    {
-      id: 107,
-      type: "end",
-      scene: "character",
-      characters: together(pose8Thinking, zaraHappy),
-      text: "Somto keeps Zara on the list. She's glad to have her friend there, but she'll have to decide which of the original guests to leave out—and keep an eye on Zara's tendency to take over.",
-    },
-    {
-      id: 108,
-      type: "dialogue",
-      scene: "character",
-      speaker: SOMTO,
-      characters: together(pose11SeriousConcerned, zaraNeutral),
-      text: "I'm sorry, Zara. The smaller booking means I have to stick with my original list. I shouldn't have invited you before I knew what I could afford.",
-      next: 109,
-    },
-    {
-      id: 109,
-      type: "dialogue",
-      scene: "character",
-      speaker: ZARA,
-      characters: together(neutral, zaraSad),
-      text: "Oh. Right. No, it's okay. I understand.",
-      next: 110,
-    },
-    {
-      id: 110,
-      type: "end",
-      scene: "character",
-      characters: together(pose11SeriousConcerned, zaraSad),
-      text: "Zara says it's fine, but her smile doesn't quite reach her eyes. Somto knows the decision may have changed their friendship.",
-    },
-  ],
-};
-
-/** Choose Day 5's scene based on the guest-count decision from Day 4. */
-export function getDayFiveStory(choice: PartySizeChoice | null): StoryDefinition {
-  return choice === "party-size-10-pay-extra" ? DAY_FIVE_LARGE_PARTY_STORY : DAY_FIVE_SMALL_PARTY_STORY;
-}
-
-/** Default when Day 5 is opened without a saved Day 4 decision. */
-export const DAY_FIVE_STORY = DAY_FIVE_SMALL_PARTY_STORY;
