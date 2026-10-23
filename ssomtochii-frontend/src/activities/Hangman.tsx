@@ -61,7 +61,7 @@ export function Hangman({ onComplete }: { onComplete: () => void }) {
       ))}
     </div>
     <div className="mx-auto grid max-w-sm grid-cols-7 gap-1.5">{alphabet.map((letter) => <button key={letter} type="button" disabled={finished || guesses.includes(letter)} onClick={() => guess(letter)} className={`grid aspect-square place-items-center rounded-md text-sm font-semibold disabled:opacity-35 ${guesses.includes(letter) ? answerLetters.includes(letter) ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground" : "bg-secondary text-foreground"}`}>{letter}</button>)}</div>
-    <p className="mt-4 min-h-6 text-sm text-muted-foreground">{won ? (isFinalLevel ? "You guessed all three songs!" : "Song guessed! Ready for the next one?") : lost ? `The song was ${answer}.` : message}</p>
+    <p className="mt-4 min-h-6 text-sm text-muted-foreground">{won ? (isFinalLevel ? "You guessed all songs right!" : "Song guessed! Ready for the next one?") : lost ? `The song was ${answer}.` : message}</p>
     {finished && <div className="mt-4 flex justify-center gap-3">
       {(!won || isFinalLevel) && <button type="button" className="inline-flex items-center gap-1 text-sm text-muted-foreground" onClick={reset}><RotateCcw className="h-4 w-4" /> Play again</button>}
       {won && (isFinalLevel
