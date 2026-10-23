@@ -1076,3 +1076,18 @@ button.story-dialogue-panel{cursor:pointer;font:inherit}
 .confetti-piece:nth-child(3n + 1) { width: 5px; height: 15px; }
 @keyframes confetti-fall { 0% { transform: translate3d(0, -2vh, 0) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 100% { transform: translate3d(var(--piece-drift), 108vh, 0) rotate(var(--piece-spin)); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .confetti-piece { animation-duration: 1ms; } }
+
+
+/* Outgoing calls show one fully visible, non-interactive red decline control. */
+.outgoing-call-screen .controls.single {
+  justify-content: center;
+}
+.outgoing-call-screen .outgoing-decline {
+  cursor: default;
+  opacity: 1;
+  filter: none;
+  pointer-events: none;
+}
+.outgoing-call-screen .outgoing-decline .icon {
+  background: oklch(0.62 0.19 25);
+}
