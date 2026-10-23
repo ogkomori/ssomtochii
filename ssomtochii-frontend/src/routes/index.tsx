@@ -132,7 +132,7 @@ function Index() {
               data-carousel-index={cycle * DAYS.length + i}
               aria-hidden={cycle !== 1 ? true : undefined}
             >
-              <DayCard day={d} index={i} />
+              <DayCard day={d} index={i} eager={cycle === 1 && (i === 15 || i === 0 || i === 1)} priority={cycle === 1 && i === 0} />
             </div>
           )))}
         </section>
