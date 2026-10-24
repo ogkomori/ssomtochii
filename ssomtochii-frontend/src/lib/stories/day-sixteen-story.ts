@@ -1,6 +1,6 @@
 import type { StoryDefinition } from "./types";
 import { SOMTO, TEGA, ZARA } from "./speakers";
-import { neutral, sitting, speaking, smiling, pose8Thinking, pose11SeriousConcerned, pose12ConfidentStanding, zaraNeutral, zaraHappy, zaraSad, zaraThinking } from "./character-poses";
+import { neutral, speaking, smiling, pose8Thinking, pose12ConfidentStanding, zaraNeutral, zaraSad, zaraThinking } from "./character-poses";
 
 /** Day 16: Somto's birthday becomes a reminder of how many people care about her. */
 export const DAY_SIXTEEN_STORY: StoryDefinition = {
