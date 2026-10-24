@@ -1,6 +1,10 @@
-import type { StoryDefinition } from "./types";
+import type { StoryCharacter, StoryDefinition } from "./types";
 import { SOMTO, TEGA, ZARA } from "./speakers";
-import { neutral, sitting, speaking, smiling, pose8Thinking, pose11SeriousConcerned, pose12ConfidentStanding, pose13ArmsCrossed, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraThinking, zaraSurprised } from "./character-poses";
+import { neutral, sitting, speaking, smiling, pose8Thinking, pose11SeriousConcerned, pose12ConfidentStanding, pose13ArmsCrossed, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraThinking, zaraSurprised, placeCharacter } from "./character-poses";
+
+const somtoLeft = (pose: StoryCharacter) => placeCharacter(pose, "somto", "Somto", "left");
+const zaraRight = (pose: StoryCharacter) => placeCharacter(pose, "zara", "Zara", "right");
+const together = (somtoPose: StoryCharacter, zaraPose: StoryCharacter) => [somtoLeft(somtoPose), zaraRight(zaraPose)];
 
 /** Day 15: Somto submits her thesis, then the birthday party begins. */
 export const DAY_FIFTEEN_STORY: StoryDefinition = {
@@ -82,43 +86,43 @@ export const DAY_FIFTEEN_STORY: StoryDefinition = {
     },
     {
       id: 12, type: "dialogue", scene: "character", speaker: ZARA,
-      characters: [neutral, zaraHappyDialogue],
+      characters: together(neutral, zaraHappyDialogue),
       text: "Okay, everyone, I have to say, this place looks good. I did suggest a few things, you know.",
       next: 13,
     },
     {
       id: 13, type: "dialogue", scene: "character", speaker: SOMTO,
-      characters: [pose8Thinking, zaraHappy],
+      characters: together(pose8Thinking, zaraHappy),
       text: "You suggested a few things. You did not personally build the venue.",
       next: 14,
     },
     {
       id: 14, type: "dialogue", scene: "character", speaker: ZARA,
-      characters: [neutral, zaraHappy],
+      characters: together(neutral, zaraHappy),
       text: "I'm just saying, people have taste. And some people know how to make an entrance.",
       next: 15,
     },
     {
       id: 15, type: "dialogue", scene: "character", speaker: SOMTO,
-      characters: [pose13ArmsCrossed, zaraSurprised],
+      characters: together(pose13ArmsCrossed, zaraSurprised),
       text: "Zara, I invited people here to celebrate my birthday, not to watch you audition for the main character.",
       next: 16,
     },
     {
       id: 16, type: "dialogue", scene: "character", speaker: ZARA,
-      characters: [neutral, zaraThinking],
+      characters: together(neutral, zaraThinking),
       text: "Wow. I was joking. You don't have to make everything a competition.",
       next: 17,
     },
     {
       id: 17, type: "dialogue", scene: "character", speaker: SOMTO,
-      characters: [pose13ArmsCrossed, zaraNeutral],
+      characters: together(pose13ArmsCrossed, zaraNeutral),
       text: "Then don't make my birthday about you.",
       next: 18,
     },
     {
       id: 18, type: "end", scene: "character",
-      characters: [pose11SeriousConcerned, zaraNeutral],
+      characters: together(pose11SeriousConcerned, zaraNeutral),
       text: "The tension settles over the party. Somto has finally stood up for herself, but she doesn't want a fight to be the memory she takes away from tonight.",
     },
   ],
