@@ -150,7 +150,7 @@ export function DailyWheel({ day }: { day: number }) {
           ) : (
             <>
               <h2 className="font-script text-4xl leading-none">A little gift, just for you.</h2>
-              <p>{poolExhausted ? "We need one more compliment for this day. ♡" : "Every box holds a compliment. Let&apos;s see which one is yours today. ♡"}</p>
+              <p>{poolExhausted ? "We need one more compliment for this day. ♡" : "Every box holds a compliment. Let's see which one is yours today. ♡"}</p>
               <div className="reel-machine">
                 <span className="reel-label">COMPLIMENT OF THE DAY</span>
                 <div className="reel-window" aria-label="Gift boxes spinning">
