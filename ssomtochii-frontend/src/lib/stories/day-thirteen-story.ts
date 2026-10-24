@@ -1,6 +1,6 @@
 import type { StoryDefinition } from "./types";
 import { SOMTO, TEGA, ZARA } from "./speakers";
-import { neutral, sitting, speaking, smiling, pose8Thinking, pose11SeriousConcerned, facepalm, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraThinking } from "./character-poses";
+import { neutral, sitting, speaking, smiling, pose8Thinking, pose11SeriousConcerned, facepalm, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraThinking, zaraSurprised } from "./character-poses";
 
 /** Day 13: Somto gets through the work with help from people who care. */
 export const DAY_THIRTEEN_STORY: StoryDefinition = {
