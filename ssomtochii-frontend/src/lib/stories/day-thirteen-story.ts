@@ -1,6 +1,10 @@
-import type { StoryDefinition } from "./types";
+import type { StoryCharacter, StoryDefinition } from "./types";
 import { SOMTO, TEGA, ZARA } from "./speakers";
-import { neutral, sitting, speaking, smiling, pose8Thinking, pose11SeriousConcerned, facepalm, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraThinking, zaraSurprised } from "./character-poses";
+import { neutral, sitting, speaking, smiling, pose8Thinking, pose11SeriousConcerned, facepalm, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraThinking, zaraSurprised, placeCharacter } from "./character-poses";
+
+const somtoLeft = (pose: StoryCharacter) => placeCharacter(pose, "somto", "Somto", "left");
+const zaraRight = (pose: StoryCharacter) => placeCharacter(pose, "zara", "Zara", "right");
+const together = (somtoPose: StoryCharacter, zaraPose: StoryCharacter) => [somtoLeft(somtoPose), zaraRight(zaraPose)];
 
 /** Day 13: Somto gets through the work with help from people who care. */
 export const DAY_THIRTEEN_STORY: StoryDefinition = {
@@ -56,37 +60,37 @@ export const DAY_THIRTEEN_STORY: StoryDefinition = {
     },
     {
       id: 8, type: "dialogue", scene: "character", speaker: ZARA,
-      characters: [neutral, zaraHappyDialogue],
+      characters: together(neutral, zaraHappyDialogue),
       text: "How's the thesis panic going? And the party? Tell me you haven't let the whole thing become boring.",
       next: 9,
     },
     {
       id: 9, type: "dialogue", scene: "character", speaker: SOMTO,
-      characters: [pose8Thinking, zaraHappy],
+      characters: together(pose8Thinking, zaraHappy),
       text: "I'm trying to keep both alive. The thesis is the priority, so I might need people to be patient with me.",
       next: 10,
     },
     {
       id: 10, type: "dialogue", scene: "character", speaker: ZARA,
-      characters: [neutral, zaraThinking],
+      characters: together(neutral, zaraThinking),
       text: "Of course. I can handle the party details. Honestly, everyone will be asking me for the plan anyway.",
       next: 11,
     },
     {
       id: 11, type: "dialogue", scene: "character", speaker: SOMTO,
-      characters: [speaking, zaraSurprised],
+      characters: together(speaking, zaraSurprised),
       text: "They can ask me. It's my birthday.",
       next: 12,
     },
     {
       id: 12, type: "dialogue", scene: "character", speaker: ZARA,
-      characters: [neutral, zaraHappy],
+      characters: together(neutral, zaraHappy),
       text: "Relax, I'm joking. Mostly.",
       next: 13,
     },
     {
       id: 13, type: "end", scene: "character",
-      characters: [pose11SeriousConcerned, zaraHappy],
+      characters: together(pose11SeriousConcerned, zaraHappy),
       text: "The exchange ends on a laugh, but Somto doesn't forget the feeling that Zara wants to be in charge. She turns back to her thesis, choosing not to spend the evening arguing about it.",
     },
   ],
