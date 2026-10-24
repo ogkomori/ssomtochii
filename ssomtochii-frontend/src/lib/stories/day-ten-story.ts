@@ -1,8 +1,6 @@
 import type { StoryDefinition } from "./types";
 import { SOMTO, ZARA } from "./speakers";
-import { neutral, smiling, speaking, pose8Thinking, pose11SeriousConcerned, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraThinking } from "./character-poses";
-
-const MELANIE = { id: "melanie", label: "Melanie · On the phone", color: "#526B91" };
+import { neutral, smiling, speaking, pose8Thinking, pose11SeriousConcerned, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraThinking, zaraSurprised } from "./character-poses";
 
 /** Day 10: Zara's charm and competitiveness show through in small ways. */
 export const DAY_TEN_STORY: StoryDefinition = {
