@@ -1,6 +1,6 @@
 import type { StoryDefinition } from "./types";
 import { SOMTO, TEGA } from "./speakers";
-import { neutral, pose8Thinking, pose11SeriousConcerned, sitting, speaking, smiling } from "./character-poses";
+import { pose8Thinking, pose11SeriousConcerned, sitting, speaking, smiling } from "./character-poses";
 
 /** Day 12: Somto accepts that one birthday plan has to give. */
 export const DAY_TWELVE_STORY: StoryDefinition = {
