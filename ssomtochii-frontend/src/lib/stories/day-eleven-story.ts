@@ -1,6 +1,6 @@
 import type { StoryDefinition } from "./types";
 import { SOMTO, TEGA } from "./speakers";
-import { neutral, pose8Thinking, pose11SeriousConcerned, facepalm, sitting, speaking, smiling } from "./character-poses";
+import { pose8Thinking, pose11SeriousConcerned, facepalm, sitting, speaking, smiling } from "./character-poses";
 
 const MELANIE = { id: "melanie", label: "Melanie · On the phone", color: "#526B91" };
 
