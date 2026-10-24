@@ -1,6 +1,10 @@
-import type { StoryDefinition } from "./types";
+import type { StoryCharacter, StoryDefinition } from "./types";
 import { SOMTO, TEGA, ZARA } from "./speakers";
-import { neutral, speaking, smiling, pose8Thinking, pose12ConfidentStanding, zaraNeutral, zaraSad, zaraThinking } from "./character-poses";
+import { neutral, speaking, smiling, pose8Thinking, pose12ConfidentStanding, zaraNeutral, zaraSad, zaraThinking, placeCharacter } from "./character-poses";
+
+const somtoLeft = (pose: StoryCharacter) => placeCharacter(pose, "somto", "Somto", "left");
+const zaraRight = (pose: StoryCharacter) => placeCharacter(pose, "zara", "Zara", "right");
+const together = (somtoPose: StoryCharacter, zaraPose: StoryCharacter) => [somtoLeft(somtoPose), zaraRight(zaraPose)];
 
 /** Day 16: Somto's birthday becomes a reminder of how many people care about her. */
 export const DAY_SIXTEEN_STORY: StoryDefinition = {
@@ -56,37 +60,37 @@ export const DAY_SIXTEEN_STORY: StoryDefinition = {
     },
     {
       id: 8, type: "dialogue", scene: "character", speaker: ZARA,
-      characters: [neutral, zaraThinking],
+      characters: together(neutral, zaraThinking),
       text: "I still think I could've made this party unforgettable.",
       next: 9,
     },
     {
       id: 9, type: "dialogue", scene: "character", speaker: SOMTO,
-      characters: [pose12ConfidentStanding, zaraNeutral],
+      characters: together(pose12ConfidentStanding, zaraNeutral),
       text: "It is unforgettable. Not because everything went perfectly, but because the people I care about showed up for me.",
       next: 10,
     },
     {
       id: 10, type: "dialogue", scene: "character", speaker: ZARA,
-      characters: [neutral, zaraSad],
+      characters: together(neutral, zaraSad),
       text: "You really think I was trying to make it about me?",
       next: 11,
     },
     {
       id: 11, type: "dialogue", scene: "character", speaker: SOMTO,
-      characters: [pose12ConfidentStanding, zaraThinking],
+      characters: together(pose12ConfidentStanding, zaraThinking),
       text: "I think you like being noticed. I even like that you're confident. But when you need every room to revolve around you, you stop seeing the people standing beside you.",
       next: 12,
     },
     {
       id: 12, type: "dialogue", scene: "character", speaker: ZARA,
-      characters: [neutral, zaraSad],
+      characters: together(neutral, zaraSad),
       text: "I didn't think you saw it that way.",
       next: 13,
     },
     {
       id: 13, type: "dialogue", scene: "character", speaker: SOMTO,
-      characters: [speaking, zaraNeutral],
+      characters: together(speaking, zaraNeutral),
       text: "I don't hate you, Zara. But I'm not going to keep pretending it doesn't bother me.",
       next: 14,
     },
