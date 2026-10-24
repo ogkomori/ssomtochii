@@ -1,6 +1,6 @@
 import type { StoryDefinition } from "./types";
 import { SOMTO, TEGA, ZARA } from "./speakers";
-import { neutral, sitting, speaking, smiling, pose8Thinking, pose11SeriousConcerned, pose12ConfidentStanding, pose13ArmsCrossed, facepalm, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraThinking, zaraSurprised } from "./character-poses";
+import { neutral, sitting, speaking, smiling, pose8Thinking, pose11SeriousConcerned, pose12ConfidentStanding, pose13ArmsCrossed, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraThinking, zaraSurprised } from "./character-poses";
 
 /** Day 15: Somto submits her thesis, then the birthday party begins. */
 export const DAY_FIFTEEN_STORY: StoryDefinition = {
