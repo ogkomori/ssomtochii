@@ -1174,7 +1174,8 @@ button.story-dialogue-panel{cursor:pointer;font:inherit}
   font-weight:600;
   letter-spacing:-.055em;
   line-height:1.03;
-  overflow-wrap:anywhere;
+  white-space:nowrap;
+  overflow-wrap:normal;
   color:oklch(.3 .045 43);
 }
 .dictionary-pronunciation-row{display:flex;align-items:center;gap:.65rem;margin-top:.55rem}
