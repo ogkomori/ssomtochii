@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Heart, Volume2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Botanicals } from "@/components/Botanicals";
 import { COMPLIMENTS } from "@/lib/compliments";
 
@@ -45,6 +45,28 @@ export function DailyWheel({ day }: { day: number }) {
     return savedWord && COMPLIMENTS.some((item) => item.word === savedWord) ? savedWord : null;
   });
   const [stopAt, setStopAt] = useState(0);
+  const wordHeadingRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    const heading = wordHeadingRef.current;
+    const container = heading?.parentElement;
+    if (!heading || !container) return;
+
+    const fitWord = () => {
+      heading.style.fontSize = "";
+      const availableWidth = container.clientWidth;
+      const textWidth = heading.scrollWidth;
+      if (textWidth > availableWidth && availableWidth > 0) {
+        const currentSize = Number.parseFloat(window.getComputedStyle(heading).fontSize);
+        heading.style.fontSize = `${Math.max(18, currentSize * availableWidth / textWidth * 0.96)}px`;
+      }
+    };
+
+    fitWord();
+    const observer = new ResizeObserver(fitWord);
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [prize?.word]);
 
   useEffect(() => {
     if (day === 16) saveCompliment(16, BIRTHDAY_COMPLIMENT_WORD);
@@ -114,7 +136,7 @@ export function DailyWheel({ day }: { day: number }) {
                 </header>
 
                 <div className="dictionary-word-block">
-                  <h1>{prize.word}</h1>
+                  <h1 ref={wordHeadingRef}>{prize.word}</h1>
                   <div className="dictionary-pronunciation-row">
                     <span className="dictionary-pronunciation">{prize.pronunciation}</span>
                     <button
