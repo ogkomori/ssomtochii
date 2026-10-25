@@ -86,7 +86,7 @@ export const COMPLIMENTS = [
   },
   {
     letter: "Y",
-    word: "Youthful",
+    word: "youthful",
     pronunciation: "/ˈjuːθ.fəl/",
     partOfSpeech: "adjective",
     definition: "Having the energy, freshness, or spirit often associated with youth.",

@@ -186,7 +186,7 @@ export const DAY_FOUR_STORY: StoryDefinition = {
       scene: "character",
       speaker: ZARA,
       characters: [zaraHappyDialogue],
-      text: "Oh, I will, Somto. Tomorrow, then? I know a great place.",
+      text: "Oh, I will, Somto. Tomorrow, then? 2pm? I know a great place.",
       next: 33,
     },
     {
@@ -195,7 +195,7 @@ export const DAY_FOUR_STORY: StoryDefinition = {
       scene: "character",
       speaker: ZARA,
       characters: [zaraHappyDialogue],
-      text: "Oh, trust me, you will. Tomorrow, then? Don't keep me waiting, Somto.",
+      text: "Oh, trust me, you will. Tomorrow, then? 2pm? Don't keep me waiting, Somto.",
       next: 33,
     },
     {
