@@ -87,7 +87,7 @@ export function IncomingCallScreen({ onAnswer, onContinue, interaction = "intera
                   {callType === "outgoing" ? (
                     <div className="call-btn decline outgoing-decline" aria-label="Decline call button illustration">
                       <PhoneOff className="icon" aria-hidden="true" />
-                      <span>Decline</span>
+                      <span>Cancel</span>
                     </div>
                   ) : (
                     <>

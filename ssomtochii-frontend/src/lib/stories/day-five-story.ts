@@ -1,13 +1,19 @@
 import type { StoryDefinition } from "./types";
 import { SOMTO, TEGA } from "./speakers";
-import { smiling, speaking, pose8Thinking, neutral } from "./character-poses";
+import { smiling, speaking, pose8Thinking, neutral, facepalm } from "./character-poses";
 
 /** Day 5: Somto tells Tega about meeting Zara at work. */
 export const DAY_FIVE_STORY: StoryDefinition = {
   title: "The New Girl at Work",
   subtitle: "Day 5",
-  startAt: 1,
+  startAt: 0,
   beats: [
+    {
+      id: 0,
+      type: "outgoing-call",
+      callerName: "Tega",
+      next: 1,
+    },
     {
       id: 1,
       type: "dialogue",
@@ -15,17 +21,17 @@ export const DAY_FIVE_STORY: StoryDefinition = {
       phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:04" },
       characters: [],
       speaker: TEGA,
-      text: "You sound like something happened today. What's up?",
+      text: "Hey baby, everything good?",
       next: 2,
     },
     {
       id: 2,
       type: "dialogue",
       scene: "character",
-      background: "/images/backgrounds/bedroom.png",
+      background: "/images/backgrounds/bedroom-at-night.png",
       speaker: SOMTO,
-      characters: [smiling],
-      text: "I met someone at work today. Her name's Zara.",
+      characters: [speaking],
+      text: "Yeah, everything's good. I just wanted to tell you about this new girl I met at work.",
       next: 3,
     },
     {
@@ -35,7 +41,7 @@ export const DAY_FIVE_STORY: StoryDefinition = {
       phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:12" },
       characters: [],
       speaker: TEGA,
-      text: "Oh? And what's she like?",
+      text: "Osheyyy socializing, don't playyy!",
       next: 4,
     },
     {
@@ -43,8 +49,8 @@ export const DAY_FIVE_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: [pose8Thinking],
-      text: "She's... a lot. She's confident, funny, and she definitely doesn't have a problem saying whatever's on her mind.",
+      characters: [facepalm],
+      text: "Not that kind of meeting, Tega. It was a very interesting interaction.",
       next: 5,
     },
     {
@@ -54,16 +60,15 @@ export const DAY_FIVE_STORY: StoryDefinition = {
       phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:21" },
       characters: [],
       speaker: TEGA,
-      text: "That sounds like you either really like her or she annoyed you. Maybe both.",
+      text: "Well my interest has been piqued. What happened?",
       next: 6,
     },
     {
       id: 6,
-      type: "dialogue",
+      type: "narration",
       scene: "character",
-      speaker: SOMTO,
       characters: [speaking],
-      text: "Both, honestly. She was rude to someone, and I called her out on it. But then she started talking to me and... I don't know. She's interesting.",
+      text: "Somto tells Tega about her interaction with Zara, the new girl at work.",
       next: 7,
     },
     {
@@ -73,7 +78,7 @@ export const DAY_FIVE_STORY: StoryDefinition = {
       phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:34" },
       characters: [],
       speaker: TEGA,
-      text: "You don't have to decide what you think of her after one conversation. Give her a chance, but pay attention to how she treats people.",
+      text: "Hmm. ",
       next: 8,
     },
     {
@@ -118,7 +123,6 @@ export const DAY_FIVE_STORY: StoryDefinition = {
       id: 12,
       type: "end",
       scene: "character",
-      speaker: SOMTO,
       characters: [smiling],
       text: "Somto ends the call thinking about tomorrow's coffee—and whether Zara might be someone she'd actually want at her birthday.",
     },
