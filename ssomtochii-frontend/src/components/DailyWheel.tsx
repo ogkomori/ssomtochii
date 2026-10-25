@@ -66,7 +66,7 @@ export function DailyWheel({ day }: { day: number }) {
     const observer = new ResizeObserver(fitWord);
     observer.observe(container);
     return () => observer.disconnect();
-  }, [prize?.word]);
+  }, [prizeWord]);
 
   useEffect(() => {
     if (day === 16) saveCompliment(16, BIRTHDAY_COMPLIMENT_WORD);
