@@ -17,6 +17,7 @@ import { MemoryLane } from "@/activities/MemoryLane";
 import { Hangman } from "@/activities/Hangman";
 import { Botanicals } from "@/components/Botanicals";
 import { DayActivityFlow } from "@/components/DayActivityFlow";
+import { DailyWheel } from "@/components/DailyWheel";
 import { StoryPlayer } from "@/components/StoryPlayer";
 import type { StoryDefinition } from "@/lib/stories/types";
 import type { StoryId } from "@/lib/days";
@@ -37,7 +38,7 @@ import { DAY_FOURTEEN_STORY } from "@/lib/stories/day-fourteen-story";
 import { DAY_FIFTEEN_STORY } from "@/lib/stories/day-fifteen-story";
 import { DAY_SIXTEEN_STORY } from "@/lib/stories/day-sixteen-story";
 import { getDay } from "@/lib/days";
-import { isDayUnlocked, readStoryChoice, saveStoryChoice } from "@/lib/progress";
+import { isDayUnlocked, readProgress, readStoryChoice, saveStoryChoice } from "@/lib/progress";
 import { preloadStoryAssets } from "@/lib/stories/preload-assets";
 
 const STORIES: Record<Exclude<StoryId, "day-one-story">, StoryDefinition> = {
@@ -74,6 +75,8 @@ function DayPage() {
   const [daySevenVideoStarted, setDaySevenVideoStarted] = useState(false);
   const [partySizeChoice, setPartySizeChoice] = useState<PartySizeChoice | null>(null);
   const [dayAvailable, setDayAvailable] = useState<boolean | null>(null);
+  const [dayCompleted, setDayCompleted] = useState(() => readProgress().completedDays.includes(day.day));
+  const [showCompliment, setShowCompliment] = useState(false);
 
   const storyToPreload = day.day === 1
     ? DAY_ONE_STORY
@@ -85,6 +88,8 @@ function DayPage() {
 
   useEffect(() => {
     setDayAvailable(isDayUnlocked({ date: day.date, day: day.day }));
+    setDayCompleted(readProgress().completedDays.includes(day.day));
+    setShowCompliment(false);
   }, [day.date, day.day]);
 
   useEffect(() => {
@@ -137,6 +142,8 @@ function DayPage() {
     );
   }
 
+  if (showCompliment) return <DailyWheel day={day.day} />;
+
   if (day.day !== 1 && !welcomeStarted) {
     return (
       <main className="page-shell day-one-shell">
@@ -159,7 +166,10 @@ function DayPage() {
                 </div>
               </>
             )}
-            <button type="button" className="next-button mt-8" onClick={() => setWelcomeStarted(true)}>Start Day {day.day} <ArrowRight className="h-4 w-4" /></button>
+            <div className="mt-8 flex w-full flex-col items-center gap-3">
+              {dayCompleted && <button type="button" className="next-button" onClick={() => setShowCompliment(true)}>View today&apos;s compliment ♡</button>}
+              <button type="button" className="next-button" onClick={() => setWelcomeStarted(true)}>Start Day {day.day} <ArrowRight className="h-4 w-4" /></button>
+            </div>
           </section>
         </div>
       </main>
@@ -176,7 +186,7 @@ function DayPage() {
   return (
     <DayActivityFlow day={day.day}>
       {(complete) => {
-        if (day.activity === "day-one-journey") return <DayOneJourney onComplete={complete} />;
+        if (day.activity === "day-one-journey") return <DayOneJourney onComplete={complete} isCompleted={dayCompleted} onViewCompliment={() => setShowCompliment(true)} />;
         if (day.activity === "cup-pong") return <CupPong onComplete={complete} />;
         if (day.activity === "word-scramble") return <WordScramble onComplete={complete} />;
         if (day.activity === "memory-match") return <MemoryMatch onComplete={complete} />;
