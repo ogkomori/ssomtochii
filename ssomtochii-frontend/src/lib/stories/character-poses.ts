@@ -130,6 +130,9 @@ export const zaraExplaining: StoryCharacter = {
   scale: 1.7,
   offsetY: -28,
 };
+export const zaraExplainingAlone: StoryCharacter = {
+  ...zaraPose("zara-explaining", "zara-pose-10-explaining", "Zara explaining something"),
+};
 export const zaraConcernedAlone: StoryCharacter = {
   ...zaraPose("zara-serious-concerned", "zara-pose-11-serious-concerned", "Zara looking serious and concerned"),
   scale: 1.3,

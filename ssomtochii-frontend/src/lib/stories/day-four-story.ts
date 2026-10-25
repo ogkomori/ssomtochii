@@ -1,5 +1,5 @@
 import type { StoryCharacter, StoryDefinition } from "./types";
-import { placeCharacter, upwards, pose6Walking, neutral, smiling, speaking, pose8Thinking, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraLaughing, zaraSurprised, zaraExplaining, pose7HappyDialogue, pose1Neutral, pose10Explaining, pose9Laughing, pose13ArmsCrossed, pose12ConfidentStanding, zaraLaughingAlone, pose10ExplainingAlone, pose7HappyDialogueAlone, zaraHappyAlone, pose13ArmsCrossedAlone, zaraConcernedAlone, pose11SeriousConcerned, behind } from "./character-poses";
+import { placeCharacter, upwards, pose6Walking, neutral, smiling, speaking, pose8Thinking, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraLaughing, zaraSurprised, zaraExplaining, pose7HappyDialogue, pose1Neutral, pose10Explaining, pose9Laughing, pose13ArmsCrossed, pose12ConfidentStanding, zaraLaughingAlone, pose10ExplainingAlone, pose7HappyDialogueAlone, zaraHappyAlone, pose13ArmsCrossedAlone, zaraConcernedAlone, pose11SeriousConcerned, behind, zaraExplainingAlone } from "./character-poses";
 import { SOMTO, ZARA } from "./speakers";
 
 const somtoLeft = (pose: StoryCharacter) => placeCharacter(pose, "somto", "Somto", "left");
@@ -101,7 +101,7 @@ export const DAY_FOUR_STORY: StoryDefinition = {
       scene: "character",
       speaker: SOMTO,
       characters: together(pose7HappyDialogue, zaraNeutral),
-      text: "Welcome, then! What brought you to the neighborhood?",
+      text: "Welcome! What made you choose this neighbourhood? Moving somewhere new can't be easy.",
       next: 22,
     },
     {
@@ -119,7 +119,7 @@ export const DAY_FOUR_STORY: StoryDefinition = {
       scene: "character",
       speaker: ZARA,
       characters: [zaraHappyDialogue],
-      text: "I like to make a good first impression. And you look like you could use a coffee break.",
+      text: "I like a fresh start. New place, new people, new opportunities to make an impression. Speaking of which, you owe me a proper welcome. Let's get some coffee sometime.",
       next: 23,
     },
     {
@@ -128,7 +128,7 @@ export const DAY_FOUR_STORY: StoryDefinition = {
       scene: "character",
       speaker: ZARA,
       characters: [zaraHappyDialogue],
-      text: "I do tend to steal the show very often. And you look like you could use a coffee break.",
+      text: "I do tend to steal the show very often. And you look like you could use some coffee.",
       next: 23,
     },
     {
@@ -145,7 +145,7 @@ export const DAY_FOUR_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: together(pose9Laughing, zaraLaughing),
+      characters: [zaraExplainingAlone],
       text: "Both. Don't make me choose.",
       next: 25,
     },
@@ -158,9 +158,10 @@ export const DAY_FOUR_STORY: StoryDefinition = {
       text: "Somto likes her energy, but Zara already has a way of taking over the room. Does Somto play along or keep a little distance?",
       choices: [
         { id: "day2-second-choice-play-along", label: "Play along: “Fine, sell me on this legendary coffee.”", next: 30 },
-        { id: "day2-second-choice-boundary", label: "Keep it cool: “Let's start with hello before you win me over.”", next: 31 },
+        { id: "day2-second-choice-boundary", label: "Keep it cool: “You seem awfully sure I'll like you.”", next: 31 },
       ],
     },
+    
     {
       id: 30,
       type: "dialogue",
@@ -168,24 +169,33 @@ export const DAY_FOUR_STORY: StoryDefinition = {
       speaker: SOMTO,
       characters: together(pose7HappyDialogue, zaraNeutral),
       text: "Fine, sell me on this legendary coffee. I'm listening.",
-      next: 32,
+      next: 34,
     },
     {
       id: 31,
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: together(pose10Explaining, zaraNeutral),
-      text: "Let's start with hello before you win me over.",
-      next: 32,
+      characters: together(pose13ArmsCrossed, zaraNeutral),
+      text: "You seem awfully sure I'll like you. Let's not get ahead of ourselves.",
+      next: 35,
     },
     {
-      id: 32,
+      id: 34,
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
       characters: [zaraHappyDialogue],
-      text: "Deal. Though I should warn you, I'm very good at making friends.",
+      text: "Oh, I will, Somto. Tomorrow, then? I know a great place.",
+      next: 33,
+    },
+    {
+      id: 35,
+      type: "dialogue",
+      scene: "character",
+      speaker: ZARA,
+      characters: [zaraHappyDialogue],
+      text: "Oh, trust me, you will. Tomorrow, then? Don't keep me waiting, Somto.",
       next: 33,
     },
     {
@@ -193,7 +203,7 @@ export const DAY_FOUR_STORY: StoryDefinition = {
       type: "end",
       scene: "character",
       characters: [zaraLaughingAlone],
-      text: "Somto finds her hard not to like. Zara is funny, stylish, and effortlessly confident. Still, Somto can already imagine her becoming the centre of attention without even trying. She isn't sure whether that will be a good thing or a headache.",
+      text: "Somto agrees to meet Zara for coffee tomorrow. She's still figuring out what she thinks of her new colleague, but she's curious enough to give their friendship a chance.",
     },
   ],
 };

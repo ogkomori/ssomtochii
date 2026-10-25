@@ -16,7 +16,7 @@ export const DAY_SIX_STORY: StoryDefinition = {
       id: 1,
       type: "narration",
       scene: "character",
-      background: "linear-gradient(180deg, #d9e8e0 0%, #f4e8e4 58%, #d7dfc7 100%)",
+      background: "/images/backgrounds/coffeeShop.jpg",
       characters: together(neutral, zaraNeutral),
       text: "The next day, Somto meets Zara for coffee. She's still not quite sure what to make of her, but she's curious enough to find out.",
       next: 2,
