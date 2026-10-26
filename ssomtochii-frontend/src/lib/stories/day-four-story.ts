@@ -1,5 +1,5 @@
 import type { StoryCharacter, StoryDefinition } from "./types";
-import { placeCharacter, upwards, pose6Walking, neutral, smiling, speaking, pose8Thinking, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraLaughing, zaraSurprised, zaraExplaining, pose7HappyDialogue, pose1Neutral, pose10Explaining, pose9Laughing, pose13ArmsCrossed, pose12ConfidentStanding, zaraLaughingAlone, pose10ExplainingAlone, pose7HappyDialogueAlone, zaraHappyAlone, pose13ArmsCrossedAlone, zaraConcernedAlone, pose11SeriousConcerned, behind, zaraExplainingAlone } from "./character-poses";
+import { placeCharacter, upwards, pose6Walking, neutral, smiling, speaking, pose8Thinking, zaraNeutral, zaraHappy, zaraHappyDialogueAlone, zaraExplaining, pose7HappyDialogue, pose10Explaining, pose9Laughing, pose13ArmsCrossed, pose12ConfidentStanding, zaraLaughingAlone, pose10ExplainingAlone, pose7HappyDialogueAlone, zaraHappyAlone, pose13ArmsCrossedAlone, zaraConcernedAlone, pose11SeriousConcerned, behind, zaraExplainingAlone } from "./character-poses";
 import { SOMTO, ZARA } from "./speakers";
 
 const somtoLeft = (pose: StoryCharacter) => placeCharacter(pose, "somto", "Somto", "left");
@@ -79,7 +79,7 @@ export const DAY_FOUR_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: [zaraHappyDialogue],
+      characters: [zaraHappyDialogueAlone],
       text: "Aww that's a nice name! I like it. I like you already. I think we should be friends. I just got this job and I'm new to the neighborhood!",
       next: 6,
     },
@@ -118,7 +118,7 @@ export const DAY_FOUR_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: [zaraHappyDialogue],
+      characters: [zaraHappyDialogueAlone],
       text: "I like a fresh start. New place, new people, new opportunities to make an impression. Speaking of which, you owe me a proper welcome. Let's get some coffee sometime.",
       next: 23,
     },
@@ -127,7 +127,7 @@ export const DAY_FOUR_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: [zaraHappyDialogue],
+      characters: [zaraHappyDialogueAlone],
       text: "I do tend to steal the show very often. And you look like you could use some coffee.",
       next: 23,
     },
@@ -185,7 +185,7 @@ export const DAY_FOUR_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: [zaraHappyDialogue],
+      characters: [zaraHappyDialogueAlone],
       text: "Oh, I will, Somto. Tomorrow, then? 2pm? I know a great place.",
       next: 33,
     },
@@ -194,7 +194,7 @@ export const DAY_FOUR_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: [zaraHappyDialogue],
+      characters: [zaraHappyDialogueAlone],
       text: "Oh, trust me, you will. Tomorrow, then? 2pm? Don't keep me waiting, Somto.",
       next: 33,
     },

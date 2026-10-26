@@ -1,6 +1,6 @@
 import type { StoryCharacter, StoryDefinition } from "./types";
 import { SOMTO, TEGA, ZARA } from "./speakers";
-import { neutral, sitting, speaking, smiling, pose8Thinking, pose11SeriousConcerned, facepalm, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraThinking, zaraSurprised, placeCharacter } from "./character-poses";
+import { neutral, sitting, speaking, smiling, pose8Thinking, pose11SeriousConcerned, facepalm, zaraNeutral, zaraHappy, zaraHappyDialogueAlone, zaraThinking, zaraSurprised, placeCharacter } from "./character-poses";
 
 const somtoLeft = (pose: StoryCharacter) => placeCharacter(pose, "somto", "Somto", "left");
 const zaraRight = (pose: StoryCharacter) => placeCharacter(pose, "zara", "Zara", "right");
@@ -60,7 +60,7 @@ export const DAY_THIRTEEN_STORY: StoryDefinition = {
     },
     {
       id: 8, type: "dialogue", scene: "character", speaker: ZARA,
-      characters: together(neutral, zaraHappyDialogue),
+      characters: together(neutral, zaraHappyDialogueAlone),
       text: "How's the thesis panic going? And the party? Tell me you haven't let the whole thing become boring.",
       next: 9,
     },
