@@ -1,6 +1,6 @@
 export const WORDLE_CONTENT = {
   title: "A little Wordle",
-  intro: "Four little words. Six guesses each. Take your time.",
+  intro: "Five words, Six guesses each. Every word relates to you in some way.",
   words: [
     { answer: "SUSHI" },
     { answer: "MONEY" },

@@ -74,7 +74,7 @@ export function Wordle({ onComplete }: { onComplete: () => void }) {
       setAwaitingNext(true);
       setMessage(wordIndex === WORDLE_CONTENT.words.length - 1
         ? "Got it! You got the last word."
-        : "Got it. Here is the next one.");
+        : "Got it! Onto the next...");
       return;
     }
 
@@ -110,7 +110,7 @@ export function Wordle({ onComplete }: { onComplete: () => void }) {
   if (finished) return <GameShell eyebrow="WORDLE" title="Four little words." right="COMPLETE"><div className="day-one-copy items-center text-center"><div className="completion-mark">♡</div><p>That is the whole little Wordle challenge. Nicely done.</p><button type="button" className="next-button" onClick={onComplete}>Get today’s compliment</button></div></GameShell>;
 
   return <GameShell eyebrow="WORDLE" title={WORDLE_CONTENT.title} right={`${wordIndex + 1}/${WORDLE_CONTENT.words.length}`}><div className="day-one-copy">
-    <p>{wordIndex === 0 ? WORDLE_CONTENT.intro : "One more little word."}</p>
+    <p>{wordIndex === 0 ? WORDLE_CONTENT.intro : "Next word"}</p>
     <div className="wordle-board">
       {Array.from({ length: 6 }, (_, row) => {
         const guess = guesses[row];
