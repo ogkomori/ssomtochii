@@ -159,9 +159,9 @@ function DayPage() {
             <p className="mt-5 min-h-6 whitespace-pre-wrap text-foreground/80">{/* Optional message can be added here later. */}</p>
             {day.day === 7 && (
               <>
-                <p className="mt-3 text-foreground/80">from day 6 to 7</p>
+                <p className="mt-3 text-foreground/80">...from day 6 to day 7...</p>
                 <div className="relative mt-6 w-full overflow-hidden rounded-2xl border border-border/60 bg-muted/40">
-                  <video ref={daySevenVideoRef} className="block aspect-[9/16] max-h-[42dvh] w-full object-contain" src="/videos/day-07-67.mp4" loop playsInline controls aria-label="Day 7 video" onPlay={() => setDaySevenVideoStarted(true)} />
+                  <video ref={daySevenVideoRef} className="block aspect-[9/16] max-h-[42dvh] w-full object-contain" src="/videos/day-07-67.mp4" poster="/images/day-07-thumbnail.jpg" loop playsInline controls aria-label="Day 7 video" onPlay={() => setDaySevenVideoStarted(true)} />
                   {!daySevenVideoStarted && <button type="button" className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/25 text-white transition-colors hover:bg-black/35" onClick={() => { const video = daySevenVideoRef.current; if (video) void video.play().catch(() => {}); }} aria-label="Play Day 7 video with sound"><span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 text-foreground shadow-lg"><Play className="ml-1 h-7 w-7 fill-current" /></span><span className="text-sm font-semibold drop-shadow">Tap to play with sound</span></button>}
                 </div>
               </>
