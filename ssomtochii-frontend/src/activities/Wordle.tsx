@@ -110,7 +110,7 @@ export function Wordle({ onComplete }: { onComplete: () => void }) {
   if (finished) return <GameShell eyebrow="WORDLE" title="Four little words." right="COMPLETE"><div className="day-one-copy items-center text-center"><div className="completion-mark">♡</div><p>That is the whole little Wordle challenge. Nicely done.</p><button type="button" className="next-button" onClick={onComplete}>Get today’s compliment</button></div></GameShell>;
 
   return <GameShell eyebrow="WORDLE" title={WORDLE_CONTENT.title} right={`${wordIndex + 1}/${WORDLE_CONTENT.words.length}`}><div className="day-one-copy">
-    <p>{wordIndex === 0 ? WORDLE_CONTENT.intro : "Next word"}</p>
+    <p>{wordIndex === 0 ? WORDLE_CONTENT.intro : `${["Second", "Third", "Fourth", "Fifth"][wordIndex - 1] ?? `${wordIndex + 1}th`} word`}</p>
     <div className="wordle-board">
       {Array.from({ length: 6 }, (_, row) => {
         const guess = guesses[row];
