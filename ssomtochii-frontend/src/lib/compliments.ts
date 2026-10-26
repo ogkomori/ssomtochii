@@ -18,7 +18,7 @@ export const COMPLIMENTS = [
     pronunciation: "/ˈdʒen.ju.ɪn/",
     partOfSpeech: "adjective",
     definition: "Sincere and honest; being exactly what you seem to be.",
-    message: "yes, we are trying not to hurt the \"brand\", but this is a compliment that is true to your character.",
+    message: "while it is known that you form sometimes because you're trying not to hurt the \"brand\", this is a compliment that is true to your character.",
   },
   {
     letter: "I",
