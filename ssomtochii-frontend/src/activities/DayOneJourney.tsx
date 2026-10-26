@@ -10,7 +10,7 @@ import { DAY_ONE_STORY } from "@/lib/stories/day-one-story";
 type Step = "introduction" | "story" | "quiz" | "completion";
 const STEPS: Step[] = ["introduction", "story", "quiz", "completion"];
 /** Day 1's intro, video, story, quiz, and completion flow. */
-export function DayOneJourney({ onComplete }: { onComplete: () => void }) {
+export function DayOneJourney({ onComplete, isCompleted = false, onViewCompliment }: { onComplete: () => void; isCompleted?: boolean; onViewCompliment?: () => void }) {
   const [step, setStep] = useState<Step>("introduction");
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [confettiTrigger, setConfettiTrigger] = useState(0);
@@ -25,7 +25,7 @@ export function DayOneJourney({ onComplete }: { onComplete: () => void }) {
     <header className="flex items-center justify-between pt-2"><Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> All days</Link><span className="text-xs font-semibold tracking-[0.18em] text-muted-foreground">{currentStep + 1} / {STEPS.length}</span></header>
     <section className="paper-card day-one-card my-6 flex flex-1 flex-col p-6 sm:p-8" aria-live="polite">
       {step === "introduction" && <><Introduction /><Video /></>}{step === "story" && <StoryPlayer story={DAY_ONE_STORY} exitLabel="Back" onExit={() => setStep("introduction")} onComplete={() => setStep("quiz")} continueLabel="Continue Day 1 ♡" />}{step === "quiz" && <Quiz selected={selectedAnswer} onSelect={selectAnswer} />}{step === "completion" && <Completion />}
-      {step === "story" ? null : step !== "completion" ? <div className="mt-auto flex justify-end pt-8"><button type="button" className="next-button" onClick={next} disabled={step === "quiz" && selectedAnswer !== DAY_ONE_CONTENT.quiz.correctAnswer}>{step === "introduction" ? DAY_ONE_CONTENT.introduction.buttonLabel : "Next"} <ArrowRight className="h-4 w-4" /></button></div> : <div className="mt-auto flex justify-end pt-8"><button type="button" className="next-button" onClick={onComplete}>Get today’s compliment <ArrowRight className="h-4 w-4" /></button></div>}
+      {step === "story" ? null : step !== "completion" ? <div className="mt-auto flex flex-col items-center gap-3 pt-8">{step === "introduction" && isCompleted && onViewCompliment && <button type="button" className="next-button" onClick={onViewCompliment}>View today&apos;s compliment ♡</button>}<div className="flex w-full justify-end"><button type="button" className="next-button" onClick={next} disabled={step === "quiz" && selectedAnswer !== DAY_ONE_CONTENT.quiz.correctAnswer}>{step === "introduction" ? DAY_ONE_CONTENT.introduction.buttonLabel : "Next"} <ArrowRight className="h-4 w-4" /></button></div></div> : <div className="mt-auto flex justify-end pt-8"><button type="button" className="next-button" onClick={onComplete}>Get today’s compliment <ArrowRight className="h-4 w-4" /></button></div>}
     </section>
   </div></main>;
 }
