@@ -351,11 +351,6 @@ export function getDaySevenStory(dayThreeThesisChoice: string | null): StoryDefi
   });
   return {
     ...DAY_SEVEN_STORY,
-    beats: beats.map((beat) => {
-      if (beat.id === 18 && beat.type === "dialogue" && !toldTegaSheWasWorking) {
-        return { ...beat, text: "Speaking of your thesis, last time I asked, you said you hadn't really been working on it. Have you made any progress since then? I don't want you leaving everything too late, Somto." };
-      }
-      return beat;
-    }),
+    beats,
   };
 }
