@@ -85,7 +85,14 @@ export interface OutgoingCallBeat extends StoryBeatBase {
   next: number;
 }
 
-export type StoryBeat = DialogueBeat | NarrationBeat | ChoiceBeat | EndBeat | IncomingCallBeat | OutgoingCallBeat;
+/** A display-only missed-call screen with caller details supplied by the story. */
+export interface MissedCallBeat extends StoryBeatBase {
+  type: "missed-call";
+  callerName?: string;
+  next: number;
+}
+
+export type StoryBeat = DialogueBeat | NarrationBeat | ChoiceBeat | EndBeat | IncomingCallBeat | OutgoingCallBeat | MissedCallBeat;
 
 export interface StoryDefinition {
   title: string;
