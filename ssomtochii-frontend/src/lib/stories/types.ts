@@ -85,10 +85,12 @@ export interface OutgoingCallBeat extends StoryBeatBase {
   next: number;
 }
 
-/** A display-only missed-call screen with caller details supplied by the story. */
+/** A display-only missed-call screen with caller details and optional custom text. */
 export interface MissedCallBeat extends StoryBeatBase {
   type: "missed-call";
   callerName?: string;
+  /** Optional message shown on the phone screen and in the dialogue panel. */
+  message?: string;
   next: number;
 }
 
