@@ -1,6 +1,6 @@
 /** Memory Match uses the first eight daily photos; each photo appears on two cards. */
 export const MEMORY_MATCH_CONTENT = {
-  title: "A few things worth finding.",
+  title: "Match the photos!",
   intro: "Find all eight pairs from the first eight days.",
   pairs: [
     { id: "day-1", label: "Day 1", emoji: "♡", image: "/images/days/day-01.jpg" },
