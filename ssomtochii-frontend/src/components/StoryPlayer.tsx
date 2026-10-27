@@ -151,7 +151,6 @@ export function StoryPlayer({
         callerName={beat.callerName ?? "Tega"}
         callType="outgoing"
         interaction="display-only"
-        narration={beat.narration}
         onContinue={() => goTo(beat.next)}
       />
     );
@@ -163,6 +162,7 @@ export function StoryPlayer({
         callerName={beat.callerName ?? "Unknown Caller"}
         callType="missed"
         interaction="display-only"
+        narration={beat.narration}
         onContinue={() => goTo(beat.next)}
       />
     );
