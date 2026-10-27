@@ -170,11 +170,5 @@ export const DAY_EIGHT_STORY: StoryDefinition = {
       characters: [sitting],
       text: "Somto ends the call, now with a difficult decision to make about who gets one of the five spots at her birthday party.",
     },
-
-      type: "end",
-      scene: "character",
-      characters: [sitting],
-      text: "Somto ends the call and finally tries to get some sleep.",
-    },
   ],
 };
