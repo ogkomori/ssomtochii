@@ -88,7 +88,7 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       scene: "character",
       characters: [facepalm],
       speaker: SOMTO,
-      text: "This boy...",
+      text: "This boy you want to get in trouble.",
       next: 9,
     },
     {
@@ -97,7 +97,7 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       scene: "phone",
       phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:37" },
       speaker: TEGA,
-      text: "Anyways, did you invite her to the party?",
+      text: "My bad, my bad, I was kidding. Anyways, did you invite her to the party?",
       next: 10,
     },
     {
@@ -297,7 +297,7 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       scene: "character",
       speaker: SOMTO,
       characters: [speaking],
-      text: "I know, baby. I'm sorry. I'll stop avoiding it and make a proper plan tomorrow.",
+      text: "I know, baby. I'm sorry. I'll stop avoiding it and make a proper plan later.",
       next: 32,
     },
     {

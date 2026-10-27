@@ -67,7 +67,7 @@ export const DAY_EIGHT_STORY: StoryDefinition = {
       scene: "character",
       speaker: SOMTO,
       characters: [facepalm],
-      text: "Chai, I can't believe I stayed up this late.",
+      text: "Chai, I can't believe I got so carried away.",
       next: 4,
     },
     {

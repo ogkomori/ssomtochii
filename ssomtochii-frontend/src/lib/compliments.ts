@@ -66,7 +66,7 @@ export const COMPLIMENTS = [
     pronunciation: "/ˌem.pəˈθet.ɪk/",
     partOfSpeech: "adjective",
     definition: "Able to understand and share what another person may be feeling.",
-    message: "the emotional intelligence always shows. Till today I'm learning from you how to be more empathetic. You are a great listener and a great friend (not friend to me sha but you get the point).",
+    message: "your emotional intelligence always shows. Till today I'm learning from you how to be more empathetic. You are a great listener and a great friend (more than a friend to me sha but you get the point).",
   },
   {
     letter: "D",
