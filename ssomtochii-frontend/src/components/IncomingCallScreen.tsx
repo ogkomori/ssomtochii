@@ -15,7 +15,7 @@ function useClock() {
   return now;
 }
 
-export function IncomingCallScreen({ onAnswer, onContinue, interaction = "interactive", callerName = "Unknown Caller", callType = "incoming", message }: { onAnswer?: () => void; onContinue?: () => void; interaction?: "interactive" | "display-only"; callerName?: string; callType?: "incoming" | "outgoing" | "missed"; message?: string }) {
+export function IncomingCallScreen({ onAnswer, onContinue, interaction = "interactive", callerName = "Unknown Caller", callType = "incoming", narration }: { onAnswer?: () => void; onContinue?: () => void; interaction?: "interactive" | "display-only"; callerName?: string; callType?: "incoming" | "outgoing" | "missed"; narration?: string }) {
   const [state, setState] = useState<CallState>("ringing");
   const now = useClock();
 
@@ -81,7 +81,6 @@ export function IncomingCallScreen({ onAnswer, onContinue, interaction = "intera
                   <p className="label">{callType === "outgoing" ? "outgoing call" : callType === "missed" ? "missed call" : "incoming call"}</p>
                   <h1 className="name">{callerName}</h1>
                   <p className="sub">{callType === "missed" ? `Missed call · ${time}` : "mobile"}</p>
-                  {callType === "missed" && message && <p className="sub italic missed-call-message">{message}</p>}
                 </div>
 
                 {callType === "missed" ? (
@@ -152,12 +151,12 @@ export function IncomingCallScreen({ onAnswer, onContinue, interaction = "intera
       {interaction === "display-only" && (
         <button
           type="button"
-          className="story-dialogue-panel incoming-call-dialogue"
+          className={`story-dialogue-panel incoming-call-dialogue${narration ? " story-dialogue-panel--narration" : ""}`}
           onClick={onContinue}
-          aria-label="Continue story from incoming call"
+          aria-label={narration ? "Continue story narration" : "Continue story from incoming call"}
         >
-          <span className="story-speaker-name incoming-call-speaker">{callerName}</span>
-          <span className="story-dialogue-text">{message || <em>{callType === "outgoing" ? "outgoing call..." : callType === "missed" ? "missed call..." : "incoming call..."}</em>}</span>
+          {!narration && <span className="story-speaker-name incoming-call-speaker">{callerName}</span>}
+          <span className="story-dialogue-text">{narration ?? <em>{callType === "outgoing" ? "outgoing call..." : callType === "missed" ? "missed call..." : "incoming call..."}</em>}</span>
           <span className="story-continue-hint">Tap to continue ›</span>
         </button>
       )}
