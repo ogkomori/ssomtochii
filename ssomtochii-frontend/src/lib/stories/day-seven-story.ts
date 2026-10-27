@@ -1,6 +1,6 @@
 import type { StoryDefinition } from "./types";
 import { SOMTO, TEGA } from "./speakers";
-import { smiling, neutral, speaking, pose8Thinking, facepalm } from "./character-poses";
+import { smiling, neutral, speaking, pose8Thinking, facepalm, sitting } from "./character-poses";
 
 /** Day 7: Somto checks in with Tega after inviting Zara. */
 export const DAY_SEVEN_STORY: StoryDefinition = {
@@ -28,7 +28,7 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       id: 2,
       type: "dialogue",
       scene: "character",
-      background: "/images/backgrounds/bedroom.png",
+      background: "/images/backgrounds/bedroom-at-night.png",
       speaker: SOMTO,
       characters: [speaking],
       text: "It was actually much nicer than I thought! We talked about a lot of things, and we actually have a lot in common too! I think this could actually be good.",
@@ -135,7 +135,7 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       phone: { contactName: "Tega", contactInitial: "T", statusText: "00:01:02" },
       characters: [],
       speaker: TEGA,
-      text: "Yeah now; sunshine, light of the world and all that. We don't need NEPA when you're available. You know you always brighten up my day like, I've had to be cheking my Vitamin D levels recently...",
+      text: "Yeah now; sunshine, light of the world and all that. We don't need NEPA when you're available. You know you always brighten up my day like, I've had to be checking my Vitamin D levels recently...",
       next: 14,
     },
     {
@@ -164,15 +164,6 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       speaker: SOMTO,
       characters: [facepalm],
       text: "You're always spoiling the fun this boy.",
-      next: 17,
-    },
-    {
-      id: 17,
-      type: "dialogue",
-      scene: "character",
-      speaker: SOMTO,
-      characters: [neutral],
-      text: "Okay, okay, before you start giving me another thesis lecture...",
       next: 18,
     },
     {
@@ -182,7 +173,7 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       phone: { contactName: "Tega", contactInitial: "T", statusText: "00:01:24" },
       characters: [],
       speaker: TEGA,
-      text: "Speaking of your thesis, last time I asked, you said you'd been working on it. I hope that's still the case, baby.",
+      text: "Yes, rightly so. Last time I asked, you said you'd been working on it. I hope that's still the case, baby.",
       next: 19,
     },
     {
@@ -190,8 +181,8 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       type: "choice",
       scene: "character",
       speaker: SOMTO,
-      characters: [pose8Thinking],
-      text: "Somto pauses. She can keep up the story she told Tega before, or finally be honest with him.",
+      characters: [sitting],
+      text: "Somto pauses. She can keep up the lie she told Tega before, or finally be honest with him.",
       choices: [
         { id: "day7-thesis-double-down", label: "Double down: “I've been working on it, don't worry.”", next: 20 },
         { id: "day7-thesis-confess", label: "Tell him the truth: “I haven't actually been working on it.”", next: 23 },
@@ -203,7 +194,7 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       scene: "character",
       speaker: SOMTO,
       characters: [smiling],
-      text: "I've been working on it, don't worry. I'm making progress.",
+      text: "I've been working on it babe, don't worry. I'm making progress.",
       next: 21,
     },
     {
@@ -213,7 +204,7 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       phone: { contactName: "Tega", contactInitial: "T", statusText: "00:01:35" },
       characters: [],
       speaker: TEGA,
-      text: "Okay, I want to believe you. I just don't want you telling me you're fine when you're actually falling behind.",
+      text: "Okay baby, that's great. I know you have a lot on your plate right now, but it's good that you still keep your priorities in check.",
       next: 22,
     },
     {
@@ -222,7 +213,7 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       scene: "character",
       speaker: SOMTO,
       characters: [neutral],
-      text: "I hear you, baby. I'll make sure I keep on top of it.",
+      text: "Period.",
       next: 32,
     },
     {
@@ -231,7 +222,7 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       scene: "character",
       speaker: SOMTO,
       characters: [facepalm],
-      text: "Okay, I need to be honest. I haven't actually been working on it. I said I was because I didn't want you to worry.",
+      text: "Okay, I need to be honest. I haven't actually been working on it. I lied and said I was because I didn't want you to worry.",
       next: 24,
     },
     {
@@ -241,7 +232,7 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       phone: { contactName: "Tega", contactInitial: "T", statusText: "00:01:45" },
       characters: [],
       speaker: TEGA,
-      text: "Babe, I wish you'd told me. I'm not angry that you're struggling, but it bothers me when you feel you have to lie to me about it.",
+      text: "Wow. We're lying to each other now? There's no need for that. All I'm doing is trying to look out for you. You should always be honest with me.",
       next: 25,
     },
     {
@@ -269,7 +260,7 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       phone: { contactName: "Tega", contactInitial: "T", statusText: "00:01:35" },
       characters: [],
       speaker: TEGA,
-      text: "Somto, are you sure? Last time you said you hadn't even started. I need you to be straight with me, because this deadline isn't getting further away.",
+      text: "That's great to hear, babe. I'm proud of you for that. Just make sure you keep it up.",
       next: 28,
     },
     {
@@ -277,8 +268,8 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: [neutral],
-      text: "I am, baby. I know I've left it late, but I'll sort it out.",
+      characters: [smiling],
+      text: "Thanks baby!",
       next: 32,
     },
     {
@@ -297,7 +288,7 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       phone: { contactName: "Tega", contactInitial: "T", statusText: "00:01:45" },
       characters: [],
       speaker: TEGA,
-      text: "Somto, come on. I know you've got a lot going on, but I've reminded you because I'm worried. You can't keep putting this off.",
+      text: "Somto, come on. I know you've got a lot going on, but you have to check your priorities. You know how much you want that 1.",
       next: 31,
     },
     {
@@ -326,8 +317,8 @@ export function getDaySevenStory(dayThreeThesisChoice: string | null): StoryDefi
       return {
         ...beat,
         text: toldTegaSheWasWorking
-          ? "Speaking of your thesis, last time I asked, you said you'd been working on it. I hope that's still the case, baby."
-          : "Speaking of your thesis, last time I asked, you said you hadn't really been working on it. Have you made any progress since then? I don't want you leaving everything too late, Somto.",
+          ? "Yes, rightly so. Last time I asked, you said you'd been working on it. I hope that's still the case, baby."
+          : "Yes, rightly so. Last time I asked, you said you hadn't really been working on it. Have you made any progress since then?",
       };
     }
     if (beat.id === 19 && beat.type === "choice") {

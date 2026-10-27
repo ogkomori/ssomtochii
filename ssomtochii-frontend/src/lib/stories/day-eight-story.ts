@@ -6,15 +6,24 @@ import { SOMTO, ALEXA, PARTY_PLANNERS } from "./speakers";
 export const DAY_EIGHT_STORY: StoryDefinition = {
   title: "The Party Plans",
   subtitle: "Day 8",
-  startAt: 1,
+  startAt: 0,
   beats: [
+    {
+      id: 0,
+      type: "dialogue",
+      scene: "character",
+      background: "/images/backgrounds/bedroom-at-night.png",
+      speaker: SOMTO,
+      characters: [neutral],
+      text: "Alright. Let me use some time tonight to start working on this thesis.",
+      next: 1,
+    },
     {
       id: 1,
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: [neutral],
-      background: "/images/backgrounds/bedroom-at-night.png",
+      characters: [],
       text: "Alexa! What's the time?",
       next: 2,
     },
