@@ -156,6 +156,17 @@ export function StoryPlayer({
     );
   }
 
+  if (beat.type === "missed-call") {
+    return (
+      <IncomingCallScreen
+        callerName={beat.callerName ?? "Unknown Caller"}
+        callType="missed"
+        interaction="display-only"
+        onContinue={() => goTo(beat.next)}
+      />
+    );
+  }
+
   return (
     <main className="story-player-shell">
       <div className={`story-stage ${phoneScene ? "story-stage--phone" : ""} ${duoScene ? "story-stage--duo" : ""}`} style={phoneScene ? undefined : getBackgroundStyle(background)}>
