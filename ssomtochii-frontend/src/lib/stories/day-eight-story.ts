@@ -50,6 +50,12 @@ export const DAY_EIGHT_STORY: StoryDefinition = {
       scene: "character",
       characters: [sitting],
       text: "She opens a new tab to look up the idea. One search leads to another. Soon she's collecting inspiration, coming up with even more ideas, and writing little drafts for how the birthday could look. The thesis sits forgotten in the other tab as she gets more and more carried away. Her phone rings with a call from Party Planners, but she is too absorbed in her plans to notice. The call goes unanswered.",
+      next: 31,
+    },
+    {
+      id: 31,
+      type: "missed-call",
+      callerName: "Party Planners",
       next: 19,
     },
     {
