@@ -151,7 +151,7 @@ export function StoryPlayer({
         callerName={beat.callerName ?? "Tega"}
         callType="outgoing"
         interaction="display-only"
-        message={beat.message}
+        narration={beat.narration}
         onContinue={() => goTo(beat.next)}
       />
     );
