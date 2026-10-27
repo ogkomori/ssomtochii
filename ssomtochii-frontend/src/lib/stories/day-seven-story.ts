@@ -172,8 +172,190 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       scene: "character",
       speaker: SOMTO,
       characters: [neutral],
-      text: "You can't get carried away queen. CONTINUE HERE",
+      text: "Okay, okay, before you start giving me another thesis lecture...",
       next: 18,
+    },
+    {
+      id: 18,
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:01:24" },
+      characters: [],
+      speaker: TEGA,
+      text: "Speaking of your thesis, last time I asked, you said you'd been working on it. I hope that's still the case, baby.",
+      next: 19,
+    },
+    {
+      id: 19,
+      type: "choice",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [pose8Thinking],
+      text: "Somto pauses. She can keep up the story she told Tega before, or finally be honest with him.",
+      choices: [
+        { id: "day7-thesis-double-down", label: "Double down: “I've been working on it, don't worry.”", next: 20 },
+        { id: "day7-thesis-confess", label: "Tell him the truth: “I haven't actually been working on it.”", next: 23 },
+      ],
+    },
+    {
+      id: 20,
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [smiling],
+      text: "I've been working on it, don't worry. I'm making progress.",
+      next: 21,
+    },
+    {
+      id: 21,
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:01:35" },
+      characters: [],
+      speaker: TEGA,
+      text: "Okay, I want to believe you. I just don't want you telling me you're fine when you're actually falling behind.",
+      next: 22,
+    },
+    {
+      id: 22,
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [neutral],
+      text: "I hear you, baby. I'll make sure I keep on top of it.",
+      next: 32,
+    },
+    {
+      id: 23,
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [facepalm],
+      text: "Okay, I need to be honest. I haven't actually been working on it. I said I was because I didn't want you to worry.",
+      next: 24,
+    },
+    {
+      id: 24,
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:01:45" },
+      characters: [],
+      speaker: TEGA,
+      text: "Babe, I wish you'd told me. I'm not angry that you're struggling, but it bothers me when you feel you have to lie to me about it.",
+      next: 25,
+    },
+    {
+      id: 25,
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [speaking],
+      text: "I'm sorry. I didn't want you to think I wasn't taking it seriously. I'll be honest with you next time.",
+      next: 32,
+    },
+    {
+      id: 26,
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [smiling],
+      text: "I've started making progress, actually. It's coming along.",
+      next: 27,
+    },
+    {
+      id: 27,
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:01:35" },
+      characters: [],
+      speaker: TEGA,
+      text: "Somto, are you sure? Last time you said you hadn't even started. I need you to be straight with me, because this deadline isn't getting further away.",
+      next: 28,
+    },
+    {
+      id: 28,
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [neutral],
+      text: "I am, baby. I know I've left it late, but I'll sort it out.",
+      next: 32,
+    },
+    {
+      id: 29,
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [facepalm],
+      text: "Honestly, no. I still haven't been working on it like I should. I've been distracted by everything else.",
+      next: 30,
+    },
+    {
+      id: 30,
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:01:45" },
+      characters: [],
+      speaker: TEGA,
+      text: "Somto, come on. I know you've got a lot going on, but I've reminded you because I'm worried. You can't keep putting this off.",
+      next: 31,
+    },
+    {
+      id: 31,
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [speaking],
+      text: "I know, baby. I'm sorry. I'll stop avoiding it and make a proper plan tomorrow.",
+      next: 32,
+    },
+    {
+      id: 32,
+      type: "end",
+      scene: "character",
+      characters: [sitting],
+      text: "The conversation settles down. Somto knows she can't keep avoiding the thesis, and Tega's concern stays with her as they say goodnight.",
     },
   ],
 };
+
+export function getDaySevenStory(dayThreeThesisChoice: string | null): StoryDefinition {
+  const toldTegaSheWasWorking = dayThreeThesisChoice === "lie";
+  const beats = DAY_SEVEN_STORY.beats.map((beat) => {
+    if (beat.id === 18 && beat.type === "dialogue") {
+      return {
+        ...beat,
+        text: toldTegaSheWasWorking
+          ? "Speaking of your thesis, last time I asked, you said you'd been working on it. I hope that's still the case, baby."
+          : "Speaking of your thesis, last time I asked, you said you hadn't really been working on it. Have you made any progress since then? I don't want you leaving everything too late, Somto.",
+      };
+    }
+    if (beat.id === 19 && beat.type === "choice") {
+      return {
+        ...beat,
+        text: toldTegaSheWasWorking
+          ? "Somto pauses. She can keep up the story she told Tega before, or finally be honest with him."
+          : "Somto hesitates. Tega already knows she hasn't been working on her thesis, and she can either claim she's made progress or admit the truth again.",
+        choices: toldTegaSheWasWorking
+          ? [
+              { id: "day7-thesis-double-down", label: "Double down: “I've been working on it, don't worry.”", next: 20 },
+              { id: "day7-thesis-confess", label: "Tell him the truth: “I haven't actually been working on it.”", next: 23 },
+            ]
+          : [
+              { id: "day7-thesis-lie-now", label: "Lie: “I've started making progress.”", next: 26 },
+              { id: "day7-thesis-truth-again", label: "Tell the truth: “I still haven't been working on it.”", next: 29 },
+            ],
+      };
+    }
+    return beat;
+  });
+  return {
+    ...DAY_SEVEN_STORY,
+    beats: beats.map((beat) => {
+      if (beat.id === 18 && beat.type === "dialogue" && !toldTegaSheWasWorking) {
+        return { ...beat, text: "Speaking of your thesis, last time I asked, you said you hadn't really been working on it. Have you made any progress since then? I don't want you leaving everything too late, Somto." };
+      }
+      return beat;
+    }),
+  };
+}
