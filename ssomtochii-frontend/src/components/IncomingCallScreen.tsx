@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Phone, PhoneOff, RotateCcw, Volume2 } from "lucide-react";
+import { Phone, PhoneOff, RotateCcw } from "lucide-react";
 
 type CallState = "ringing" | "declined";
 
@@ -15,7 +15,7 @@ function useClock() {
   return now;
 }
 
-export function IncomingCallScreen({ onAnswer, onContinue, interaction = "interactive", callerName = "Unknown Caller", callType = "incoming" }: { onAnswer?: () => void; onContinue?: () => void; interaction?: "interactive" | "display-only"; callerName?: string; callType?: "incoming" | "outgoing" }) {
+export function IncomingCallScreen({ onAnswer, onContinue, interaction = "interactive", callerName = "Unknown Caller", callType = "incoming" }: { onAnswer?: () => void; onContinue?: () => void; interaction?: "interactive" | "display-only"; callerName?: string; callType?: "incoming" | "outgoing" | "missed" }) {
   const [state, setState] = useState<CallState>("ringing");
   const now = useClock();
 
@@ -38,7 +38,7 @@ export function IncomingCallScreen({ onAnswer, onContinue, interaction = "intera
       .toUpperCase() || "♡";
 
   return (
-    <main className={`incoming-call-screen scene-bg${callType === "outgoing" ? " outgoing-call-screen" : ""}`}>
+    <main className={`incoming-call-screen scene-bg${callType === "outgoing" ? " outgoing-call-screen" : callType === "missed" ? " missed-call-screen" : ""}`}>
       <div className="scene">
         <img
           src="/images/hand-phone.jpg"
@@ -71,18 +71,21 @@ export function IncomingCallScreen({ onAnswer, onContinue, interaction = "intera
                 </div>
 
                 <div className="caller">
-                  <div className="avatar ringing" aria-hidden="true">
+                  <div className={`avatar ${callType === "missed" ? "muted" : "ringing"}`} aria-hidden="true">
                     {callerName.trim().toLowerCase() === "tega" ? (
                       <img className="caller-profile-image" src="/images/tega-profile.png" alt="" />
                     ) : (
                       <span>{initials}</span>
                     )}
                   </div>
-                  <p className="label">{callType === "outgoing" ? "outgoing call" : "incoming call"}</p>
+                  <p className="label">{callType === "outgoing" ? "outgoing call" : callType === "missed" ? "missed call" : "incoming call"}</p>
                   <h1 className="name">{callerName}</h1>
-                  <p className="sub">mobile</p>
+                  <p className="sub">{callType === "missed" ? `Missed call · ${time}` : "mobile"}</p>
                 </div>
 
+                {callType === "missed" ? (
+                  <div className="controls single"><div className="missed-call-indicator" aria-label="Missed call notification"><PhoneOff className="icon" aria-hidden="true" /><span>Missed call</span></div></div>
+                ) : (
                 <div className={`controls${callType === "outgoing" ? " single" : ""}`}>
                   {callType === "outgoing" ? (
                     <div className="call-btn decline outgoing-decline" aria-label="Decline call button illustration">
@@ -114,6 +117,7 @@ export function IncomingCallScreen({ onAnswer, onContinue, interaction = "intera
                     </>
                   )}
                 </div>
+                )}
               </>
             ) : (
               <>
@@ -152,7 +156,7 @@ export function IncomingCallScreen({ onAnswer, onContinue, interaction = "intera
           aria-label="Continue story from incoming call"
         >
           <span className="story-speaker-name incoming-call-speaker">{callerName}</span>
-          <span className="story-dialogue-text"><em>{callType === "outgoing" ? "outgoing call..." : "incoming call..."}</em></span>
+          <span className="story-dialogue-text"><em>{callType === "outgoing" ? "outgoing call..." : callType === "missed" ? "missed call..." : "incoming call..."}</em></span>
           <span className="story-continue-hint">Tap to continue ›</span>
         </button>
       )}
