@@ -27,7 +27,7 @@ import { DAY_THREE_STORY } from "@/lib/stories/day-three-story";
 import { DAY_FOUR_STORY } from "@/lib/stories/day-four-story";
 import { DAY_FIVE_STORY } from "@/lib/stories/day-five-story";
 import { DAY_SIX_STORY } from "@/lib/stories/day-six-story";
-import { DAY_SEVEN_STORY } from "@/lib/stories/day-seven-story";
+import { DAY_SEVEN_STORY, getDaySevenStory } from "@/lib/stories/day-seven-story";
 import { DAY_EIGHT_STORY } from "@/lib/stories/day-eight-story";
 import { DAY_NINE_STORY, getDayNineStory, type PartySizeChoice } from "@/lib/stories/day-nine-story";
 import { DAY_TEN_STORY } from "@/lib/stories/day-ten-story";
@@ -74,6 +74,7 @@ function DayPage() {
   const [storyComplete, setStoryComplete] = useState(false);
   const [daySevenVideoStarted, setDaySevenVideoStarted] = useState(false);
   const [partySizeChoice, setPartySizeChoice] = useState<PartySizeChoice | null>(null);
+  const [dayThreeThesisChoice] = useState<string | null>(() => readStoryChoice("day-three-story:10"));
   const [dayAvailable, setDayAvailable] = useState<boolean | null>(null);
   const [dayCompleted, setDayCompleted] = useState(() => readProgress().completedDays.includes(day.day));
   const [showCompliment, setShowCompliment] = useState(false);
@@ -82,7 +83,9 @@ function DayPage() {
     ? DAY_ONE_STORY
     : day.day === 9
       ? getDayNineStory(partySizeChoice)
-      : STORIES[day.story as Exclude<StoryId, "day-one-story">];
+      : day.day === 7
+        ? getDaySevenStory(dayThreeThesisChoice)
+        : STORIES[day.story as Exclude<StoryId, "day-one-story">];
   const openingBeatToPreload = storyToPreload?.beats.find((beat) => beat.id === storyToPreload.startAt)
     ?? storyToPreload?.beats[0];
 
@@ -177,7 +180,11 @@ function DayPage() {
   }
 
   if (day.day !== 1 && !storyComplete) {
-    const story = day.day === 9 ? getDayNineStory(partySizeChoice) : STORIES[day.story as Exclude<StoryId, "day-one-story">];
+    const story = day.day === 9
+      ? getDayNineStory(partySizeChoice)
+      : day.day === 7
+        ? getDaySevenStory(dayThreeThesisChoice)
+        : STORIES[day.story as Exclude<StoryId, "day-one-story">];
     return <StoryPlayer story={story} exitLabel="Back to welcome" onExit={() => setWelcomeStarted(false)} onComplete={() => setStoryComplete(true)} continueLabel={`Continue to Day ${day.day}'s activity ♡`} onChoiceSelected={(choiceId, beatId) => { saveStoryChoice(`${day.story}:${beatId}`, choiceId); if (day.day === 8 && beatId === 12 && (choiceId === "party-size-10-pay-extra" || choiceId === "party-size-5-total")) setPartySizeChoice(choiceId); }} />;
   }
 
