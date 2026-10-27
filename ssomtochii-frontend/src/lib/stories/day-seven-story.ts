@@ -1,21 +1,27 @@
 import type { StoryDefinition } from "./types";
 import { SOMTO, TEGA } from "./speakers";
-import { smiling, neutral, speaking, pose8Thinking } from "./character-poses";
+import { smiling, neutral, speaking, pose8Thinking, facepalm } from "./character-poses";
 
 /** Day 7: Somto checks in with Tega after inviting Zara. */
 export const DAY_SEVEN_STORY: StoryDefinition = {
   title: "Was That a Good Idea?",
   subtitle: "Day 7",
-  startAt: 1,
+  startAt: 0,
   beats: [
+    {
+      id: 0,
+      type: "incoming-call",
+      callerName: "Tega",
+      next: 1,
+    },
     {
       id: 1,
       type: "dialogue",
       scene: "phone",
-      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:03" },
+      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:00" },
       characters: [],
       speaker: TEGA,
-      text: "Hey, baby. How did the coffee go?",
+      text: "Hey baby, how was your coffee meetup?",
       next: 2,
     },
     {
@@ -24,8 +30,8 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       scene: "character",
       background: "/images/backgrounds/bedroom.png",
       speaker: SOMTO,
-      characters: [smiling],
-      text: "It was actually nice. We talked properly, and I invited Zara to the birthday.",
+      characters: [speaking],
+      text: "It was actually much nicer than I thought! We talked about a lot of things, and we actually have a lot in common too! I think this could actually be good.",
       next: 3,
     },
     {
@@ -35,7 +41,7 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:14" },
       characters: [],
       speaker: TEGA,
-      text: "See? You were worrying for nothing.",
+      text: "Aww that's great! I knew you two would get along. What's one thing you guys have in common?",
       next: 4,
     },
     {
@@ -43,8 +49,8 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: [pose8Thinking],
-      text: "Maybe. But I'm still not sure if I made the right call. I like her, but I don't know her that well, and she can be a bit much.",
+      characters: [speaking],
+      text: "We're both into modelling actually. She actually told me that I looked like a modelll, likeee...",
       next: 5,
     },
     {
@@ -54,7 +60,7 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:26" },
       characters: [],
       speaker: TEGA,
-      text: "Baby, you're kind of desperate for people to invite at this point. You needed another person, and you actually enjoyed spending time with her. Give it a chance.",
+      text: "You definitely do babe! Lowkey she also looks like one.",
       next: 6,
     },
     {
@@ -63,7 +69,7 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       scene: "character",
       speaker: SOMTO,
       characters: [neutral],
-      text: "When you put it like that, it sounds terrible.",
+      text: "What do you mean by that?",
       next: 7,
     },
     {
@@ -73,24 +79,26 @@ export const DAY_SEVEN_STORY: StoryDefinition = {
       phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:37" },
       characters: [],
       speaker: TEGA,
-      text: "I'm not saying invite just anybody. I'm saying don't talk yourself out of a decent connection before you've given it a chance.",
+      text: "Ummmm nothing...",
       next: 8,
     },
     {
       id: 8,
       type: "dialogue",
       scene: "character",
+      characters: [facepalm],
       speaker: SOMTO,
-      characters: [speaking],
-      text: "Okay, okay. I'll stop overthinking it. She's invited, and I'll see how it goes.",
+      text: "This boy...",
       next: 9,
     },
     {
       id: 9,
-      type: "end",
-      scene: "character",
-      characters: [smiling],
-      text: "Somto hangs up feeling a little more settled. Zara is on the list now; the rest will have to work itself out.",
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:37" },
+      speaker: TEGA,
+      text: "Anyways, did you invite her to the party?",
+      next: 10,
     },
   ],
 };

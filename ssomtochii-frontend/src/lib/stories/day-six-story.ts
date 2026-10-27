@@ -177,7 +177,7 @@ export const DAY_SIX_STORY: StoryDefinition = {
       scene: "character",
       speaker: ZARA,
       characters: [zaraHappyDialogueAlone],
-      text: "Wait, really? You actually look like a model babe. I can see it. I actually used to be a model myself! How has it been for you?",
+      text: "Wait, really? You actually look like a model babe. I can see it. I actually do some modelling myself! How has it been for you?",
       next: 19,
     },
     {
