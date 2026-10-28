@@ -80,7 +80,6 @@ function DayPage() {
 
   const storyToPreload = day.day === 1
     ? DAY_ONE_STORY
-    : day.day === 9
     : day.day === 7
         ? getDaySevenStory(dayThreeThesisChoice)
         : STORIES[day.story as Exclude<StoryId, "day-one-story">];
