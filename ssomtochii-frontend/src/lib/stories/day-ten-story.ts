@@ -14,30 +14,30 @@ export interface DayTwoPartyChoices {
 }
 
 const themeText = (choice: string | null) => {
-  if (choice === "party-theme-green") return "I've gone with green for the theme. It's my favourite colour, so I want that to be the main look.";
-  if (choice === "party-theme-gold") return "I've gone with gold for the theme. I want the whole thing to feel a little special.";
-  if (choice === "party-theme-red") return "The theme is red. I've been told I look good in red, so I thought, why not make a whole party of it?";
-  return "I'm still settling on the colour theme, but I've got a few ideas.";
+  if (choice === "party-theme-green") return "green because it's her favourite colour";
+  if (choice === "party-theme-gold") return "gold to give the party a special feel";
+  if (choice === "party-theme-red") return "red because she's been told she looks good in it";
+  return "a colour theme she's still deciding on";
 };
 
 const vipText = (choice: string | null) => {
-  if (choice === "vip-alcohol-free") return "And I've asked them to keep the VIP section alcohol-free.";
-  if (choice === "vip-alcohol-allowed") return "Alcohol is allowed in the VIP section too. I told them not to hold back there.";
-  return "I still need to settle the VIP details.";
+  if (choice === "vip-alcohol-free") return "she wants the VIP section to be alcohol-free";
+  if (choice === "vip-alcohol-allowed") return "alcohol will be allowed in the VIP section";
+  return "she's still deciding on the VIP details";
 };
 
 const dressCodeText = (choice: string | null) => {
-  if (choice === "dress-code-glam") return "Dress code is dress to impress. It's my birthday, so I want everyone looking good!";
-  if (choice === "dress-code-smart-casual") return "I've picked smart casual. I want everyone looking nice without being uncomfortable all night.";
-  if (choice === "dress-code-no-pressure") return "There's no strict dress code. I want everyone to feel comfortable and come as themselves.";
-  return "I haven't settled on a dress code yet.";
+  if (choice === "dress-code-glam") return "dress to impress";
+  if (choice === "dress-code-smart-casual") return "smart casual so everyone looks nice but stays comfortable";
+  if (choice === "dress-code-no-pressure") return "no strict dress code, so everyone can feel comfortable";
+  return "a dress code she's still deciding on";
 };
 
 const musicText = (choice: string | null) => {
-  if (choice === "music-afrobeats") return "Music-wise, it's Afrobeats all night. You know I love me some Wizkid.";
-  if (choice === "music-mixed") return "For music, I've asked for a bit of everything. I want there to be something for everybody.";
-  if (choice === "music-pop-rnb") return "I'm going with pop and R&B. That's more my kind of vibe.";
-  return "I'm still deciding what sort of music I want.";
+  if (choice === "music-afrobeats") return "Afrobeats all night because she loves Wizkid";
+  if (choice === "music-mixed") return "a mix of music so there's something for everybody";
+  if (choice === "music-pop-rnb") return "pop and R&B, which are more her kind of vibe";
+  return "the kind of music she's still deciding on";
 };
 
 /** Day 10 reflects the Day 2 party choices and the Day 9 guest-list decision. */
@@ -229,11 +229,11 @@ export function getDayTenStory(
       };
       if (beat.id === 25 && beat.type === "narration") return {
         ...beat,
-        text: "Somto fills Zara in on the plans for the day. "
-          + themeText(dayTwoChoices.theme) + " "
-          + dressCodeText(dayTwoChoices.dressCode) + " "
-          + musicText(dayTwoChoices.music) + " "
-          + vipText(dayTwoChoices.vip),
+        text: "Somto fills Zara in on the plans for the day. She tells Zara she's going with " 
+          + themeText(dayTwoChoices.theme) + " for the theme, has chosen "
+          + dressCodeText(dayTwoChoices.dressCode) + " for the dress code, and wants "
+          + musicText(dayTwoChoices.music) + " for the music. She also explains that "
+          + vipText(dayTwoChoices.vip) + ".",
       };
       return beat;
     }),
