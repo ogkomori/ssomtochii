@@ -145,74 +145,10 @@ export const DAY_TEN_STORY: StoryDefinition = {
     },
     {
       id: 25,
-      type: "dialogue",
+      type: "narration",
       scene: "character",
-      speaker: SOMTO,
-      characters: together(smiling, zaraNeutral),
-      text: "I've gone with green for the theme. It's my favourite colour, so I want that to be the main look.",
-      next: 26
-    },
-    {
-      id: 26,
-      type: "dialogue",
-      scene: "character",
-      speaker: ZARA,
-      characters: together(neutral, zaraHappyDialogueAlone),
-      text: "Okay, green. I can already see how the pictures will look. And what's the dress code?",
-      next: 27
-    },
-    {
-      id: 27,
-      type: "dialogue",
-      scene: "character",
-      speaker: SOMTO,
-      characters: together(speaking, zaraNeutral),
-      text: "Dress code is dress to impress. It's my birthday, so I want everyone looking good!",
-      next: 28
-    },
-    {
-      id: 28,
-      type: "dialogue",
-      scene: "character",
-      speaker: ZARA,
-      characters: together(neutral, zaraHappy),
-      text: "I like that. People need to make an effort. What are we listening to?",
-      next: 29
-    },
-    {
-      id: 29,
-      type: "dialogue",
-      scene: "character",
-      speaker: SOMTO,
-      characters: together(smiling, zaraThinking),
-      text: "Music-wise, it's Afrobeats all night. You know I love me some Wizkid.",
-      next: 30
-    },
-    {
-      id: 30,
-      type: "dialogue",
-      scene: "character",
-      speaker: ZARA,
-      characters: together(neutral, zaraHappyDialogueAlone),
-      text: "Naturally. And what about the VIP section? Are you allowing alcohol?",
-      next: 31
-    },
-    {
-      id: 31,
-      type: "dialogue",
-      scene: "character",
-      speaker: SOMTO,
-      characters: together(speaking, zaraNeutral),
-      text: "And I've asked them to keep the VIP section alcohol-free.",
-      next: 32
-    },
-    {
-      id: 32,
-      type: "dialogue",
-      scene: "character",
-      speaker: ZARA,
-      characters: together(neutral, zaraHappy),
-      text: "Interesting. Well, I've got plenty of ideas for how to bring all of this together.",
+      characters: [pose8Thinking],
+      text: "Somto fills Zara in on the plans for the day. " + themeText(null) + " " + dressCodeText(null) + " " + musicText(null) + " " + vipText(null),
       next: 6
     },
     {
@@ -291,10 +227,14 @@ export function getDayTenStory(
           ? "Yes girl! The new venue, the pictures, the music. I already have ideas for all of it. Honestly, people will be talking about this party for weeks."
           : "I won't even be there, but I can still help you make it memorable. The venue, the pictures, the music. You'd be silly to turn down my advice.",
       };
-      if (beat.id === 25 && beat.type === "dialogue") return { ...beat, text: themeText(dayTwoChoices.theme) };
-      if (beat.id === 27 && beat.type === "dialogue") return { ...beat, text: dressCodeText(dayTwoChoices.dressCode) };
-      if (beat.id === 29 && beat.type === "dialogue") return { ...beat, text: musicText(dayTwoChoices.music) };
-      if (beat.id === 31 && beat.type === "dialogue") return { ...beat, text: vipText(dayTwoChoices.vip) };
+      if (beat.id === 25 && beat.type === "narration") return {
+        ...beat,
+        text: "Somto fills Zara in on the plans for the day. "
+          + themeText(dayTwoChoices.theme) + " "
+          + dressCodeText(dayTwoChoices.dressCode) + " "
+          + musicText(dayTwoChoices.music) + " "
+          + vipText(dayTwoChoices.vip),
+      };
       return beat;
     }),
   };
