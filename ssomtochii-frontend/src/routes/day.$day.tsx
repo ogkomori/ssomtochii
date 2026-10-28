@@ -29,7 +29,7 @@ import { DAY_FIVE_STORY } from "@/lib/stories/day-five-story";
 import { DAY_SIX_STORY } from "@/lib/stories/day-six-story";
 import { DAY_SEVEN_STORY, getDaySevenStory } from "@/lib/stories/day-seven-story";
 import { DAY_EIGHT_STORY } from "@/lib/stories/day-eight-story";
-import { DAY_NINE_STORY, getDayNineStory, type PartySizeChoice } from "@/lib/stories/day-nine-story";
+import { DAY_NINE_STORY } from "@/lib/stories/day-nine-story";
 import { DAY_TEN_STORY } from "@/lib/stories/day-ten-story";
 import { DAY_ELEVEN_STORY } from "@/lib/stories/day-eleven-story";
 import { DAY_TWELVE_STORY } from "@/lib/stories/day-twelve-story";
@@ -73,7 +73,6 @@ function DayPage() {
   const [welcomeStarted, setWelcomeStarted] = useState(false);
   const [storyComplete, setStoryComplete] = useState(false);
   const [daySevenVideoStarted, setDaySevenVideoStarted] = useState(false);
-  const [partySizeChoice, setPartySizeChoice] = useState<PartySizeChoice | null>(null);
   const [dayThreeThesisChoice] = useState<string | null>(() => readStoryChoice("day-three-story:10"));
   const [dayAvailable, setDayAvailable] = useState<boolean | null>(null);
   const [dayCompleted, setDayCompleted] = useState(() => readProgress().completedDays.includes(day.day));
@@ -82,8 +81,7 @@ function DayPage() {
   const storyToPreload = day.day === 1
     ? DAY_ONE_STORY
     : day.day === 9
-      ? getDayNineStory(partySizeChoice)
-      : day.day === 7
+    : day.day === 7
         ? getDaySevenStory(dayThreeThesisChoice)
         : STORIES[day.story as Exclude<StoryId, "day-one-story">];
   const openingBeatToPreload = storyToPreload?.beats.find((beat) => beat.id === storyToPreload.startAt)
@@ -94,13 +92,6 @@ function DayPage() {
     setDayCompleted(readProgress().completedDays.includes(day.day));
     setShowCompliment(false);
   }, [day.date, day.day]);
-
-  useEffect(() => {
-    const savedChoice = readStoryChoice("day-eight-story:12");
-    if (savedChoice === "party-size-10-pay-extra" || savedChoice === "party-size-5-total") {
-      setPartySizeChoice(savedChoice);
-    }
-  }, []);
 
   // Preload story assets while the intro/welcome screen is visible, before the story starts.
   // Day 1 keeps its existing intro/video/story flow; only asset loading starts earlier.
@@ -180,12 +171,10 @@ function DayPage() {
   }
 
   if (day.day !== 1 && !storyComplete) {
-    const story = day.day === 9
-      ? getDayNineStory(partySizeChoice)
-      : day.day === 7
-        ? getDaySevenStory(dayThreeThesisChoice)
-        : STORIES[day.story as Exclude<StoryId, "day-one-story">];
-    return <StoryPlayer story={story} exitLabel="Back to welcome" onExit={() => setWelcomeStarted(false)} onComplete={() => setStoryComplete(true)} continueLabel={`Continue to Day ${day.day}'s activity ♡`} onChoiceSelected={(choiceId, beatId) => { saveStoryChoice(`${day.story}:${beatId}`, choiceId); if (day.day === 8 && beatId === 12 && (choiceId === "party-size-10-pay-extra" || choiceId === "party-size-5-total")) setPartySizeChoice(choiceId); }} />;
+    const story = day.day === 7
+      ? getDaySevenStory(dayThreeThesisChoice)
+      : STORIES[day.story as Exclude<StoryId, "day-one-story">];
+    return <StoryPlayer story={story} exitLabel="Back to welcome" onExit={() => setWelcomeStarted(false)} onComplete={() => setStoryComplete(true)} continueLabel={`Continue to Day ${day.day}'s activity ♡`} onChoiceSelected={(choiceId, beatId) => saveStoryChoice(`${day.story}:${beatId}`, choiceId)} />;
   }
 
 
