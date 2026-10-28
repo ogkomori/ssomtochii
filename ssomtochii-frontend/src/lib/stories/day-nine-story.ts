@@ -2,6 +2,7 @@ import type { StoryCharacter, StoryDefinition } from "./types";
 import {
   placeCharacter,
   neutral,
+  smiling,
   pose8Thinking,
   pose11SeriousConcerned,
   zaraNeutral,
@@ -57,8 +58,8 @@ export const DAY_NINE_STORY: StoryDefinition = {
       characters: together(pose8Thinking, zaraThinking),
       text: "I do want Zara there. But I also don't want my birthday to become something I didn't plan. What should I do?",
       choices: [
-        { id: "zara-keep-small-party", label: "Keep Zara and rethink the guest list", next: 105 },
-        { id: "zara-uninvite-small-party", label: "Stick with my original five and uninvite Zara", next: 108 },
+        { id: "zara-keep-small-party", label: "Keep Zara and rethink the guest list", next: 5 },
+        { id: "zara-uninvite-small-party", label: "Stick with my original five and uninvite Zara", next: 8 },
       ],
     },
     {
@@ -114,10 +115,3 @@ export const DAY_NINE_STORY: StoryDefinition = {
   ],
 };
 
-/** Choose Day 9's scene based on the guest-count decision from Day 8. */
-export function getDayNineStory(choice: PartySizeChoice | null): StoryDefinition {
-  return choice === "party-size-10-pay-extra" ? DAY_NINE_LARGE_PARTY_STORY : DAY_NINE_SMALL_PARTY_STORY;
-}
-
-/** Default when Day 9 is opened without a saved Day 8 decision. */
-export const DAY_NINE_STORY = DAY_NINE_SMALL_PARTY_STORY;
