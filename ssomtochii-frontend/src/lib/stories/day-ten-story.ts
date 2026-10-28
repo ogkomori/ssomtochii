@@ -288,7 +288,7 @@ export function getDayTenStory(
       if (beat.id === 4 && beat.type === "dialogue") return {
         ...beat,
         text: invited
-          ? "The venue, the pictures, the music. I already have ideas for all of it. Honestly, people will be talking about this party for weeks."
+          ? "Yes girl! The new venue, the pictures, the music. I already have ideas for all of it. Honestly, people will be talking about this party for weeks."
           : "I won't even be there, but I can still help you make it memorable. The venue, the pictures, the music. You'd be silly to turn down my advice.",
       };
       if (beat.id === 25 && beat.type === "dialogue") return { ...beat, text: themeText(dayTwoChoices.theme) };
