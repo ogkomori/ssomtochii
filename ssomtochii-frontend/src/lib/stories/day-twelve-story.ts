@@ -1,78 +1,22 @@
 import type { StoryDefinition } from "./types";
 import { SOMTO, TEGA } from "./speakers";
-import { pose8Thinking, pose11SeriousConcerned, sitting, speaking, smiling } from "./character-poses";
+import { pose8Thinking, pose11SeriousConcerned, sitting, smiling, facepalm } from "./character-poses";
 
-/** Day 12: Somto accepts that one birthday plan has to give. */
 export const DAY_TWELVE_STORY: StoryDefinition = {
-  title: "Something Has to Give",
-  subtitle: "Day 12",
-  startAt: 1,
+  title: "One Thing After Another", subtitle: "Day 12", startAt: 1,
   beats: [
-    {
-      id: 1, type: "narration", scene: "character",
-      background: "/images/backgrounds/bedroom.png",
-      characters: [sitting],
-      text: "Somto lays out her thesis notes beside the birthday plans. She can keep trying to do everything, or she can be honest about the time she has left.",
-      next: 2,
-    },
-    {
-      id: 2, type: "dialogue", scene: "character", speaker: SOMTO,
-      characters: [pose8Thinking],
-      text: "If I leave everything until the last minute, neither the thesis nor the birthday is going to be what I want.",
-      next: 3,
-    },
-    {
-      id: 3, type: "dialogue", scene: "phone",
-      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:05" },
-      characters: [], speaker: TEGA,
-      text: "So what are you thinking, baby?",
-      next: 4,
-    },
-    {
-      id: 4, type: "choice", scene: "character", speaker: SOMTO,
-      characters: [pose11SeriousConcerned],
-      text: "There was one little birthday plan I was especially excited about doing with Tega. I think I need to give it up for now and use that time to finish the thesis. How do I tell him?",
-      choices: [
-        { id: "day12-honest", label: "Tell him honestly that I'm disappointed", next: 5 },
-        { id: "day12-downplay", label: "Play it down so he doesn't worry", next: 7 },
-      ],
-    },
-    {
-      id: 5, type: "dialogue", scene: "character", speaker: SOMTO,
-      characters: [speaking],
-      text: "I wanted us to have that time together, and I'm sad we have to move it. I know the thesis comes first right now, but I'm allowed to be disappointed too.",
-      next: 6,
-    },
-    {
-      id: 6, type: "dialogue", scene: "phone",
-      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:17" },
-      characters: [], speaker: TEGA,
-      text: "Of course you are. I wanted it too. But this is a delay, not a cancellation. Let's get you through this week, and we'll find our moment.",
-      next: 9,
-    },
-    {
-      id: 7, type: "dialogue", scene: "character", speaker: SOMTO,
-      characters: [smiling],
-      text: "It's fine. I'll just move the plan. The thesis needs me more right now.",
-      next: 8,
-    },
-    {
-      id: 8, type: "dialogue", scene: "phone",
-      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:17" },
-      characters: [], speaker: TEGA,
-      text: "You don't have to make it sound like it means nothing. I know you were looking forward to it. I'm proud of you for making the hard call, baby.",
-      next: 9,
-    },
-    {
-      id: 9, type: "dialogue", scene: "character", speaker: SOMTO,
-      characters: [smiling],
-      text: "Okay. One sacrifice. Not the whole birthday. I'm holding you to that.",
-      next: 10,
-    },
-    {
-      id: 10, type: "end", scene: "character",
-      characters: [pose8Thinking],
-      text: "The plan is postponed, not lost. Somto turns back to her work with a little less guilt and a clearer idea of what matters first.",
-    },
+    { id: 1, type: "narration", scene: "character", background: "/images/backgrounds/bedroom.png", characters: [sitting], text: "Somto finally calls Tega. She intends to tell him about the tiara first, but as soon as he asks how she's doing, everything about Melanie's call comes spilling out.", next: 2 },
+    { id: 2, type: "dialogue", scene: "phone", phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:04" }, characters: [], speaker: TEGA, text: "Baby, slow down. Start from the beginning. What happened?", next: 3 },
+    { id: 3, type: "dialogue", scene: "character", speaker: SOMTO, characters: [facepalm], text: "Melanie called and moved my thesis deadline to November seventh. My birthday, Tega. My actual birthday. Who does that?", next: 4 },
+    { id: 4, type: "dialogue", scene: "phone", phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:16" }, characters: [], speaker: TEGA, text: "That's awful timing, and you're allowed to be upset. But this doesn't erase all the work you've already done. We'll work out a plan so the deadline doesn't swallow your whole birthday.", next: 5 },
+    { id: 5, type: "dialogue", scene: "character", speaker: SOMTO, characters: [pose11SeriousConcerned], text: "I don't want to spend my birthday thinking about references and formatting. I wanted one day where I could just enjoy myself.", next: 6 },
+    { id: 6, type: "dialogue", scene: "phone", phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:25" }, characters: [], speaker: TEGA, text: "I know, sunshine. And you still deserve to celebrate. We'll take the work seriously without letting it convince you you've done nothing else worth celebrating.", next: 7 },
+    { id: 7, type: "dialogue", scene: "character", speaker: SOMTO, characters: [smiling], text: "You always know how to make me feel a little less dramatic.", next: 8 },
+    { id: 8, type: "narration", scene: "character", background: "/images/backgrounds/bedroom.png", characters: [pose8Thinking], text: "As Somto starts explaining why she was already stressed before Melanie called, another thought comes back to her. Zara's visit. The empty stand on her dresser. The missing tiara.", next: 9 },
+    { id: 9, type: "dialogue", scene: "character", speaker: SOMTO, characters: [pose11SeriousConcerned], text: "Wait. I never told you the other thing. My birthday tiara disappeared after Zara came over last night.", next: 10 },
+    { id: 10, type: "dialogue", scene: "phone", phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:34" }, characters: [], speaker: TEGA, text: "That's a pretty specific coincidence. Did you check everywhere? I wouldn't accuse her without proof, but I wouldn't ignore how strange the timing is either.", next: 11 },
+    { id: 11, type: "dialogue", scene: "character", speaker: SOMTO, characters: [pose8Thinking], text: "I checked my drawers twice. I don't want to believe she took it, but who else was in my room?", next: 12 },
+    { id: 12, type: "dialogue", scene: "phone", phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:43" }, characters: [], speaker: TEGA, text: "Talk to her calmly first. Give her a chance to explain, and keep your head if you don't like what she says. You don't need another problem on top of the thesis.", next: 13 },
+    { id: 13, type: "end", scene: "character", characters: [pose11SeriousConcerned], text: "Somto agrees to speak to Zara before deciding what to believe. She hangs up feeling supported, but the thought of her missing tiara refuses to leave her alone." },
   ],
 };
