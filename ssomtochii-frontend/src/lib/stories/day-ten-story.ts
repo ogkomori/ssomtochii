@@ -11,17 +11,103 @@ export const DAY_TEN_STORY: StoryDefinition = {
   subtitle: "Day 10",
   startAt: 1,
   beats: [
-    { id: 1, type: "narration", scene: "character", background: "/images/backgrounds/bedroom.png", characters: [neutral], text: "It's late that evening when someone knocks at Somto's door. She opens it to find Zara, who says she only wants to talk through the birthday plans for a few minutes.", next: 2 },
-    { id: 2, type: "dialogue", scene: "character", speaker: ZARA, characters: together(neutral, zaraHappyDialogueAlone), text: "I've been thinking about your birthday all day. Come on, let me in. We need to talk about the plans.", next: 3 },
-    { id: 3, type: "dialogue", scene: "character", speaker: SOMTO, characters: together(pose8Thinking, zaraHappy), text: "You came all the way here at this time to discuss a party?", next: 4 },
-    { id: 4, type: "dialogue", scene: "character", speaker: ZARA, characters: together(neutral, zaraHappy), text: "The venue, the pictures, the music. Those little details are what separate a memorable party from one people forget by Monday.", next: 5 },
-    { id: 5, type: "dialogue", scene: "character", speaker: SOMTO, characters: together(speaking, zaraThinking), text: "I do have some ideas of my own, you know.", next: 6 },
-    { id: 6, type: "dialogue", scene: "character", speaker: ZARA, characters: together(neutral, zaraHappyDialogueAlone), text: "And I'm sure they're lovely. I'm only helping you make them better. You should be thanking me.", next: 7 },
-    { id: 7, type: "dialogue", scene: "character", speaker: SOMTO, characters: together(smiling, zaraSurprised), text: "You have a gift for making help sound like an insult.", next: 8 },
-    { id: 8, type: "dialogue", scene: "character", speaker: ZARA, characters: together(neutral, zaraHappy), text: "It's a gift. Anyway, I should go. Don't make any big decisions without thinking about my suggestions first.", next: 9 },
-    { id: 9, type: "narration", scene: "character", background: "/images/backgrounds/bedroom.png", characters: [pose8Thinking], text: "Zara leaves after one last look around the room. Somto tidies up, ready to get back to her own plans, when something catches her eye. The little stand on her dresser is empty.", next: 10 },
-    { id: 10, type: "dialogue", scene: "character", speaker: SOMTO, characters: [pose11SeriousConcerned], text: "Wait... where's my birthday tiara?", next: 11 },
-    { id: 11, type: "end", scene: "character", characters: [pose8Thinking], text: "Somto searches the dresser and the nearby drawers, but the tiara is nowhere to be found. She tries to remember the last time she saw it, then shakes her head. Zara had only been here a few minutes ago. Surely that doesn't mean anything... does it?" },
+    {
+      id: 1,
+      type: "narration",
+      scene: "character",
+      background: "/images/backgrounds/bedroom.png",
+      characters: [neutral],
+      text: "It's late that evening when someone knocks at Somto's door. She opens it to find Zara, who says she only wants to talk through the birthday plans for a few minutes.",
+      next: 2
+    },
+    {
+      id: 2,
+      type: "dialogue",
+      scene: "character",
+      speaker: ZARA,
+      characters: together(neutral, zaraHappyDialogueAlone),
+      text: "I've been thinking about your birthday all day. Come on, let me in. We need to talk about the plans.",
+      next: 3
+    },
+    {
+      id: 3,
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: together(pose8Thinking, zaraHappy),
+      text: "You came all the way here at this time to discuss a party?",
+      next: 4
+    },
+    {
+      id: 4,
+      type: "dialogue",
+      scene: "character",
+      speaker: ZARA,
+      characters: together(neutral, zaraHappy),
+      text: "The venue, the pictures, the music. Those little details are what separate a memorable party from one people forget by Monday.",
+      next: 5
+    },
+    {
+      id: 5,
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: together(speaking, zaraThinking),
+      text: "I do have some ideas of my own, you know.",
+      next: 6
+    },
+    {
+      id: 6,
+      type: "dialogue",
+      scene: "character",
+      speaker: ZARA,
+      characters: together(neutral, zaraHappyDialogueAlone),
+      text: "And I'm sure they're lovely. I'm only helping you make them better. You should be thanking me.",
+      next: 7
+    },
+    {
+      id: 7,
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: together(smiling, zaraSurprised),
+      text: "You have a gift for making help sound like an insult.",
+      next: 8
+    },
+    {
+      id: 8,
+      type: "dialogue",
+      scene: "character",
+      speaker: ZARA,
+      characters: together(neutral, zaraHappy),
+      text: "It's a gift. Anyway, I should go. Don't make any big decisions without thinking about my suggestions first.",
+      next: 9
+    },
+    {
+      id: 9,
+      type: "narration",
+      scene: "character",
+      background: "/images/backgrounds/bedroom.png",
+      characters: [pose8Thinking],
+      text: "Zara leaves after one last look around the room. Somto tidies up, ready to get back to her own plans, when something catches her eye. The little stand on her dresser is empty.",
+      next: 10
+    },
+    {
+      id: 10,
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [pose11SeriousConcerned],
+      text: "Wait... where's my birthday tiara?",
+      next: 11
+    },
+    {
+      id: 11,
+      type: "end",
+      scene: "character",
+      characters: [pose8Thinking],
+      text: "Somto searches the dresser and the nearby drawers, but the tiara is nowhere to be found. She tries to remember the last time she saw it, then shakes her head. Zara had only been here a few minutes ago. Surely that doesn't mean anything... does it?"
+    },
   ],
 };
 
