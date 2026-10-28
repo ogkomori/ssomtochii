@@ -75,6 +75,16 @@ function DayPage() {
   const [daySevenVideoStarted, setDaySevenVideoStarted] = useState(false);
   const [dayThreeThesisChoice] = useState<string | null>(() => readStoryChoice("day-three-story:10"));
   const [dayNineInviteChoice] = useState<string | null>(() => readStoryChoice("day-nine-story:10"));
+  const [dayTwoThemeChoice] = useState<string | null>(() => readStoryChoice("day-two-story:3"));
+  const [dayTwoVipChoice] = useState<string | null>(() => readStoryChoice("day-two-story:5"));
+  const [dayTwoDressCodeChoice] = useState<string | null>(() => readStoryChoice("day-two-story:7"));
+  const [dayTwoMusicChoice] = useState<string | null>(() => readStoryChoice("day-two-story:9"));
+  const dayTwoPartyChoices = {
+    theme: dayTwoThemeChoice,
+    vip: dayTwoVipChoice,
+    dressCode: dayTwoDressCodeChoice,
+    music: dayTwoMusicChoice,
+  };
   const [dayAvailable, setDayAvailable] = useState<boolean | null>(null);
   const [dayCompleted, setDayCompleted] = useState(() => readProgress().completedDays.includes(day.day));
   const [showCompliment, setShowCompliment] = useState(false);
@@ -84,7 +94,7 @@ function DayPage() {
     : day.day === 7
         ? getDaySevenStory(dayThreeThesisChoice)
         : day.day === 10
-          ? getDayTenStory(dayNineInviteChoice)
+          ? getDayTenStory(dayNineInviteChoice, dayTwoPartyChoices)
           : STORIES[day.story as Exclude<StoryId, "day-one-story">];
   const openingBeatToPreload = storyToPreload?.beats.find((beat) => beat.id === storyToPreload.startAt)
     ?? storyToPreload?.beats[0];
@@ -176,7 +186,7 @@ function DayPage() {
     const story = day.day === 7
       ? getDaySevenStory(dayThreeThesisChoice)
       : day.day === 10
-        ? getDayTenStory(dayNineInviteChoice)
+        ? getDayTenStory(dayNineInviteChoice, dayTwoPartyChoices)
         : STORIES[day.story as Exclude<StoryId, "day-one-story">];
     return <StoryPlayer story={story} exitLabel="Back to welcome" onExit={() => setWelcomeStarted(false)} onComplete={() => setStoryComplete(true)} continueLabel={`Continue to Day ${day.day}'s activity ♡`} onChoiceSelected={(choiceId, beatId) => saveStoryChoice(`${day.story}:${beatId}`, choiceId)} />;
   }
