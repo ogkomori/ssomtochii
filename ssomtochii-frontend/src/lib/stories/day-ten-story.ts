@@ -1,6 +1,6 @@
 import type { StoryCharacter, StoryDefinition } from "./types";
 import { SOMTO, ZARA } from "./speakers";
-import { neutral, smiling, speaking, pose8Thinking, pose11SeriousConcerned, zaraNeutral, zaraHappy, zaraHappyDialogueAlone, zaraThinking, zaraSurprised, placeCharacter } from "./character-poses";
+import { neutral, smiling, speaking, pose8Thinking, pose11SeriousConcerned, zaraNeutral, zaraHappy, zaraHappyDialogueAlone, zaraThinking, zaraSurprised, placeCharacter, behind, pose13ArmsCrossedAlone, facepalm, pose13ArmsCrossed, pose11SeriousConcernedAlone, pose10Explaining, pose7HappyDialogue, zaraHappyAlone } from "./character-poses";
 
 const somtoLeft = (pose: StoryCharacter) => placeCharacter(pose, "somto", "Somto", "left");
 const zaraRight = (pose: StoryCharacter) => placeCharacter(pose, "zara", "Zara", "right");
@@ -9,15 +9,58 @@ const together = (somtoPose: StoryCharacter, zaraPose: StoryCharacter) => [somto
 export const DAY_TEN_STORY: StoryDefinition = {
   title: "A Little Too Helpful",
   subtitle: "Day 10",
-  startAt: 1,
+  startAt: 0,
   beats: [
     {
-      id: 1,
+      id: 0,
       type: "narration",
       scene: "character",
-      background: "/images/backgrounds/bedroom.png",
+      background: "/images/backgrounds/bedroom-at-night.png",
       characters: [neutral],
-      text: "It's late that evening when someone knocks at Somto's door. She opens it to find Zara, who says she only wants to talk through the birthday plans for a few minutes.",
+      text: "Later that evening, someone knocks at Somto's door.",
+      next: 1
+    },
+    {
+      id: 1,
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [behind],
+      text: "Who is it?",
+      next: 20
+    },
+    {
+      id: 20,
+      type: "dialogue",
+      scene: "character",
+      speaker: ZARA,
+      characters: [behind],
+      text: "It's me, Zara! Open up!",
+      next: 21
+    },
+    {
+      id: 21,
+      type: "narration",
+      scene: "character",
+      characters: [facepalm],
+      text: "\"What could this girl POSSIBLY want?\" Somto thinks to herself.",
+      next: 22
+    },
+    {
+      id: 22,
+      type: "narration",
+      scene: "character",
+      characters: [zaraHappyAlone],
+      text: "She opens the door and Zara steps inside, looking around the room.",
+      next: 23
+    },
+    {
+      id: 23,
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [pose11SeriousConcernedAlone],
+      text: "Zara? What are you doing here?",
       next: 2
     },
     {
@@ -25,8 +68,8 @@ export const DAY_TEN_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: together(neutral, zaraHappyDialogueAlone),
-      text: "I've been thinking about your birthday all day. Come on, let me in. We need to talk about the plans.",
+      characters: [zaraHappyDialogueAlone],
+      text: "I've been thinking about your birthday all day! Come on, we need to talk about the plans.",
       next: 3
     },
     {
@@ -34,8 +77,8 @@ export const DAY_TEN_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: together(pose8Thinking, zaraHappy),
-      text: "You came all the way here at this time to discuss a party?",
+      characters: together(pose7HappyDialogue, zaraNeutral),
+      text: "Oh, wow. You came all the way here at this time to discuss my party?",
       next: 4
     },
     {
@@ -43,7 +86,7 @@ export const DAY_TEN_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: together(neutral, zaraHappy),
+      characters: [zaraHappyDialogueAlone],
       text: "The venue, the pictures, the music. Those little details are what separate a memorable party from one people forget by Monday.",
       next: 5
     },
@@ -118,8 +161,8 @@ export function getDayTenStory(dayNineInviteChoice: string | null): StoryDefinit
     ...DAY_TEN_STORY,
     beats: DAY_TEN_STORY.beats.map((beat) => {
       if (beat.id === 2 && beat.type === "dialogue") return { ...beat, text: invited
-        ? "I've been thinking about our party all day. Come on, let me in. We need to talk about the plans."
-        : "I know I'm not on the guest list, but I'm still happy to help you plan. Someone has to make sure the party isn't ordinary. Come on, let me in." };
+        ? "I've been thinking about our party all day! Come on, We need to talk about the plans."
+        : "I know I'm not invited to your birthday anymore, but I still want to help you plan it! Someone has to make sure the party isn't ordinary." };
       if (beat.id === 4 && beat.type === "dialogue") return { ...beat, text: invited
         ? "The venue, the pictures, the music. I already have ideas for all of it. Honestly, people will be talking about this party for weeks."
         : "I won't even be there, but I can still help you make it memorable. The venue, the pictures, the music. You'd be silly to turn down my advice." };
