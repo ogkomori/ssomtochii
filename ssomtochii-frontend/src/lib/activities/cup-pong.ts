@@ -2,7 +2,7 @@ export type PongCup = { id: string; x: number; y: number };
 
 /** Editable cup placement and copy for the Cup Pong activity. Canvas: 360 × 500. */
 export const CUP_PONG_CONTENT = {
-  title: "A very serious game of cup pong.",
+  title: "Cup pong! (without the bouncing on the table)",
   intro: "Drag back from the ball, then let go to toss. Sink every cup if you can.",
   cups: [
     { id: "a", x: 180, y: 105 },

@@ -114,7 +114,11 @@ export const zaraHappyAlone: StoryCharacter = {
   scale: 1.5,
   offsetY: 100,
 };
-export const zaraSad: StoryCharacter = zaraPose("zara-sad", "zara-pose-4-sad", "Zara looking sad");
+export const zaraSadAlone: StoryCharacter = {
+  ...zaraPose("zara-sad", "zara-pose-4-sad", "Zara looking sad"),
+  scale: 1.5,
+  offsetY: 100,
+};
 export const zaraSurprised: StoryCharacter = {
   ...zaraPose("zara-surprised", "zara-pose-5-surprised", "Zara looking surprised"),
 };
@@ -128,8 +132,8 @@ export const zaraHappyDialogueAlone: StoryCharacter = {
 };
 export const zaraHappyDialogue: StoryCharacter = {
   ...zaraPose("zara-happy-dialogue", "zara-pose-7-happy-dialogue", "Zara speaking happily and facing left"),
-  scale: 1.55,
-  offsetY: -50,
+  scale: 1.7,
+  offsetY: -20,
 };
 export const zaraThinking: StoryCharacter = zaraPose("zara-thinking", "zara-pose-8-thinking", "Zara thinking");
 export const zaraLaughing: StoryCharacter = {

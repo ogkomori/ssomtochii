@@ -1,6 +1,6 @@
 import type { StoryCharacter, StoryDefinition } from "./types";
 import { SOMTO, TEGA, ZARA } from "./speakers";
-import { neutral, speaking, smiling, pose8Thinking, pose12ConfidentStanding, zaraNeutral, zaraSad, zaraThinking, placeCharacter } from "./character-poses";
+import { neutral, speaking, smiling, pose8Thinking, pose12ConfidentStanding, zaraNeutral, zaraSadAlone, zaraThinking, placeCharacter } from "./character-poses";
 
 const somtoLeft = (pose: StoryCharacter) => placeCharacter(pose, "somto", "Somto", "left");
 const zaraRight = (pose: StoryCharacter) => placeCharacter(pose, "zara", "Zara", "right");
@@ -72,7 +72,7 @@ export const DAY_SIXTEEN_STORY: StoryDefinition = {
     },
     {
       id: 10, type: "dialogue", scene: "character", speaker: ZARA,
-      characters: together(neutral, zaraSad),
+      characters: together(neutral, zaraSadAlone),
       text: "You really think I was trying to make it about me?",
       next: 11,
     },
@@ -84,7 +84,7 @@ export const DAY_SIXTEEN_STORY: StoryDefinition = {
     },
     {
       id: 12, type: "dialogue", scene: "character", speaker: ZARA,
-      characters: together(neutral, zaraSad),
+      characters: together(neutral, zaraSadAlone),
       text: "I didn't think you saw it that way.",
       next: 13,
     },
