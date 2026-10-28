@@ -229,10 +229,10 @@ export function getDayTenStory(
       };
       if (beat.id === 25 && beat.type === "narration") return {
         ...beat,
-        text: "Somto fills Zara in on the plans for the day. She tells Zara she's going with " 
-          + themeText(dayTwoChoices.theme) + " for the theme, has chosen "
-          + dressCodeText(dayTwoChoices.dressCode) + " for the dress code, and wants "
-          + musicText(dayTwoChoices.music) + " for the music. She also explains that "
+        text: "Somto fills Zara in on the plans for the day. She explains that the theme will be "
+          + themeText(dayTwoChoices.theme) + ", the dress code will be "
+          + dressCodeText(dayTwoChoices.dressCode) + ", and the music will be "
+          + musicText(dayTwoChoices.music) + ". She also explains that "
           + vipText(dayTwoChoices.vip) + ".",
       };
       return beat;
