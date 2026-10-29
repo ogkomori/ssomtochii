@@ -96,7 +96,7 @@ export function getDaySixteenStory({
     characters: [],
     speaker: FRIEND,
     text: prioritisedVenue
-      ? "And I heard your presentation went well. Melanie knows how much work you've put into this. Don't decide you've done badly just because you were under pressure. Let her assess the work you actually presented."
+      ? "I spoke to Melanie after your presentation. She said you did well, and she knows the deadline change left you stretched. She'll judge the work you submitted, but she understands the circumstances too. Don't assume the worst before you even get feedback."
       : "You don't have to choose between being proud of your thesis progress and enjoying your birthday. We wanted to help because you've been carrying all of this on your own.",
   });
 
