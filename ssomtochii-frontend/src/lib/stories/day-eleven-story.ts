@@ -21,6 +21,7 @@ const BASE_DAY_ELEVEN_STORY: StoryDefinition = {
       type: "incoming-call",
       scene: "phone",
       callerName: "Melanie",
+      interaction: "display-only",
       narration: "...another call comes through. It's Melanie, her supervisor.",
       next: 2
     },
@@ -28,8 +29,7 @@ const BASE_DAY_ELEVEN_STORY: StoryDefinition = {
       id: 2,
       type: "narration",
       scene: "character",
-      background: "/images/backgrounds/bedroom.png",
-      characters: [pose8Thinking],
+      characters: [facepalm],
       text: "This can't be good. She has been putting off her thesis for as long as she can remember. She picks up, hoping everything is alright.",
       next: 3
     },
@@ -40,16 +40,43 @@ const BASE_DAY_ELEVEN_STORY: StoryDefinition = {
       phone: { contactName: "Melanie", contactInitial: "M", statusText: "00:00:03" },
       characters: [],
       speaker: MELANIE,
-      text: "Hi, Somto. I'm calling because the department has changed the submission schedule. Your final thesis deadline is now November 7.",
-      next: 4
+      text: "Hi, Somto. How are you doing? Hope you've been working on your thesis, because I have some news you might not like.",
+      next: 30
     },
     {
-      id: 4,
+      id: 30,
+      type: "narration",
+      scene: "character",
+      characters: [facepalm],
+      text: "Wow. Even MORE bad news???",
+      next: 31
+    },
+    {
+      id: 31,
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: [pose8Thinking],
-      text: "November seventh? As in... my birthday?",
+      characters: [speaking],
+      text: "Hi Melanie. Honestly, no I haven't been working on it. I was planning to start this week actually. But what's the news?",
+      next: 32
+    },
+    {
+      id: 32,
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Melanie", contactInitial: "M", statusText: "00:00:10" },
+      characters: [],
+      speaker: MELANIE,
+      text: "Well that's not good, Somto. I'm calling because the department has just changed the submission schedule. Your final thesis deadline has been shifted back to November 7.",
+      next: 33
+    },
+    {
+      id: 33,
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [facepalm],
+      text: "Huhh? Please tell me you're joking. November 7 is literally my birthday!",
       next: 5
     },
     {
@@ -59,7 +86,7 @@ const BASE_DAY_ELEVEN_STORY: StoryDefinition = {
       phone: { contactName: "Melanie", contactInitial: "M", statusText: "00:00:16" },
       characters: [],
       speaker: MELANIE,
-      text: "I'm afraid so. I understand the timing is difficult, but the revised deadline applies to everyone. I wanted to give you as much notice as possible.",
+      text: "I'm sorry Somto. I understand the timing is difficult, but the revised deadline applies to everyone. I wanted to give you as much notice as possible.",
       next: 6
     },
     {
@@ -67,7 +94,7 @@ const BASE_DAY_ELEVEN_STORY: StoryDefinition = {
       type: "choice",
       scene: "character",
       speaker: SOMTO,
-      characters: [pose11SeriousConcerned],
+      characters: [sitting],
       text: "Somto takes a breath. How should she respond?",
       choices: [
       {
@@ -92,8 +119,8 @@ const BASE_DAY_ELEVEN_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: [speaking],
-      text: "I understand. I'm disappointed about the timing, but I'll reorganise my schedule and do my best to meet it.",
+      characters: [neutral],
+      text: "Okay Melanie, I understand. The timing is incredibly disappointing, but I'll reorganise my schedule and do my best to meet it.",
       next: 8
     },
     {
@@ -103,7 +130,7 @@ const BASE_DAY_ELEVEN_STORY: StoryDefinition = {
       phone: { contactName: "Melanie", contactInitial: "M", statusText: "00:00:27" },
       characters: [],
       speaker: MELANIE,
-      text: "Thank you for being professional about it. Please be realistic with your remaining work and contact me if you need clarification on the final requirements.",
+      text: "Thank you for being professional about it. Please be realistic with your remaining work and contact me if you need any clarification on the final requirements.",
       next: 13
     },
     {
@@ -111,8 +138,8 @@ const BASE_DAY_ELEVEN_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: [pose8Thinking],
-      text: "I know the schedule has changed for everyone, but is there any chance I could submit a little earlier or get a short extension? My birthday plans have been in place for weeks.",
+      characters: [speaking],
+      text: "I know the schedule has changed for everyone, but is there any chance I could submit a little later or get an extension? My birthday plans have been in place for weeks.",
       next: 10
     },
     {
@@ -122,7 +149,7 @@ const BASE_DAY_ELEVEN_STORY: StoryDefinition = {
       phone: { contactName: "Melanie", contactInitial: "M", statusText: "00:00:31" },
       characters: [],
       speaker: MELANIE,
-      text: "I do sympathise, Somto, but I can't offer you a different deadline from the rest of the cohort. I need to apply the same schedule fairly to everyone.",
+      text: "I do sympathise, Somto, but I can't offer you a different deadline from the rest of the cohort. I need to apply the same schedule fairly to everyone. I do hope you understand.",
       next: 13
     },
     {
@@ -131,7 +158,7 @@ const BASE_DAY_ELEVEN_STORY: StoryDefinition = {
       scene: "character",
       speaker: SOMTO,
       characters: [facepalm],
-      text: "You're moving it to my birthday? After all the work we've done? How is that remotely fair?",
+      text: "So you mean you couldn't even fight for me? You're moving it to MY birthday, after all the work we've done? How is that even fair?",
       next: 12
     },
     {
@@ -141,15 +168,15 @@ const BASE_DAY_ELEVEN_STORY: StoryDefinition = {
       phone: { contactName: "Melanie", contactInitial: "M", statusText: "00:00:36" },
       characters: [],
       speaker: MELANIE,
-      text: "Somto, I understand you're upset, but raising your voice won't change the schedule. I expect us to speak respectfully, even when the news is frustrating.",
+      text: "Somto, I understand you're upset, but raising your voice won't change the schedule. I expect us to speak respectfully, even when the news is frustrating. The deadline will not be changed.",
       next: 13
     },
     {
       id: 13,
       type: "end",
       scene: "character",
-      characters: [pose11SeriousConcerned],
-      text: "The call ends with the deadline unchanged: November 7, her birthday. Somto sets her phone down and lets out a long breath. She still needs to tell Tega about the tiara, but now the thesis has taken over her thoughts."
+      characters: [facepalm],
+      text: "The call ends with the deadline unchanged: November 7, her birthday. Somto sets her phone down and lets out a long breath. She still needs to find out what to do about the tiara, but now the thesis has taken over her thoughts."
     },
   ],
 };

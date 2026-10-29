@@ -193,8 +193,7 @@ export function MiniCrossword({ onComplete }: { onComplete: () => void }) {
         <section className="paper-card my-3 flex flex-1 flex-col p-3 sm:my-4 sm:p-5 lg:p-6">
           <div className="day-one-copy mb-3 gap-2 text-center">
             <p className="day-one-eyebrow">MINI CROSSWORD</p>
-            <h1 className="font-script text-4xl leading-none sm:text-5xl">{complete ? "Lovely work." : MINI_CROSSWORD_CONTENT.title}</h1>
-            <p className="text-sm">{complete ? "Every little square is in its right place." : MINI_CROSSWORD_CONTENT.intro}</p>
+            <h1 className="font-script text-4xl leading-none sm:text-5xl">{complete ? "Great work!" : MINI_CROSSWORD_CONTENT.title}</h1>
           </div>
 
           <div className="grid min-h-0 flex-1 grid-cols-1 items-start gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-6">
@@ -243,7 +242,7 @@ export function MiniCrossword({ onComplete }: { onComplete: () => void }) {
               </div>
             ) : (
               <div className="flex min-h-32 flex-col items-center justify-center gap-4 text-center">
-                <p className="text-sm text-foreground/75">You found every word. Here's a little something for you.</p>
+                <p className="text-sm text-foreground/75">You found every word! Ready for today's compliment?</p>
                 <button type="button" className="next-button" onClick={onComplete}>
                   Get today’s compliment <Check className="h-4 w-4" />
                 </button>

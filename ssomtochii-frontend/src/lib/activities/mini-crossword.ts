@@ -13,14 +13,14 @@
  * Replace the sample entries below with your own words and hints.
  */
 export const MINI_CROSSWORD_CONTENT = {
-  title: "A tiny crossword, made for you.",
+  title: "A Crossword about you!",
   intro: "Fill the little crossings with things that belong in your world.",
   rows: 9,
   columns: 12,
   entries: [
     { id: 1, answer: "OBSESSED", clue: "\"Why you so ____ with me?\"", row: 0, column: 0, direction: "across" },
     { id: 2, answer: "OSMO", clue: "Name of your camera", row: 0, column: 0, direction: "down" },
-    { id: 3, answer: "SPIDERMAN", clue: "Your Halloween party theme", row: 0, column: 4, direction: "down" },
+    { id: 3, answer: "SPIDERMAN", clue: "Your Halloween party outfit", row: 0, column: 4, direction: "down" },
     { id: 4, answer: "ADIDAS", clue: "The brand of the first birthday gift I ever gave you", row: 3, column: 3, direction: "across" },
     { id: 5, answer: "SUMMER", clue: "Your favourite holiday", row: 3, column: 8, direction: "down" },
     { id: 6, answer: "IRENE", clue: "Confirmation", row: 4, column: 1, direction: "down" },
