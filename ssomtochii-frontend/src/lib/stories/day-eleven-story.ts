@@ -155,6 +155,8 @@ const BASE_DAY_ELEVEN_STORY: StoryDefinition = {
 };
 
 
+export const DAY_ELEVEN_STORY = BASE_DAY_ELEVEN_STORY;
+
 export function getDayElevenStory(
   dayThreeThesisChoice: string | null,
   daySevenThesisChoice: string | null,
