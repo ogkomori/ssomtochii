@@ -31,7 +31,7 @@ import { DAY_SEVEN_STORY, getDaySevenStory } from "@/lib/stories/day-seven-story
 import { DAY_EIGHT_STORY } from "@/lib/stories/day-eight-story";
 import { DAY_NINE_STORY } from "@/lib/stories/day-nine-story";
 import { DAY_TEN_STORY, getDayTenStory } from "@/lib/stories/day-ten-story";
-import { DAY_ELEVEN_STORY } from "@/lib/stories/day-eleven-story";
+import { DAY_ELEVEN_STORY, getDayElevenStory } from "@/lib/stories/day-eleven-story";
 import { DAY_TWELVE_STORY } from "@/lib/stories/day-twelve-story";
 import { DAY_THIRTEEN_STORY } from "@/lib/stories/day-thirteen-story";
 import { DAY_FOURTEEN_STORY } from "@/lib/stories/day-fourteen-story";
@@ -74,6 +74,7 @@ function DayPage() {
   const [storyComplete, setStoryComplete] = useState(false);
   const [daySevenVideoStarted, setDaySevenVideoStarted] = useState(false);
   const [dayThreeThesisChoice] = useState<string | null>(() => readStoryChoice("day-three-story:10"));
+  const [daySevenThesisChoice] = useState<string | null>(() => readStoryChoice("day-seven-story:19"));
   const [dayNineInviteChoice] = useState<string | null>(() => readStoryChoice("day-nine-story:10"));
   const [dayTwoThemeChoice] = useState<string | null>(() => readStoryChoice("day-two-story:3"));
   const [dayTwoVipChoice] = useState<string | null>(() => readStoryChoice("day-two-story:5"));
@@ -95,7 +96,9 @@ function DayPage() {
         ? getDaySevenStory(dayThreeThesisChoice)
         : day.day === 10
           ? getDayTenStory(dayNineInviteChoice, dayTwoPartyChoices)
-          : STORIES[day.story as Exclude<StoryId, "day-one-story">];
+          : day.day === 11
+            ? getDayElevenStory(dayThreeThesisChoice, daySevenThesisChoice)
+            : STORIES[day.story as Exclude<StoryId, "day-one-story">];
   const openingBeatToPreload = storyToPreload?.beats.find((beat) => beat.id === storyToPreload.startAt)
     ?? storyToPreload?.beats[0];
 
@@ -187,7 +190,9 @@ function DayPage() {
       ? getDaySevenStory(dayThreeThesisChoice)
       : day.day === 10
         ? getDayTenStory(dayNineInviteChoice, dayTwoPartyChoices)
-        : STORIES[day.story as Exclude<StoryId, "day-one-story">];
+        : day.day === 11
+          ? getDayElevenStory(dayThreeThesisChoice, daySevenThesisChoice)
+          : STORIES[day.story as Exclude<StoryId, "day-one-story">];
     return <StoryPlayer story={story} exitLabel="Back to welcome" onExit={() => setWelcomeStarted(false)} onComplete={() => setStoryComplete(true)} continueLabel={`Continue to Day ${day.day}'s activity ♡`} onChoiceSelected={(choiceId, beatId) => saveStoryChoice(`${day.story}:${beatId}`, choiceId)} />;
   }
 
