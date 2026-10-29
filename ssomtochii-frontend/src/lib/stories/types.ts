@@ -83,6 +83,7 @@ export interface IncomingCallBeat extends StoryBeatBase {
 export interface OutgoingCallBeat extends StoryBeatBase {
   type: "outgoing-call";
   callerName?: string;
+  narration?: string;
   next: number;
 }
 

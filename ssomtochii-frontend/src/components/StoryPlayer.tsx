@@ -162,6 +162,7 @@ export function StoryPlayer({
         onRestart={restart}
         callType="outgoing"
         interaction="display-only"
+        narration={beat.narration}
         onContinue={() => goTo(beat.next)}
       />
     );
