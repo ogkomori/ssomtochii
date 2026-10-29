@@ -138,6 +138,11 @@ export function StoryPlayer({
     return (
       <IncomingCallScreen
         callerName={beat.callerName ?? "Tega"}
+        storyTitle={story.title}
+        storySubtitle={story.subtitle}
+        exitLabel={exitLabel}
+        onExit={onExit}
+        onRestart={restart}
         interaction={beat.interaction ?? "interactive"}
         narration={beat.narration}
         onAnswer={() => goTo(beat.next)}
@@ -150,6 +155,11 @@ export function StoryPlayer({
     return (
       <IncomingCallScreen
         callerName={beat.callerName ?? "Tega"}
+        storyTitle={story.title}
+        storySubtitle={story.subtitle}
+        exitLabel={exitLabel}
+        onExit={onExit}
+        onRestart={restart}
         callType="outgoing"
         interaction="display-only"
         onContinue={() => goTo(beat.next)}
@@ -161,6 +171,11 @@ export function StoryPlayer({
     return (
       <IncomingCallScreen
         callerName={beat.callerName ?? "Unknown Caller"}
+        storyTitle={story.title}
+        storySubtitle={story.subtitle}
+        exitLabel={exitLabel}
+        onExit={onExit}
+        onRestart={restart}
         callType="missed"
         interaction="display-only"
         narration={beat.narration}
