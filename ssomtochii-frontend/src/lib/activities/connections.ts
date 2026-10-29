@@ -12,7 +12,7 @@ export const CONNECTIONS_CONTENT: {
   title: string;
   rounds: ConnectionsRound[];
 } = {
-  title: "Little connections",
+  title: "Word Connections!",
   rounds: [
     {
       category: "Words that describe you",
@@ -25,10 +25,10 @@ export const CONNECTIONS_CONTENT: {
     },
     {
       groups: [
-        { category: "Names of Wizkid songs", items: ["TURBULENCE", "GINGER", "FINAL", "RECKLESS"] },
+        { category: "Names of Wizkid songs", items: ["SLOW DOWN", "GINGER", "FINAL", "RECKLESS"] },
         { category: "Words that come before \"light\"", items: ["SUN", "SPOT", "MOON", "DAY"] },
-        { category: "Things that are green", items: ["MATCHA", "GRASS", "MONEY", "SPOTIFY"] },
-        { category: "Things that have a shot", items: ["ESPRESSO", "BASKETBALL", "TEQUILA", "CAMERA"] },
+        { category: "Things that are green", items: ["MATCHA", "GRASS", "MONEY", "CUCUMBER"] },
+        { category: "Things that have a shot", items: ["ESPRESSO", "BASKETBALL", "TEQUILA", "FOOTBALL"] },
       ],
     },
   ],

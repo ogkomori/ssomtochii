@@ -51,7 +51,7 @@ export function Connections({ onComplete }: { onComplete: () => void }) {
     setSolved([]);
     setFlexibleSolved([]);
     setMistakes(0);
-    setMessage("Find four things that belong together.");
+    setMessage("Find four words that belong together!");
     setAllItems(shuffledConnectionsItems(roundIndex));
   };
 
@@ -61,7 +61,7 @@ export function Connections({ onComplete }: { onComplete: () => void }) {
     setSolved([]);
     setFlexibleSolved([]);
     setMistakes(0);
-    setMessage("Find four things that belong together.");
+    setMessage("Find four words that belong together!");
   };
 
   const available = flexibleRound
@@ -75,7 +75,7 @@ export function Connections({ onComplete }: { onComplete: () => void }) {
       {complete ? (
         <div className="day-one-copy items-center text-center">
           <div className="completion-mark"><Check className="h-8 w-8" /></div>
-          <p>{flexibleRound ? "Words that describe you — every one of them! 💗" : finalRound ? "Everything clicked. Ready for today’s letter?" : "Lovely work! One more round to go."}</p>
+          <p>{flexibleRound ? "Words that describe you — every one of them! 💗" : finalRound ? "Everything clicked. Ready for today’s compliment?" : "Lovely work! One more round to go."}</p>
         </div>
       ) : <p className="game-message">{message}</p>}
       {flexibleRound && flexibleSolved.map((items, index) => <div key={`flexible-${index}`} className="connection-solved"><strong>{round.category ?? "Words that describe you"}</strong><span>{items.join(" · ")}</span></div>)}

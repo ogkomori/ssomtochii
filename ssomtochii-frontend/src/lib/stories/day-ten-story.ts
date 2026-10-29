@@ -1,6 +1,6 @@
 import type { StoryCharacter, StoryDefinition } from "./types";
 import { SOMTO, ZARA } from "./speakers";
-import { neutral, smiling, speaking, pose8Thinking, pose11SeriousConcerned, zaraNeutral, zaraHappy, zaraHappyDialogueAlone, zaraThinking, zaraSurprised, placeCharacter, behind, pose13ArmsCrossedAlone, facepalm, pose13ArmsCrossed, pose11SeriousConcernedAlone, pose10Explaining, pose7HappyDialogue, zaraHappyAlone } from "./character-poses";
+import { neutral, smiling, speaking, pose8Thinking, pose11SeriousConcerned, zaraNeutral, zaraHappy, zaraHappyDialogue, zaraHappyDialogueAlone, zaraThinking, zaraSurprised, placeCharacter, behind, pose13ArmsCrossedAlone, facepalm, pose13ArmsCrossed, pose11SeriousConcernedAlone, pose10Explaining, pose7HappyDialogue, zaraHappyAlone, pose10ExplainingAlone, pose12ConfidentStanding, zaraExplainingAlone, zaraLaughing, upwards } from "./character-poses";
 
 const somtoLeft = (pose: StoryCharacter) => placeCharacter(pose, "somto", "Somto", "left");
 const zaraRight = (pose: StoryCharacter) => placeCharacter(pose, "zara", "Zara", "right");
@@ -14,30 +14,30 @@ export interface DayTwoPartyChoices {
 }
 
 const themeText = (choice: string | null) => {
-  if (choice === "party-theme-green") return "green because it's her favourite colour";
-  if (choice === "party-theme-gold") return "gold to give the party a special feel";
-  if (choice === "party-theme-red") return "red because she's been told she looks good in it";
-  return "a colour theme she's still deciding on";
+  if (choice === "party-theme-green") return "The green theme";
+  if (choice === "party-theme-gold") return "The gold theme";
+  if (choice === "party-theme-red") return "The red theme";
+  return "The undecided theme";
 };
 
 const vipText = (choice: string | null) => {
   if (choice === "vip-alcohol-free") return "she wants the VIP section to be alcohol-free";
-  if (choice === "vip-alcohol-allowed") return "alcohol will be allowed in the VIP section";
-  return "she's still deciding on the VIP details";
+  if (choice === "vip-alcohol-allowed") return "there will be alcohol in the VIP section";
+  return "she's still deciding on the VIP-section details";
 };
 
 const dressCodeText = (choice: string | null) => {
-  if (choice === "dress-code-glam") return "dress to impress";
-  if (choice === "dress-code-smart-casual") return "smart casual so everyone looks nice but stays comfortable";
-  if (choice === "dress-code-no-pressure") return "no strict dress code, so everyone can feel comfortable";
+  if (choice === "dress-code-glam") return "the glam dress code";
+  if (choice === "dress-code-smart-casual") return "the smart-casual dress code";
+  if (choice === "dress-code-no-pressure") return "no pressure on the dress code";
   return "a dress code she's still deciding on";
 };
 
 const musicText = (choice: string | null) => {
-  if (choice === "music-afrobeats") return "Afrobeats all night because she loves Wizkid";
+  if (choice === "music-afrobeats") return "an afrobeats vibe";
   if (choice === "music-mixed") return "a mix of music so there's something for everybody";
-  if (choice === "music-pop-rnb") return "pop and R&B, which are more her kind of vibe";
-  return "the kind of music she's still deciding on";
+  if (choice === "music-pop-rnb") return "a pop and R&B vibe";
+  return "no specific music preferences";
 };
 
 /** Day 10 reflects the Day 2 party choices and the Day 9 guest-list decision. */
@@ -130,7 +130,7 @@ export const DAY_TEN_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: together(speaking, zaraThinking),
+      characters: [pose10ExplainingAlone],
       text: "I do have some ideas of my own, you know.",
       next: 24
     },
@@ -139,7 +139,7 @@ export const DAY_TEN_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: together(neutral, zaraSurprised),
+      characters: together(pose12ConfidentStanding, zaraHappyDialogue),
       text: "Oh? Go on then. What have you decided so far? What's the vibe for the day?",
       next: 25
     },
@@ -147,7 +147,7 @@ export const DAY_TEN_STORY: StoryDefinition = {
       id: 25,
       type: "narration",
       scene: "character",
-      characters: [pose8Thinking],
+      characters: together(pose7HappyDialogue, zaraNeutral),
       text: "Somto fills Zara in on the plans for the day. " + themeText(null) + " " + dressCodeText(null) + " " + musicText(null) + " " + vipText(null),
       next: 6
     },
@@ -156,52 +156,66 @@ export const DAY_TEN_STORY: StoryDefinition = {
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: together(neutral, zaraHappyDialogueAlone),
-      text: "And I'm sure they're lovely. I'm only helping you make them better. You should be thanking me.",
+      characters: [zaraExplainingAlone],
+      text: "Mhmm. Sure. Yeah. Or, you could do it this way...",
       next: 7
     },
     {
       id: 7,
-      type: "dialogue",
+      type: "narration",
       scene: "character",
-      speaker: SOMTO,
-      characters: together(smiling, zaraSurprised),
-      text: "You have a gift for making help sound like an insult.",
+      characters: together(pose13ArmsCrossed, zaraHappyDialogue),
+      text: "Zara starts rambling about her own ideas for the party, and Somto listens politely, but she can't help but feel a little overwhelmed. Zara's suggestions are good, but they don't quite fit with what Somto had in mind.",
       next: 8
     },
     {
       id: 8,
       type: "dialogue",
       scene: "character",
-      speaker: ZARA,
-      characters: together(neutral, zaraHappy),
-      text: "It's a gift. Anyway, I should go. Don't make any big decisions without thinking about my suggestions first.",
+      speaker: SOMTO,
+      characters: [pose10ExplainingAlone],
+      text: "Hmm. I hear you. I'll definitely take your advice into consideration.",
       next: 9
     },
     {
       id: 9,
-      type: "narration",
+      type: "dialogue",
       scene: "character",
-      background: "/images/backgrounds/bedroom.png",
-      characters: [pose8Thinking],
-      text: "Zara leaves after one last look around the room. Somto tidies up, ready to get back to her own plans, when something catches her eye. The little stand on her dresser is empty.",
+      speaker: ZARA,
+      characters: together(pose12ConfidentStanding, zaraLaughing),
+      text: "You better! I want this party to be unforgettable. And I know you do too. Goodnight, Somto!",
       next: 10
     },
     {
       id: 10,
-      type: "dialogue",
+      type: "narration",
       scene: "character",
-      speaker: SOMTO,
-      characters: [pose11SeriousConcerned],
-      text: "Wait... where's my birthday tiara?",
+      characters: [behind],
+      text: "Zara leaves after one last look around the room.",
+      next: 15
+    },
+    {
+      id: 15,
+      type: "narration",
+      scene: "character",
+      characters: [neutral],
+      text: "Somto tidies up, ready to get back to her own plans for the party.",
       next: 11
     },
     {
       id: 11,
+      type: "narration",
+      scene: "character",
+      characters: [upwards],
+      text: "All of a sudden, something catches her eye. The little stand on her dresser is empty. Her birthday tiara is gone.",
+      next: 12
+    },
+    {
+      id: 12,
       type: "end",
       scene: "character",
-      characters: [pose8Thinking],
-      text: "Somto searches the dresser and the nearby drawers, but the tiara is nowhere to be found. She tries to remember the last time she saw it, then shakes her head. Zara had only been here a few minutes ago. Surely that doesn't mean anything... does it?"
+      characters: [facepalm],
+      text: "Somto realizes that Zara has stolen her birthday tiara. She can't believe it. She had trusted Zara, and now she feels betrayed.",
     },
   ],
 };
@@ -229,10 +243,10 @@ export function getDayTenStory(
       };
       if (beat.id === 25 && beat.type === "narration") return {
         ...beat,
-        text: "Somto fills Zara in on the plans for the day. She explains that the theme will be "
-          + themeText(dayTwoChoices.theme) + ", the dress code will be "
-          + dressCodeText(dayTwoChoices.dressCode) + ", and the music will be "
-          + musicText(dayTwoChoices.music) + ". She also explains that "
+        text: "Somto fills Zara in on the plans for the day. "
+          + themeText(dayTwoChoices.theme) + ", "
+          + dressCodeText(dayTwoChoices.dressCode) + ", and "
+          + musicText(dayTwoChoices.music) + ". And of course, "
           + vipText(dayTwoChoices.vip) + ".",
       };
       return beat;
