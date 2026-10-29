@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Phone, PhoneOff, RotateCcw } from "lucide-react";
+import { ArrowLeft, Phone, PhoneOff, RotateCcw } from "lucide-react";
 
 type CallState = "ringing" | "declined";
 
@@ -15,7 +15,7 @@ function useClock() {
   return now;
 }
 
-export function IncomingCallScreen({ onAnswer, onContinue, interaction = "interactive", callerName = "Unknown Caller", callType = "incoming", narration }: { onAnswer?: () => void; onContinue?: () => void; interaction?: "interactive" | "display-only"; callerName?: string; callType?: "incoming" | "outgoing" | "missed"; narration?: string }) {
+export function IncomingCallScreen({ onAnswer, onContinue, interaction = "interactive", callerName = "Unknown Caller", callType = "incoming", narration, storyTitle, storySubtitle, exitLabel = "Exit story", onExit, onRestart }: { onAnswer?: () => void; onContinue?: () => void; interaction?: "interactive" | "display-only"; callerName?: string; callType?: "incoming" | "outgoing" | "missed"; narration?: string; storyTitle?: string; storySubtitle?: string; exitLabel?: string; onExit?: () => void; onRestart?: () => void }) {
   const [state, setState] = useState<CallState>("ringing");
   const now = useClock();
 
@@ -39,6 +39,16 @@ export function IncomingCallScreen({ onAnswer, onContinue, interaction = "intera
 
   return (
     <main className={`incoming-call-screen scene-bg${callType === "outgoing" ? " outgoing-call-screen" : callType === "missed" ? " missed-call-screen" : ""}`}>
+      {(storyTitle || onExit || onRestart) && (
+        <header className="story-test-header">
+          {onExit && <button type="button" className="story-exit-button" onClick={onExit}><ArrowLeft className="h-4 w-4" /> {exitLabel}</button>}
+          <div className="story-heading">
+            {storyTitle && <span>{storyTitle}</span>}
+            {storySubtitle && <small>{storySubtitle}</small>}
+          </div>
+          {onRestart && <button type="button" className="story-restart-button" onClick={onRestart} aria-label="Restart story"><RotateCcw className="h-4 w-4" /></button>}
+        </header>
+      )}
       <div className="scene">
         <img
           src="/images/hand-phone.jpg"
