@@ -1,19 +1,27 @@
 import type { StoryDefinition } from "./types";
 import { SOMTO } from "./speakers";
-import { pose8Thinking, pose11SeriousConcerned, facepalm, sitting, speaking } from "./character-poses";
+import { pose8Thinking, pose11SeriousConcerned, facepalm, neutral, sitting, speaking } from "./character-poses";
 
 const MELANIE = { id: "melanie", label: "Melanie · On the phone", color: "#526B91" };
 
 export const DAY_ELEVEN_STORY: StoryDefinition = {
-  title: "The Worst Possible Date", subtitle: "Day 11", startAt: 1,
+  title: "The Worst Possible Date", subtitle: "Day 11", startAt: 0,
   beats: [
     {
-      id: 1,
+      id: 0,
       type: "narration",
       scene: "character",
       background: "/images/backgrounds/bedroom.png",
-      characters: [sitting],
-      text: "The next day, Somto opens her phone to call Tega and tell him about the missing tiara. Before she can press his name, another call comes through. It's Melanie, her thesis supervisor.",
+      characters: [neutral],
+      text: "The next day, Somto opens her phone to call Tega and tell him about the missing tiara. Before she can press his name...",
+      next: 1
+    },
+    {
+      id: 1,
+      type: "incoming-call",
+      scene: "phone",
+      phone: { contactName: "Melanie", contactInitial: "M", statusText: "00:00:00" },
+      narration: "...another call comes through. It's Melanie, her supervisor.",
       next: 2
     },
     {

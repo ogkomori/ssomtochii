@@ -139,6 +139,7 @@ export function StoryPlayer({
       <IncomingCallScreen
         callerName={beat.callerName ?? "Tega"}
         interaction={beat.interaction ?? "interactive"}
+        narration={beat.narration}
         onAnswer={() => goTo(beat.next)}
         onContinue={() => goTo(beat.next)}
       />

@@ -74,6 +74,7 @@ export interface IncomingCallBeat extends StoryBeatBase {
   type: "incoming-call";
   callerName?: string;
   /** Display-only calls show the incoming-call UI without letting the viewer accept or decline. */
+  narration?: string;
   interaction?: "interactive" | "display-only";
   next: number;
 }
