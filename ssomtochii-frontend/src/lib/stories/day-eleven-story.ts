@@ -20,7 +20,7 @@ export const DAY_ELEVEN_STORY: StoryDefinition = {
       id: 1,
       type: "incoming-call",
       scene: "phone",
-      phone: { contactName: "Melanie", contactInitial: "M", statusText: "00:00:00" },
+      callerName: "Melanie",
       narration: "...another call comes through. It's Melanie, her supervisor.",
       next: 2
     },
