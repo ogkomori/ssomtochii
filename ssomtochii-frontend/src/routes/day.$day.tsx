@@ -32,7 +32,7 @@ import { DAY_EIGHT_STORY } from "@/lib/stories/day-eight-story";
 import { DAY_NINE_STORY } from "@/lib/stories/day-nine-story";
 import { DAY_TEN_STORY, getDayTenStory } from "@/lib/stories/day-ten-story";
 import { DAY_ELEVEN_STORY, getDayElevenStory } from "@/lib/stories/day-eleven-story";
-import { DAY_TWELVE_STORY } from "@/lib/stories/day-twelve-story";
+import { DAY_TWELVE_STORY, getDayTwelveStory } from "@/lib/stories/day-twelve-story";
 import { DAY_THIRTEEN_STORY } from "@/lib/stories/day-thirteen-story";
 import { DAY_FOURTEEN_STORY } from "@/lib/stories/day-fourteen-story";
 import { DAY_FIFTEEN_STORY } from "@/lib/stories/day-fifteen-story";
@@ -100,7 +100,9 @@ function DayPage() {
           ? getDayTenStory(dayNineInviteChoice, dayTwoPartyChoices)
           : day.day === 11
             ? getDayElevenStory(dayThreeThesisChoice, daySevenThesisChoice)
-            : day.day === 16
+            : day.day === 12
+              ? getDayTwelveStory(daySevenThesisChoice)
+              : day.day === 16
               ? getDaySixteenStory({ inviteChoice: dayNineInviteChoice, tiaraChoice: dayThirteenTiaraChoice, priorityChoice: dayFourteenPriorityChoice, themeChoice: dayTwoThemeChoice })
               : STORIES[day.story as Exclude<StoryId, "day-one-story">];
   const openingBeatToPreload = storyToPreload?.beats.find((beat) => beat.id === storyToPreload.startAt)
@@ -196,7 +198,9 @@ function DayPage() {
         ? getDayTenStory(dayNineInviteChoice, dayTwoPartyChoices)
         : day.day === 11
           ? getDayElevenStory(dayThreeThesisChoice, daySevenThesisChoice)
-          : day.day === 16
+          : day.day === 12
+            ? getDayTwelveStory(daySevenThesisChoice)
+            : day.day === 16
             ? getDaySixteenStory({ inviteChoice: dayNineInviteChoice, tiaraChoice: dayThirteenTiaraChoice, priorityChoice: dayFourteenPriorityChoice, themeChoice: dayTwoThemeChoice })
             : STORIES[day.story as Exclude<StoryId, "day-one-story">];
     return <StoryPlayer story={story} exitLabel="Back to welcome" onExit={() => setWelcomeStarted(false)} onComplete={() => setStoryComplete(true)} continueLabel={`Continue to Day ${day.day}'s activity ♡`} onChoiceSelected={(choiceId, beatId) => saveStoryChoice(`${day.story}:${beatId}`, choiceId)} />;
