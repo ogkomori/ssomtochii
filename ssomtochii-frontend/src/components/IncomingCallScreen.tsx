@@ -148,7 +148,7 @@ export function IncomingCallScreen({ onAnswer, onContinue, interaction = "intera
           <div className="home-bar" aria-hidden="true" />
         </div>
       </div>
-      {interaction === "display-only" && (
+      {(interaction === "display-only" || (callType === "incoming" && narration)) && (
         <button
           type="button"
           className={`story-dialogue-panel incoming-call-dialogue${narration ? " story-dialogue-panel--narration" : ""}`}
