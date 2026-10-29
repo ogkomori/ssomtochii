@@ -1,8 +1,8 @@
-import type { StoryDefinition } from "./types";
+import type { StoryBeat, StoryDefinition } from "./types";
 import { SOMTO, TEGA, ALEXA } from "./speakers";
 import { pose8Thinking, pose11SeriousConcerned, sitting, smiling, facepalm, upwards, neutral } from "./character-poses";
 
-export const DAY_TWELVE_STORY: StoryDefinition = {
+const BASE_DAY_TWELVE_STORY: StoryDefinition = {
   title: "One Thing After Another", subtitle: "Day 12", startAt: 1,
   beats: [
     {
@@ -112,3 +112,156 @@ export const DAY_TWELVE_STORY: StoryDefinition = {
     },
   ],
 };
+
+
+/** Day 12 adapts Tega's thesis conversation to Somto's honesty on Day 7. */
+export function getDayTwelveStory(daySevenThesisChoice: string | null): StoryDefinition {
+  const liedOnDaySeven =
+    daySevenThesisChoice === "day7-thesis-double-down" ||
+    daySevenThesisChoice === "day7-thesis-lie-now";
+
+  const addedBeats: StoryBeat[] = [
+    {
+      id: 13,
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:12" },
+      speaker: TEGA,
+      text: "By the way, why have you been studying for so long? What happened?",
+      next: 14,
+    },
+    {
+      id: 14,
+      type: "dialogue",
+      scene: "character",
+      characters: [pose8Thinking],
+      speaker: SOMTO,
+      text: "Melanie moved the thesis deadline back. It's now on my birthday, so I've been trying to make up for all the time I've lost. I didn't even realise how late it had got.",
+      next: 15,
+    },
+    {
+      id: 15,
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:24" },
+      speaker: TEGA,
+      text: liedOnDaySeven
+        ? "Wait, I'm confused, baby. If you'd already been working on your thesis, why did you need to spend the entire day catching up? You should have made some progress by now. Unless this was a panic attempt to cover some ground, which would mean you weren't honest with me before."
+        : "Oh, baby. That must be awful, especially when you know you haven't been working on it the way you wanted to. I can understand why you felt you had to spend the whole day trying to catch up. That's a lot to carry at once.",
+      next: 16,
+    },
+    {
+      id: 16,
+      type: "dialogue",
+      scene: "character",
+      characters: [facepalm],
+      speaker: SOMTO,
+      text: liedOnDaySeven
+        ? "You're right. I need to tell you the truth. I hadn't been working on it like I said I was. I panicked and lied because I didn't want you to worry or think I wasn't taking my future seriously."
+        : "I know. I kept putting it off, and now I'm paying for it. I hate that I let it get this far, but I can't change what I did. I can only try to make the best of the time I've got left.",
+      next: 17,
+    },
+    {
+      id: 17,
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:38" },
+      speaker: TEGA,
+      text: liedOnDaySeven
+        ? "Baby, I'm glad you told me now. I'm hurt that you lied, not because you're struggling with your thesis. You don't have to pretend everything is fine with me. I'd rather know the truth so I can support you."
+        : "I know you're disappointed in yourself, but beating yourself up won't give you those hours back. Make a plan and take it one step at a time. And please remember you can talk to me when things get overwhelming.",
+      next: 18,
+    },
+    {
+      id: 18,
+      type: "narration",
+      scene: "character",
+      background: "/images/backgrounds/bedroom-at-night.png",
+      characters: [pose8Thinking],
+      text: "Somto takes a breath, grateful that Tega is listening. Then she remembers why she'd called him in the first place. The night Zara visited, she'd come into Somto's room and looked around while they talked. After Zara left, Somto realised her birthday tiara was missing. She hadn't found it anywhere since, and Zara was the last person she'd seen near it.",
+      next: 19,
+    },
+    {
+      id: 19,
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:01:02" },
+      speaker: TEGA,
+      text: "Baby, you need to talk to her. You don't have to go in there looking for a fight, but you shouldn't keep sitting with this either. Tell her what you've noticed and give her a chance to explain.",
+      next: 20,
+    },
+    {
+      id: 20,
+      type: "dialogue",
+      scene: "character",
+      characters: [pose11SeriousConcerned],
+      speaker: SOMTO,
+      text: "I don't even know how to approach her. Part of me wants to go straight to her and demand to know what she did. But if I come at her aggressively, she'll probably get defensive. I don't know whether to be calm or let her know how angry I am.",
+      next: 21,
+    },
+    {
+      id: 21,
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:01:18" },
+      speaker: TEGA,
+      text: "Trust your gut, Somto. You know how you feel, and you don't have to pretend you're not upset. Just be clear about what happened and why you're asking. You deserve an answer, and you can stand up for yourself without letting the anger decide every word.",
+      next: 22,
+    },
+    {
+      id: 22,
+      type: "narration",
+      scene: "character",
+      background: "/images/backgrounds/bedroom-at-night.png",
+      characters: [neutral],
+      text: "Before Somto can reply, the doorbell rings. Her sushi has arrived at last.",
+      next: 23,
+    },
+    {
+      id: 23,
+      type: "dialogue",
+      scene: "character",
+      characters: [smiling],
+      speaker: SOMTO,
+      text: "My sushi is here! Thank you for listening to me, babe. I feel a little better now.",
+      next: 24,
+    },
+    {
+      id: 24,
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:01:36" },
+      speaker: TEGA,
+      text: "Good. Eat something, get some rest, and don't try to solve everything tonight. We'll talk tomorrow, okay? Goodnight, my love.",
+      next: 25,
+    },
+    {
+      id: 25,
+      type: "dialogue",
+      scene: "character",
+      characters: [smiling],
+      speaker: SOMTO,
+      text: "Goodnight, baby. Love you.",
+      next: 26,
+    },
+    {
+      id: 26,
+      type: "end",
+      scene: "character",
+      background: "/images/backgrounds/bedroom-at-night.png",
+      characters: [sitting],
+      text: "Somto ends the call and settles down to eat her sushi. Tomorrow, she'll speak to Zara about the tiara. She still doesn't know how the conversation will go, but at least she's decided not to keep avoiding it.",
+    },
+  ];
+
+  const beats = BASE_DAY_TWELVE_STORY.beats.map((beat) =>
+    beat.id === 12 ? { ...beat, next: 13 } : beat
+  );
+
+  return {
+    ...BASE_DAY_TWELVE_STORY,
+    beats: [...beats, ...addedBeats],
+  };
+}
+
+export const DAY_TWELVE_STORY = getDayTwelveStory(null);
