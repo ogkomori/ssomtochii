@@ -8,7 +8,6 @@ import {
   pose11SeriousConcerned,
   pose12ConfidentStanding,
   pose13ArmsCrossed,
-  zaraNeutral,
   zaraSadAlone,
   zaraThinking,
   zaraHappyDialogueAlone,
