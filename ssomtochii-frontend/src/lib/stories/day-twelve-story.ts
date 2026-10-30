@@ -1,6 +1,6 @@
 import type { StoryBeat, StoryDefinition } from "./types";
 import { SOMTO, TEGA, ALEXA } from "./speakers";
-import { pose8Thinking, pose11SeriousConcerned, sitting, smiling, facepalm, upwards, neutral, speaking, behind } from "./character-poses";
+import { sitting, smiling, facepalm, upwards, neutral, speaking, behind } from "./character-poses";
 
 const BASE_DAY_TWELVE_STORY: StoryDefinition = {
   title: "One Thing After Another", subtitle: "Day 12", startAt: 1,

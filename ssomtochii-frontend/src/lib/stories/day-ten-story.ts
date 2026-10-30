@@ -204,18 +204,10 @@ export const DAY_TEN_STORY: StoryDefinition = {
     },
     {
       id: 11,
-      type: "narration",
+      type: "end",
       scene: "character",
       characters: [upwards],
       text: "All of a sudden, something catches her eye. The little stand on her dresser is empty. Her birthday tiara is gone.",
-      next: 12
-    },
-    {
-      id: 12,
-      type: "end",
-      scene: "character",
-      characters: [facepalm],
-      text: "Somto realizes that Zara has stolen her birthday tiara. She can't believe it. She had trusted Zara, and now she feels betrayed.",
     },
   ],
 };
