@@ -177,7 +177,7 @@ export function getDayTwelveStory(daySevenThesisChoice: string | null): StoryDef
       type: "narration",
       scene: "character",
       characters: [speaking],
-      text: "Somto takes a breath, grateful that Tega is listening. Then she remembers why she'd called him in the first place. The night Zara visited. She tells him how it all went down.",
+      text: "Somto takes a breath, grateful that Tega is listening. Then she remembers why she'd called him in the first place. Her missing tiara. She tells him how it all went down the night Zara visited, and Tega becomes immediately suspicious.",
       next: 19,
     },
     {
