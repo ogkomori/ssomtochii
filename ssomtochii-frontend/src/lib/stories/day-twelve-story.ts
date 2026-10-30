@@ -1,6 +1,6 @@
 import type { StoryBeat, StoryDefinition } from "./types";
 import { SOMTO, TEGA, ALEXA } from "./speakers";
-import { pose8Thinking, pose11SeriousConcerned, sitting, smiling, facepalm, upwards, neutral } from "./character-poses";
+import { pose8Thinking, pose11SeriousConcerned, sitting, smiling, facepalm, upwards, neutral, speaking, behind } from "./character-poses";
 
 const BASE_DAY_TWELVE_STORY: StoryDefinition = {
   title: "One Thing After Another", subtitle: "Day 12", startAt: 1,
@@ -96,7 +96,7 @@ const BASE_DAY_TWELVE_STORY: StoryDefinition = {
       id: 11,
       type: "dialogue",
       scene: "phone",
-      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:00" },
+      phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:06" },
       speaker: TEGA,
       text: "Oh, sorry baby. Don't worry, some sushi is on the way to you right now.",
       next: 12
@@ -107,7 +107,7 @@ const BASE_DAY_TWELVE_STORY: StoryDefinition = {
       scene: "character",
       characters: [smiling],
       speaker: SOMTO,
-      text: "Awww, thanks babe!",
+      text: "Awww, thanks baby!",
       next: 13
     },
   ],
@@ -134,9 +134,9 @@ export function getDayTwelveStory(daySevenThesisChoice: string | null): StoryDef
       id: 14,
       type: "dialogue",
       scene: "character",
-      characters: [pose8Thinking],
+      characters: [speaking],
       speaker: SOMTO,
-      text: "Melanie moved the thesis deadline back. It's now on my birthday, so I've been trying to make up for all the time I've lost. I didn't even realise how late it had got.",
+      text: "Melanie moved the thesis deadline back. It's now on my birthday, so I've been trying to make up for all the time I've lost. I didn't even realise how late it got.",
       next: 15,
     },
     {
@@ -157,7 +157,7 @@ export function getDayTwelveStory(daySevenThesisChoice: string | null): StoryDef
       characters: [facepalm],
       speaker: SOMTO,
       text: liedOnDaySeven
-        ? "You're right. I need to tell you the truth. I hadn't been working on it like I said I was. I panicked and lied because I didn't want you to worry or think I wasn't taking my future seriously."
+        ? "Okay fine. The truth is that I hadn't been working on it like I said I was. I panicked and lied because I didn't want you to worry or think I wasn't taking my future seriously."
         : "I know. I kept putting it off, and now I'm paying for it. I hate that I let it get this far, but I can't change what I did. I can only try to make the best of the time I've got left.",
       next: 17,
     },
@@ -168,7 +168,7 @@ export function getDayTwelveStory(daySevenThesisChoice: string | null): StoryDef
       phone: { contactName: "Tega", contactInitial: "T", statusText: "00:00:38" },
       speaker: TEGA,
       text: liedOnDaySeven
-        ? "Baby, I'm glad you told me now. I'm hurt that you lied, not because you're struggling with your thesis. You don't have to pretend everything is fine with me. I'd rather know the truth so I can support you."
+        ? "Hmm. Well I hope lying to me isn't going to become regular, but I'm glad you told me now. You don't have to pretend everything is fine with me. I'd rather know the truth so I can support you any way I can."
         : "I know you're disappointed in yourself, but beating yourself up won't give you those hours back. Make a plan and take it one step at a time. And please remember you can talk to me when things get overwhelming.",
       next: 18,
     },
@@ -176,9 +176,8 @@ export function getDayTwelveStory(daySevenThesisChoice: string | null): StoryDef
       id: 18,
       type: "narration",
       scene: "character",
-      background: "/images/backgrounds/bedroom-at-night.png",
-      characters: [pose8Thinking],
-      text: "Somto takes a breath, grateful that Tega is listening. Then she remembers why she'd called him in the first place. The night Zara visited, she'd come into Somto's room and looked around while they talked. After Zara left, Somto realised her birthday tiara was missing. She hadn't found it anywhere since, and Zara was the last person she'd seen near it.",
+      characters: [speaking],
+      text: "Somto takes a breath, grateful that Tega is listening. Then she remembers why she'd called him in the first place. The night Zara visited. She tells him how it all went down.",
       next: 19,
     },
     {
@@ -187,16 +186,16 @@ export function getDayTwelveStory(daySevenThesisChoice: string | null): StoryDef
       scene: "phone",
       phone: { contactName: "Tega", contactInitial: "T", statusText: "00:01:02" },
       speaker: TEGA,
-      text: "Baby, you need to talk to her. You don't have to go in there looking for a fight, but you shouldn't keep sitting with this either. Tell her what you've noticed and give her a chance to explain.",
+      text: "Well I'll be damned. This is one shady lady. You definitely need to confront her.",
       next: 20,
     },
     {
       id: 20,
       type: "dialogue",
       scene: "character",
-      characters: [pose11SeriousConcerned],
+      characters: [speaking],
       speaker: SOMTO,
-      text: "I don't even know how to approach her. Part of me wants to go straight to her and demand to know what she did. But if I come at her aggressively, she'll probably get defensive. I don't know whether to be calm or let her know how angry I am.",
+      text: "I don't even know how to approach her. Part of me wants to go straight to her and demand to know what she did. But if I come at her aggressively, she'll probably cause a scene. I don't know whether to be calm or let her know how angry I am.",
       next: 21,
     },
     {
@@ -205,16 +204,15 @@ export function getDayTwelveStory(daySevenThesisChoice: string | null): StoryDef
       scene: "phone",
       phone: { contactName: "Tega", contactInitial: "T", statusText: "00:01:18" },
       speaker: TEGA,
-      text: "Trust your gut, Somto. You know how you feel, and you don't have to pretend you're not upset. Just be clear about what happened and why you're asking. You deserve an answer, and you can stand up for yourself without letting the anger decide every word.",
+      text: "You know that normally I'm a pacifist, but here I can't say. You know how you feel sha, so just try to be clear about what happened and why you're asking. You deserve an answer.",
       next: 22,
     },
     {
       id: 22,
       type: "narration",
       scene: "character",
-      background: "/images/backgrounds/bedroom-at-night.png",
-      characters: [neutral],
-      text: "Before Somto can reply, the doorbell rings. Her sushi has arrived at last.",
+      characters: [behind],
+      text: "Before Somto can reply, there's a knock on her door. Her sushi has arrived at last.",
       next: 23,
     },
     {
@@ -232,7 +230,7 @@ export function getDayTwelveStory(daySevenThesisChoice: string | null): StoryDef
       scene: "phone",
       phone: { contactName: "Tega", contactInitial: "T", statusText: "00:01:36" },
       speaker: TEGA,
-      text: "Good. Eat something, get some rest, and don't try to solve everything tonight. We'll talk tomorrow, okay? Goodnight, my love.",
+      text: "Only a little? Chai. Sha, no worries. Eat, get some rest, and don't try to solve everything tonight. We'll talk tomorrow, okay? Goodnight, my love.",
       next: 25,
     },
     {
