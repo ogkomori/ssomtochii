@@ -5,12 +5,13 @@
  */
 export const WORD_SCRAMBLE_CONTENT = {
   title: "A little word mix-up.",
-  intro: "Unscramble a few things that feel very you. No timer, no pressure — just follow the clues.",
-  completionTitle: "You know your stuff.",
-  completionBody: "Every answer is a small thing that makes the world feel more like yours.",
+  intro: "Unscramble a few things that feel related to you.",
+  completionTitle: "You know your stuff!",
   words: [
-    { answer: "SUNSHINE", clue: "A soft, bright thing to keep close.", scramble: "NUSHSIEN" },
-    { answer: "MUSIC", clue: "The beginning of a very good soundtrack.", scramble: "CSIUM" },
-    { answer: "TRAVEL", clue: "Something you dream of doing around the world.", scramble: "VRALET" },
+    { answer: "SUNSHINE", scramble: "SNUHEISN" },
+    { answer: "MUSIC", scramble: "UCSMI" },
+    { answer: "TRAVEL", scramble: "VRALET" },
+    { answer: "BIRTHDAY", scramble: "YRDTIHBA" },
+    { answer: "SOMTOCHI", scramble: "IHCTOMSO" },
   ],
 } as const;
