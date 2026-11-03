@@ -24,5 +24,5 @@ export const WORD_SEARCH_CONTENT = {
     "L S E C N U U O M E A E",
     "X H N B H E P Z W O U E",
     "I I F X N X I Y Z L G N",
-  ],
+  ].map((row) => row.split(" ")),
 } as const;
