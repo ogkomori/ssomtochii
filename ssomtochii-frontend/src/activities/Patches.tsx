@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, Check, Lightbulb, RotateCcw, Undo2 } from "lucide-react";
+import { Check, Lightbulb, RotateCcw, Undo2 } from "lucide-react";
 import { GameShell } from "@/activities/Connections";
 
 type Shape = "square" | "wide" | "tall";
