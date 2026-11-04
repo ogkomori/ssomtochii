@@ -45,9 +45,9 @@ export function MemoryLane({ onComplete }: { onComplete: () => void }) {
     setOrder(shuffled(MEMORY_LANE_CONTENT.rounds[nextIndex]!.photos));
     setMessage("Arrange from earliest to latest.");
   };
-  return <GameShell eyebrow="MEMORY LANE" title={complete ? "A timeline of little moments." : MEMORY_LANE_CONTENT.title} right={`ROUND ${Math.min(roundIndex + 1, 3)} OF 3`}>
-    <p className="mb-4 text-sm text-foreground/75">{complete ? "You put all three sets of memories in order." : MEMORY_LANE_CONTENT.intro}</p>
-    {!complete && <>
+  return <GameShell eyebrow="MEMORY LANE" title={MEMORY_LANE_CONTENT.title} right={`ROUND ${Math.min(roundIndex + 1, 3)} OF 3`}>
+    <p className="mb-4 text-sm text-foreground/75">{MEMORY_LANE_CONTENT.intro}</p>
+    <>
       <h2 className="mb-3 text-sm font-semibold">{round.title}</h2>
       <div className="space-y-3">
         {order.map((photo, index) => <div key={photo.id} className="flex items-center gap-2 rounded-xl border border-border bg-background/60 p-2 text-left">
@@ -61,9 +61,8 @@ export function MemoryLane({ onComplete }: { onComplete: () => void }) {
         </div>)}
       </div>
       <p className="mt-4 min-h-6 text-sm text-muted-foreground">{message}</p>
-      {!roundComplete ? <div className="mt-3 flex justify-center gap-3"><button type="button" className="next-button" onClick={check}>Check order <Check className="h-4 w-4" /></button><button type="button" className="inline-flex items-center gap-1 text-sm text-muted-foreground" onClick={resetRound}><RotateCcw className="h-4 w-4" /> Reset</button></div> : roundIndex < MEMORY_LANE_CONTENT.rounds.length - 1 ? <div className="mt-3 flex justify-center"><button type="button" className="next-button" onClick={nextRound}>Next <ArrowDown className="h-4 w-4" /></button></div> : null}
-    </>}
-    {complete && <button type="button" className="next-button" onClick={onComplete}>Get today’s compliment <Check className="h-4 w-4" /></button>}
+      {!roundComplete ? <div className="mt-3 flex justify-center gap-3"><button type="button" className="next-button" onClick={check}>Check order <Check className="h-4 w-4" /></button><button type="button" className="inline-flex items-center gap-1 text-sm text-muted-foreground" onClick={resetRound}><RotateCcw className="h-4 w-4" /> Reset</button></div> : roundIndex < MEMORY_LANE_CONTENT.rounds.length - 1 ? <div className="mt-3 flex justify-center"><button type="button" className="next-button" onClick={nextRound}>Next <ArrowDown className="h-4 w-4" /></button></div> : <div className="mt-3 flex justify-center"><button type="button" className="next-button" onClick={onComplete}>Get today’s compliment <Check className="h-4 w-4" /></button></div>}
+    </>
     {expandedPhoto && <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 p-4" role="presentation" onClick={() => setExpandedPhoto(null)}>
       <div role="dialog" aria-modal="true" aria-label={expandedPhoto.caption} className="relative flex max-h-[90vh] w-full max-w-3xl items-center justify-center overflow-hidden rounded-2xl bg-secondary" onClick={(event) => event.stopPropagation()}>
         <img src={expandedPhoto.image} alt={expandedPhoto.caption} className="max-h-[85vh] w-full object-contain" onError={(event) => { event.currentTarget.style.display = "none"; }} onLoad={(event) => { const next = event.currentTarget.nextElementSibling as HTMLElement | null; if (next) next.style.display = "none"; }} />
