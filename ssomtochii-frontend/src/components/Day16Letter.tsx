@@ -18,14 +18,7 @@ export function Day16Letter({ kind, onContinue }: { kind: "opening" | "closing";
             <span aria-hidden="true" className="text-xl text-[#c78b52]">♡</span>
           </div>
           <div className="relative min-h-[48vh] rounded-sm" style={{ backgroundImage: "repeating-linear-gradient(to bottom, transparent 0, transparent 35px, #e8d9c4 36px, transparent 37px)", backgroundPosition: "0 5px" }}>
-            <textarea
-              aria-label={isOpening ? "Opening birthday letter" : "Closing birthday letter"}
-              value={draft}
-              onChange={(event) => setDraft(event.target.value)}
-              placeholder={isOpening ? "Your opening birthday letter goes here..." : "Your final birthday letter goes here..."}
-              className="min-h-[48vh] w-full resize-none border-0 bg-transparent px-1 pt-1 font-serif text-[17px] leading-[36px] text-[#68483d] outline-none placeholder:text-[#b49b85]/70 focus:ring-0"
-              spellCheck
-            />
+            <p className="min-h-[48vh] whitespace-pre-wrap px-1 pt-1 font-serif text-[17px] leading-[36px] text-[#68483d]">{letterText || (isOpening ? "Your opening birthday letter will appear here..." : "Your closing birthday letter will appear here...")}</p>
           </div>
           <p className="mt-4 text-right font-serif text-sm italic text-[#a47b59]">With all my love ♡</p>
         </div>
