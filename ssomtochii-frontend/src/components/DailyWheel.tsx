@@ -117,7 +117,8 @@ export function DailyWheel({ day, onDay16Continue }: { day: number; onDay16Conti
     <main className="page-shell">
       <Botanicals />
       <div className="relative mx-auto w-full max-w-md">
-        <div className={`day-one-copy reward-page-shell items-center text-center ${day === 16 ? "relative" : ""}`}>\n          {day === 16 && <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden text-[#d69b43]/70"><span className="absolute left-2 top-4 text-xl">✦</span><span className="absolute right-3 top-16 text-2xl">✧</span><span className="absolute bottom-12 left-4 text-2xl">✧</span><span className="absolute bottom-4 right-5 text-xl">✦</span></div>}
+        <div className={`day-one-copy reward-page-shell items-center text-center ${day === 16 ? "relative" : ""}`}>
+          {day === 16 && <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden text-[#d69b43]/70"><span className="absolute left-2 top-4 text-xl">✦</span><span className="absolute right-3 top-16 text-2xl">✧</span><span className="absolute bottom-12 left-4 text-2xl">✧</span><span className="absolute bottom-4 right-5 text-xl">✦</span></div>}
           {prize ? (
             <>
               <article className={`dictionary-page ${day === 16 ? "relative z-10 border-[#e6c17b] shadow-[0_16px_45px_rgba(150,90,35,.14)]" : ""}`} aria-label={`Dictionary entry for ${prize.word}`}>
@@ -158,7 +159,11 @@ export function DailyWheel({ day, onDay16Continue }: { day: number; onDay16Conti
                   {prize.message && <p className="dictionary-signoff">— yours truly ♡</p>}
                 </section>
               </article>
-              {day === 16 && onDay16Continue ? (\n                <button type="button" className="next-button mt-5" onClick={onDay16Continue}>Open your presents ♡</button>\n              ) : (\n                <Link to="/" className="next-button mt-5">Back to all days</Link>\n              )}
+              {day === 16 && onDay16Continue ? (
+                <button type="button" className="next-button mt-5" onClick={onDay16Continue}>Open your presents ♡</button>
+              ) : (
+                <Link to="/" className="next-button mt-5">Back to all days</Link>
+              )}
             </>
           ) : (
             <>
