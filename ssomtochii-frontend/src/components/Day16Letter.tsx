@@ -1,11 +1,9 @@
-import { useState } from "react";
-
 const OPENING_LETTER = ``;
 const CLOSING_LETTER = ``;
 
 export function Day16Letter({ kind, onContinue }: { kind: "opening" | "closing"; onContinue: () => void }) {
-  const [draft, setDraft] = useState(kind === "opening" ? OPENING_LETTER : CLOSING_LETTER);
   const isOpening = kind === "opening";
+  const letterText = isOpening ? OPENING_LETTER : CLOSING_LETTER;
 
   return (
     <main className="relative min-h-[100dvh] overflow-hidden bg-[#fff7e9] px-4 py-6 text-[#583d35]">
