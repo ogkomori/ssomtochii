@@ -19,6 +19,8 @@ import { Hangman } from "@/activities/Hangman";
 import { Botanicals } from "@/components/Botanicals";
 import { DayActivityFlow } from "@/components/DayActivityFlow";
 import { DailyWheel } from "@/components/DailyWheel";
+import { Day16Letter } from "@/components/Day16Letter";
+import { Day16Gifts } from "@/components/Day16Gifts";
 import { StoryPlayer } from "@/components/StoryPlayer";
 import type { StoryDefinition } from "@/lib/stories/types";
 import type { StoryId } from "@/lib/days";
@@ -91,7 +93,7 @@ function DayPage() {
   };
   const [dayAvailable, setDayAvailable] = useState<boolean | null>(null);
   const [dayCompleted, setDayCompleted] = useState(() => readProgress().completedDays.includes(day.day));
-  const [showCompliment, setShowCompliment] = useState(false);
+  const [showCompliment, setShowCompliment] = useState(false);\n  const [day16OpeningLetterComplete, setDay16OpeningLetterComplete] = useState(false);\n  const [day16GiftsStarted, setDay16GiftsStarted] = useState(false);
 
   const storyToPreload = day.day === 1
     ? DAY_ONE_STORY
@@ -158,7 +160,7 @@ function DayPage() {
     );
   }
 
-  if (showCompliment) return <DailyWheel day={day.day} />;
+  if (showCompliment && day.day !== 16) return <DailyWheel day={day.day} />;
 
   if (day.day !== 1 && !welcomeStarted) {
     return (
@@ -192,7 +194,7 @@ function DayPage() {
     );
   }
 
-  if (day.day !== 1 && !storyComplete) {
+  if (day.day === 16 && welcomeStarted && !day16OpeningLetterComplete) {\n    return <Day16Letter kind="opening" onContinue={() => setDay16OpeningLetterComplete(true)} />;\n  }\n\n  if (day.day !== 1 && !storyComplete) {
     const story = day.day === 7
       ? getDaySevenStory(dayThreeThesisChoice)
       : day.day === 10
