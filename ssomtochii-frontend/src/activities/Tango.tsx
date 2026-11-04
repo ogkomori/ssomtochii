@@ -35,8 +35,8 @@ const EDGES: Edge[] = [
   { row: 2, col: 2, direction: "down", same: false },
   { row: 3, col: 3, direction: "down", same: false },
   { row: 4, col: 4, direction: "down", same: false },
-  { row: 0, col: 2, direction: "right", same: true },
-  { row: 2, col: 0, direction: "down", same: true },
+  { row: 0, col: 2, direction: "right", same: false },
+  { row: 2, col: 0, direction: "down", same: false },
 ];
 
 const key = (row: number, col: number) => `${row}-${col}`;
