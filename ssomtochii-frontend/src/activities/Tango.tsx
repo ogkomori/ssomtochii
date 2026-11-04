@@ -21,16 +21,16 @@ const START: Cell[][] = [
   [1, 0, 0, 1, 0, 1],
   [null, null, null, null, null, null],
   [null, null, null, null, null, null],
-  [null, null, null, null, null, null],
-  [null, null, null, null, null, null],
+  [0, null, null, null, null, null],
+  [null, null, null, null, null, 1],
 ];
 const EDGES: Edge[] = [
   { row: 4, col: 0, direction: "right", same: true },
   { row: 5, col: 0, direction: "right", same: true },
   { row: 4, col: 2, direction: "right", same: true },
   { row: 5, col: 2, direction: "right", same: false },
-  { row: 4, col: 4, direction: "down", same: false },
-  { row: 5, col: 4, direction: "down", same: true },
+  { row: 4, col: 4, direction: "right", same: false },
+  { row: 5, col: 4, direction: "right", same: true },
 ];
 
 const key = (row: number, col: number) => `${row}-${col}`;
