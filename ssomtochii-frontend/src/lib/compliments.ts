@@ -124,4 +124,12 @@ export const COMPLIMENTS = [
     definition: "shining with happiness, warmth, or beauty.",
     message: "\"sunshine\" is more than a nickname for you. You bring light and joy into the lives of those around you, and your positivity is infectious. Petition to add it to your birth certificate?",
   },
+  {
+    letter: "I",
+    word: "inspiring",
+    pronunciation: "/ɪnˈspaɪə.rɪŋ/",
+    partOfSpeech: "adjective",
+    definition: "Making others feel hopeful, motivated, or encouraged through who you are and what you do.",
+    message: "You have a way of making people want to do better, dream bigger, and believe in themselves. Never underestimate the effect you have on the people around you.",
+  },
 ] as const;
