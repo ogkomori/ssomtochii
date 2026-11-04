@@ -73,7 +73,7 @@ export function Day16Gifts() {
             {!playing && <p className="mt-8 text-sm text-[#875f50]">Your surprise is opening…</p>}
           </div>
         )}
-        {selected === null && <><p className="mt-10 text-xs text-[#a47b59]">{opened.length} of 3 gifts opened</p>{opened.length === 3 && <button type="button" className="next-button mt-5" onClick={() => setFinished(true)}>Continue to your letter ♡</button>}</>}
+        {selected === null && <><p className="mt-10 text-xs text-[#a47b59]">{opened.length} of 3 gifts opened</p>{opened.length === 3 && <button type="button" className="next-button mt-5" onClick={() => setFinished(true)}>Continue ♡</button>}</>}
       </section>
       <style>{`@keyframes giftFocusIn { from { transform: scale(.35); opacity:0; } to { transform:scale(1); opacity:1; } } .gift-focus-in { animation:giftFocusIn .65s cubic-bezier(.2,.8,.2,1) both; } @keyframes giftLidOpen { to { transform: perspective(500px) rotateX(68deg) translateY(-26px); transform-origin: bottom center; opacity:.9; } } .gift-lid-open { animation:giftLidOpen .7s .35s ease-out forwards; transform-origin:bottom center; }`}</style>
     </main>
