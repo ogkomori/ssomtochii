@@ -79,7 +79,6 @@ function violations(grid: Cell[][]) {
 export function Tango({ onComplete }: { onComplete: () => void }) {
   const [grid, setGrid] = useState<Cell[][]>(() => START.map((row) => [...row]));
   const [history, setHistory] = useState<Cell[][][]>([]);
-  const [showErrors, setShowErrors] = useState(false);
   const [hinted, setHinted] = useState<string | null>(null);
   const [message, setMessage] = useState("Fill every cell with a sun or a moon. Follow all the clues.");
   const fixed = useMemo(() => new Set(START.flatMap((row, r) => row.map((cell, c) => cell !== null ? key(r, c) : null).filter((cell): cell is string => cell !== null))), []);
@@ -109,7 +108,6 @@ export function Tango({ onComplete }: { onComplete: () => void }) {
   const reset = () => {
     setGrid(START.map((row) => [...row]));
     setHistory([]);
-    setShowErrors(false);
     setHinted(null);
     setMessage("Board reset. Take your time!");
   };
@@ -136,7 +134,7 @@ export function Tango({ onComplete }: { onComplete: () => void }) {
           {grid.map((row, r) => row.map((cell, c) => {
             const id = key(r, c);
             const isFixed = fixed.has(id);
-            const bad = showErrors && errors.has(id);
+            const bad = errors.has(id);
             const isHint = hinted === id;
             return (
               <div key={id} className="relative">
@@ -159,11 +157,10 @@ export function Tango({ onComplete }: { onComplete: () => void }) {
         </div>
       ) : (
         <>
-          {showErrors && <p className="mb-2 text-xs text-red-600">{errors.size ? `${errors.size} cells break one or more rules.` : "No rule violations so far."}</p>}
+          <p className={`mb-2 text-xs ${errors.size ? "text-red-600" : "text-muted-foreground"}`} aria-live="polite">{errors.size ? `${errors.size} cells break one or more rules.` : "No rule violations so far."}</p>
           <div className="flex flex-wrap items-center justify-center gap-2">
             <button type="button" className="inline-flex items-center gap-1 rounded-full bg-secondary px-3 py-2 text-sm" onClick={hint}><Lightbulb className="h-4 w-4" /> Hint</button>
             <button type="button" className="inline-flex items-center gap-1 rounded-full bg-secondary px-3 py-2 text-sm disabled:opacity-40" onClick={undo} disabled={!history.length}><Undo2 className="h-4 w-4" /> Undo</button>
-            <button type="button" className="inline-flex items-center gap-1 rounded-full bg-secondary px-3 py-2 text-sm" onClick={() => setShowErrors((value) => !value)}> {showErrors ? "Hide checks" : "Check rules"}</button>
             <button type="button" className="inline-flex items-center gap-1 rounded-full bg-secondary px-3 py-2 text-sm" onClick={reset}><RotateCcw className="h-4 w-4" /> Reset</button>
           </div>
         </>
