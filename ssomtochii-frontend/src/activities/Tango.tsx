@@ -80,7 +80,7 @@ export function Tango({ onComplete }: { onComplete: () => void }) {
   const [grid, setGrid] = useState<Cell[][]>(() => START.map((row) => [...row]));
   const [history, setHistory] = useState<Cell[][][]>([]);
   const [hinted, setHinted] = useState<string | null>(null);
-  const [message, setMessage] = useState("Fill every cell with a sun or a moon. Follow all the clues.");
+  const [message, setMessage] = useState("Tap once for sun, twice for moon, thrice to clear.");
   const fixed = useMemo(() => new Set(START.flatMap((row, r) => row.map((cell, c) => cell !== null ? key(r, c) : null).filter((cell): cell is string => cell !== null))), []);
   const errors = violations(grid);
   const filled = grid.flat().filter((cell) => cell !== null).length;
@@ -94,7 +94,7 @@ export function Tango({ onComplete }: { onComplete: () => void }) {
       r !== row || c !== col ? cell : cell === null ? SUN : cell === SUN ? MOON : null
     )));
     setHinted(null);
-    setMessage("Keep balancing each row and column.");
+    setMessage("Tap once for sun, twice for moon, thrice to clear.");
   };
 
   const undo = () => {
@@ -127,8 +127,8 @@ export function Tango({ onComplete }: { onComplete: () => void }) {
   const edgeMarks = new Map(EDGES.map((edge) => [edgeKey(edge), edge.same ? "=" : "×"]));
 
   return (
-    <GameShell eyebrow="TANGO" title={complete ? "Perfectly in sync." : "A little sun and moon."} right={`${filled} / 36 CELLS`}>
-      <p className="mb-4 text-sm text-foreground/75">Fill the grid with suns ☀️ and moons 🌙. Every row and column needs three of each. Never place three matching symbols in a line.</p>
+    <GameShell eyebrow="TANGO" title={complete ? "Solved!" : "Tango from LinkedIn!"} right={`${filled} / 36 CELLS`}>
+      <p className="mb-4 text-sm text-foreground/75">This is my favourite LinkedIn puzzle fyi. Fill the grid with suns ☀️ and moons 🌙. Every row and column needs three of each. Never place three matching symbols in a line.</p>
       <div className="mx-auto w-full max-w-[340px]">
         <div className="grid grid-cols-6 gap-1">
           {grid.map((row, r) => row.map((cell, c) => {
@@ -141,8 +141,8 @@ export function Tango({ onComplete }: { onComplete: () => void }) {
                 <button type="button" onClick={() => place(r, c)} disabled={isFixed || complete} aria-label={`Row ${r + 1}, column ${c + 1}, ${cell === SUN ? "sun" : cell === MOON ? "moon" : "empty"}`} className={`flex aspect-square w-full items-center justify-center rounded-lg border text-2xl transition-all ${isFixed ? "border-primary/20 bg-secondary/80" : "border-border bg-background hover:bg-secondary/50"} ${bad ? "border-red-500 bg-red-100/70" : ""} ${isHint ? "ring-4 ring-amber-400" : ""}`}>
                   {cell === SUN ? "☀️" : cell === MOON ? "🌙" : <span className="text-muted-foreground/30">·</span>}
                 </button>
-                {c < SIZE - 1 && edgeMarks.has(`${id}|${key(r, c + 1)}`) && <span className="pointer-events-none absolute -right-[7px] top-1/2 z-10 -translate-y-1/2 rounded-full bg-background px-0.5 text-xs font-black">{edgeMarks.get(`${id}|${key(r, c + 1)}`)}</span>}
-                {r < SIZE - 1 && edgeMarks.has(`${id}|${key(r + 1, c)}`) && <span className="pointer-events-none absolute -bottom-[7px] left-1/2 z-10 -translate-x-1/2 rounded-full bg-background px-0.5 text-xs font-black">{edgeMarks.get(`${id}|${key(r + 1, c)}`)}</span>}
+                {c < SIZE - 1 && edgeMarks.has(`${id}|${key(r, c + 1)}`) && <span className="pointer-events-none absolute -right-[7px] top-1/2 z-10 -translate-y-1/2 rounded-full bg-background px-0.5 text-s font-black">{edgeMarks.get(`${id}|${key(r, c + 1)}`)}</span>}
+                {r < SIZE - 1 && edgeMarks.has(`${id}|${key(r + 1, c)}`) && <span className="pointer-events-none absolute -bottom-[7px] left-1/2 z-10 -translate-x-1/2 rounded-full bg-background px-0.5 text-s font-black">{edgeMarks.get(`${id}|${key(r + 1, c)}`)}</span>}
               </div>
             );
           }))}
@@ -152,7 +152,7 @@ export function Tango({ onComplete }: { onComplete: () => void }) {
       <p className="min-h-10 text-sm text-muted-foreground" aria-live="polite">{message}</p>
       {complete ? (
         <div className="mt-3 flex flex-col items-center gap-3">
-          <p className="font-semibold">You brought the whole grid into balance! ♡</p>
+          <p className="font-semibold">Great job! ♡</p>
           <button type="button" className="next-button" onClick={onComplete}>Get today’s compliment <Check className="h-4 w-4" /></button>
         </div>
       ) : (
