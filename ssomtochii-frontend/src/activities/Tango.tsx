@@ -9,34 +9,28 @@ const SIZE = 6;
 const SUN = 0 as const;
 const MOON = 1 as const;
 const SOLUTION: Exclude<Cell, null>[][] = [
-  [0, 1, 0, 1, 0, 1],
-  [1, 0, 1, 0, 1, 0],
-  [0, 1, 0, 1, 0, 1],
-  [1, 0, 1, 0, 1, 0],
-  [0, 1, 0, 1, 0, 1],
-  [1, 0, 1, 0, 1, 0],
+  [1, 1, 0, 0, 1, 0],
+  [1, 0, 0, 1, 0, 1],
+  [0, 1, 1, 0, 1, 0],
+  [1, 1, 0, 1, 0, 0],
+  [0, 0, 1, 1, 0, 1],
+  [0, 0, 1, 0, 1, 1],
 ];
 const START: Cell[][] = [
-  [0, null, null, 1, null, null],
-  [null, 0, null, null, 1, null],
-  [null, null, 0, null, null, 1],
-  [1, null, null, 0, null, null],
-  [null, 1, null, null, 0, null],
-  [null, null, 1, null, null, 0],
+  [1, 1, 0, 0, 1, 0],
+  [1, 0, 0, 1, 0, 1],
+  [null, null, null, null, null, null],
+  [null, null, null, null, null, null],
+  [null, null, null, null, null, null],
+  [null, null, null, null, null, null],
 ];
 const EDGES: Edge[] = [
-  { row: 0, col: 1, direction: "right", same: false },
-  { row: 1, col: 2, direction: "right", same: false },
-  { row: 2, col: 3, direction: "right", same: false },
-  { row: 3, col: 4, direction: "right", same: false },
-  { row: 4, col: 0, direction: "right", same: false },
-  { row: 0, col: 0, direction: "down", same: false },
-  { row: 1, col: 1, direction: "down", same: false },
-  { row: 2, col: 2, direction: "down", same: false },
-  { row: 3, col: 3, direction: "down", same: false },
+  { row: 4, col: 0, direction: "right", same: true },
+  { row: 5, col: 0, direction: "right", same: true },
+  { row: 4, col: 2, direction: "right", same: true },
+  { row: 5, col: 2, direction: "right", same: false },
   { row: 4, col: 4, direction: "down", same: false },
-  { row: 0, col: 2, direction: "right", same: false },
-  { row: 2, col: 0, direction: "down", same: false },
+  { row: 5, col: 4, direction: "down", same: true },
 ];
 
 const key = (row: number, col: number) => `${row}-${col}`;
