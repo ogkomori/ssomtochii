@@ -122,6 +122,6 @@ export const COMPLIMENTS = [
     pronunciation: "/ˈreɪ.di.ənt/",
     partOfSpeech: "adjective",
     definition: "shining with happiness, warmth, or beauty.",
-    message: "\"sunshine\" is more than a nickname for you. You are a ray of light in the lives of those around you, and your positivity is infectious. Petition to add it to your birth certificate?",
+    message: "\"sunshine\" is more than a nickname for you. You bring light and joy into the lives of those around you, and your positivity is infectious. Petition to add it to your birth certificate?",
   },
 ] as const;
