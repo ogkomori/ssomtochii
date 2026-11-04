@@ -4,8 +4,8 @@ type OutfitColour = "gold" | "green" | "red";
 
 const COLOURS: Array<{ id: OutfitColour; label: string; hue: number; swatch: string }> = [
   { id: "gold", label: "Gold", hue: 46, swatch: "#d6a83f" },
-  { id: "green", label: "Green", hue: 128, swatch: "#27834b" },
-  { id: "red", label: "Red", hue: 352, swatch: "#c52d43" },
+  { id: "green", label: "Green", hue: 135, swatch: "#176b38" },
+  { id: "red", label: "Red", hue: 2, swatch: "#c41625" },
 ];
 
 // Replace these two placeholder files when the Pose 1 assets are uploaded.
@@ -86,7 +86,9 @@ export function Day16OutfitPreview() {
         const [h, s, l] = rgbToHsl(original.data[i], original.data[i + 1], original.data[i + 2]);
         if (s < 0.08) continue;
         const hue = colour === "gold" ? h : targetHue;
-        const [r, g, b] = hslToRgb(hue, Math.max(s, colour === "gold" ? s : 0.58), l);
+        const saturation = colour === "green" ? Math.max(s, 0.68) : colour === "red" ? Math.max(s, 0.82) : s;
+        const lightness = colour === "green" ? l * 0.82 : l;
+        const [r, g, b] = hslToRgb(hue, saturation, lightness);
         original.data[i] = Math.round(original.data[i] * (1 - coverage) + r * coverage);
         original.data[i + 1] = Math.round(original.data[i + 1] * (1 - coverage) + g * coverage);
         original.data[i + 2] = Math.round(original.data[i + 2] * (1 - coverage) + b * coverage);
