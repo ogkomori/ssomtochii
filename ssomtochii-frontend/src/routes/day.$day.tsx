@@ -188,7 +188,7 @@ function DayPage() {
               </>
             )}
             <div className="mt-8 flex w-full flex-col items-center gap-3">
-              {dayCompleted && <button type="button" className="next-button" onClick={() => setShowCompliment(true)}>View today&apos;s compliment ♡</button>}
+              {dayCompleted && day.day !== 16 && <button type="button" className="next-button" onClick={() => setShowCompliment(true)}>View today&apos;s compliment ♡</button>}
               <button type="button" className="next-button" onClick={() => setWelcomeStarted(true)}>Start Day {day.day} <ArrowRight className="h-4 w-4" /></button>
             </div>
           </section>
@@ -213,7 +213,7 @@ function DayPage() {
             : day.day === 16
             ? getDaySixteenStory({ inviteChoice: dayNineInviteChoice, tiaraChoice: dayThirteenTiaraChoice, priorityChoice: dayFourteenPriorityChoice, themeChoice: dayTwoThemeChoice })
             : STORIES[day.story as Exclude<StoryId, "day-one-story">];
-    return <StoryPlayer story={story} exitLabel="Back to welcome" onExit={() => setWelcomeStarted(false)} onComplete={() => setStoryComplete(true)} continueLabel={`Continue to Day ${day.day}'s activity ♡`} onChoiceSelected={(choiceId, beatId) => saveStoryChoice(`${day.story}:${beatId}`, choiceId)} />;
+    return <StoryPlayer story={story} exitLabel="Back to welcome" onExit={() => setWelcomeStarted(false)} onComplete={() => setStoryComplete(true)} continueLabel={day.day === 16 ? "Continue to your compliment ♡" : `Continue to Day ${day.day}'s activity ♡`} onChoiceSelected={(choiceId, beatId) => saveStoryChoice(`${day.story}:${beatId}`, choiceId)} />;
   }
 
 
