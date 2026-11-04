@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Day16Letter } from "@/components/Day16Letter";
+import { markDayCompleted } from "@/lib/progress";
 
 const GIFT_VIDEOS = [
   "/videos/day-16-gift-1.mp4",
@@ -27,7 +28,7 @@ export function Day16Gifts() {
   const [playing, setPlaying] = useState(false);
   const [finished, setFinished] = useState(false);
 
-  if (finished) return <Day16Letter kind="closing" onContinue={() => { window.location.href = "/"; }} />;
+  if (finished) return <Day16Letter kind="closing" onContinue={() => { markDayCompleted(16); window.location.href = "/"; }} />;
 
   const openGift = (index: number) => {
     if (selected !== null || opened.includes(index)) return;
