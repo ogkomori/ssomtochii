@@ -38,6 +38,7 @@ export function DailyWheel({ day, onDay16Continue }: { day: number; onDay16Conti
   const [spinning, setSpinning] = useState(false);
   const [poolExhausted, setPoolExhausted] = useState(false);
   const [prizeWord, setPrizeWord] = useState<string | null>(() => {
+    if (day === 16) return null;
     const savedWord = readSavedCompliments()[String(day)];
     return savedWord && COMPLIMENTS.some((item) => item.word === savedWord) ? savedWord : null;
   });
@@ -95,9 +96,13 @@ export function DailyWheel({ day, onDay16Continue }: { day: number; onDay16Conti
     setSpinning(true);
 
     window.setTimeout(() => {
+      setSpinning(false);
+      if (day === 16) {
+        onDay16Continue?.();
+        return;
+      }
       saveCompliment(day, selected.item.word);
       setPrizeWord(selected.item.word);
-      setSpinning(false);
     }, 4200);
   };
 
