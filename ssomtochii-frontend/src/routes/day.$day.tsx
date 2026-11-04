@@ -93,7 +93,9 @@ function DayPage() {
   };
   const [dayAvailable, setDayAvailable] = useState<boolean | null>(null);
   const [dayCompleted, setDayCompleted] = useState(() => readProgress().completedDays.includes(day.day));
-  const [showCompliment, setShowCompliment] = useState(false);\n  const [day16OpeningLetterComplete, setDay16OpeningLetterComplete] = useState(false);\n  const [day16GiftsStarted, setDay16GiftsStarted] = useState(false);
+  const [showCompliment, setShowCompliment] = useState(false);
+  const [day16OpeningLetterComplete, setDay16OpeningLetterComplete] = useState(false);
+  const [day16GiftsStarted, setDay16GiftsStarted] = useState(false);
 
   const storyToPreload = day.day === 1
     ? DAY_ONE_STORY
@@ -171,10 +173,11 @@ function DayPage() {
             <Link to="/" className="inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> All days</Link>
             <span className="text-xs font-semibold tracking-[0.18em] text-muted-foreground">DAY {day.day} · {day.label}</span>
           </header>
-          <section className="paper-card day-one-card my-6 flex flex-1 flex-col items-center justify-center p-6 text-center sm:p-8">
-            <p className="day-one-eyebrow">DAY {day.day} · {day.label}</p>
-            <h1 className="font-script text-5xl leading-none sm:text-6xl">Welcome to Day {day.day} ♡</h1>
-            <p className="mt-5 min-h-6 whitespace-pre-wrap text-foreground/80">{/* Optional message can be added here later. */}</p>
+          <section className={`paper-card day-one-card my-6 flex flex-1 flex-col items-center justify-center p-6 text-center sm:p-8 ${day.day === 16 ? "relative overflow-hidden border-[#e6c17b] bg-[#fff8e9] shadow-[0_18px_55px_rgba(150,90,35,.16)]" : ""}`}>
+            {day.day === 16 && <div aria-hidden="true" className="pointer-events-none absolute inset-0 text-[#d69b43]/60"><span className="absolute left-[8%] top-[9%] rotate-12 text-2xl">✦</span><span className="absolute right-[12%] top-[17%] -rotate-12 text-xl">✧</span><span className="absolute bottom-[18%] left-[13%] text-xl">✦</span><span className="absolute bottom-[10%] right-[9%] rotate-12 text-2xl">✧</span><span className="absolute left-1/2 top-[5%] text-lg">🎉</span></div>}
+            <p className="relative day-one-eyebrow">{day.day === 16 ? "THE BIRTHDAY GIRL" : `DAY ${day.day} · ${day.label}`}</p>
+            <h1 className="relative font-script text-5xl leading-none sm:text-6xl">{day.day === 16 ? "Happy Birthday, Somto! ♡" : `Welcome to Day ${day.day} ♡`}</h1>
+            <p className="relative mt-5 min-h-6 whitespace-pre-wrap text-foreground/80">{day.day === 16 ? "A star was born today. ✨" : null}</p>
             {day.day === 7 && (
               <>
                 <p className="mt-3 text-foreground/80">...from day 6 to day 7...</p>
@@ -194,7 +197,11 @@ function DayPage() {
     );
   }
 
-  if (day.day === 16 && welcomeStarted && !day16OpeningLetterComplete) {\n    return <Day16Letter kind="opening" onContinue={() => setDay16OpeningLetterComplete(true)} />;\n  }\n\n  if (day.day !== 1 && !storyComplete) {
+  if (day.day === 16 && welcomeStarted && !day16OpeningLetterComplete) {
+    return <Day16Letter kind="opening" onContinue={() => setDay16OpeningLetterComplete(true)} />;
+  }
+
+  if (day.day !== 1 && !storyComplete) {
     const story = day.day === 7
       ? getDaySevenStory(dayThreeThesisChoice)
       : day.day === 10
@@ -210,6 +217,11 @@ function DayPage() {
   }
 
 
+
+  if (day.day === 16) {
+    if (!day16GiftsStarted) return <DailyWheel day={16} onDay16Continue={() => setDay16GiftsStarted(true)} />;
+    return <Day16Gifts />;
+  }
 
   return (
     <DayActivityFlow day={day.day}>
