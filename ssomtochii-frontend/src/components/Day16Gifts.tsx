@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Day16Letter } from "@/components/Day16Letter";
+import { Botanicals } from "@/components/Botanicals";
 import { markDayCompleted } from "@/lib/progress";
 
 const GIFT_VIDEOS = [
@@ -44,8 +45,8 @@ export function Day16Gifts() {
   };
 
   return (
-    <main className="relative min-h-[100dvh] overflow-hidden bg-[#fff7e9] px-4 py-8 text-center">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-70" style={{ backgroundImage: "radial-gradient(circle at 12% 15%, #f3c76b 0 2px, transparent 3px), radial-gradient(circle at 85% 22%, #e8a4a4 0 2px, transparent 3px), radial-gradient(circle at 25% 82%, #d6a85e 0 2px, transparent 3px)", backgroundSize: "130px 130px" }} />
+    <main className="page-shell min-h-[100dvh] overflow-hidden px-4 py-8 text-center">
+      <Botanicals />
       <section className="relative mx-auto flex min-h-[85dvh] w-full max-w-xl flex-col items-center justify-center">
         <p className="text-xs font-bold tracking-[0.24em] text-[#a46b35]">THREE LITTLE SURPRISES</p>
         <h1 className="mt-3 font-script text-4xl text-[#7d2630] sm:text-5xl">{selected === null ? "Pick a present, birthday girl ♡" : "A little surprise for you…"}</h1>
