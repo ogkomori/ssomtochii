@@ -7,8 +7,6 @@ import { COMPLIMENTS } from "@/lib/compliments";
 const slots = Array.from({ length: 10 }, () => COMPLIMENTS).flat();
 const height = 54;
 const DAILY_COMPLIMENTS_STORAGE_KEY = "ssomtochii-daily-compliments-v1";
-// Temporary fixed birthday entry until the dedicated Day 16 compliment is added.
-const BIRTHDAY_COMPLIMENT_WORD = "radiant";
 
 type SavedCompliments = Record<string, string>;
 
@@ -40,7 +38,6 @@ export function DailyWheel({ day }: { day: number }) {
   const [spinning, setSpinning] = useState(false);
   const [poolExhausted, setPoolExhausted] = useState(false);
   const [prizeWord, setPrizeWord] = useState<string | null>(() => {
-    if (day === 16) return BIRTHDAY_COMPLIMENT_WORD;
     const savedWord = readSavedCompliments()[String(day)];
     return savedWord && COMPLIMENTS.some((item) => item.word === savedWord) ? savedWord : null;
   });
@@ -68,10 +65,6 @@ export function DailyWheel({ day }: { day: number }) {
     return () => observer.disconnect();
   }, [prizeWord]);
 
-  useEffect(() => {
-    if (day === 16) saveCompliment(16, BIRTHDAY_COMPLIMENT_WORD);
-  }, [day]);
-
   const prizeIndex = prizeWord === null ? null : COMPLIMENTS.findIndex((item) => item.word === prizeWord);
   const prize = prizeIndex === null || prizeIndex < 0 ? null : COMPLIMENTS[prizeIndex];
 
@@ -84,8 +77,6 @@ export function DailyWheel({ day }: { day: number }) {
         .filter(([savedDay]) => savedDay !== String(day) && savedDay !== "16")
         .map(([, word]) => word),
     );
-    usedWords.add(BIRTHDAY_COMPLIMENT_WORD);
-
     // Never repeat a compliment. Add another entry to COMPLIMENTS if the pool runs out.
     const candidates = COMPLIMENTS
       .map((item, index) => ({ item, index }))
