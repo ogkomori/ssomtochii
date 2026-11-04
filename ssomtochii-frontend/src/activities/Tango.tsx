@@ -141,8 +141,8 @@ export function Tango({ onComplete }: { onComplete: () => void }) {
                 <button type="button" onClick={() => place(r, c)} disabled={isFixed || complete} aria-label={`Row ${r + 1}, column ${c + 1}, ${cell === SUN ? "sun" : cell === MOON ? "moon" : "empty"}`} className={`flex aspect-square w-full items-center justify-center rounded-lg border text-2xl transition-all ${isFixed ? "border-primary/20 bg-secondary/80" : "border-border bg-background hover:bg-secondary/50"} ${bad ? "border-red-500 bg-red-100/70" : ""} ${isHint ? "ring-4 ring-amber-400" : ""}`}>
                   {cell === SUN ? "☀️" : cell === MOON ? "🌙" : <span className="text-muted-foreground/30">·</span>}
                 </button>
-                {c < SIZE - 1 && edgeMarks.has(`${id}|${key(r, c + 1)}`) && <span className="pointer-events-none absolute -right-[7px] top-1/2 z-10 -translate-y-1/2 rounded-full bg-background px-0.5 text-[10px] font-black">{edgeMarks.get(`${id}|${key(r, c + 1)}`)}</span>}
-                {r < SIZE - 1 && edgeMarks.has(`${id}|${key(r + 1, c)}`) && <span className="pointer-events-none absolute -bottom-[7px] left-1/2 z-10 -translate-x-1/2 rounded-full bg-background px-0.5 text-[10px] font-black">{edgeMarks.get(`${id}|${key(r + 1, c)}`)}</span>}
+                {c < SIZE - 1 && edgeMarks.has(`${id}|${key(r, c + 1)}`) && <span className="pointer-events-none absolute -right-[7px] top-1/2 z-10 -translate-y-1/2 rounded-full bg-background px-0.5 text-xs font-black">{edgeMarks.get(`${id}|${key(r, c + 1)}`)}</span>}
+                {r < SIZE - 1 && edgeMarks.has(`${id}|${key(r + 1, c)}`) && <span className="pointer-events-none absolute -bottom-[7px] left-1/2 z-10 -translate-x-1/2 rounded-full bg-background px-0.5 text-xs font-black">{edgeMarks.get(`${id}|${key(r + 1, c)}`)}</span>}
               </div>
             );
           }))}
