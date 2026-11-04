@@ -34,7 +34,7 @@ function saveCompliment(day: number, word: string) {
 }
 
 /** End-of-day reward: one randomly selected dictionary-style compliment. */
-export function DailyWheel({ day }: { day: number }) {
+export function DailyWheel({ day, onDay16Continue }: { day: number; onDay16Continue?: () => void }) {
   const [spinning, setSpinning] = useState(false);
   const [poolExhausted, setPoolExhausted] = useState(false);
   const [prizeWord, setPrizeWord] = useState<string | null>(() => {
@@ -158,7 +158,7 @@ export function DailyWheel({ day }: { day: number }) {
                   {prize.message && <p className="dictionary-signoff">— yours truly ♡</p>}
                 </section>
               </article>
-              <Link to="/" className="next-button mt-5">Back to all days</Link>
+              {day === 16 && onDay16Continue ? (\n                <button type="button" className="next-button mt-5" onClick={onDay16Continue}>Open your presents ♡</button>\n              ) : (\n                <Link to="/" className="next-button mt-5">Back to all days</Link>\n              )}
             </>
           ) : (
             <>
