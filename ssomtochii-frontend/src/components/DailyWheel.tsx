@@ -78,9 +78,13 @@ export function DailyWheel({ day, onDay16Continue }: { day: number; onDay16Conti
         .map(([, word]) => word),
     );
     // Never repeat a compliment. Add another entry to COMPLIMENTS if the pool runs out.
-    const candidates = COMPLIMENTS
+    const unusedCandidates = COMPLIMENTS
       .map((item, index) => ({ item, index }))
       .filter(({ item }) => !usedWords.has(item.word));
+    // Day 16 keeps the wheel usable without adding an unrequested compliment.
+    const candidates = unusedCandidates.length > 0 || day !== 16
+      ? unusedCandidates
+      : COMPLIMENTS.map((item, index) => ({ item, index }));
     if (candidates.length === 0) {
       setPoolExhausted(true);
       return;
