@@ -117,10 +117,10 @@ export function DailyWheel({ day, onDay16Continue }: { day: number; onDay16Conti
     <main className="page-shell">
       <Botanicals />
       <div className="relative mx-auto w-full max-w-md">
-        <div className="day-one-copy reward-page-shell items-center text-center">
+        <div className={`day-one-copy reward-page-shell items-center text-center ${day === 16 ? "relative" : ""}`}>\n          {day === 16 && <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden text-[#d69b43]/70"><span className="absolute left-2 top-4 text-xl">✦</span><span className="absolute right-3 top-16 text-2xl">✧</span><span className="absolute bottom-12 left-4 text-2xl">✧</span><span className="absolute bottom-4 right-5 text-xl">✦</span></div>}
           {prize ? (
             <>
-              <article className="dictionary-page" aria-label={`Dictionary entry for ${prize.word}`}>
+              <article className={`dictionary-page ${day === 16 ? "relative z-10 border-[#e6c17b] shadow-[0_16px_45px_rgba(150,90,35,.14)]" : ""}`} aria-label={`Dictionary entry for ${prize.word}`}>
                 <header className="dictionary-header">
                   <span>COMPLIMENT OF THE DAY</span>
                   <Heart aria-hidden="true" />
@@ -162,7 +162,7 @@ export function DailyWheel({ day, onDay16Continue }: { day: number; onDay16Conti
             </>
           ) : (
             <>
-              <h2 className="font-script text-4xl leading-none">A little gift, just for you.</h2>
+              <h2 className="relative z-10 font-script text-4xl leading-none">{day === 16 ? "A little birthday gift, just for you." : "A little gift, just for you."}</h2>
               <p>{poolExhausted ? "We need one more compliment for this day. ♡" : "Every box holds a compliment. Let's see which one is yours today. ♡"}</p>
               <div className="reel-machine">
                 <span className="reel-label">COMPLIMENT OF THE DAY</span>
