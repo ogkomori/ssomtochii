@@ -32,7 +32,7 @@ export function Day16Gifts() {
   const openGift = (index: number) => {
     if (selected !== null || opened.includes(index)) return;
     setSelected(index);
-    window.setTimeout(() => setPlaying(true), 750);
+    window.setTimeout(() => setPlaying(true), 1300);
   };
 
   const finishVideo = () => {
@@ -57,7 +57,7 @@ export function Day16Gifts() {
           </>
         ) : (
           <div className="mt-8 flex w-full flex-col items-center">
-            {!playing && <div className="gift-focus-in relative h-44 w-44 rounded-xl border-2 border-[#8d171d] bg-gradient-to-br from-[#e8464d] to-[#a90e20] shadow-[0_20px_40px_rgba(85,20,20,.3)]">
+            {!playing && <div className="gift-focus-in relative h-44 w-44 rounded-xl border-2 border-[#8d171d] bg-gradient-to-br from-[#e8464d] to-[#a90e20] shadow-[0_20px_40px_rgba(85,20,20,.3)]">\n              <span className="gift-lid-open absolute -left-1 -top-5 z-10 h-8 w-[calc(100%+8px)] rounded-md border-2 border-[#8d171d] bg-gradient-to-br from-[#f15b60] to-[#b41427] shadow-md"><span className="absolute left-1/2 top-0 h-full w-7 -translate-x-1/2 bg-[#e5bd55]" /></span>
               <span className="absolute left-1/2 top-0 h-full w-7 -translate-x-1/2 bg-[#e5bd55]" />
               <span className="absolute left-0 top-1/2 h-7 w-full -translate-y-1/2 bg-[#e5bd55]" />
               <span className="absolute -top-5 left-1/2 h-8 w-16 -translate-x-full rounded-t-full border-[8px] border-b-0 border-[#e5bd55]" />
@@ -72,7 +72,7 @@ export function Day16Gifts() {
         )}
         {selected === null && <p className="mt-10 text-xs text-[#a47b59]">{opened.length} of 3 gifts opened</p>}
       </section>
-      <style>{`@keyframes giftFocusIn { from { transform: scale(.35); opacity:0; } to { transform:scale(1); opacity:1; } } .gift-focus-in { animation:giftFocusIn .65s cubic-bezier(.2,.8,.2,1) both; }`}</style>
+      <style>{`@keyframes giftFocusIn { from { transform: scale(.35); opacity:0; } to { transform:scale(1); opacity:1; } } .gift-focus-in { animation:giftFocusIn .65s cubic-bezier(.2,.8,.2,1) both; } @keyframes giftLidOpen { to { transform: perspective(500px) rotateX(68deg) translateY(-26px); transform-origin: bottom center; opacity:.9; } } .gift-lid-open { animation:giftLidOpen .7s .35s ease-out forwards; transform-origin:bottom center; }`}</style>
     </main>
   );
 }
