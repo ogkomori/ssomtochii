@@ -39,7 +39,7 @@ import { DAY_ELEVEN_STORY, getDayElevenStory } from "@/lib/stories/day-eleven-st
 import { DAY_TWELVE_STORY, getDayTwelveStory } from "@/lib/stories/day-twelve-story";
 import { DAY_THIRTEEN_STORY } from "@/lib/stories/day-thirteen-story";
 import { DAY_FOURTEEN_STORY } from "@/lib/stories/day-fourteen-story";
-import { DAY_FIFTEEN_STORY } from "@/lib/stories/day-fifteen-story";
+import { DAY_FIFTEEN_STORY, getDayFifteenStory } from "@/lib/stories/day-fifteen-story";
 import { DAY_SIXTEEN_STORY, getDaySixteenStory } from "@/lib/stories/day-sixteen-story";
 import { getDay } from "@/lib/days";
 import { isDayUnlocked, readProgress, readStoryChoice, saveStoryChoice } from "@/lib/progress";
@@ -81,7 +81,7 @@ function DayPage() {
   const [daySevenThesisChoice] = useState<string | null>(() => readStoryChoice("day-seven-story:19"));
   const [dayNineInviteChoice] = useState<string | null>(() => readStoryChoice("day-nine-story:10"));
   const [dayThirteenTiaraChoice] = useState<string | null>(() => readStoryChoice("day-thirteen-story:5"));
-  const [dayFourteenPriorityChoice] = useState<string | null>(() => readStoryChoice("day-fourteen-story:4"));
+  const [dayFourteenPriorityChoice] = useState<string | null>(() => readStoryChoice("day-fourteen-story:45") ?? readStoryChoice("day-fourteen-story:4"));
   const [dayTwoThemeChoice] = useState<string | null>(() => readStoryChoice("day-two-story:3"));
   const [dayTwoVipChoice] = useState<string | null>(() => readStoryChoice("day-two-story:5"));
   const [dayTwoDressCodeChoice] = useState<string | null>(() => readStoryChoice("day-two-story:7"));
@@ -108,7 +108,7 @@ function DayPage() {
             ? getDayElevenStory(dayThreeThesisChoice, daySevenThesisChoice)
             : day.day === 12
               ? getDayTwelveStory(daySevenThesisChoice)
-              : day.day === 16
+              : day.day === 15\n              ? getDayFifteenStory(dayFourteenPriorityChoice)\n              : day.day === 16
               ? getDaySixteenStory({ inviteChoice: dayNineInviteChoice, tiaraChoice: dayThirteenTiaraChoice, priorityChoice: dayFourteenPriorityChoice, themeChoice: dayTwoThemeChoice })
               : STORIES[day.story as Exclude<StoryId, "day-one-story">];
   const openingBeatToPreload = storyToPreload?.beats.find((beat) => beat.id === storyToPreload.startAt)
@@ -212,7 +212,7 @@ function DayPage() {
           ? getDayElevenStory(dayThreeThesisChoice, daySevenThesisChoice)
           : day.day === 12
             ? getDayTwelveStory(daySevenThesisChoice)
-            : day.day === 16
+            : day.day === 15\n              ? getDayFifteenStory(dayFourteenPriorityChoice)\n              : day.day === 16
             ? getDaySixteenStory({ inviteChoice: dayNineInviteChoice, tiaraChoice: dayThirteenTiaraChoice, priorityChoice: dayFourteenPriorityChoice, themeChoice: dayTwoThemeChoice })
             : STORIES[day.story as Exclude<StoryId, "day-one-story">];
     return <StoryPlayer story={story} exitLabel="Back to welcome" onExit={() => setWelcomeStarted(false)} onComplete={() => setStoryComplete(true)} continueLabel={day.day === 16 ? "Continue to your compliment ♡" : `Continue to Day ${day.day}'s activity ♡`} onChoiceSelected={(choiceId, beatId) => saveStoryChoice(`${day.story}:${beatId}`, choiceId)} />;
