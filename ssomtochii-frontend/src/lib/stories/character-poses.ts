@@ -193,3 +193,31 @@ export const pose10ExplainingDay16: StoryCharacter = { ...day16Pose("pose-10-exp
 export const pose10ExplainingAloneDay16 = day16Pose("pose-10-explaining-day16-alone", "pose-10-explaining", "Somto explaining something in her birthday outfit");
 export const pose11SeriousConcernedDay16: StoryCharacter = { ...day16Pose("pose-11-serious-concerned-day16", "pose-11-serious-concerned", "Somto looking serious and concerned in her birthday outfit"), scale: 2, offsetY: 0 };
 export const pose11SeriousConcernedAloneDay16 = day16Pose("pose-11-serious-concerned-day16-alone", "pose-11-serious-concerned", "Somto looking serious and concerned in her birthday outfit");
+
+/** Thesis panel illustrations. Each image contains all three judges and the table. */
+const thesisPanelPose = (id: string, filename: string, alt: string): StoryCharacter => ({
+  id,
+  name: "Thesis Panel",
+  image: "/images/day-15/" + filename + ".png",
+  position: "center",
+  alt,
+});
+
+export const thesisPanelReviewing = thesisPanelPose(
+  "thesis-panel-reviewing",
+  "thesis-panel-reviewing",
+  "The three thesis judges reviewing Somto's presentation and writing notes at the table",
+);
+
+export const thesisPanelDiscussing = thesisPanelPose(
+  "thesis-panel-discussing",
+  "thesis-panel-discussing",
+  "The three thesis judges discussing Somto's presentation around the table",
+);
+
+export const thesisPanelMelanieSpeaking = thesisPanelPose(
+  "thesis-panel-melanie-speaking",
+  "thesis-panel-melanie-speaking",
+  "Melanie speaking while the other two thesis judges listen at the table",
+);
+
