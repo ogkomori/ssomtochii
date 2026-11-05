@@ -61,19 +61,15 @@ export function getDaySixteenStory({
   const outfitPose = (character: StoryCharacter): StoryCharacter => {
     if (character.name !== "Somto") return character;
     const filenames: Record<string, string> = {
-      "pose-1-neutral-day16": "pose-1-neutral",
-      "pose-2-happy-day16": "pose-2-happy",
-      "pose-4-sad-day16": "pose-4-sad",
-      "pose-5-surprised-day16": "pose-5-surprised",
-      "pose-7-happy-dialogue-day16": "pose-7-happy-dialogue",
-      "pose-7-happy-dialogue-day16-alone": "pose-7-happy-dialogue",
-      "pose-8-thinking-day16": "pose-8-thinking",
-      "pose-9-laughing-day16": "pose-9-laughing",
-      "pose-9-laughing-day16-alone": "pose-9-laughing",
-      "pose-10-explaining-day16": "pose-10-explaining",
-      "pose-10-explaining-day16-alone": "pose-10-explaining",
-      "pose-11-serious-concerned-day16": "pose-11-serious-concerned",
-      "pose-11-serious-concerned-day16-alone": "pose-11-serious-concerned",
+      "pose-1-neutral": "pose-1-neutral",
+      "pose-2-happy": "pose-2-happy",
+      "pose-4-sad": "pose-4-sad",
+      "pose-5-surprised": "pose-5-surprised",
+      "pose-7-happy-dialogue": "pose-7-happy-dialogue",
+      "pose-8-thinking": "pose-8-thinking",
+      "pose-9-laughing": "pose-9-laughing",
+      "pose-10-explaining": "pose-10-explaining",
+      "pose-11-serious-concerned": "pose-11-serious-concerned",
     };
     const filename = character.image.split("/").pop()?.replace(/\\.png$/, "").replace(/-gold$/, "");
     if (!filename) return character;
