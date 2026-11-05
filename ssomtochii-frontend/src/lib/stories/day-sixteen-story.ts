@@ -1,11 +1,14 @@
 import type { StoryBeat, StoryCharacter, StoryDefinition } from "./types";
 import { SOMTO, ZARA } from "./speakers";
 import {
-  neutral,
-  speaking,
-  smiling,
-  pose8Thinking,
-  pose11SeriousConcerned,
+  pose1NeutralDay16,
+  pose2HappyDay16,
+  pose5SurprisedDay16,
+  pose7HappyDialogueDay16,
+  pose8ThinkingDay16,
+  pose9LaughingDay16,
+  pose10ExplainingDay16,
+  pose11SeriousConcernedDay16,
   pose12ConfidentStanding,
   pose13ArmsCrossed,
   zaraSadAlone,
@@ -72,7 +75,7 @@ export function getDaySixteenStory({
       "pose-11-serious-concerned-day16": "pose-11-serious-concerned",
       "pose-11-serious-concerned-day16-alone": "pose-11-serious-concerned",
     };
-    const filename = filenames[character.id];
+    const filename = character.image.split("/").pop()?.replace(/\\.png$/, "").replace(/-gold$/, "");
     if (!filename) return character;
     const image = filename === "pose-1-neutral"
       ? "/images/day-16/pose-1-neutral-gold.png"
@@ -161,7 +164,7 @@ export function getDaySixteenStory({
     type: "narration",
     scene: "character",
     background: "linear-gradient(180deg, #d9e8e0 0%, #f4e8e4 58%, #d7dfc7 100%)",
-    characters: [smiling],
+    characters: [pose2HappyDay16],
     text: "By the time Somto arrives, her friends have helped make the venue feel warm and personal. The cake is ready, the music is on, and people are already calling her over for pictures. For a moment, the day feels exactly as it should.",
   });
 
@@ -334,25 +337,7 @@ export const DAY_SIXTEEN_STORY = getDaySixteenStory({
   tiaraChoice: null,
   priorityChoice: null,
   themeChoice: null,
-});import {
-  pose1NeutralDay16,
-  pose2HappyDay16,
-  pose4SadDay16,
-  pose5SurprisedDay16,
-  pose7HappyDialogueDay16,
-  pose8ThinkingDay16,
-  pose9LaughingDay16,
-  pose10ExplainingDay16,
-  pose11SeriousConcernedDay16,
-  pose12ConfidentStanding,
-  pose13ArmsCrossed,
-  zaraSadAlone,
-  zaraThinking,
-  zaraHappyDialogueAlone,
-  zaraSurprised,
-  zaraConcernedAlone,
-  placeCharacter,
-} from "./character-poses";
+});
 
 const FRIEND = {
   id: "friend",
