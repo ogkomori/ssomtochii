@@ -108,7 +108,9 @@ function DayPage() {
             ? getDayElevenStory(dayThreeThesisChoice, daySevenThesisChoice)
             : day.day === 12
               ? getDayTwelveStory(daySevenThesisChoice)
-              : day.day === 15\n              ? getDayFifteenStory(dayFourteenPriorityChoice)\n              : day.day === 16
+              : day.day === 15
+              ? getDayFifteenStory(dayFourteenPriorityChoice)
+              : day.day === 16
               ? getDaySixteenStory({ inviteChoice: dayNineInviteChoice, tiaraChoice: dayThirteenTiaraChoice, priorityChoice: dayFourteenPriorityChoice, themeChoice: dayTwoThemeChoice })
               : STORIES[day.story as Exclude<StoryId, "day-one-story">];
   const openingBeatToPreload = storyToPreload?.beats.find((beat) => beat.id === storyToPreload.startAt)
@@ -212,7 +214,9 @@ function DayPage() {
           ? getDayElevenStory(dayThreeThesisChoice, daySevenThesisChoice)
           : day.day === 12
             ? getDayTwelveStory(daySevenThesisChoice)
-            : day.day === 15\n              ? getDayFifteenStory(dayFourteenPriorityChoice)\n              : day.day === 16
+            : day.day === 15
+              ? getDayFifteenStory(dayFourteenPriorityChoice)
+              : day.day === 16
             ? getDaySixteenStory({ inviteChoice: dayNineInviteChoice, tiaraChoice: dayThirteenTiaraChoice, priorityChoice: dayFourteenPriorityChoice, themeChoice: dayTwoThemeChoice })
             : STORIES[day.story as Exclude<StoryId, "day-one-story">];
     return <StoryPlayer story={story} exitLabel="Back to welcome" onExit={() => setWelcomeStarted(false)} onComplete={() => setStoryComplete(true)} continueLabel={day.day === 16 ? "Continue to your compliment ♡" : `Continue to Day ${day.day}'s activity ♡`} onChoiceSelected={(choiceId, beatId) => saveStoryChoice(`${day.story}:${beatId}`, choiceId)} />;
