@@ -3,6 +3,7 @@ import { SOMTO, ZARA } from "./speakers";
 import {
   pose1NeutralDay16,
   pose2HappyDay16,
+  pose4SadDay16,
   pose5SurprisedDay16,
   pose7HappyDialogueDay16,
   pose8ThinkingDay16,
@@ -96,7 +97,7 @@ export function getDaySixteenStory({
     type: "narration",
     scene: "character",
     background: "linear-gradient(180deg, #d9e8e0 0%, #f4e8e4 58%, #d7dfc7 100%)",
-    characters: [pose8ThinkingDay16],
+    characters: [pose4SadDay16],
     text: prioritisedVenue
       ? "It's Somto's birthday. The venue is secured, and the plans she fought to protect are ready to go. Still, after sacrificing thesis time to confirm everything, she can't help replaying yesterday's presentation in her head. She wants to enjoy today without worrying about what comes next."
       : "It's Somto's birthday. She made real progress on her thesis yesterday, but the venue was left hanging in the balance. Before she can let herself celebrate, she needs to know the plans she worked so hard on haven't fallen apart.",
@@ -164,14 +165,14 @@ export function getDaySixteenStory({
     type: "narration",
     scene: "character",
     background: "linear-gradient(180deg, #d9e8e0 0%, #f4e8e4 58%, #d7dfc7 100%)",
-    characters: [pose2HappyDay16],
+    characters: [pose9LaughingDay16],
     text: "By the time Somto arrives, her friends have helped make the venue feel warm and personal. The cake is ready, the music is on, and people are already calling her over for pictures. For a moment, the day feels exactly as it should.",
   });
 
   add({
     type: "narration",
     scene: "character",
-    characters: together(pose9LaughingDay16, zaraHappyDialogueAlone),
+    characters: together(pose1NeutralDay16, zaraHappyDialogueAlone),
     text: invitedZara
       ? "Then Zara arrives wearing Somto's missing birthday tiara. She walks in as though she's part of the organising team, already looking around for ways to make herself the centre of attention."
       : "Then Zara walks in uninvited, wearing Somto's missing birthday tiara as though she belongs there. She looks far too pleased with herself to pretend this is an innocent coincidence.",
