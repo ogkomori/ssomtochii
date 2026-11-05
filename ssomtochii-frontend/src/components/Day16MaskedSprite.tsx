@@ -44,7 +44,7 @@ export function Day16MaskedSprite({
       if (!maskContext) return;
       maskContext.drawImage(maskImage, 0, 0);
       const maskPixels = maskContext.getImageData(0, 0, canvas.width, canvas.height).data;
-      const targetHue = colour === "green" ? 135 : 2;
+      const targetHue = colour === "green" ? 150 : 2;
       for (let i = 0; i < pixels.data.length; i += 4) {
         const coverage = (maskPixels[i] / 255) * (maskPixels[i + 3] / 255);
         if (coverage <= 0) continue;
@@ -57,8 +57,8 @@ export function Day16MaskedSprite({
         const delta = max - min;
         const saturation = delta === 0 ? 0 : delta / (1 - Math.abs(2 * lightness - 1));
         if (saturation < 0.08) continue;
-        const sat = colour === "green" ? Math.max(saturation, 0.76) : Math.max(saturation, 0.82);
-        const adjustedLightness = colour === "green" ? Math.min(lightness * 0.68, 0.38) : lightness;
+        const sat = colour === "green" ? 0.92 : Math.max(saturation, 0.82);
+        const adjustedLightness = colour === "green" ? Math.max(0.16, Math.min(lightness * 0.58, 0.30)) : lightness;
         const chroma = (1 - Math.abs(2 * adjustedLightness - 1)) * sat;
         const x = chroma * (1 - Math.abs(((targetHue / 60) % 2) - 1));
         const m = adjustedLightness - chroma / 2;
