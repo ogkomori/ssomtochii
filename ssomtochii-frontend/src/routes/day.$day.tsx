@@ -21,7 +21,6 @@ import { DayActivityFlow } from "@/components/DayActivityFlow";
 import { DailyWheel } from "@/components/DailyWheel";
 import { Day16Letter } from "@/components/Day16Letter";
 import { Day16Gifts } from "@/components/Day16Gifts";
-import { Day16OutfitPreview } from "@/components/Day16OutfitPreview";
 import { StoryPlayer } from "@/components/StoryPlayer";
 import type { StoryDefinition } from "@/lib/stories/types";
 import type { StoryId } from "@/lib/days";
@@ -181,7 +180,6 @@ function DayPage() {
             <p className="relative day-one-eyebrow">{day.day === 16 ? "THE BIRTHDAY GIRL" : `DAY ${day.day} · ${day.label}`}</p>
             <h1 className="relative font-script text-5xl leading-none sm:text-6xl">{day.day === 16 ? "Happy Birthday, Somto! ♡" : `Welcome to Day ${day.day} ♡`}</h1>
             <p className="relative mt-5 min-h-6 whitespace-pre-wrap text-foreground/80">{day.day === 16 ? "A star was born today. ✨" : null}</p>
-            {day.day === 16 && <Day16OutfitPreview />}
             {day.day === 7 && (
               <>
                 <p className="mt-3 text-foreground/80">...from day 6 to day 7...</p>
