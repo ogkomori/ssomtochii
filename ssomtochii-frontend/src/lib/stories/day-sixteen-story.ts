@@ -61,7 +61,7 @@ export function getDaySixteenStory({
   const outfitPose = (character: StoryCharacter): StoryCharacter => {
     if (character.name !== "Somto") return character;
     const filenames: Record<string, string> = {
-      "pose-1-pose1NeutralDay16": "pose-1-pose1NeutralDay16",
+      "pose-1-neutral": "pose-1-neutral",
       "pose-2-happy": "pose-2-happy",
       "pose-4-sad": "pose-4-sad",
       "pose-5-surprised": "pose-5-surprised",
@@ -73,8 +73,8 @@ export function getDaySixteenStory({
     };
     const filename = character.image.split("/").pop()?.replace(/\\.png$/, "").replace(/-gold$/, "");
     if (!filename) return character;
-    const image = filename === "pose-1-pose1NeutralDay16"
-      ? "/images/day-16/pose-1-pose1NeutralDay16-gold.png"
+    const image = filename === "pose-1-neutral"
+      ? "/images/day-16/pose-1-neutral-gold.png"
       : "/images/day-16/" + filename + ".png";
     return {
       ...character,
