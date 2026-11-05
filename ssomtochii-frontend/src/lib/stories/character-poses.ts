@@ -201,6 +201,33 @@ export const pose10ExplainingDay16: StoryCharacter = { ...day16Pose("pose-10-exp
 export const pose10ExplainingAloneDay16 = day16Pose("pose-10-explaining-day16-alone", "pose-10-explaining", "Somto explaining something in her birthday outfit");
 export const pose11SeriousConcernedDay16: StoryCharacter = { ...day16Pose("pose-11-serious-concerned-day16", "pose-11-serious-concerned", "Somto looking serious and concerned in her birthday outfit"), scale: 2, offsetY: 0 };
 export const pose11SeriousConcernedAloneDay16 = day16Pose("pose-11-serious-concerned-day16-alone", "pose-11-serious-concerned", "Somto looking serious and concerned in her birthday outfit");
+// Zara's Day 16 birthday outfit poses. Dimensions mirror her standard poses.
+const zaraDay16Pose = (id: string, filename: string, alt: string, scale?: number, offsetY?: number): StoryCharacter => ({
+  id,
+  name: "Zara",
+  image: "/images/day-16-zara/" + filename + ".png",
+  position: "center",
+  alt,
+  ...(scale ? { scale } : {}),
+  ...(offsetY !== undefined ? { offsetY } : {}),
+});
+
+export const zaraNeutralDay16: StoryCharacter = { ...zaraDay16Pose("zara-neutral-day16", "pose-1-neutral", "Zara in her Day 16 purple dress, looking neutral"), scale: 2.1, offsetY: 30 };
+export const zaraNeutralAloneDay16 = zaraDay16Pose("zara-neutral-day16-alone", "pose-1-neutral", "Zara in her Day 16 purple dress, looking neutral");
+export const zaraHappyDay16: StoryCharacter = { ...zaraDay16Pose("zara-happy-day16", "pose-2-happy", "Zara in her Day 16 purple dress, looking happy"), scale: 3, offsetY: 100 };
+export const zaraHappyAloneDay16: StoryCharacter = { ...zaraDay16Pose("zara-happy-day16-alone", "pose-2-happy", "Zara in her Day 16 purple dress, looking happy"), scale: 1.5, offsetY: 100 };
+export const zaraSadAloneDay16: StoryCharacter = { ...zaraDay16Pose("zara-sad-day16-alone", "pose-4-sad", "Zara in her Day 16 purple dress, looking sad"), scale: 1.5, offsetY: 100 };
+export const zaraSurprisedDay16 = zaraDay16Pose("zara-surprised-day16", "pose-5-surprised", "Zara in her Day 16 purple dress, looking surprised");
+export const zaraSurprisedAloneDay16: StoryCharacter = { ...zaraDay16Pose("zara-surprised-day16-alone", "pose-5-surprised", "Zara in her Day 16 purple dress, looking surprised"), scale: 1.7, offsetY: 160 };
+export const zaraHappyDialogueDay16: StoryCharacter = { ...zaraDay16Pose("zara-happy-dialogue-day16", "pose-7-happy-dialogue", "Zara speaking happily in her Day 16 purple dress"), scale: 1.7, offsetY: -20 };
+export const zaraHappyDialogueAloneDay16 = zaraDay16Pose("zara-happy-dialogue-day16-alone", "pose-7-happy-dialogue", "Zara speaking happily in her Day 16 purple dress");
+export const zaraThinkingDay16 = zaraDay16Pose("zara-thinking-day16", "pose-8-thinking", "Zara thinking in her Day 16 purple dress");
+export const zaraLaughingDay16: StoryCharacter = { ...zaraDay16Pose("zara-laughing-day16", "pose-9-laughing", "Zara laughing in her Day 16 purple dress"), scale: 2.1, offsetY: 30 };
+export const zaraLaughingAloneDay16 = zaraDay16Pose("zara-laughing-day16-alone", "pose-9-laughing", "Zara laughing in her Day 16 purple dress");
+export const zaraExplainingDay16: StoryCharacter = { ...zaraDay16Pose("zara-explaining-day16", "pose-10-explaining", "Zara explaining something in her Day 16 purple dress"), scale: 1.7, offsetY: -28 };
+export const zaraExplainingAloneDay16 = zaraDay16Pose("zara-explaining-day16-alone", "pose-10-explaining", "Zara explaining something in her Day 16 purple dress");
+export const zaraConcernedAloneDay16: StoryCharacter = { ...zaraDay16Pose("zara-serious-concerned-day16-alone", "pose-11-serious-concerned", "Zara looking serious and concerned in her Day 16 purple dress"), scale: 1.3, offsetY: 0 };
+
 
 /** Thesis panel illustrations. Each image contains all three judges and the table. */
 const thesisPanelPose = (id: string, filename: string, alt: string): StoryCharacter => ({
