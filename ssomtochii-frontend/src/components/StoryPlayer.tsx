@@ -213,20 +213,31 @@ export function StoryPlayer({
             ].filter(Boolean).join(" ") || undefined;
 
             return (
-              <div
-                key={character.id}
-                className={`story-sprite story-sprite--${character.position}`}
-                role="img"
-                aria-label={character.alt ?? character.name}
-                style={{
-                  backgroundImage: `url("${character.image}")`,
-                  backgroundSize: "contain",
-                  backgroundPosition: "center bottom",
-                  backgroundRepeat: "no-repeat",
-                  aspectRatio: String(getImageAspectRatio(character.image) ?? (2 / 3)),
-                  transform,
-                }}
-              />
+              {character.outfitMask && character.outfitColour ? (
+                <Day16MaskedSprite
+                  key={character.id}
+                  image={character.image}
+                  mask={character.outfitMask}
+                  colour={character.outfitColour}
+                  className={`story-sprite story-sprite--${character.position}`}
+                  style={{ aspectRatio: String(getImageAspectRatio(character.image) ?? (2 / 3)), transform }}
+                />
+              ) : (
+                <div
+                  key={character.id}
+                  className={`story-sprite story-sprite--${character.position}`}
+                  role="img"
+                  aria-label={character.alt ?? character.name}
+                  style={{
+                    backgroundImage: `url("${character.image}")`,
+                    backgroundSize: "contain",
+                    backgroundPosition: "center bottom",
+                    backgroundRepeat: "no-repeat",
+                    aspectRatio: String(getImageAspectRatio(character.image) ?? (2 / 3)),
+                    transform,
+                  }}
+                />
+              )}
             );
           })}
         </div>
