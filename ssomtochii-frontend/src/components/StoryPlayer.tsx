@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { ArrowLeft, RotateCcw } from "lucide-react";
 import type { CSSProperties } from "react";
 import type { StoryBeat, StoryCharacter, StoryDefinition } from "@/lib/stories/types";
-import { IncomingCallScreen } from "@/components/IncomingCallScreen";
+import { IncomingCallScreen } from "@/components/IncomingCallScreen";\nimport { Day16MaskedSprite } from "@/components/Day16MaskedSprite";
 import { areBeatAssetsLoaded, getImageAspectRatio, preloadBeatAssets, preloadStoryAssets } from "@/lib/stories/preload-assets";
 
 function getBeat(story: StoryDefinition, id: StoryBeat["id"]) {
