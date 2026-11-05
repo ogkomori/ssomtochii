@@ -71,8 +71,9 @@ export function getDaySixteenStory({
       "pose-10-explaining": "pose-10-explaining",
       "pose-11-serious-concerned": "pose-11-serious-concerned",
     };
-    const filename = character.image.split("/").pop()?.replace(/\.png$/, "").replace(/-gold$/, "");
-    if (!filename) return character;
+    const sourceFilename = character.image.split("/").pop()?.replace(/\.png$/, "").replace(/-gold$/, "");
+    if (!sourceFilename || !filenames[sourceFilename]) return character;
+    const filename = filenames[sourceFilename];
     const image = filename === "pose-1-neutral"
       ? "/images/day-16/pose-1-neutral-gold.png"
       : "/images/day-16/" + filename + ".png";
