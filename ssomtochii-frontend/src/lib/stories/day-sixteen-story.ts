@@ -50,6 +50,29 @@ export function getDaySixteenStory({
   const outfitColour = themeChoice === "party-theme-green" ? "green" : themeChoice === "party-theme-red" ? "red" : undefined;
 
   const outfitPose = (character: StoryCharacter): StoryCharacter => {
+    if (character.name === "Zara") {
+      const zaraFilenames: Record<string, string> = {
+        "zara-pose-1-neutral": "pose-1-neutral",
+        "zara-pose-2-happy": "pose-2-happy",
+        "zara-pose-4-sad": "pose-4-sad",
+        "zara-pose-5-surprised": "pose-5-surprised",
+        "zara-pose-7-happy-dialogue": "pose-7-happy-dialogue",
+        "zara-pose-8-thinking": "pose-8-thinking",
+        "zara-pose-9-laughing": "pose-9-laughing",
+        "zara-pose-10-explaining": "pose-10-explaining",
+        "zara-pose-11-serious-concerned": "pose-11-serious-concerned",
+      };
+      const sourceFilename = character.image.split("/").pop()?.replace(".png", "");
+      const filename = sourceFilename ? zaraFilenames[sourceFilename] : undefined;
+      if (!filename) return character;
+      return {
+        ...character,
+        image: "/images/day-16-zara/" + filename + ".png",
+        outfitMask: undefined,
+        outfitColour: undefined,
+      };
+    }
+
     if (character.name !== "Somto") return character;
 
     const filenames: Record<string, string> = {
