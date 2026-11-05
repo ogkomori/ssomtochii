@@ -1,5 +1,5 @@
 import type { StoryBeat, StoryCharacter, StoryDefinition } from "./types";
-import { SOMTO, MELANIE, PARTY_PLANNERS } from "./speakers";
+import { SOMTO, ZARA, MELANIE, PARTY_PLANNERS } from "./speakers";
 import {
   speaking,
   sitting,
