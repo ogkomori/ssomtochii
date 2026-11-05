@@ -62,7 +62,8 @@ function getBeatImageSources(beat: StoryBeat): string[] {
   const sources = new Set<string>();
 
   for (const character of beat.characters ?? []) {
-    if (character.image) sources.add(character.image);\n    if (character.outfitMask) sources.add(character.outfitMask);
+    if (character.image) sources.add(character.image);
+    if (character.outfitMask) sources.add(character.outfitMask);
   }
 
   const background = beat.background?.trim();
