@@ -19,7 +19,7 @@ export const ALEXA: Speaker = {
   color: "#0000FF",
 };
 
-export const PARTY_PLANNERS: Speaker = {
+export const MELANIE: Speaker = {\n  id: "melanie",\n  label: "Melanie",\n  color: "#6B5B95",\n};\n\nexport const PARTY_PLANNERS: Speaker = {
   id: "party-planners",
   label: "Party Planners · On the phone",
   color: "#FFA500",
