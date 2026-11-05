@@ -35,6 +35,12 @@ export function getDaySixteenStory({
 
   const prioritisedVenue = priorityChoice === "day14-confirm-venue";
   const theme = themeDescription(themeChoice);
+  const venueTint = themeChoice === "party-theme-green"
+    ? "rgba(24, 76, 48, 0.38)"
+    : themeChoice === "party-theme-red"
+      ? "rgba(132, 28, 39, 0.34)"
+      : "rgba(173, 132, 42, 0.34)";
+  const venueBackground = `linear-gradient(0deg, ${venueTint}, ${venueTint}), url("/images/backgrounds/party.jpg")`;
   const outfitColour = themeChoice === "party-theme-green" ? "green" : themeChoice === "party-theme-red" ? "red" : undefined;
 
   const outfitPose = (character: StoryCharacter): StoryCharacter => {
@@ -233,7 +239,7 @@ export function getDaySixteenStory({
   add({
     type: "narration",
     scene: "character",
-    background: "linear-gradient(180deg, #d8e5dc 0%, #f3e5df 55%, #c9d7c7 100%)",
+    background: venueBackground,
     characters: [pose2HappyDay16],
     text: "A little later, Somto arrives at the party venue. The place she had spent so much time planning for is finally within reach. She takes a breath at the entrance, ready to step inside and see what the day has in store.",
   });
@@ -241,7 +247,7 @@ export function getDaySixteenStory({
   add({
     type: "end",
     scene: "character",
-    background: "linear-gradient(180deg, #d8e5dc 0%, #f3e5df 55%, #c9d7c7 100%)",
+    background: venueBackground,
     characters: [pose2HappyDay16],
     text: "Somto has made it to her birthday party. For now, she pauses at the entrance and takes in the moment. The rest of the day is waiting for her.",
   });
