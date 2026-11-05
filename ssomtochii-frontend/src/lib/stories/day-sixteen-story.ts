@@ -13,6 +13,15 @@ import {
   pose1NeutralAloneDay16,
   pose11SeriousConcernedAloneDay16,
   zaraHappyAloneDay16,
+  placeCharacter,
+  pose5SurprisedDay16,
+  pose7HappyDialogueDay16,
+  pose8ThinkingDay16,
+  pose10ExplainingAloneDay16,
+  pose11SeriousConcernedDay16,
+  zaraNeutralDay16,
+  zaraHappyDialogueDay16,
+  zaraExplainingDay16,
 } from "./character-poses";
 
 type DaySixteenChoices = {
@@ -323,10 +332,164 @@ export function getDaySixteenStory({
   });
 
   add({
-    type: "end",
+    type: "narration",
     scene: "character",
     characters: [zaraHappyAloneDay16],
     text: "Zara.",
+  });
+
+
+  // Day 16 continues from Zara's reveal. Her invitation status decides how
+  // she enters the conversation, then both routes converge on the tiara.
+  const somtoLeft = (pose: StoryCharacter) => placeCharacter(pose, "somto", "Somto", "left");
+  const zaraRight = (pose: StoryCharacter) => placeCharacter(pose, "zara", "Zara", "right");
+  const together = (somtoPose: StoryCharacter, zaraPose: StoryCharacter) => [
+    somtoLeft(somtoPose),
+    zaraRight(zaraPose),
+  ];
+
+  if (inviteChoice === "invite-zara") {
+    add({
+      type: "narration",
+      scene: "character",
+      characters: together(pose8ThinkingDay16, zaraHappyAloneDay16),
+      text: "Zara makes her way over to Somto with a bright smile, ready to greet the birthday girl. Somto's expression barely changes. After everything that has happened, she isn't in the mood to pretend she hasn't noticed Zara's little performance.",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "character",
+      speaker: ZARA,
+      characters: [zaraHappyDialogueDay16],
+      text: "Somtooo! Happy birthday, beautiful! You look lovely. I hope you're having the most amazing time!",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: together(pose11SeriousConcernedDay16, zaraNeutralDay16),
+      text: "Zara, please. You really came here dressed like this? On my birthday? You knew exactly what you were doing. This whole thing is giving trying to outdress the birthday girl and steal the show.",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "character",
+      speaker: ZARA,
+      characters: [zaraExplainingDay16],
+      text: "What? I'm not even wearing the theme, Somto. I'm in purple. How am I supposed to be competing with you when I'm not even matching everyone else?",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: together(pose10ExplainingAloneDay16, zaraNeutralDay16),
+      text: "Girl, exactly. Everyone else is dressed for the theme, and you're standing here in purple. Obviously you're going to stand out. Don't act like you didn't know that.",
+    });
+  } else {
+    add({
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: together(pose5SurprisedDay16, zaraHappyAloneDay16),
+      text: "Zara? What are you doing here? I didn't invite you.",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "character",
+      speaker: ZARA,
+      characters: [zaraExplainingDay16],
+      text: "Oh, one of your friends couldn't make it, so she said I could take her place. I thought you'd be happy to see me!",
+    });
+
+    add({
+      type: "narration",
+      scene: "character",
+      characters: together(pose8ThinkingDay16, zaraNeutralDay16),
+      text: "Somto looks towards the friend who had to give up her spot. The friend gives a small nod, confirming that she'd offered Zara her place. Somto takes a breath. Well, if her friend had arranged it, she wasn't going to make a scene about the guest list.",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: together(pose7HappyDialogueDay16, zaraNeutralDay16),
+      text: "Oh, okay. If she offered you her place, then that's fine. Happy birthday party guest, I guess. But what's with the outfit?",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "character",
+      speaker: ZARA,
+      characters: [zaraExplainingDay16],
+      text: "What about my outfit? I'm not even wearing the theme. I'm in purple.",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: together(pose10ExplainingAloneDay16, zaraNeutralDay16),
+      text: "I mean, you do realise you're still going to stand out, right? Everyone else is dressed for the theme. You're the only one in purple.",
+    });
+  }
+
+  // Both invitation routes meet when Somto notices the missing tiara.
+  add({
+    type: "narration",
+    scene: "character",
+    characters: together(pose8ThinkingDay16, zaraHappyAloneDay16),
+    text: "Somto is about to turn away when something catches her eye. The tiara. Her tiara. Sitting right there on Zara's head.",
+  });
+
+  if (tiaraChoice === "day13-believe-zara") {
+    add({
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: together(pose11SeriousConcernedDay16, zaraNeutralDay16),
+      text: "Wait. Is that my tiara? Zara, you told me you didn't take it. I trusted you. I actually believed you, and you've been walking around wearing it this whole time?",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "character",
+      speaker: ZARA,
+      characters: [zaraExplainingDay16],
+      text: "Somto, I'm sorry. I should have told you. I was only borrowing it, honestly. I didn't mean for you to find out like this.",
+    });
+  } else {
+    add({
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: together(pose11SeriousConcernedDay16, zaraNeutralDay16),
+      text: "I knew it. I knew you took it, you liar! You stood there looking me in the eye and denied everything.",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "character",
+      speaker: ZARA,
+      characters: [zaraExplainingDay16],
+      text: "Oh, I knew you knew. I was wondering how long you'd take to say something. I was only borrowing it, Somto. You don't have to make such a big deal out of it.",
+    });
+  }
+
+  add({
+    type: "narration",
+    scene: "character",
+    characters: together(pose11SeriousConcernedDay16, zaraNeutralDay16),
+    text: "A few of Somto's friends have noticed the exchange. They glance between the two of them, clearly aware something is going on, but nobody steps in. It's her birthday, and they came to celebrate. They would rather leave the confrontation there and get back to the party.",
+  });
+
+  add({
+    type: "end",
+    scene: "character",
+    characters: [zaraHappyAloneDay16],
+    text: "Zara is still wearing Somto's tiara, and the truth is finally out. Somto's friends have chosen not to get involved, but the moment has left a tension hanging over the celebration. For now, the party carries on.",
   });
 
   const beats = templates.map((beat, index) => ({
