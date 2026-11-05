@@ -1,5 +1,5 @@
 import type { StoryBeat, StoryCharacter, StoryDefinition } from "./types";
-import { SOMTO, ZARA } from "./speakers";
+import { SOMTO, MELANIE, PARTY_PLANNERS } from "./speakers";
 import {
   pose1NeutralDay16,
   pose2HappyDay16,
@@ -7,31 +7,8 @@ import {
   pose5SurprisedDay16,
   pose7HappyDialogueDay16,
   pose8ThinkingDay16,
-  pose9LaughingDay16,
   pose10ExplainingDay16,
-  pose11SeriousConcernedDay16,
-  pose12ConfidentStanding,
-  pose13ArmsCrossed,
-  zaraSadAlone,
-  zaraThinking,
-  zaraHappyDialogueAlone,
-  zaraSurprised,
-  zaraConcernedAlone,
-  placeCharacter,
 } from "./character-poses";
-
-const FRIEND = {
-  id: "friend",
-  label: "A Friend · On the phone",
-  color: "#5D8066",
-};
-
-const somtoLeft = (pose: StoryCharacter) => placeCharacter(pose, "somto", "Somto", "left");
-const zaraRight = (pose: StoryCharacter) => placeCharacter(pose, "zara", "Zara", "right");
-const together = (somtoPose: StoryCharacter, zaraPose: StoryCharacter) => [
-  somtoLeft(somtoPose),
-  zaraRight(zaraPose),
-];
 
 type DaySixteenChoices = {
   inviteChoice: string | null;
@@ -47,20 +24,24 @@ const themeDescription = (choice: string | null) => {
   return "her chosen colour";
 };
 
-/** Day 16: Zara's tiara stunt backfires, and Somto's friends make the birthday special. */
+/** Day 16 opens with the birthday morning, then follows the branch from Day 14. */
 export function getDaySixteenStory({
   inviteChoice,
   tiaraChoice,
   priorityChoice,
   themeChoice,
 }: DaySixteenChoices): StoryDefinition {
-  const invitedZara = inviteChoice === "invite-zara";
-  const accusedZara = tiaraChoice === "day13-accuse-zara";
+  // These choices are retained for the later party storyline.
+  void inviteChoice;
+  void tiaraChoice;
+
   const prioritisedVenue = priorityChoice === "day14-confirm-venue";
   const theme = themeDescription(themeChoice);
   const outfitColour = themeChoice === "party-theme-green" ? "green" : themeChoice === "party-theme-red" ? "red" : undefined;
+
   const outfitPose = (character: StoryCharacter): StoryCharacter => {
     if (character.name !== "Somto") return character;
+
     const filenames: Record<string, string> = {
       "pose-1-neutral": "pose-1-neutral",
       "pose-2-happy": "pose-2-happy",
@@ -68,16 +49,17 @@ export function getDaySixteenStory({
       "pose-5-surprised": "pose-5-surprised",
       "pose-7-happy-dialogue": "pose-7-happy-dialogue",
       "pose-8-thinking": "pose-8-thinking",
-      "pose-9-laughing": "pose-9-laughing",
       "pose-10-explaining": "pose-10-explaining",
-      "pose-11-serious-concerned": "pose-11-serious-concerned",
     };
+
     const sourceFilename = character.image.split("/").pop()?.replace(/\.png$/, "").replace(/-gold$/, "");
     if (!sourceFilename || !filenames[sourceFilename]) return character;
+
     const filename = filenames[sourceFilename];
     const image = filename === "pose-1-neutral"
       ? "/images/day-16/pose-1-neutral-gold.png"
       : "/images/day-16/" + filename + ".png";
+
     return {
       ...character,
       image,
@@ -86,204 +68,160 @@ export function getDaySixteenStory({
         : { outfitMask: undefined, outfitColour: undefined }),
     };
   };
+
   const templates: Array<Record<string, unknown>> = [];
 
   const add = (beat: Record<string, unknown>) => {
     const characters = beat.characters as StoryCharacter[] | undefined;
-    templates.push({ ...beat, ...(characters ? { characters: characters.map(outfitPose) } : {}) });
+    templates.push({
+      ...beat,
+      ...(characters ? { characters: characters.map(outfitPose) } : {}),
+    });
   };
 
-  add({
-    type: "narration",
-    scene: "character",
-    background: "linear-gradient(180deg, #d9e8e0 0%, #f4e8e4 58%, #d7dfc7 100%)",
-    characters: [pose4SadDay16],
-    text: prioritisedVenue
-      ? "It's Somto's birthday. The venue is secured, and the plans she fought to protect are ready to go. Still, after sacrificing thesis time to confirm everything, she can't help replaying yesterday's presentation in her head. She wants to enjoy today without worrying about what comes next."
-      : "It's Somto's birthday. She made real progress on her thesis yesterday, but the venue was left hanging in the balance. Before she can let herself celebrate, she needs to know the plans she worked so hard on haven't fallen apart.",
-  });
+  if (prioritisedVenue) {
+    // Somto chose the party over the thesis. Melanie calls with the revised result.
+    add({
+      type: "narration",
+      scene: "character",
+      background: "/images/backgrounds/bedroom.png",
+      characters: [pose8ThinkingDay16],
+      text: "Birthday morning arrives. Somto wakes up and reaches for the dress she laid out for today. She should be thinking about getting ready and enjoying herself, but yesterday's uncertainty about her thesis result is still sitting at the back of her mind. She has barely started her morning when her phone rings.",
+    });
 
-  add({
-    type: "dialogue",
-    scene: "character",
-    speaker: SOMTO,
-    characters: [pose8ThinkingDay16],
-    text: prioritisedVenue
-      ? "The venue is sorted, the party is happening, and the presentation is over. So why am I still finding new things to worry about?"
-      : "I did what I needed to do for my thesis. Please tell me the venue situation hasn't ruined everything else.",
-  });
+    add({
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [pose4SadDay16],
+      text: "Please, not today. Of all days, I don't want to receive bad news on my birthday. I don't think I have the strength for that this morning.",
+    });
 
-  add({
-    type: "dialogue",
-    scene: "phone",
-    phone: { contactName: "A Friend", contactInitial: "F", statusText: "00:00:08" },
-    characters: [],
-    speaker: FRIEND,
-    text: prioritisedVenue
-      ? "Happy birthday! I know you spent yesterday sorting out the venue and had less time to prepare for your presentation. I wanted to check how you're feeling. You know your project, Somto. One stressful day doesn't erase all the work you've put into it."
-      : "Happy birthday! First, breathe. I called the venue this morning and explained that you'd already been arranging everything but had to focus on your thesis yesterday. They let me confirm the final details. The booking is secured, Somto. Your party is still happening.",
-  });
+    add({
+      type: "incoming-call",
+      callerName: "Melanie",
+      next: 4,
+    });
 
-  add({
-    type: "dialogue",
-    scene: "phone",
-    phone: { contactName: "A Friend", contactInitial: "F", statusText: "00:00:19" },
-    characters: [],
-    speaker: FRIEND,
-    text: prioritisedVenue
-      ? "I spoke to Melanie after your presentation. She said you did well, and she knows the deadline change left you stretched. She'll judge the work you submitted, but she understands the circumstances too. Don't assume the worst before you even get feedback."
-      : "You don't have to choose between being proud of your thesis progress and enjoying your birthday. We wanted to help because you've been carrying all of this on your own.",
-  });
+    add({
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Melanie", contactInitial: "M", statusText: "00:00:04" },
+      characters: [],
+      speaker: MELANIE,
+      text: "Good morning, Somto. Happy birthday! I wanted to call you personally because the panel has had some more time to review yesterday's discussion. We've reached an agreement, and I'm happy to tell you that we've awarded you a Grade 1.",
+    });
 
-  add({
-    type: "dialogue",
-    scene: "character",
-    speaker: SOMTO,
-    characters: [pose2HappyDay16],
-    text: prioritisedVenue
-      ? "Thank you. I think I needed someone to tell me to stop punishing myself for not being able to do everything at once."
-      : "You actually called them for me? Thank you. I thought I'd have to spend my birthday trying to fix the plans instead of enjoying them.",
-  });
+    add({
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Melanie", contactInitial: "M", statusText: "00:00:18" },
+      characters: [],
+      speaker: MELANIE,
+      text: "There's something else I wanted you to know. A friend of yours got in touch with me and spoke about how much you've been dealing with recently, especially with the deadline being moved and everything happening around your birthday. They really advocated for you and asked us to consider the circumstances you've been working through. We took that context into consideration when we revisited the decision.",
+    });
 
+    add({
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Melanie", contactInitial: "M", statusText: "00:00:39" },
+      characters: [],
+      speaker: SOMTO,
+      text: "A Grade 1? Oh my goodness. Thank you so much, Melanie. I honestly thought I was going to spend my birthday worrying about this. And my friend did that for me? I don't even know what to say. Please thank them for me. I'm so grateful.",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Melanie", contactInitial: "M", statusText: "00:00:55" },
+      characters: [],
+      speaker: MELANIE,
+      text: "You earned this through the work you put in, Somto. Your friend helped us understand the wider picture, but you still had to do the work. Please enjoy your birthday. You've given yourself plenty of reason to celebrate.",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [pose2HappyDay16],
+      text: "I will. Thank you, Melanie. This has made my whole day. I can't believe I get to celebrate my birthday with a Grade 1 as well!",
+    });
+  } else {
+    // Somto chose the thesis over confirming the venue. A friend saves the booking.
+    add({
+      type: "narration",
+      scene: "character",
+      background: "/images/backgrounds/bedroom.png",
+      characters: [pose8ThinkingDay16],
+      text: "Birthday morning arrives. Somto wakes up and looks at the dress she planned to wear. Then she remembers the venue. Because she stayed focused on her thesis yesterday, the booking was never properly confirmed. She wonders whether there's any point getting dressed for a party that might not happen.",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [pose4SadDay16],
+      text: "I don't even know if I should go ahead and get ready. What if there's no venue? I can't spend my birthday trying to find somewhere to hold a party. Maybe I should accept that it's not happening.",
+    });
+
+    add({
+      type: "incoming-call",
+      callerName: "Party Planners",
+      next: 4,
+    });
+
+    add({
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Party Planners", contactInitial: "PP", statusText: "00:00:04" },
+      characters: [],
+      speaker: PARTY_PLANNERS,
+      text: "Good morning, Somto, and happy birthday! We're calling with an update about your venue booking. A friend of yours came in to speak with us and paid the additional late confirmation fee on your behalf.",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Party Planners", contactInitial: "PP", statusText: "00:00:17" },
+      characters: [],
+      speaker: PARTY_PLANNERS,
+      text: "The outstanding payment has been settled, and we've confirmed the venue in your name. Your birthday party is going ahead. You don't need to worry about finding another location.",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Party Planners", contactInitial: "PP", statusText: "00:00:30" },
+      characters: [],
+      speaker: SOMTO,
+      text: "Wait, someone came all the way there and paid the extra fee for me? I was sitting here thinking the whole party was over. Oh my goodness, thank you for letting me know. Please pass on my thanks to them. You've made my birthday.",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Party Planners", contactInitial: "PP", statusText: "00:00:43" },
+      characters: [],
+      speaker: PARTY_PLANNERS,
+      text: "Of course, Somto. Everything is confirmed now. We'll be expecting you later. Enjoy your birthday!",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [pose2HappyDay16],
+      text: "The party is still happening! I can't believe someone did all of that for me. Right, no more sitting around worrying. I'm getting ready. Today is still my birthday!",
+    });
+  }
+
+  // Both branches meet here. The chosen Day 2 theme controls the dress recolour.
   add({
     type: "narration",
     scene: "character",
     background: "/images/backgrounds/bedroom.png",
-    characters: [pose2HappyDay16],
-    text: `With the venue worry settled, Somto gets ready for the party. The decorations follow the ${theme} theme she chose, and for the first time in days, she lets herself look forward to the celebration instead of planning for what might go wrong.`,
-  });
-
-  add({
-    type: "dialogue",
-    scene: "character",
-    speaker: SOMTO,
-    characters: [pose10ExplainingDay16],
-    text: "Okay. Birthday girl mode. Today, I'm allowed to enjoy the things people have worked so hard to make happen for me.",
-  });
-
-  add({
-    type: "narration",
-    scene: "character",
-    background: "linear-gradient(180deg, #d9e8e0 0%, #f4e8e4 58%, #d7dfc7 100%)",
-    characters: [pose9LaughingDay16],
-    text: "By the time Somto arrives, her friends have helped make the venue feel warm and personal. The cake is ready, the music is on, and people are already calling her over for pictures. For a moment, the day feels exactly as it should.",
-  });
-
-  add({
-    type: "narration",
-    scene: "character",
-    characters: together(pose1NeutralDay16, zaraHappyDialogueAlone),
-    text: invitedZara
-      ? "Then Zara arrives wearing Somto's missing birthday tiara. She walks in as though she's part of the organising team, already looking around for ways to make herself the centre of attention."
-      : "Then Zara walks in uninvited, wearing Somto's missing birthday tiara as though she belongs there. She looks far too pleased with herself to pretend this is an innocent coincidence.",
-  });
-
-  add({
-    type: "dialogue",
-    scene: "character",
-    speaker: ZARA,
-    characters: together(pose1NeutralDay16, zaraHappyDialogueAlone),
-    text: invitedZara
-      ? "Happy birthday! See? I told you I'd help make this party unforgettable."
-      : "Surprise! You didn't think I'd miss your birthday, did you? And honestly, this tiara suits the occasion.",
-  });
-
-  add({
-    type: "dialogue",
-    scene: "character",
-    speaker: SOMTO,
-    characters: together(pose5SurprisedDay16, zaraSurprised),
-    text: accusedZara
-      ? "You stole my tiara, and now you're wearing it to my birthday?"
-      : "You told me you hadn't taken it. I believed you, Zara. Why are you wearing my tiara?",
-  });
-
-  add({
-    type: "dialogue",
-    scene: "character",
-    speaker: ZARA,
-    characters: together(pose11SeriousConcernedDay16, zaraConcernedAlone),
-    text: invitedZara
-      ? "I was going to return it. I thought I'd bring it today and make a little moment of it. You're acting like I came here to ruin your birthday."
-      : "I was going to return it. I thought you'd rather get it back in person than have me leave it somewhere. You didn't exactly give me an easy way to talk to you.",
-  });
-
-  add({
-    type: "dialogue",
-    scene: "character",
-    speaker: SOMTO,
-    characters: together(pose13ArmsCrossed, zaraThinking),
-    text: accusedZara
-      ? "You could have returned it without wearing it in front of everyone. You knew exactly what you were doing."
-      : "If you had found it, you could have told me. You looked me in the eye and denied knowing anything about it.",
-  });
-
-  add({
-    type: "narration",
-    scene: "character",
-    characters: together(pose11SeriousConcernedDay16, zaraHappyDialogueAlone),
-    text: "Zara tries to laugh off the tension, then immediately starts commenting on the decorations and suggesting how everyone should arrange themselves for pictures. She acts as though the tiara incident is a small misunderstanding and expects the party to move on around her.",
-  });
-
-  add({
-    type: "dialogue",
-    scene: "character",
-    speaker: ZARA,
-    characters: together(pose1NeutralDay16, zaraHappyDialogueAlone),
-    text: "Anyway, let's get everyone together. The lighting is better over here, and I know how to make a picture look good. Come on, I'll organise it.",
-  });
-
-  add({
-    type: "dialogue",
-    scene: "character",
-    speaker: SOMTO,
-    characters: together(pose13ArmsCrossed, zaraSurprised),
-    text: "You don't need to organise my birthday, Zara. My friends and I are already having a good time.",
-  });
-
-  add({
-    type: "narration",
-    scene: "character",
-    characters: together(pose8ThinkingDay16, zaraSurprised),
-    text: "Before Zara can turn the moment into another argument, one of Somto's friends notices the tiara. The room goes quiet for a second. The missing item Somto had been worrying about is sitting plainly on Zara's head.",
-  });
-
-  add({
-    type: "dialogue",
-    scene: "character",
-    speaker: ZARA,
-    characters: together(pose11SeriousConcernedDay16, zaraConcernedAlone),
-    text: "Oh, please. I said I was going to return it. I didn't think everyone needed to make such a big deal out of it.",
-  });
-
-  add({
-    type: "dialogue",
-    scene: "character",
-    speaker: SOMTO,
-    characters: together(pose11SeriousConcernedDay16, zaraThinking),
-    text: "It was mine, Zara. You took it from my home, denied it when I asked, and then wore it here like it was yours. You don't get to decide how big a deal that is for me.",
-  });
-
-  add({
-    type: "narration",
-    scene: "character",
-    characters: together(pose13ArmsCrossed, zaraSadAlone),
-    text: "Zara looks around for someone to take her side, but nobody rushes to defend her. Her own explanations have made the situation clear. The friends who had been welcoming her now turn their attention back to Somto and the birthday they came to celebrate.",
-  });
-
-  add({
-    type: "dialogue",
-    scene: "character",
-    speaker: ZARA,
-    characters: together(pose13ArmsCrossed, zaraSadAlone),
-    text: "Fine. Keep the tiara, then. I was trying to make today memorable, but apparently everything I do is a problem.",
-  });
-
-  add({
-    type: "narration",
-    scene: "character",
-    characters: [pose8ThinkingDay16],
-    text: "Zara takes the tiara off and leaves it on a nearby table before stepping away from the group. Somto could put it back on. For a moment, she considers it, but the thought no longer feels important.",
+    characters: [pose1NeutralDay16],
+    text: `With the morning's worry finally behind her, Somto gets dressed for her birthday celebration. Her ${theme} birthday outfit is ready, and she takes a moment in front of the mirror to take it all in. After everything it took to get here, she is finally ready to celebrate.`,
   });
 
   add({
@@ -291,31 +229,23 @@ export function getDaySixteenStory({
     scene: "character",
     speaker: SOMTO,
     characters: [pose7HappyDialogueDay16],
-    text: "No. Leave it there. I don't need to wear it to know this is my day.",
+    text: "Okay, birthday girl. We're doing this. I've waited long enough to enjoy today, and I'm not letting anything else get in the way.",
   });
 
   add({
     type: "narration",
     scene: "character",
-    background: "linear-gradient(180deg, #d9e8e0 0%, #f4e8e4 58%, #d7dfc7 100%)",
+    background: "linear-gradient(180deg, #d8e5dc 0%, #f3e5df 55%, #c9d7c7 100%)",
     characters: [pose2HappyDay16],
-    text: "The awkwardness fades as her friends gather around her again. Someone brings out the cake; someone else starts the song Somto loves; another friend insists on taking pictures with her before the candles are lit. The celebration picks up, and this time Somto lets herself be at the centre of it.",
-  });
-
-  add({
-    type: "dialogue",
-    scene: "character",
-    speaker: SOMTO,
-    characters: [pose10ExplainingDay16],
-    text: "I thought this day would only feel special if everything went exactly how I planned. I was wrong. Look at all of you. You showed up for me.",
+    text: "A little later, Somto arrives at the party venue. The place she had spent so much time planning for is finally within reach. She takes a breath at the entrance, ready to step inside and see what the day has in store.",
   });
 
   add({
     type: "end",
     scene: "character",
-    background: "linear-gradient(180deg, #d9e8e0 0%, #f4e8e4 58%, #d7dfc7 100%)",
+    background: "linear-gradient(180deg, #d8e5dc 0%, #f3e5df 55%, #c9d7c7 100%)",
     characters: [pose2HappyDay16],
-    text: "The venue is safe, the thesis is submitted, and the birthday is finally going the way Somto deserves. Zara tried to make herself the centre of the day, but her own choices exposed her. Somto leaves the tiara on the table and takes her pictures surrounded by people who chose to show up for her. She doesn't need a crown to know how special she is.",
+    text: "Somto has made it to her birthday party. For now, she pauses at the entrance and takes in the moment. The rest of the day is waiting for her.",
   });
 
   const beats = templates.map((beat, index) => ({
