@@ -12,6 +12,7 @@ import {
   smiling,
   pose1NeutralAloneDay16,
   pose11SeriousConcernedAloneDay16,
+  zaraHappyAloneDay16,
 } from "./character-poses";
 
 type DaySixteenChoices = {
@@ -324,7 +325,7 @@ export function getDaySixteenStory({
   add({
     type: "end",
     scene: "character",
-    characters: [pose2HappyAloneDay16],
+    characters: [zaraHappyAloneDay16],
     text: "Zara.",
   });
 
