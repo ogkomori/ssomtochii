@@ -41,7 +41,7 @@ import { DAY_FOURTEEN_STORY } from "@/lib/stories/day-fourteen-story";
 import { DAY_FIFTEEN_STORY, getDayFifteenStory } from "@/lib/stories/day-fifteen-story";
 import { DAY_SIXTEEN_STORY, getDaySixteenStory } from "@/lib/stories/day-sixteen-story";
 import { getDay } from "@/lib/days";
-import { isDayUnlocked, readProgress, readStoryChoice, saveStoryChoice } from "@/lib/progress";
+import { readProgress, readStoryChoice, saveStoryChoice } from "@/lib/progress";
 import { preloadStoryAssets } from "@/lib/stories/preload-assets";
 
 const STORIES: Record<Exclude<StoryId, "day-one-story">, StoryDefinition> = {
@@ -91,7 +91,6 @@ function DayPage() {
     dressCode: dayTwoDressCodeChoice,
     music: dayTwoMusicChoice,
   };
-  const [dayAvailable, setDayAvailable] = useState<boolean | null>(null);
   const [dayCompleted, setDayCompleted] = useState(() => readProgress().completedDays.includes(day.day));
   const [showCompliment, setShowCompliment] = useState(false);
   const [day16OpeningLetterComplete, setDay16OpeningLetterComplete] = useState(false);
@@ -116,16 +115,14 @@ function DayPage() {
     ?? storyToPreload?.beats[0];
 
   useEffect(() => {
-    setDayAvailable(isDayUnlocked({ date: day.date, day: day.day }));
     setDayCompleted(readProgress().completedDays.includes(day.day));
     setShowCompliment(false);
-  }, [day.date, day.day]);
+  }, [day.day]);
 
   // Preload story assets while the intro/welcome screen is visible, before the story starts.
   // Day 1 keeps its existing intro/video/story flow; only asset loading starts earlier.
   useEffect(() => {
     if (
-      !dayAvailable ||
       welcomeStarted ||
       storyComplete ||
       !storyToPreload ||
@@ -133,36 +130,9 @@ function DayPage() {
     ) return;
 
     void preloadStoryAssets(storyToPreload, openingBeatToPreload);
-  }, [day.day, dayAvailable, welcomeStarted, storyComplete, storyToPreload, openingBeatToPreload]);
+  }, [day.day, welcomeStarted, storyComplete, storyToPreload, openingBeatToPreload]);
 
   const daySevenVideoRef = useRef<HTMLVideoElement>(null);
-
-  if (dayAvailable === null) {
-    return (
-      <main className="page-shell day-one-shell">
-        <Botanicals />
-        <div className="relative mx-auto flex min-h-[70dvh] w-full max-w-md flex-col items-center justify-center text-center">
-          <p className="font-script text-4xl">One little moment… ♡</p>
-          <p className="mt-3 text-sm text-muted-foreground">Checking today&apos;s date.</p>
-        </div>
-      </main>
-    );
-  }
-
-  if (!dayAvailable) {
-    return (
-      <main className="page-shell day-one-shell">
-        <Botanicals />
-        <div className="relative mx-auto flex min-h-[70dvh] w-full max-w-md flex-col items-center justify-center text-center">
-          <Link to="/" className="absolute left-0 top-2 inline-flex items-center gap-1 text-sm text-muted-foreground"><ArrowLeft className="h-4 w-4" /> All days</Link>
-          <p className="day-one-eyebrow">DAY {day.day} · {day.label}</p>
-          <h1 className="mt-3 font-script text-5xl leading-none">Not just yet ♡</h1>
-          <p className="mt-4 max-w-xs text-foreground/80">This little surprise opens on {day.label}. Come back then — it will be waiting for you.</p>
-          <Link to="/" className="next-button mt-8">Back to all days</Link>
-        </div>
-      </main>
-    );
-  }
 
   if (showCompliment && day.day !== 16) return <DailyWheel day={day.day} />;
 
