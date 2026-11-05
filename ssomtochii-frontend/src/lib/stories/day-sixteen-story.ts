@@ -53,7 +53,7 @@ export function getDaySixteenStory({
   const invitedZara = inviteChoice === "invite-zara";
   const accusedZara = tiaraChoice === "day13-accuse-zara";
   const prioritisedVenue = priorityChoice === "day14-confirm-venue";
-  const theme = themeDescription(themeChoice);
+  const theme = themeDescription(themeChoice);\n  const outfitColour = themeChoice === "party-theme-green" ? "green" : themeChoice === "party-theme-red" ? "red" : undefined;\n  const outfitPose = (character: StoryCharacter): StoryCharacter => {\n    if (character.name !== "Somto") return character;\n    const filenames: Record<string, string> = {\n      "pose-1-neutral-day16": "pose-1-neutral", "pose-2-happy-day16": "pose-2-happy", "pose-4-sad-day16": "pose-4-sad",\n      "pose-5-surprised-day16": "pose-5-surprised", "pose-7-happy-dialogue-day16": "pose-7-happy-dialogue",\n      "pose-7-happy-dialogue-day16-alone": "pose-7-happy-dialogue", "pose-8-thinking-day16": "pose-8-thinking",\n      "pose-9-laughing-day16": "pose-9-laughing", "pose-9-laughing-day16-alone": "pose-9-laughing",\n      "pose-10-explaining-day16": "pose-10-explaining", "pose-10-explaining-day16-alone": "pose-10-explaining",\n      "pose-11-serious-concerned-day16": "pose-11-serious-concerned", "pose-11-serious-concerned-day16-alone": "pose-11-serious-concerned",\n      "pose-12-confident-standing": "pose-12-confident-standing", "pose-13-arms-crossed": "pose-13-arms-crossed",\n      neutral: "pose-1-neutral", smiling: "pose-2-happy", speaking: "pose-7-happy-dialogue",\n    };\n    const filename = filenames[character.id];\n    if (!filename) return character;\n    const image = filename === "pose-1-neutral" ? "/images/day-16/pose-1-neutral-gold.png" : "/images/day-16/" + filename + ".png";\n    return { ...character, image, ...(outfitColour ? { outfitMask: "/images/day-16/" + filename + "-mask.png", outfitColour } : { outfitMask: undefined, outfitColour: undefined }) };\n  };
   const templates: Array<Record<string, unknown>> = [];
 
   const add = (beat: Record<string, unknown>) => templates.push(beat);
@@ -62,7 +62,7 @@ export function getDaySixteenStory({
     type: "narration",
     scene: "character",
     background: "linear-gradient(180deg, #d9e8e0 0%, #f4e8e4 58%, #d7dfc7 100%)",
-    characters: [pose8Thinking],
+    characters: [pose8ThinkingDay16],
     text: prioritisedVenue
       ? "It's Somto's birthday. The venue is secured, and the plans she fought to protect are ready to go. Still, after sacrificing thesis time to confirm everything, she can't help replaying yesterday's presentation in her head. She wants to enjoy today without worrying about what comes next."
       : "It's Somto's birthday. She made real progress on her thesis yesterday, but the venue was left hanging in the balance. Before she can let herself celebrate, she needs to know the plans she worked so hard on haven't fallen apart.",
@@ -104,7 +104,7 @@ export function getDaySixteenStory({
     type: "dialogue",
     scene: "character",
     speaker: SOMTO,
-    characters: [smiling],
+    characters: [pose2HappyDay16],
     text: prioritisedVenue
       ? "Thank you. I think I needed someone to tell me to stop punishing myself for not being able to do everything at once."
       : "You actually called them for me? Thank you. I thought I'd have to spend my birthday trying to fix the plans instead of enjoying them.",
@@ -122,7 +122,7 @@ export function getDaySixteenStory({
     type: "dialogue",
     scene: "character",
     speaker: SOMTO,
-    characters: [pose12ConfidentStanding],
+    characters: [pose10ExplainingDay16],
     text: "Okay. Birthday girl mode. Today, I'm allowed to enjoy the things people have worked so hard to make happen for me.",
   });
 
@@ -137,7 +137,7 @@ export function getDaySixteenStory({
   add({
     type: "narration",
     scene: "character",
-    characters: together(pose8Thinking, zaraHappyDialogueAlone),
+    characters: together(pose9LaughingDay16, zaraHappyDialogueAlone),
     text: invitedZara
       ? "Then Zara arrives wearing Somto's missing birthday tiara. She walks in as though she's part of the organising team, already looking around for ways to make herself the centre of attention."
       : "Then Zara walks in uninvited, wearing Somto's missing birthday tiara as though she belongs there. She looks far too pleased with herself to pretend this is an innocent coincidence.",
@@ -147,7 +147,7 @@ export function getDaySixteenStory({
     type: "dialogue",
     scene: "character",
     speaker: ZARA,
-    characters: together(neutral, zaraHappyDialogueAlone),
+    characters: together(pose1NeutralDay16, zaraHappyDialogueAlone),
     text: invitedZara
       ? "Happy birthday! See? I told you I'd help make this party unforgettable."
       : "Surprise! You didn't think I'd miss your birthday, did you? And honestly, this tiara suits the occasion.",
@@ -157,7 +157,7 @@ export function getDaySixteenStory({
     type: "dialogue",
     scene: "character",
     speaker: SOMTO,
-    characters: together(pose11SeriousConcerned, zaraSurprised),
+    characters: together(pose5SurprisedDay16, zaraSurprised),
     text: accusedZara
       ? "You stole my tiara, and now you're wearing it to my birthday?"
       : "You told me you hadn't taken it. I believed you, Zara. Why are you wearing my tiara?",
@@ -194,7 +194,7 @@ export function getDaySixteenStory({
     type: "dialogue",
     scene: "character",
     speaker: ZARA,
-    characters: together(neutral, zaraHappyDialogueAlone),
+    characters: together(pose1NeutralDay16, zaraHappyDialogueAlone),
     text: "Anyway, let's get everyone together. The lighting is better over here, and I know how to make a picture look good. Come on, I'll organise it.",
   });
 
@@ -255,7 +255,7 @@ export function getDaySixteenStory({
     type: "dialogue",
     scene: "character",
     speaker: SOMTO,
-    characters: [speaking],
+    characters: [pose7HappyDialogueDay16],
     text: "No. Leave it there. I don't need to wear it to know this is my day.",
   });
 
