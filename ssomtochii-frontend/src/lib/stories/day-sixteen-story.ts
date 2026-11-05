@@ -1,11 +1,15 @@
 import type { StoryBeat, StoryCharacter, StoryDefinition } from "./types";
 import { SOMTO, MELANIE, PARTY_PLANNERS } from "./speakers";
 import {
+  speaking,
+  sitting,
+  facepalm,
   pose1NeutralDay16,
   pose2HappyDay16,
   pose4SadDay16,
   pose7HappyDialogueDay16,
   pose8ThinkingDay16,
+  smiling,
 } from "./character-poses";
 
 type DaySixteenChoices = {
@@ -89,22 +93,24 @@ export function getDaySixteenStory({
       type: "narration",
       scene: "character",
       background: "/images/backgrounds/bedroom.png",
-      characters: [pose8ThinkingDay16],
-      text: "Birthday morning arrives. Somto wakes up and reaches for the dress she laid out for today. She should be thinking about getting ready and enjoying herself, but yesterday's uncertainty about her thesis result is still sitting at the back of her mind. She has barely started her morning when her phone rings.",
+      characters: [sitting],
+      text: "A very Happy Birthday to our main char...oh my bad. It's not looking too happy just yet. Somto should be thinking about getting ready and enjoying herself, but yesterday's uncertainty about her thesis result is still sitting at the back of her mind. All of a sudden...",
+    });
+
+    add({
+      type: "incoming-call",
+      scene: "phone",
+      callerName: "Melanie",
+      interaction: "display-only",
+      narration: "Yup, you guessed it. A phone call, but from Melanie. She's definitely calling to give Somto her thesis result.",
     });
 
     add({
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: [pose4SadDay16],
-      text: "Please, not today. Of all days, I don't want to receive bad news on my birthday. I don't think I have the strength for that this morning.",
-    });
-
-    add({
-      type: "incoming-call",
-      callerName: "Melanie",
-      next: 4,
+      characters: [facepalm],
+      text: "You've got to be kidding me. I don't want to receive bad news on my birthday. I don't think I have the strength for that this morning.",
     });
 
     add({
@@ -113,7 +119,32 @@ export function getDaySixteenStory({
       phone: { contactName: "Melanie", contactInitial: "M", statusText: "00:00:04" },
       characters: [],
       speaker: MELANIE,
-      text: "Good morning, Somto. Happy birthday! I wanted to call you personally because the panel has had some more time to review yesterday's discussion. We've reached an agreement, and I'm happy to tell you that we've awarded you a Grade 1.",
+      text: "Good morning, Somto. Happy birthday! I wanted to call you personally because the panel has had some more time to review yesterday's discussion, and we've now reached an agreement.",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [speaking],
+      text: "Thanks for the birthday message, Melanie. I appreciate you calling me personally. I hope the news is good, but I have to admit I'm a little nervous.",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "phone",
+      phone: { contactName: "Melanie", contactInitial: "M", statusText: "00:00:15" },
+      characters: [],
+      speaker: MELANIE,
+      text: "I understand, Somto. I know this has been a stressful time for you. The panel has reviewed the circumstances and the work you've submitted, and I'm pleased to inform you that the panel has agreed to award you the highest grade, a 1.",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "character",
+      characters: [smiling],
+      speaker: SOMTO,
+      text: "A Grade 1? Oh my goodness. Thank you so much, Melanie. I honestly thought I was going to spend my birthday worrying about this!",
     });
 
     add({
@@ -122,16 +153,15 @@ export function getDaySixteenStory({
       phone: { contactName: "Melanie", contactInitial: "M", statusText: "00:00:18" },
       characters: [],
       speaker: MELANIE,
-      text: "There's something else I wanted you to know. A friend of yours got in touch with me and spoke about how much you've been dealing with recently, especially with the deadline being moved and everything happening around your birthday. They really advocated for you and asked us to consider the circumstances you've been working through. We took that context into consideration when we revisited the decision.",
+      text: "Well there is something else you should know. A friend of yours got in touch with me and spoke about how much you've been dealing with recently, especially with the deadline being moved and everything happening around your birthday. They really advocated for you and asked us to consider the circumstances you've been working through. We took that context into consideration when we revisited the decision.",
     });
 
     add({
       type: "dialogue",
-      scene: "phone",
-      phone: { contactName: "Melanie", contactInitial: "M", statusText: "00:00:39" },
-      characters: [],
+      scene: "character",
+      characters: [speaking],
       speaker: SOMTO,
-      text: "A Grade 1? Oh my goodness. Thank you so much, Melanie. I honestly thought I was going to spend my birthday worrying about this. And my friend did that for me? I don't even know what to say. Please thank them for me. I'm so grateful.",
+      text: "A friend did that for me? I don't even know what to say. Please thank them for me. I'm so grateful.",
     });
 
     add({
@@ -140,14 +170,14 @@ export function getDaySixteenStory({
       phone: { contactName: "Melanie", contactInitial: "M", statusText: "00:00:55" },
       characters: [],
       speaker: MELANIE,
-      text: "You earned this through the work you put in, Somto. Your friend helped us understand the wider picture, but you still had to do the work. Please enjoy your birthday. You've given yourself plenty of reason to celebrate.",
+      text: "Haha, I'm sure you'll see them today. Congratulations again, Somto. Enjoy your birthday, and I hope you have a wonderful celebration.",
     });
 
     add({
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: [pose2HappyDay16],
+      characters: [smiling],
       text: "I will. Thank you, Melanie. This has made my whole day. I can't believe I get to celebrate my birthday with a Grade 1 as well!",
     });
   } else {
@@ -224,7 +254,7 @@ export function getDaySixteenStory({
     type: "narration",
     scene: "character",
     background: "/images/backgrounds/bedroom.png",
-    characters: [pose1NeutralDay16],
+    characters: [sitting],
     text: `With the morning's worry finally behind her, Somto gets dressed for her birthday celebration. Her ${theme} birthday outfit is ready, and she takes a moment in front of the mirror to take it all in. After everything it took to get here, she is finally ready to celebrate.`,
   });
 
