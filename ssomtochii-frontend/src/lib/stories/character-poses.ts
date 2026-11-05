@@ -56,6 +56,9 @@ export const pose9Laughing: StoryCharacter = {
   scale: 2,
   offsetY: 20,
 };
+export const pose9LaughingAlone: StoryCharacter = {
+  ...pose("pose-9-laughing", "pose-9-laughing", "Somto laughing"),
+};
 export const pose10Explaining: StoryCharacter = {
   ...pose("pose-10-explaining", "pose-10-explaining", "Somto explaining something"),
   scale: 1.8,
@@ -198,26 +201,46 @@ export const pose11SeriousConcernedAloneDay16 = day16Pose("pose-11-serious-conce
 const thesisPanelPose = (id: string, filename: string, alt: string): StoryCharacter => ({
   id,
   name: "Thesis Panel",
-  image: "/images/day-15/" + filename + ".png",
+  image: "/images/character-reference/Judges/" + filename + ".png",
   position: "center",
   alt,
 });
 
-export const thesisPanelReviewing = thesisPanelPose(
+export const thesisPanelReviewing: StoryCharacter = {
+  ...thesisPanelPose(
   "thesis-panel-reviewing",
   "thesis-panel-reviewing",
   "The three thesis judges reviewing Somto's presentation and writing notes at the table",
-);
+),
+  offsetY: 30,
+}
 
-export const thesisPanelDiscussing = thesisPanelPose(
-  "thesis-panel-discussing",
-  "thesis-panel-discussing",
-  "The three thesis judges discussing Somto's presentation around the table",
-);
+export const thesisPanelDiscussing: StoryCharacter = {
+  ...thesisPanelPose(
+    "thesis-panel-discussing",
+    "thesis-panel-discussing",
+    "The three thesis judges discussing Somto's presentation around the table",
+  ),
+  offsetY: 30,
+};
 
-export const thesisPanelMelanieSpeaking = thesisPanelPose(
-  "thesis-panel-melanie-speaking",
-  "thesis-panel-melanie-speaking",
-  "Melanie speaking while the other two thesis judges listen at the table",
-);
+export const thesisPanelMelanieSpeaking: StoryCharacter = {
+  ...thesisPanelPose(
+    "thesis-panel-melanie-speaking",
+    "thesis-panel-melanie-speaking",
+    "Melanie speaking while the other two thesis judges listen at the table",
+  ),
+  scale: 2.2,
+  offsetY: 130,
+};
+
+export const thesisPanelMelanieHappySpeaking: StoryCharacter = {
+  ...thesisPanelPose(
+    "thesis-panel-discussing",
+    "thesis-panel-discussing",
+    "The three thesis judges discussing Somto's presentation around the table",
+  ),
+  scale: 2.2,
+  offsetY: 130,
+};
 
