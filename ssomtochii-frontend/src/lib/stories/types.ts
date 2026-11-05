@@ -13,6 +13,9 @@ export interface StoryCharacter {
   id: string;
   name: string;
   image: string;
+  /** Optional mask and palette for themed birthday sprites. */
+  outfitMask?: string;
+  outfitColour?: "green" | "red";
   position: CharacterPosition;
   mirrored?: boolean;
   /** Optional scale multiplier for poses that need a closer camera crop. */
