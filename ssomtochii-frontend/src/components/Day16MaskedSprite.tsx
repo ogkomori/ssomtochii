@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import type { CSSProperties } from "react";
 
 export function Day16MaskedSprite({
   image,
@@ -11,7 +12,7 @@ export function Day16MaskedSprite({
   mask: string;
   colour: "green" | "red";
   className: string;
-  style: React.CSSProperties;
+  style: CSSProperties;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
