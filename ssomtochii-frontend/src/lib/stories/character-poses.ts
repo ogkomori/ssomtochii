@@ -78,6 +78,11 @@ export const pose12ConfidentStanding: StoryCharacter = {
   scale: 3.4,
   offsetY: 95,
 };
+export const pose12ConfidentStandingAlone: StoryCharacter = {
+  ...pose("pose-12-confident-standing", "pose-12-confident-standing", "Somto standing confidently"),
+  scale: 1.5,
+  offsetY: 70,
+};
 export const pose13ArmsCrossed: StoryCharacter = {
   ...pose("pose-13-arms-crossed", "pose-13-arms-crossed", "Somto with her arms crossed"),
   scale: 3.4,
