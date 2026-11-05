@@ -4,10 +4,8 @@ import {
   pose1NeutralDay16,
   pose2HappyDay16,
   pose4SadDay16,
-  pose5SurprisedDay16,
   pose7HappyDialogueDay16,
   pose8ThinkingDay16,
-  pose10ExplainingDay16,
 } from "./character-poses";
 
 type DaySixteenChoices = {
