@@ -163,3 +163,28 @@ export const placeCharacter = (
   name: string,
   position: CharacterPosition,
 ): StoryCharacter => ({ ...character, id, name, position });
+
+
+// Day 16 birthday outfit poses. Dimensions mirror the corresponding standard poses.
+const day16Pose = (id: string, filename: string, alt: string, scale?: number, offsetY?: number): StoryCharacter => ({
+  id,
+  name: "Somto",
+  image: "/images/day-16/" + filename + ".png",
+  position: "center",
+  alt,
+  ...(scale ? { scale } : {}),
+  ...(offsetY !== undefined ? { offsetY } : {}),
+});
+export const pose1NeutralDay16: StoryCharacter = { ...day16Pose("pose-1-neutral-day16", "pose-1-neutral-gold", "Somto in her birthday outfit, standing neutrally"), scale: 2.1, offsetY: 30 };
+export const pose2HappyDay16 = day16Pose("pose-2-happy-day16", "pose-2-happy", "Somto looking happy in her birthday outfit");
+export const pose4SadDay16 = day16Pose("pose-4-sad-day16", "pose-4-sad", "Somto looking sad in her birthday outfit");
+export const pose5SurprisedDay16 = day16Pose("pose-5-surprised-day16", "pose-5-surprised", "Somto looking surprised in her birthday outfit");
+export const pose7HappyDialogueDay16: StoryCharacter = { ...day16Pose("pose-7-happy-dialogue-day16", "pose-7-happy-dialogue", "Somto speaking happily in her birthday outfit"), scale: 1.7, offsetY: -10 };
+export const pose7HappyDialogueAloneDay16 = day16Pose("pose-7-happy-dialogue-day16-alone", "pose-7-happy-dialogue", "Somto speaking happily in her birthday outfit");
+export const pose8ThinkingDay16 = day16Pose("pose-8-thinking-day16", "pose-8-thinking", "Somto thinking in her birthday outfit");
+export const pose9LaughingDay16: StoryCharacter = { ...day16Pose("pose-9-laughing-day16", "pose-9-laughing", "Somto laughing in her birthday outfit"), scale: 2, offsetY: 20 };
+export const pose9LaughingAloneDay16 = day16Pose("pose-9-laughing-day16-alone", "pose-9-laughing", "Somto laughing in her birthday outfit");
+export const pose10ExplainingDay16: StoryCharacter = { ...day16Pose("pose-10-explaining-day16", "pose-10-explaining", "Somto explaining something in her birthday outfit"), scale: 1.8, offsetY: 0 };
+export const pose10ExplainingAloneDay16 = day16Pose("pose-10-explaining-day16-alone", "pose-10-explaining", "Somto explaining something in her birthday outfit");
+export const pose11SeriousConcernedDay16: StoryCharacter = { ...day16Pose("pose-11-serious-concerned-day16", "pose-11-serious-concerned", "Somto looking serious and concerned in her birthday outfit"), scale: 2, offsetY: 0 };
+export const pose11SeriousConcernedAloneDay16 = day16Pose("pose-11-serious-concerned-day16-alone", "pose-11-serious-concerned", "Somto looking serious and concerned in her birthday outfit");
