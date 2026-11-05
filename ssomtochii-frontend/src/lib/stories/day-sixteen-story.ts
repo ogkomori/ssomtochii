@@ -71,7 +71,7 @@ export function getDaySixteenStory({
       "pose-10-explaining": "pose-10-explaining",
       "pose-11-serious-concerned": "pose-11-serious-concerned",
     };
-    const filename = character.image.split("/").pop()?.replace(/\\.png$/, "").replace(/-gold$/, "");
+    const filename = character.image.split("/").pop()?.replace(/\.png$/, "").replace(/-gold$/, "");
     if (!filename) return character;
     const image = filename === "pose-1-neutral"
       ? "/images/day-16/pose-1-neutral-gold.png"
@@ -86,7 +86,10 @@ export function getDaySixteenStory({
   };
   const templates: Array<Record<string, unknown>> = [];
 
-  const add = (beat: Record<string, unknown>) => {\n    const characters = beat.characters as StoryCharacter[] | undefined;\n    templates.push({ ...beat, ...(characters ? { characters: characters.map(outfitPose) } : {}) });\n  };
+  const add = (beat: Record<string, unknown>) => {
+    const characters = beat.characters as StoryCharacter[] | undefined;
+    templates.push({ ...beat, ...(characters ? { characters: characters.map(outfitPose) } : {}) });
+  };
 
   add({
     type: "narration",
