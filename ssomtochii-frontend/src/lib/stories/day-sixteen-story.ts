@@ -5,11 +5,13 @@ import {
   sitting,
   facepalm,
   pose1NeutralDay16,
-  pose2HappyDay16,
+  pose2HappyAloneDay16,
   pose4SadDay16,
   pose7HappyDialogueDay16,
   pose8ThinkingDay16,
   smiling,
+  pose1NeutralAloneDay16,
+  pose11SeriousConcernedAloneDay16,
 } from "./character-poses";
 
 type DaySixteenChoices = {
@@ -186,22 +188,24 @@ export function getDaySixteenStory({
       type: "narration",
       scene: "character",
       background: "/images/backgrounds/bedroom.png",
-      characters: [pose8ThinkingDay16],
-      text: "Birthday morning arrives. Somto wakes up and looks at the dress she planned to wear. Then she remembers the venue. Because she stayed focused on her thesis yesterday, the booking was never properly confirmed. She wonders whether there's any point getting dressed for a party that might not happen.",
+      characters: [sitting],
+      text: "A very Happy Birthday to our main char...oh my bad. It's not looking too happy just yet. Somto should be thinking about getting ready and enjoying herself, but she remembers the venue. Because she stayed focused on her thesis yesterday, the booking was never properly confirmed. She wonders whether there's any point getting dressed for a party that might not happen. All of a sudden...",
+    });
+
+    add({
+      type: "incoming-call",
+      scene: "phone",
+      callerName: "Party Planners",
+      interaction: "display-only",
+      narration: "Yup, you guessed it. A phone call, but from the Party Planners. Surely there's hope now, right?",
     });
 
     add({
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: [pose4SadDay16],
-      text: "I don't even know if I should go ahead and get ready. What if there's no venue? I can't spend my birthday trying to find somewhere to hold a party. Maybe I should accept that it's not happening.",
-    });
-
-    add({
-      type: "incoming-call",
-      callerName: "Party Planners",
-      next: 4,
+      characters: [facepalm],
+      text: "This better be good news. Hello?",
     });
 
     add({
@@ -210,7 +214,15 @@ export function getDaySixteenStory({
       phone: { contactName: "Party Planners", contactInitial: "PP", statusText: "00:00:04" },
       characters: [],
       speaker: PARTY_PLANNERS,
-      text: "Good morning, Somto, and happy birthday! We're calling with an update about your venue booking. A friend of yours came in to speak with us and paid the additional late confirmation fee on your behalf.",
+      text: "Good morning, Somto, and Happy Birthday! We're calling with an update about your venue booking.",
+    });
+
+    add({
+      type: "dialogue",
+      scene: "character",
+      speaker: SOMTO,
+      characters: [speaking],
+      text: "Thanks for the birthday message. What's the update? I was worried that my booking might not have been confirmed because I was so focused on my thesis yesterday and...",
     });
 
     add({
@@ -219,16 +231,15 @@ export function getDaySixteenStory({
       phone: { contactName: "Party Planners", contactInitial: "PP", statusText: "00:00:17" },
       characters: [],
       speaker: PARTY_PLANNERS,
-      text: "The outstanding payment has been settled, and we've confirmed the venue in your name. Your birthday party is going ahead. You don't need to worry about finding another location.",
+      text: "Slow down, Somto. A friend of yours came in to speak with us and paid an additional late confirmation fee on your behalf. We've confirmed the venue in your name. Your birthday party is going ahead. You don't need to worry about finding another location.",
     });
 
     add({
       type: "dialogue",
-      scene: "phone",
-      phone: { contactName: "Party Planners", contactInitial: "PP", statusText: "00:00:30" },
-      characters: [],
+      scene: "character",
+      characters: [smiling],
       speaker: SOMTO,
-      text: "Wait, someone came all the way there and paid the extra fee for me? I was sitting here thinking the whole party was over. Oh my goodness, thank you for letting me know. Please pass on my thanks to them. You've made my birthday.",
+      text: "Wait, someone came all the way there and paid the extra fee for me? I don't even know what to say. Please thank them for me. I'm so grateful.",
     });
 
     add({
@@ -237,15 +248,15 @@ export function getDaySixteenStory({
       phone: { contactName: "Party Planners", contactInitial: "PP", statusText: "00:00:43" },
       characters: [],
       speaker: PARTY_PLANNERS,
-      text: "Of course, Somto. Everything is confirmed now. We'll be expecting you later. Enjoy your birthday!",
+      text: "Haha, I'm sure you'll see them today. Enjoy your birthday, and I hope you have a wonderful celebration.",
     });
 
     add({
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: [pose2HappyDay16],
-      text: "The party is still happening! I can't believe someone did all of that for me. Right, no more sitting around worrying. I'm getting ready. Today is still my birthday!",
+      characters: [smiling],
+      text: "Thank you!",
     });
   }
 
@@ -255,31 +266,43 @@ export function getDaySixteenStory({
     scene: "character",
     background: "/images/backgrounds/bedroom.png",
     characters: [sitting],
-    text: `With the morning's worry finally behind her, Somto gets dressed for her birthday celebration. Her ${theme} birthday outfit is ready, and she takes a moment in front of the mirror to take it all in. After everything it took to get here, she is finally ready to celebrate.`,
+    text: `With the morning's worry finally behind her, Somto finally gets dressed for her birthday celebration.`,
   });
 
   add({
-    type: "dialogue",
+    type: "narration",
     scene: "character",
-    speaker: SOMTO,
-    characters: [pose7HappyDialogueDay16],
-    text: "Okay, birthday girl. We're doing this. I've waited long enough to enjoy today, and I'm not letting anything else get in the way.",
+    characters: [pose2HappyAloneDay16],
+    text: `Her ${theme} birthday outfit is ready, and she takes a moment to admire herself in the mirror. The day is finally here, and she's ready to enjoy it.`,
   });
 
   add({
     type: "narration",
     scene: "character",
     background: venueBackground,
-    characters: [pose2HappyDay16],
-    text: "A little later, Somto arrives at the party venue. The place she had spent so much time planning for is finally within reach. She takes a breath at the entrance, ready to step inside and see what the day has in store.",
+    characters: [pose1NeutralAloneDay16],
+    text: "A little later, Somto arrives at the party venue. The day she had spent so much time planning for is finally here.",
+  });
+
+  add({
+    type: "narration",
+    scene: "character",
+    characters: [pose2HappyAloneDay16],
+    text: "She sees her friends that she had already invited, and they all greet her with a big cheer.",
+  });
+
+  add({
+    type: "narration",
+    scene: "character",
+    characters: [pose11SeriousConcernedAloneDay16],
+    text: "Immediately, something catches her eye.",
   });
 
   add({
     type: "end",
     scene: "character",
-    background: venueBackground,
-    characters: [pose2HappyDay16],
-    text: "Somto has made it to her birthday party. For now, she pauses at the entrance and takes in the moment. The rest of the day is waiting for her.",
+    characters: [pose2HappyAloneDay16],
+    text: "Zara.",
   });
 
   const beats = templates.map((beat, index) => ({

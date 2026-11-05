@@ -184,7 +184,12 @@ const day16Pose = (id: string, filename: string, alt: string, scale?: number, of
   ...(offsetY !== undefined ? { offsetY } : {}),
 });
 export const pose1NeutralDay16: StoryCharacter = { ...day16Pose("pose-1-neutral-day16", "pose-1-neutral-gold", "Somto in her birthday outfit, standing neutrally"), scale: 2.1, offsetY: 30 };
-export const pose2HappyDay16 = day16Pose("pose-2-happy-day16", "pose-2-happy", "Somto looking happy in her birthday outfit");
+export const pose1NeutralAloneDay16: StoryCharacter = { ...day16Pose("pose-1-neutral-day16", "pose-1-neutral-gold", "Somto in her birthday outfit, standing neutrally")};
+export const pose2HappyAloneDay16: StoryCharacter = {...
+  day16Pose("pose-2-happy-day16", "pose-2-happy", "Somto looking happy in her birthday outfit"),
+  scale: 1.5,
+  offsetY: 100,
+}
 export const pose4SadDay16 = day16Pose("pose-4-sad-day16", "pose-4-sad", "Somto looking sad in her birthday outfit");
 export const pose5SurprisedDay16 = day16Pose("pose-5-surprised-day16", "pose-5-surprised", "Somto looking surprised in her birthday outfit");
 export const pose7HappyDialogueDay16: StoryCharacter = { ...day16Pose("pose-7-happy-dialogue-day16", "pose-7-happy-dialogue", "Somto speaking happily in her birthday outfit"), scale: 1.7, offsetY: -10 };
