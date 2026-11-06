@@ -83,7 +83,7 @@ export function getDaySixteenStory({
     }
 
     if (character.name === "Friend") {
-      const sourceFilename = character.image.split("/").pop()?.replace(/\\.png$/, "");
+      const sourceFilename = character.image.split("/").pop()?.replace(/\.png$/, "");
       if (!sourceFilename) return character;
       return {
         ...character,
