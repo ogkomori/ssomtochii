@@ -92,6 +92,7 @@ export function getDaySixteenStory({
       "pose-5-surprised": "pose-5-surprised",
       "pose-7-happy-dialogue": "pose-7-happy-dialogue",
       "pose-8-thinking": "pose-8-thinking",
+      "pose-9-laughing": "pose-9-laughing",
       "pose-10-explaining": "pose-10-explaining",
       "pose-11-serious-concerned": "pose-11-serious-concerned",
     };
