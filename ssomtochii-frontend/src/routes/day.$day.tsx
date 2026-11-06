@@ -134,7 +134,7 @@ function DayPage() {
 
   const daySevenVideoRef = useRef<HTMLVideoElement>(null);
 
-  if (showCompliment && day.day !== 16) return <DailyWheel day={day.day} />;
+  if (showCompliment) return day.day === 16 ? <Day16Gifts /> : <DailyWheel day={day.day} />;
 
   if (day.day !== 1 && !welcomeStarted) {
     return (
@@ -160,7 +160,7 @@ function DayPage() {
               </>
             )}
             <div className="mt-8 flex w-full flex-col items-center gap-3">
-              {(dayCompleted && day.day !== 16) && <button type="button" className="next-button" onClick={() => setShowCompliment(true)}>View today&apos;s compliment ♡</button>}
+              {dayCompleted && <button type="button" className="next-button" onClick={() => setShowCompliment(true)}>{day.day === 16 ? "Open your presents ♡" : "View today&apos;s compliment ♡"}</button>}
               <button type="button" className="next-button" onClick={() => setWelcomeStarted(true)}>Start Day {day.day} <ArrowRight className="h-4 w-4" /></button>
             </div>
           </section>
