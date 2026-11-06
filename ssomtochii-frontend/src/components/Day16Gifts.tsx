@@ -12,10 +12,10 @@ const GIFT_VIDEOS = [
 
 // Edit these messages to change what appears beneath each opened present.
 const GIFT_MESSAGES = [
-  "A little reminder of how loved you are. ♡",
-  "One more reason to smile today. Happy birthday!",
-  "You deserve all the lovely things in life. ♡",
-  "And one last surprise, made with love.",
+  "From Tega ♡",
+  "From Chidinma ♡",
+  "From Divine ♡",
+  "From Chidera ♡",
 ];
 
 const GIFT_POSITIONS = ["gift-orbit-top", "gift-orbit-right", "gift-orbit-bottom", "gift-orbit-left"];
@@ -50,7 +50,7 @@ function GiftBox({
           <span className="absolute -top-3 left-1/2 h-5 w-9 -translate-x-1/2 -scale-x-100 rounded-t-full border-[5px] border-b-0 border-[#e5bd55]" />
         </span>
         <span className="max-w-28 text-center text-xs font-semibold leading-tight text-[#7d2630]">
-          {opened ? message : "Tap to unopen"}
+          {opened ? message : "Tap to open!"}
         </span>
       </button>
     </div>
@@ -89,7 +89,7 @@ export function Day16Gifts() {
 
         {selected === null ? (
           <>
-            <p className="mt-3 text-sm text-[#875f50]">Choose any gift. Then come back for the others.</p>
+            <p className="mt-3 text-sm text-[#875f50]">Choose any gift. Then come back for the others. Tap again to open.</p>
             <div className="gift-orbit mt-8" aria-label="Four rotating birthday presents">
               {GIFT_POSITIONS.map((position, index) => (
                 <GiftBox
