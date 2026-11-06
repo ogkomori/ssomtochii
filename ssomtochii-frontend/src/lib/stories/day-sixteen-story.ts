@@ -61,8 +61,8 @@ export function getDaySixteenStory({
     : themeChoice === "party-theme-red"
       ? "rgba(205, 35, 48, 0.42)"
       : "rgba(173, 132, 42, 0.34)";
-  const venueBackground = `linear-gradient(0deg, ${venueTint}, ${venueTint}), url("/images/backgrounds/party.jpg")`;
   const outfitColour = themeChoice === "party-theme-green" ? "green" : themeChoice === "party-theme-red" ? "red" : undefined;
+  const venueBackground = outfitColour === "green" ? "/images/backgrounds/venue-green.png" : outfitColour === "red" ? "/images/backgrounds/venue-red.png" : "/images/backgrounds/venue-gold.png";
   const whoWasCalled = prioritisedVenue ? "Melanie" : "the Party Planners";
 
   const outfitPose = (character: StoryCharacter): StoryCharacter => {
@@ -669,7 +669,7 @@ export function getDaySixteenStory({
     scene: "character",
     characters: together(pose11SeriousConcernedDay16, zaraNeutralDay16),
     speaker: SOMTO,
-    text: "By the end of the night, Somto is surrounded by the people who showed up for her, laughing, dancing, and making memories together. The day had not gone perfectly, but none of that changed how loved she was. She did not need a tiara or anyone else's approval to feel special. She already had people who cherished her, and she hoped she would always remember that. Happy birthday, Somtochi.",
+    text: "By the end of the night, Somto is surrounded by the people who showed up for her, laughing, dancing, and making memories together. The day had not gone perfectly, but none of that changed how loved she was. She did not need a tiara or anyone else's approval to feel special. She already had people who cherished her, and she hoped she would always remember that. Happy birthday, Somto!",
   });
 
 
