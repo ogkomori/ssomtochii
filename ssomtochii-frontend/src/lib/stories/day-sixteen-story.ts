@@ -369,7 +369,7 @@ export function getDaySixteenStory({
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: together(poses.pose5SurprisedDay16, poses.zaraHappyAloneDay16),
+      characters: [poses.pose11SeriousConcernedAloneDay16],
       text: "Zara? What are you doing here? I didn't invite you.",
     });
 
@@ -377,29 +377,29 @@ export function getDaySixteenStory({
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: [poses.zaraExplainingDay16],
+      characters: [poses.zaraExplainingAloneDay16],
       text: "Oh, one of your friends couldn't make it, so she said I could take her place. I thought you'd be happy to see me!",
     });
 
     add({
       type: "narration",
       scene: "character",
-      characters: together(poses.pose8ThinkingDay16, poses.zaraNeutralDay16),
+      characters: together(poses.pose1NeutralDay16, poses.zaraLaughingDay16),
       text: "Somto looks towards her friends for confirmation.",
     });
 
     add({
       type: "narration",
       scene: "character",
-      characters: together(poses.pose8ThinkingDay16, poses.zaraNeutralDay16),
-      text: "They all look back at her, and one of them confirms the situation. Somto's friend had indeed offered Zara the chance to attend the party in her place.",
+      characters: [poses.friendsGirlSpeakingHappy],
+      text: "They all look back at her, and one of them, Victoria, confirms the situation. Somto's friend had indeed offered Zara the chance to attend the party in her place.",
     });
 
     add({
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: together(poses.pose7HappyDialogueDay16, poses.zaraNeutralDay16),
+      characters: [poses.pose10ExplainingAloneDay16],
       text: "Oh, okay. If she offered you her place, then that's fine. I guess. But what's with the outfit?",
     });
 
@@ -407,7 +407,7 @@ export function getDaySixteenStory({
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: [poses.zaraExplainingDay16],
+      characters: [poses.zaraSadAloneDay16],
       text: "Oh, you don't like it? I thought it was a nice look.",
     });
   }
@@ -425,7 +425,7 @@ export function getDaySixteenStory({
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: [poses.zaraExplainingDay16],
+      characters: [poses.zaraExplainingAloneDay16],
       text: "What? I'm not even wearing the theme, Somto. I'm in purple. How am I supposed to be competing with you when I'm not even matching everyone else?",
     });
 
@@ -433,14 +433,14 @@ export function getDaySixteenStory({
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: together(poses.pose10ExplainingAloneDay16, poses.zaraNeutralDay16),
+      characters: together(poses.pose10ExplainingDay16, poses.zaraNeutralDay16),
       text: "Girl, exactly. Everyone else is dressed for the theme, and you're standing here in purple. Obviously you're going to stand out. Don't act like you didn't know that.",
     });
 
   add({
     type: "narration",
     scene: "character",
-    characters: together(poses.pose8ThinkingDay16, poses.zaraHappyAloneDay16),
+    characters: [poses.zaraConcernedAloneDay16],
     text: "Somto is about to turn away when something catches her eye. The tiara. Her tiara. Sitting right there on Zara's head.",
   });
 
@@ -449,7 +449,7 @@ export function getDaySixteenStory({
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+      characters: [poses.pose11SeriousConcernedDay16],
       text: "Wait. Is that my tiara? Zara, you told me you didn't take it. I trusted you. I actually believed you, and you've been walking around wearing it this whole time?",
     });
 
@@ -457,7 +457,7 @@ export function getDaySixteenStory({
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: [poses.zaraExplainingDay16],
+      characters: [poses.zaraHappyDialogueAloneDay16],
       text: "Oh, Somto dear, I'm sorry. I should have told you. I was only borrowing it, honestly. I didn't mean for you to find out like this.",
     });
   } else {
@@ -465,7 +465,7 @@ export function getDaySixteenStory({
       type: "dialogue",
       scene: "character",
       speaker: SOMTO,
-      characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+      characters: [poses.pose11SeriousConcernedAloneDay16],
       text: "I knew it. I knew you took it, you liar! You stood there looking me in the eye and denied everything.",
     });
 
@@ -473,7 +473,7 @@ export function getDaySixteenStory({
       type: "dialogue",
       scene: "character",
       speaker: ZARA,
-      characters: [poses.zaraExplainingDay16],
+      characters: [poses.zaraHappyDialogueAloneDay16],
       text: "Oh, Somto, I knew you knew. I was wondering how long you'd take to say something. I was only borrowing it, Somto. You don't have to make such a big deal out of it.",
     });
   }
@@ -481,7 +481,7 @@ export function getDaySixteenStory({
   add({
     type: "narration",
     scene: "character",
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+    characters: [poses.friendsAwkward],
     text: "A few of Somto's friends have noticed the exchange. They glance between the two of them, clearly aware something is going on, but nobody steps in. It's her birthday, and they came to celebrate. They would rather leave the confrontation there and get back to the party.",
   });
 
@@ -489,43 +489,43 @@ export function getDaySixteenStory({
     type: "dialogue",
     scene: "character",
     speaker: ZARA,
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+    characters: [poses.zaraLaughingAloneDay16],
     text: "Well, I suppose we've had enough drama for one birthday. Anyway, I hope everyone is enjoying themselves!",
   });
 
   add({
     type: "narration",
     scene: "character",
-    characters: [poses.zaraHappyAloneDay16],
-    text: "Somto's friends have chosen not to get involved, but the moment has left a tension hanging over the celebration. For now, the party carries on.",
+    characters: [poses.friendsDancing],
+    text: "Somto's friends have chosen not to get involved, but the moment has left some minor tension hanging over the celebration. Anyways, the party carries on, with music and dancing.",
   });
 
   add({
     type: "dialogue",
     scene: "character",
     speaker: ZARA,
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+    characters: [poses.zaraHappyAloneDay16],
     text: "Hey guys! I was thinking we should get some pictures together. I don't think I've taken enough pictures today, haha!",
   }); 
 
   add({
     type: "narration",
     scene: "character",
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
-    text: "She positions herself among everyone, almost making herself the centre of the group.",
+    characters: [poses.pose11SeriousConcernedAloneDay16],
+    text: "She goes to position herself among everyone, almost making herself the centre of the group. Somto is clearly irritated by this.",
   });
 
   add({
     type: "dialogue",
     scene: "character",
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+    characters: [poses.pose4SadDay16],
     text: "After the photos, Somto watches from a distance. She's trying to enjoy herself, but between the confrontation and Zara's antics, she's beginning to feel like her own birthday has become someone else's performance.",
   });
 
   add({
     type: "narration",
     scene: "character",
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+    characters: [poses.friendsAwkward],
     text: "Her friends immediately notice. Victor, the friend who called " + whoWasCalled + " earlier, steps in.",
   });
 
@@ -533,7 +533,7 @@ export function getDaySixteenStory({
     type: "dialogue",
     scene: "character",
     speaker: VICTOR,
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+    characters: [poses.friendsBoySpeakingHappy],
     text: "Hey Somto! Did " + whoWasCalled + " call you earlier? Victoria and I just wanted to check if everything was okay. We know you were worried about the venue and your thesis result.",
   });
 
@@ -541,7 +541,7 @@ export function getDaySixteenStory({
     type: "dialogue",
     scene: "character",
     speaker: SOMTO,
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+    characters: [poses.pose7HappyDialogueAloneDay16],
     text: "Oh, you guys really did that for me? I can't believe it. I'm so grateful for your support. Thank you so much.",
   });
 
@@ -549,7 +549,7 @@ export function getDaySixteenStory({
     type: "dialogue",
     scene: "character",
     speaker: VICTOR,
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+    characters: [poses.friendsBoySpeakingHappy],
     text: "Anytime, Somto. But on to more important things: you've barely said anything since we got here. What's wrong?",
   });
 
@@ -557,7 +557,7 @@ export function getDaySixteenStory({
     type: "dialogue",
     scene: "character",
     speaker: SOMTO,
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+    characters: [poses.pose4SadDay16],
     text: "Nothing, Victor. I'm fine. I just feel like I haven't really enjoyed my own birthday.",
   });
 
@@ -565,14 +565,14 @@ export function getDaySixteenStory({
     type: "dialogue",
     scene: "character",
     speaker: VICTORIA,
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+    characters: [poses.friendsGirlSpeakingSerious],
     text: "You're not about to spend your birthday watching somebody else perform. Absolutely not.",
   });
 
   add({
     type: "narration",
     scene: "character",
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+    characters: [poses.zaraHappyAloneDay16],
     text: "Right at that moment, Zara is preparing to announce another activity. Before she gets the chance, Victor steps in and interrupts.",
   });
 
@@ -580,35 +580,35 @@ export function getDaySixteenStory({
     type: "dialogue",
     scene: "character",
     speaker: VICTOR,
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+    characters: [poses.friendsBoySpeakingSerious],
     text: "Wait, wait, wait! Before we do any of that, guys, it's literally Somto's birthday! And I don't think we've properly celebrated her yet.",
   });
 
   add({
     type: "narration",
     scene: "character",
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
-    text: `The DJ takes the cue and plays ${musicDescription}, filling the venue with a familiar sound. Her friends cheer, the dance floor fills, and Somto finally lets herself enjoy the party she had been looking forward to.`,
+    characters: [poses.friendsDancingWithSomto],
+    text: `The DJ takes the cue and plays ${musicDescription}, filling the venue with her kind of vibe. Her friends cheer, the dance floor fills, and Somto finally lets herself enjoy the party she had been looking forward to.`,
   });
 
   add({
     type: "narration",
     scene: "character",
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+    characters: [poses.zaraSadAloneDay16],
     text: "Zara, on the other hand, is a little disappointed that she didn't get to be the centre of attention anymore.",
   });
 
   add({
     type: "narration",
     scene: "character",
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+    characters: together(poses.pose7HappyDialogueDay16, poses.zaraHappyDialogueDay16),
     text: "Somto notices and approaches. Zara immediately apologises for her behaviour and says she didn't mean to ruin her birthday. Somto accepts the apology, and they both agree to put the past behind them.",
   });
 
   add({
     type: "narration",
     scene: "character",
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+    characters: [poses.friendsGreeting],
     text: "Somto's friends notice the interaction and are happy to see the two of them reconcile. The party continues, and everyone enjoys themselves.",
   });
 
@@ -616,7 +616,7 @@ export function getDaySixteenStory({
     type: "dialogue",
     scene: "character",
     speaker: ZARA,
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+    characters: [poses.zaraHappyDialogueAloneDay16],
     text: "Somto, before we move on... I should give your tiara back. I shouldn't have taken it in the first place. I'm sorry.",
   });
 
@@ -624,22 +624,22 @@ export function getDaySixteenStory({
     type: "dialogue",
     scene: "character",
     speaker: SOMTO,
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+    characters: [poses.pose7HappyDialogueAloneDay16],
     text: "Thank you, Zara. I do want my tiara back, but I don't need it to feel special. Today has taught me that. I have people who love me and make me feel valued, and that's worth so much more than anything I could wear on my head.",
   });
 
   add({
-    type: "narration",
+    type: "dialogue",
     scene: "character",
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+    characters: [poses.friendsGirlSpeakingHappy],
     speaker: VICTORIA,
     text: "All right, everyone, cake time! Let's gather around and sing Happy Birthday to Somto!",
   });
 
   add({
-    type: "narration",
+    type: "dialogue",
     scene: "character",
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+    characters: [poses.pose9LaughingAloneDay16],
     speaker: SOMTO,
     text: "Thank you, everyone. Honestly, I don't even know what to say. You've made today so special for me. Not just today, but over the past few days. I'm so grateful to have such amazing friends. I love you all.",
   });
@@ -647,7 +647,7 @@ export function getDaySixteenStory({
   add({
     type: "end",
     scene: "character",
-    characters: together(poses.pose11SeriousConcernedDay16, poses.zaraNeutralDay16),
+    characters: [poses.endingPose],
     speaker: SOMTO,
     text: "By the end of the night, Somto is surrounded by the people who showed up for her, laughing, dancing, and making memories together. The day had not gone perfectly, but none of that changed how loved she was. She did not need a tiara or anyone else's approval to feel special. She already had people who cherished her, and she hoped she would always remember that. Happy birthday, Somto!",
   });
