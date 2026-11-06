@@ -92,6 +92,7 @@ export function getDaySixteenStory({
       "pose-7-happy-dialogue": "pose-7-happy-dialogue",
       "pose-8-thinking": "pose-8-thinking",
       "pose-10-explaining": "pose-10-explaining",
+      "pose-11-serious-concerned": "pose-11-serious-concerned",
     };
 
     const sourceFilename = character.image.split("/").pop()?.replace(/\.png$/, "").replace(/-gold$/, "");
