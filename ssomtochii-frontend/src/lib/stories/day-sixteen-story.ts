@@ -83,6 +83,18 @@ export function getDaySixteenStory({
       };
     }
 
+    if (character.name === "Ending") {
+      return {
+        ...character,
+        ...(outfitColour
+          ? {
+              outfitMask: "/images/character-reference/endingPicture-mask.png",
+              outfitColour,
+            }
+          : { outfitMask: undefined, outfitColour: undefined }),
+      };
+    }
+
     if (character.name !== "Somto") return character;
 
     const filenames: Record<string, string> = {
