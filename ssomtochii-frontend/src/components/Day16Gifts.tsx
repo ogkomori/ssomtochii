@@ -89,7 +89,7 @@ export function Day16Gifts() {
 
         {selected === null ? (
           <>
-            <p className="mt-3 text-sm text-[#875f50]">Choose any gift. Then come back for the others. Tap again to open.</p>
+            <p className="mt-3 text-sm text-[#875f50]">Choose any gift. Then come back for the others. Tap again to reopen.</p>
             <div className="gift-orbit mt-8" aria-label="Four rotating birthday presents">
               {GIFT_POSITIONS.map((position, index) => (
                 <GiftBox
