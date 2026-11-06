@@ -51,9 +51,9 @@ export function getDaySixteenStory({
   const prioritisedVenue = priorityChoice === "day14-confirm-venue";
   const theme = themeDescription(themeChoice);
   const venueTint = themeChoice === "party-theme-green"
-    ? "rgba(24, 76, 48, 0.38)"
+    ? "rgba(35, 125, 70, 0.42)"
     : themeChoice === "party-theme-red"
-      ? "rgba(132, 28, 39, 0.34)"
+      ? "rgba(205, 35, 48, 0.42)"
       : "rgba(173, 132, 42, 0.34)";
   const venueBackground = `linear-gradient(0deg, ${venueTint}, ${venueTint}), url("/images/backgrounds/party.jpg")`;
   const outfitColour = themeChoice === "party-theme-green" ? "green" : themeChoice === "party-theme-red" ? "red" : undefined;
