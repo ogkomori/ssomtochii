@@ -1,6 +1,14 @@
 import { Botanicals } from "@/components/Botanicals";
 
-const OPENING_LETTER = ``;
+const OPENING_LETTER = `
+Dear Somto,
+
+Happy Birthday my love! I hope this day is filled with joy, laughter, and all the love you deserve.
+I hope you've been enjoying the story and the compliments so far, but here is where it all ends.
+As always, I want to make this day extra special for you, because you are extra special to me.
+
+Love you forever,
+Tega`;
 const CLOSING_LETTER = ``;
 
 export function Day16Letter({ kind, onContinue }: { kind: "opening" | "closing"; onContinue: () => void }) {
