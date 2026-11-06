@@ -123,8 +123,8 @@ export function Day16Gifts() {
                     className="block max-h-[80vh] w-full object-contain"
                     src={GIFT_VIDEOS[selected]}
                     controls
-                    autoPlay
                     playsInline
+                    preload="metadata"
                     onEnded={finishVideo}
                   />
                   <button type="button" onClick={finishVideo} className="w-full shrink-0 bg-[#7d2630] px-4 py-3 text-sm font-semibold text-white">Continue ♡</button>
