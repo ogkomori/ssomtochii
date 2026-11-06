@@ -20,6 +20,18 @@ const zaraPose = (id: string, filename: string, alt: string): StoryCharacter => 
   alt,
 });
 
+const friendPose = (id: string, filename: string, alt: string): StoryCharacter => ({
+  id,
+  name: "Friend",
+  image: "/images/character-reference/Friends/" + filename + ".png",
+  position: "center",
+  alt,
+});
+
+export const friendsGreeting: StoryCharacter = {
+  ...friendPose("pose-1-greeting", "pose-1-greeting", "Somto's friends greeting her"),
+}
+
 export const baseCharacter1 = pose("base-character-1", "baseCharacter1", "Somto character base");
 export const facepalm = pose("facepalm", "facepalm", "Somto facepalming");
 export const greenTop = pose("green-top", "greenTop", "Somto wearing a green top");
@@ -275,4 +287,6 @@ export const thesisPanelMelanieHappySpeaking: StoryCharacter = {
   scale: 2.2,
   offsetY: 130,
 };
+
+
 

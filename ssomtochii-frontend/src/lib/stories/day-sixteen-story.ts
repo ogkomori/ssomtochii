@@ -20,6 +20,7 @@ import {
   zaraNeutralDay16,
   zaraHappyDialogueDay16,
   zaraExplainingDay16,
+  friendsGreeting,
 } from "./character-poses";
 
 type DaySixteenChoices = {
@@ -318,7 +319,7 @@ export function getDaySixteenStory({
   add({
     type: "narration",
     scene: "character",
-    characters: [pose2HappyAloneDay16],
+    characters: [friendsGreeting],
     text: "She sees her friends that she had already invited, and they all greet her with a big cheer.",
   });
 
