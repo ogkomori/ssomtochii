@@ -36,7 +36,7 @@ export const endingPose: StoryCharacter = {
   position: "center",
   alt: "Somto and her friends celebrating her birthday together",
   scale: 1.5,
-  offsetY: 40,
+  offsetY: -130,
 }
 
 export const friendsGreeting: StoryCharacter = {
