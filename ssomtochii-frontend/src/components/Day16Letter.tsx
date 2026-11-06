@@ -3,9 +3,10 @@ import { Botanicals } from "@/components/Botanicals";
 const OPENING_LETTER = `
 Dear Somto,
 
-Happy Birthday my love! I hope this day is filled with joy, laughter, and all the love you deserve.
+Happy Birthday my love!
 I hope you've been enjoying the story and the compliments so far, but here is where it all ends.
 As always, I want to make this day extra special for you, because you are extra special to me.
+Hope you're ready for today's gifts!
 
 Love you forever,
 Tega`;
