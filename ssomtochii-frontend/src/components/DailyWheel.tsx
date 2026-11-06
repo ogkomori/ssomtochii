@@ -22,6 +22,11 @@ function readSavedCompliments(): SavedCompliments {
   }
 }
 
+export function hasSavedCompliment(day: number): boolean {
+  const savedWord = readSavedCompliments()[String(day)];
+  return Boolean(savedWord && COMPLIMENTS.some((item) => item.word === savedWord));
+}
+
 function saveCompliment(day: number, word: string) {
   if (typeof window === "undefined") return;
   try {
@@ -34,11 +39,10 @@ function saveCompliment(day: number, word: string) {
 }
 
 /** End-of-day reward: one randomly selected dictionary-style compliment. */
-export function DailyWheel({ day, onDay16Continue }: { day: number; onDay16Continue?: () => void }) {
+export function DailyWheel({ day, onDay16Continue, onDay16SpinComplete }: { day: number; onDay16Continue?: () => void; onDay16SpinComplete?: () => void }) {
   const [spinning, setSpinning] = useState(false);
   const [poolExhausted, setPoolExhausted] = useState(false);
   const [prizeWord, setPrizeWord] = useState<string | null>(() => {
-    if (day === 16) return null;
     const savedWord = readSavedCompliments()[String(day)];
     return savedWord && COMPLIMENTS.some((item) => item.word === savedWord) ? savedWord : null;
   });
@@ -97,12 +101,9 @@ export function DailyWheel({ day, onDay16Continue }: { day: number; onDay16Conti
 
     window.setTimeout(() => {
       setSpinning(false);
-      if (day === 16) {
-        onDay16Continue?.();
-        return;
-      }
       saveCompliment(day, selected.item.word);
       setPrizeWord(selected.item.word);
+      if (day === 16) onDay16SpinComplete?.();
     }, 4200);
   };
 
