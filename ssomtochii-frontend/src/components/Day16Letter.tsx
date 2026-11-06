@@ -6,7 +6,14 @@ Happy Birthday my love!
 I hope you've been enjoying the story and the compliments so far, but here is where it all ends.
 As always, I want to make this day extra special for you, because you are extra special to me.
 Hope you're ready for today's gifts!`;
-const CLOSING_LETTER = ``;
+
+const CLOSING_LETTER = `Dear Somto,
+
+You are seen, you are loved, and you are appreciated. I hope that this day has been a reminder of that, and that you will always be reminded of that.
+You deserve all the love and happiness in the world, and I will always be here to give you that.
+
+Happy Birthday my love, and I hope you have a wonderful day filled with love, laughter, and joy.
+`;
 
 export function Day16Letter({ kind, onContinue }: { kind: "opening" | "closing"; onContinue: () => void }) {
   const isOpening = kind === "opening";
@@ -25,8 +32,8 @@ export function Day16Letter({ kind, onContinue }: { kind: "opening" | "closing";
           <div className="relative min-h-[48vh] rounded-sm" style={{ backgroundImage: "repeating-linear-gradient(to bottom, transparent 0, transparent 35px, color-mix(in oklch, var(--foreground) 17%, transparent) 36px, transparent 37px)", backgroundPosition: "0 5px" }}>
             <div className="min-h-[48vh] px-1 pt-3 font-script text-[25px] leading-[36px] text-foreground sm:text-[28px]">
               <p className="whitespace-pre-wrap">{letterText || (isOpening ? "Your opening birthday letter will appear here..." : "Your closing birthday letter will appear here...")}</p>
-              {isOpening && (
-                <p className="mt-4 text-right whitespace-pre-wrap">Love you forever,{"\n"}Tega</p>
+              {(
+                <p className="mt-4 text-right whitespace-pre-wrap pt-5">Love you forever,{"\n"}Tega</p>
               )}
             </div>
           </div>
