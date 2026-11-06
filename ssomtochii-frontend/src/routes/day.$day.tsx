@@ -18,7 +18,7 @@ import { Tango } from "@/activities/Tango";
 import { Hangman } from "@/activities/Hangman";
 import { Botanicals } from "@/components/Botanicals";
 import { DayActivityFlow } from "@/components/DayActivityFlow";
-import { DailyWheel, hasSavedCompliment } from "@/components/DailyWheel";
+import { DailyWheel } from "@/components/DailyWheel";
 import { Day16Letter } from "@/components/Day16Letter";
 import { Day16Gifts } from "@/components/Day16Gifts";
 import { StoryPlayer } from "@/components/StoryPlayer";
@@ -93,7 +93,6 @@ function DayPage() {
   };
   const [dayCompleted, setDayCompleted] = useState(() => readProgress().completedDays.includes(day.day));
   const [showCompliment, setShowCompliment] = useState(false);
-  const [day16ComplimentReady, setDay16ComplimentReady] = useState(() => hasSavedCompliment(16));
   const [day16OpeningLetterComplete, setDay16OpeningLetterComplete] = useState(false);
   const [day16GiftsStarted, setDay16GiftsStarted] = useState(false);
 
@@ -135,7 +134,7 @@ function DayPage() {
 
   const daySevenVideoRef = useRef<HTMLVideoElement>(null);
 
-  if (showCompliment) return <DailyWheel day={day.day} onDay16Continue={day.day === 16 ? () => setDay16GiftsStarted(true) : undefined} />;
+  if (showCompliment && day.day !== 16) return <DailyWheel day={day.day} />;
 
   if (day.day !== 1 && !welcomeStarted) {
     return (
@@ -162,7 +161,6 @@ function DayPage() {
             )}
             <div className="mt-8 flex w-full flex-col items-center gap-3">
               {(dayCompleted && day.day !== 16) && <button type="button" className="next-button" onClick={() => setShowCompliment(true)}>View today&apos;s compliment ♡</button>}
-              {day.day === 16 && day16ComplimentReady && <button type="button" className="next-button" onClick={() => setShowCompliment(true)}>Go to compliment ♡</button>}
               <button type="button" className="next-button" onClick={() => setWelcomeStarted(true)}>Start Day {day.day} <ArrowRight className="h-4 w-4" /></button>
             </div>
           </section>
@@ -195,7 +193,7 @@ function DayPage() {
 
 
   if (day.day === 16) {
-    if (!day16GiftsStarted) return <DailyWheel day={16} onDay16Continue={() => setDay16GiftsStarted(true)} onDay16SpinComplete={() => setDay16ComplimentReady(true)} />;
+    if (!day16GiftsStarted) return <DailyWheel day={16} onDay16Continue={() => setDay16GiftsStarted(true)} />;
     return <Day16Gifts />;
   }
 
