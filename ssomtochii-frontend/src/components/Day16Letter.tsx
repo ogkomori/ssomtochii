@@ -26,7 +26,7 @@ export function Day16Letter({ kind, onContinue }: { kind: "opening" | "closing";
             <span aria-hidden="true" className="font-script text-3xl text-blossom">♡</span>
           </div>
           <div className="relative min-h-[48vh] rounded-sm" style={{ backgroundImage: "repeating-linear-gradient(to bottom, transparent 0, transparent 35px, color-mix(in oklch, var(--foreground) 17%, transparent) 36px, transparent 37px)", backgroundPosition: "0 5px" }}>
-            <p className="min-h-[48vh] whitespace-pre-wrap px-1 pt-0 font-script text-[25px] leading-[36px] text-foreground sm:text-[28px]">{letterText || (isOpening ? "Your opening birthday letter will appear here..." : "Your closing birthday letter will appear here...")}</p>
+            <p className="min-h-[48vh] whitespace-pre-wrap px-1 pt-1 font-script text-[25px] leading-[36px] text-foreground sm:text-[28px]">{letterText || (isOpening ? "Your opening birthday letter will appear here..." : "Your closing birthday letter will appear here...")}</p>
           </div>
           <p className="mt-4 text-right font-script text-2xl text-foreground/70">With all my love ♡</p>
         </div>
