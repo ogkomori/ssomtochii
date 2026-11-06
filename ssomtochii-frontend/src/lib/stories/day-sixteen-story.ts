@@ -635,6 +635,22 @@ export function getDaySixteenStory({
   });
 
   add({
+    type: "dialogue",
+    scene: "character",
+    speaker: ZARA,
+    characters: together(pose11SeriousConcernedDay16, zaraNeutralDay16),
+    text: "Somto, before we move on... I should give your tiara back. I shouldn't have taken it in the first place. I'm sorry.",
+  });
+
+  add({
+    type: "dialogue",
+    scene: "character",
+    speaker: SOMTO,
+    characters: together(pose11SeriousConcernedDay16, zaraNeutralDay16),
+    text: "Thank you, Zara. I do want my tiara back, but I don't need it to feel special. Today has taught me that. I have people who love me and make me feel valued, and that's worth so much more than anything I could wear on my head.",
+  });
+
+  add({
     type: "narration",
     scene: "character",
     characters: together(pose11SeriousConcernedDay16, zaraNeutralDay16),
