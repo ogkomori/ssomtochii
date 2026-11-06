@@ -29,6 +29,7 @@ type DaySixteenChoices = {
   tiaraChoice: string | null;
   priorityChoice: string | null;
   themeChoice: string | null;
+  musicChoice: string | null;
 };
 
 const themeDescription = (choice: string | null) => {
@@ -44,6 +45,7 @@ export function getDaySixteenStory({
   tiaraChoice,
   priorityChoice,
   themeChoice,
+  musicChoice,
 }: DaySixteenChoices): StoryDefinition {
   // These choices are retained for the later party storyline.
   void inviteChoice;
@@ -51,6 +53,11 @@ export function getDaySixteenStory({
 
   const prioritisedVenue = priorityChoice === "day14-confirm-venue";
   const theme = themeDescription(themeChoice);
+  const musicDescription = musicChoice === "music-afrobeats"
+    ? "the Afrobeats Somto requested"
+    : musicChoice === "music-pop-rnb"
+      ? "the pop and R&B she chose"
+      : "the mix of music she requested";
   const venueTint = themeChoice === "party-theme-green"
     ? "rgba(35, 125, 70, 0.42)"
     : themeChoice === "party-theme-red"
@@ -152,7 +159,7 @@ export function getDaySixteenStory({
       scene: "character",
       background: "/images/backgrounds/bedroom.png",
       characters: [sitting],
-      text: "A very Happy Birthday to our main char...oh my bad. It's not looking too happy just yet. Somto should be thinking about getting ready and enjoying herself, but yesterday's uncertainty about her thesis result is still sitting at the back of her mind. All of a sudden...",
+      text: "A very happy birthday to our main character... Oh, my bad. It's not looking too happy just yet. Somto should be thinking about getting ready and enjoying herself, but yesterday's uncertainty about her thesis result is still sitting at the back of her mind. All of a sudden...",
     });
 
     add({
@@ -456,7 +463,7 @@ export function getDaySixteenStory({
     type: "narration",
     scene: "character",
     characters: together(pose8ThinkingDay16, zaraHappyAloneDay16),
-    text: "Somto is about to turn away when something catches her eye. The tiara. HER tiara. Sitting right there on Zara's head.",
+    text: "Somto is about to turn away when something catches her eye. The tiara. Her tiara. Sitting right there on Zara's head.",
   });
 
   if (tiaraChoice === "day13-believe-zara") {
@@ -473,7 +480,7 @@ export function getDaySixteenStory({
       scene: "character",
       speaker: ZARA,
       characters: [zaraExplainingDay16],
-      text: "Oh Somto dear, I'm sorry. I should have told you. I was only borrowing it, honestly. I didn't mean for you to find out like this.",
+      text: "Oh, Somto dear, I'm sorry. I should have told you. I was only borrowing it, honestly. I didn't mean for you to find out like this.",
     });
   } else {
     add({
@@ -489,7 +496,7 @@ export function getDaySixteenStory({
       scene: "character",
       speaker: ZARA,
       characters: [zaraExplainingDay16],
-      text: "Oh Somto, I knew you knew. I was wondering how long you'd take to say something. I was only borrowing it, Somto. You don't have to make such a big deal out of it.",
+      text: "Oh, Somto, I knew you knew. I was wondering how long you'd take to say something. I was only borrowing it, Somto. You don't have to make such a big deal out of it.",
     });
   }
 
@@ -533,7 +540,6 @@ export function getDaySixteenStory({
   add({
     type: "dialogue",
     scene: "character",
-    speaker: ZARA,
     characters: together(pose11SeriousConcernedDay16, zaraNeutralDay16),
     text: "After the photos, Somto watches from a distance. She's trying to enjoy herself, but between the confrontation and Zara's antics, she's beginning to feel like her own birthday has become someone else's performance.",
   });
@@ -541,7 +547,6 @@ export function getDaySixteenStory({
   add({
     type: "narration",
     scene: "character",
-    speaker: ZARA,
     characters: together(pose11SeriousConcernedDay16, zaraNeutralDay16),
     text: "Her friends immediately notice. Victor, the friend who called " + whoWasCalled + " earlier, steps in.",
   });
@@ -575,7 +580,7 @@ export function getDaySixteenStory({
     scene: "character",
     speaker: SOMTO,
     characters: together(pose11SeriousConcernedDay16, zaraNeutralDay16),
-    text: "Nothing Victor, I'm fine. I just feel like I haven't really enjoyed my own birthday.",
+    text: "Nothing, Victor. I'm fine. I just feel like I haven't really enjoyed my own birthday.",
   });
 
   add({
@@ -605,7 +610,7 @@ export function getDaySixteenStory({
     type: "narration",
     scene: "character",
     characters: together(pose11SeriousConcernedDay16, zaraNeutralDay16),
-    text: "THIS IS WHERE YOU ADD THE STATEMENT ABOUT THE MUSIC. Then add sth like everyone is happy and Somto is cool and whatever.",
+    text: `The DJ takes the cue and plays ${musicDescription}, filling the venue with a familiar sound. Her friends cheer, the dance floor fills, and Somto finally lets herself enjoy the party she had been looking forward to.`,
   });
 
   add({
@@ -650,7 +655,7 @@ export function getDaySixteenStory({
     scene: "character",
     characters: together(pose11SeriousConcernedDay16, zaraNeutralDay16),
     speaker: SOMTO,
-    text: "EDIT ENDING",
+    text: "By the end of the night, Somto is surrounded by the people who showed up for her, laughing, dancing, and making memories together. The day had not gone perfectly, but none of that changed how loved she was. She did not need a tiara or anyone else's approval to feel special. She already had people who cherished her, and she hoped she would always remember that. Happy birthday, Somtochi.",
   });
 
 
