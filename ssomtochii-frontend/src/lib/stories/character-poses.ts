@@ -30,6 +30,8 @@ const friendPose = (id: string, filename: string, alt: string): StoryCharacter =
 
 export const friendsGreeting: StoryCharacter = {
   ...friendPose("pose-1-greeting", "pose-1-greeting", "Somto's friends greeting her"),
+  scale: 1.5,
+  offsetY: 40,
 }
 
 export const baseCharacter1 = pose("base-character-1", "baseCharacter1", "Somto character base");

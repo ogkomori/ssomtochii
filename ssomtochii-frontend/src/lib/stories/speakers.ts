@@ -36,3 +36,15 @@ export const ZARA: Speaker = {
   label: "Zara",
   color: "#9A4E8A",
 };
+
+export const VICTOR: Speaker = {
+  id: "victor",
+  label: "Victoria",
+  color: "#6B5B95",
+};
+
+export const VICTORIA: Speaker = {
+  id: "victoria",
+  label: "Victoria",
+  color: "#6B5B95",
+};
