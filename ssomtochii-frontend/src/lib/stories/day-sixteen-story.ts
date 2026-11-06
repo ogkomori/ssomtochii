@@ -680,4 +680,5 @@ export const DAY_SIXTEEN_STORY = getDaySixteenStory({
   tiaraChoice: null,
   priorityChoice: null,
   themeChoice: null,
+  musicChoice: null,
 });
