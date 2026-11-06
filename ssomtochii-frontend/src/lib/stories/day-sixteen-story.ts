@@ -617,21 +617,21 @@ export function getDaySixteenStory({
     type: "narration",
     scene: "character",
     characters: together(pose11SeriousConcernedDay16, zaraNeutralDay16),
-    text: "Zara on the other hand, is a little disappointed that she didn't get to be the centre of attention anymore.",
+    text: "Zara, on the other hand, is a little disappointed that she didn't get to be the centre of attention anymore.",
   });
 
   add({
     type: "narration",
     scene: "character",
     characters: together(pose11SeriousConcernedDay16, zaraNeutralDay16),
-    text: "Somto notices and approaches. Zara immediately apologizes for her behaviour and says she didn't mean to ruin the birthday. Somto accepts the apology and they both agree to put the past behind them.",
+    text: "Somto notices and approaches. Zara immediately apologises for her behaviour and says she didn't mean to ruin her birthday. Somto accepts the apology, and they both agree to put the past behind them.",
   });
 
   add({
     type: "narration",
     scene: "character",
     characters: together(pose11SeriousConcernedDay16, zaraNeutralDay16),
-    text: "Somto's friends notice the interaction and are happy to see the two of them reconcile. The party continues and everyone enjoys themselves.",
+    text: "Somto's friends notice the interaction and are happy to see the two of them reconcile. The party continues, and everyone enjoys themselves.",
   });
 
   add({
@@ -639,7 +639,7 @@ export function getDaySixteenStory({
     scene: "character",
     characters: together(pose11SeriousConcernedDay16, zaraNeutralDay16),
     speaker: VICTORIA,
-    text: "Alright everyone, cake time! Let's all gather around and sing happy birthday to Somto!",
+    text: "All right, everyone, cake time! Let's gather around and sing Happy Birthday to Somto!",
   });
 
   add({
@@ -647,7 +647,7 @@ export function getDaySixteenStory({
     scene: "character",
     characters: together(pose11SeriousConcernedDay16, zaraNeutralDay16),
     speaker: SOMTO,
-    text: "Thank you, everyone. Honestly, I don't even know what to say. You've made today so special for me. Not just today, the past few days. I'm so grateful to have such amazing friends. I love you all.",
+    text: "Thank you, everyone. Honestly, I don't even know what to say. You've made today so special for me. Not just today, but over the past few days. I'm so grateful to have such amazing friends. I love you all.",
   });
 
   add({
