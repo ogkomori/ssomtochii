@@ -82,6 +82,20 @@ export function getDaySixteenStory({
       };
     }
 
+    if (character.name === "Friend") {
+      const sourceFilename = character.image.split("/").pop()?.replace(/\\.png$/, "");
+      if (!sourceFilename) return character;
+      return {
+        ...character,
+        ...(outfitColour
+          ? {
+              outfitMask: "/images/character-reference/Friends/" + sourceFilename + "-mask.png",
+              outfitColour,
+            }
+          : { outfitMask: undefined, outfitColour: undefined }),
+      };
+    }
+
     if (character.name !== "Somto") return character;
 
     const filenames: Record<string, string> = {
