@@ -150,7 +150,7 @@ export function getDaySixteenStory({
       scene: "character",
       background: "/images/backgrounds/bedroom.png",
       characters: [poses.sitting],
-      text: "A very happy birthday to our main character... Oh, my bad. It's not looking too happy just yet. Somto should be thinking about getting ready and enjoying herself, but yesterday's uncertainty about her thesis result is still poses.sitting at the back of her mind. All of a sudden...",
+      text: "A very happy birthday to our main char... Oh, my bad. It's not looking too happy just yet. Somto should be thinking about getting ready and enjoying herself, but yesterday's uncertainty about her thesis result is still sitting at the back of her mind. All of a sudden...",
     });
 
     add({
@@ -454,7 +454,7 @@ export function getDaySixteenStory({
     type: "narration",
     scene: "character",
     characters: [poses.zaraConcernedAloneDay16],
-    text: "Somto is about to turn away when something catches her eye. The tiara. Her tiara. Sitting right there on Zara's head.",
+    text: "Somto is about to turn away when something catches her eye. The tiara. HER tiara. Sitting right there on Zara's head.",
   });
 
   if (tiaraChoice === "day13-believe-zara") {
@@ -471,7 +471,7 @@ export function getDaySixteenStory({
       scene: "character",
       speaker: ZARA,
       characters: [poses.zaraHappyDialogueAloneDay16],
-      text: "Oh, Somto dear, I'm sorry. I should have told you. I was only borrowing it, honestly. I didn't mean for you to find out like this.",
+      text: "Oh, Somto dear, I'm sorry. I should have told you. I was only borrowing it, honestly. You know, as the party planner I have to look good myself!",
     });
   } else {
     add({
@@ -487,7 +487,7 @@ export function getDaySixteenStory({
       scene: "character",
       speaker: ZARA,
       characters: [poses.zaraHappyDialogueAloneDay16],
-      text: "Oh, Somto, I knew you knew. I was wondering how long you'd take to say something. I was only borrowing it, Somto. You don't have to make such a big deal out of it.",
+      text: "Oh, Somto, I knew you knew. I was wondering how long you'd take to say something. I was only borrowing it, girl. As the party planner I have to look good myself!",
     });
   }
 
@@ -510,7 +510,7 @@ export function getDaySixteenStory({
     type: "narration",
     scene: "character",
     characters: [poses.friendsDancing],
-    text: "Somto's friends have chosen not to get involved, but the moment has left some minor tension hanging over the celebration. Anyways, the party carries on, with music and dancing.",
+    text: "Somto's friends have chosen not to get involved, but the moment has left some minor tension hanging over the celebration. Anyways, the party carries on, but with music that Zara suggested, which Somto doesn't particularly enjoy.",
   });
 
   add({
